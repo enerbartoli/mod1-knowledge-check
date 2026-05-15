@@ -1,7 +1,6 @@
 'use strict';
 
-// ── Config ───────────────────────────────────────────────────────────────────
-// Replace with your deployed Apps Script Web App URL after setup
+// ── Config ───────────────────────────────────────────────────────────────────────────────
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZLIenD2Ef1-B5BSzFDsrFDNezDM_jWuT9JrmYdQTv4wSzswFOxJgyp67Y6z24-r_mOw/exec';
 
 const PASS_THRESHOLD = 13; // ≥13/16 = pass
@@ -9,8 +8,8 @@ const TOTAL_QUESTIONS = 16;
 const LS_KEY = 'mod1_quiz_state';
 
 const ANSWER_KEY = {
-  Q1:'C', Q2:'B', Q3:'B', Q4:'B',  Q5:'C',  Q6:'C',  Q7:'B',  Q8:'C',
-  Q9:'B', Q10:'B', Q11:'B', Q12:'B', Q13:'C', Q14:'B', Q15:'C', Q16:'C'
+  Q1:'A', Q2:'B', Q3:'C', Q4:'A',  Q5:'C',  Q6:'A',  Q7:'D',  Q8:'C',
+  Q9:'D', Q10:'B', Q11:'B', Q12:'C', Q13:'D', Q14:'B', Q15:'D', Q16:'A'
 };
 
 function scoreAnswers(answers) {
@@ -32,192 +31,192 @@ function scoreAnswers(answers) {
 const QUESTIONS = [
   {
     id: 1,
-    text: 'According to the new Forecast Enrichment process, what is the primary shift in how Sales contributes to the forecast?',
+    text: 'Why is Hasbro implementing the new Forecast Enrichment process now?',
     options: {
-      A: 'Sales now owns the entire forecast including the baseline.',
-      B: 'Sales no longer participates in the forecasting process.',
-      C: 'Sales no longer "forecasts" — Sales quantifies the demand impact of its own commercial activity.',
-      D: 'Sales adjusts the baseline directly in Logility every cycle.'
+      A: 'To address chronic gaps in forecast traceability, manual workload, and the ability to measure the value of commercial intelligence.',
+      B: 'To replace Logility with Daybreak as the planning system.',
+      C: 'To reduce the number of Demand Planning resources required each cycle.',
+      D: 'To consolidate Sales, Marketing, and Demand Planning under a single team.'
     },
-    slideRefs: '31, 33',
+    slideRefs: '2, 4',
     section: 'Why we\'re changing'
   },
   {
     id: 2,
-    text: 'What does the "wooden bridge" framing represent in the new process?',
+    text: 'Which statement best describes the role of the Daybreak statistical baseline in the new process?',
     options: {
-      A: 'A temporary fix that will be discarded once Logility is upgraded.',
-      B: 'An interim, measurable, audit-friendly process that delivers improvements now while preparing for a future demand planning platform.',
-      C: 'The data pipeline connecting Daybreak to Logility.',
-      D: 'The reconciliation between Marketing and Demand Planning views.'
+      A: 'Daybreak produces the final forecast used directly by Supply Planning; no further input is needed.',
+      B: 'Daybreak models baseline demand behavior; commercial input must be added through enrichments to capture what the historical data cannot see.',
+      C: 'Sales, Marketing, and Demand Planning each maintain independent baselines that are reconciled at year-end.',
+      D: 'The baseline replaces all commercial input; enrichments are optional refinements.'
     },
-    slideRefs: '5',
+    slideRefs: '4, 5',
     section: 'End-to-end picture'
   },
   {
     id: 3,
-    text: 'Which of the following is TRUE about the Daybreak statistical baseline?',
+    text: 'Which statement is correct about the Daybreak statistical baseline?',
     options: {
-      A: 'It is a "black box" that cannot be audited.',
-      B: 'It is "prior to plans" by design — commercial plans are layered on top through enrichment.',
-      C: 'It uses last year\'s actuals + 5% as the forecast.',
-      D: 'It is updated by Sales each cycle.'
+      A: 'It is built by Sales each cycle based on customer commitments.',
+      B: 'It is set to the prior year\'s volume adjusted by a fixed growth factor.',
+      C: 'It uses Hasbro\'s real historical shipment data and item attributes — through machine learning — to predict future demand patterns.',
+      D: 'It is identical to the Financial Forecast and updated on the same cadence.'
     },
-    slideRefs: '9',
+    slideRefs: '8, 10',
     section: 'Statistical Baseline 101'
   },
   {
     id: 4,
-    text: 'Why does Daybreak use "Adjusted Demand" instead of raw shipment history?',
+    text: 'Which statement correctly describes the three-party operating model that produces the baseline?',
     options: {
-      A: 'To smooth out seasonality patterns.',
-      B: 'To prevent the model from learning a supply shortage (low fill rate) as if it were a drop in true demand.',
-      C: 'To remove all outliers from history.',
-      D: 'To convert weekly demand into monthly buckets.'
-    },
-    slideRefs: '10',
-    section: 'Statistical Baseline 101'
-  },
-  {
-    id: 5,
-    text: 'In the three-party operating model that produces the baseline, who provides the statistical ML engine?',
-    options: {
-      A: 'Hasbro Demand Planning.',
-      B: 'Genpact.',
-      C: 'Daybreak.',
-      D: 'The Logility platform team.'
+      A: 'Daybreak provides the machine-learning engine; Genpact executes the operational tasks; Hasbro Demand Planning owns governance and sign-off.',
+      B: 'Genpact provides the engine; Daybreak validates the outputs; Hasbro Demand Planning sets the parameters.',
+      C: 'Hasbro Demand Planning generates the baseline; Genpact provides the model design; Daybreak hosts the data.',
+      D: 'All three parties contribute equally to model generation, validation, and sign-off.'
     },
     slideRefs: '11',
     section: 'Statistical Baseline 101'
   },
   {
-    id: 6,
-    text: 'For UK Fan items, which forecasting approach applies?',
+    id: 5,
+    text: 'Which SKUs are treated using Daybreak\'s standard machine-learning forecasting approach?',
     options: {
-      A: 'Standard Daybreak ML carry-forward.',
-      B: 'NPI 2.0 cold-start curves.',
-      C: '100% enrichment — no statistical baseline; volume captured as Base Trend variations.',
-      D: 'Moving average from the past 12 months.'
+      A: 'All active SKUs in the portfolio, including new product introductions.',
+      B: 'Pure NPI items in their first 12 months of life.',
+      C: 'Carry-Forward items with at least 52 weeks of historical shipment data.',
+      D: 'Fan items, regardless of how much history they have.'
     },
-    slideRefs: '15',
+    slideRefs: '12, 13',
     section: 'SKU Types'
   },
   {
-    id: 7,
-    text: 'For NPI items in the cold-start phase (0–8 weeks), which method does NPI 2.0 use?',
+    id: 6,
+    text: 'How is an NPI\'s forecast generated during its cold-start phase (0–16 weeks of history)?',
     options: {
-      A: 'Like-item forecasting (copy a predecessor\'s history).',
-      B: 'Brand Plan annual volume shaped by learned weekly shape + level models trained on product attributes (category, launch timing, price).',
-      C: 'Last 13 weeks of actuals projected forward.',
-      D: 'Daybreak\'s standard carry-forward ML model.'
+      A: 'By shaping the Brand Plan annual volume with attribute-based shape and level models (category, launch timing, price tier).',
+      B: 'By copying the predecessor product\'s historical pattern.',
+      C: 'By projecting the first month of actuals forward.',
+      D: 'By applying Daybreak\'s carry-forward model with extrapolated history.'
     },
     slideRefs: '14',
     section: 'SKU Types'
   },
   {
-    id: 8,
-    text: 'At which planning level does Daybreak generate the statistical baseline?',
+    id: 7,
+    text: 'Why are UK Fan items handled without a statistical baseline?',
     options: {
-      A: 'L1 (Customer × SKU × Channel).',
-      B: 'L2 (Planning SKU / Customer).',
-      C: 'L3 (Parent SKU / BU / Channel).',
-      D: 'L5 (Brand / BU).'
+      A: 'Daybreak\'s licensing model prevents its use on Fan products.',
+      B: 'Fan volume is too small to justify the model\'s processing cost.',
+      C: 'Fan items are forecasted in a separate system maintained by Marketing.',
+      D: 'Fan demand is driven by entertainment events with no recurring pattern; historical data cannot meaningfully predict future demand. Marketing and Commercial build the forecast directly.'
+    },
+    slideRefs: '15',
+    section: 'SKU Types'
+  },
+  {
+    id: 8,
+    text: 'At which planning level is the Daybreak statistical baseline generated?',
+    options: {
+      A: 'Planning Level 1 — Customer × Planning SKU × Channel.',
+      B: 'Planning Level 2 — Planning SKU × Customer.',
+      C: 'Planning Level 3 — Parent SKU × Business Unit × Channel.',
+      D: 'Planning Level 5 — Brand × Business Unit.'
     },
     slideRefs: '10, 16',
     section: 'Disaggregation'
   },
   {
     id: 9,
-    text: 'For NPI disaggregation, the customer split at L2 is based on which input?',
+    text: 'What is the purpose of forecast disaggregation in the new process?',
     options: {
-      A: 'The SKU\'s own moving-average shipment history.',
-      B: 'Brand-level historical customer mix (substituting for the SKU\'s missing history).',
-      C: 'Sales Forecast proportions.',
-      D: 'A flat equal distribution across all customers.'
+      A: 'To convert weekly forecasts into monthly buckets for financial reporting.',
+      B: 'To translate the Consensus Forecast into the Financial Forecast for the budget cycle.',
+      C: 'To split the forecast between Domestic and Direct Import channels.',
+      D: 'To break the L3 statistical baseline down to the Customer × Planning SKU × Channel level (L1), so that Sales can review and enrich the forecast at the level where commercial decisions are made.'
     },
-    slideRefs: '17, 21',
+    slideRefs: '16',
     section: 'Disaggregation'
   },
   {
     id: 10,
-    text: 'A parent SKU has variants A (70%) and B (30%) per P2M. Wal-Mart only carries variant A. What ensures Wal-Mart\'s volume is fully allocated to variant A and not split 70/30?',
+    text: 'How does the disaggregation method differ between a Carry-Forward item and an NPI item?',
     options: {
-      A: 'The Moving Average Model auto-corrects this within 3 months.',
-      B: 'The Forecasting Range setup at the customer × SKU level — variant B is excluded from Wal-Mart\'s Range.',
-      C: 'KAMs manually re-enter the correct split each cycle.',
-      D: 'Genpact reviews the disaggregation and corrects it.'
+      A: 'Both methods are identical — only the source system differs.',
+      B: 'Carry-Forward uses the SKU\'s own statistical proportionality based on its history; NPI uses brand-level historical customer mix combined with P2M volume splits, because the NPI has no shipment history of its own.',
+      C: 'Carry-Forward is disaggregated manually; NPI is disaggregated automatically.',
+      D: 'Carry-Forward is disaggregated only at L1; NPI only at L3.'
+    },
+    slideRefs: '17, 19, 20, 21',
+    section: 'Disaggregation'
+  },
+  {
+    id: 11,
+    text: 'What is the purpose of the Forecasting Range?',
+    options: {
+      A: 'It controls when Daybreak runs the statistical model for each cycle.',
+      B: 'It defines, per customer × SKU, the period during which the customer should receive baseline disaggregation. Outside that period, the customer is excluded from the disaggregation logic.',
+      C: 'It sets the look-back window used by the Logility Moving Average Model.',
+      D: 'It determines the timing of the Joint Marketing & Demand Planning Reconciliation Session.'
     },
     slideRefs: '22',
     section: 'Disaggregation'
   },
   {
-    id: 11,
-    text: 'An item has a normal carry-forward pattern and no new promotion is planned. What enrichment should you enter?',
+    id: 12,
+    text: 'Which statement best describes when an enrichment should be applied to the baseline?',
     options: {
-      A: 'Enter a placeholder enrichment to confirm the baseline is accepted.',
-      B: 'Nothing — the baseline already handles seasonality and trend.',
-      C: 'Enter a Base Trend Adjustment to confirm the SKU is active.',
-      D: 'Enter a Sample enrichment of zero units.'
+      A: 'On every SKU in the portfolio, each cycle, to confirm review.',
+      B: 'Only when Marketing or Demand Planning requests an adjustment.',
+      C: 'Only for events the statistical baseline cannot see — known commercial activity, structural changes, supply-related shifts, or committed plans.',
+      D: 'Only when the forecast is below the Financial Forecast target.'
     },
     slideRefs: '25',
     section: 'Enrichment Principles'
   },
   {
-    id: 12,
-    text: 'Which of the five core L1 commercial enrichment types is the ONLY one that requires capturing driver attributes (discount %, mechanic, start/end dates)?',
-    options: {
-      A: 'Sets.',
-      B: 'Retail Promos.',
-      C: 'TMO (pallet / PDQ).',
-      D: 'Pre-Orders.'
-    },
-    slideRefs: '26',
-    section: 'Enrichment Principles'
-  },
-  {
     id: 13,
-    text: 'How does Marketing push back on a Sales forecast they consider too optimistic?',
+    text: 'What is the purpose of the Joint Marketing & Demand Planning Reconciliation Session?',
     options: {
-      A: 'Marketing edits the Sales L1 enrichment values directly in HERO.',
-      B: 'Marketing escalates to the GM to override the Sales number.',
-      C: 'Marketing applies a top-down Base Trend Adjustment at BU level in the Joint M&DP Reconciliation Session — they cannot edit L1 enrichments directly.',
-      D: 'Marketing waits until the next cycle to flag the disagreement.'
+      A: 'To allow Marketing to override Sales\' L1 enrichments in cases where Marketing has better visibility.',
+      B: 'To finalize the Daybreak baseline before it is loaded to Logility for the cycle.',
+      C: 'To replace the legacy Brand DMR meetings that exist today in North America.',
+      D: 'To combine the bottom-up commercial view with top-down statistical and brand-strategic views, apply BU-level corrections, and prepare the proposal for Executive Sign-Off.'
     },
     slideRefs: '32',
     section: 'Reconciliation'
   },
   {
     id: 14,
-    text: 'In the UK pilot, who owns Base Trend adjustments at the SKU × BU level (Level 2.5)?',
+    text: 'In the UK pilot, which statement correctly describes the scope split between Key Account Managers (KAMs) and Brand Captains?',
     options: {
-      A: 'Key Account Managers (KAMs).',
-      B: 'Brand Captains.',
-      C: 'Demand Planning analysts.',
-      D: 'Marketing / GBT.'
+      A: 'Both roles can edit the baseline at any planning level; the most recent edit wins.',
+      B: 'Brand Captains own SKU × BU-level (Level 2.5) Base Trend adjustments. KAMs capture account-specific enrichments and account-level deltas at L1; baseline adjustments by KAMs are exceptions, not the default.',
+      C: 'Only Demand Planning can adjust the baseline; both KAMs and Brand Captains submit requests for review.',
+      D: 'The KAM owns baseline adjustments at all levels; the Brand Captain reviews after the fact.'
     },
     slideRefs: '33',
     section: 'UK Pilot Roles'
   },
   {
     id: 15,
-    text: 'In the 2026 UK pilot, how does HERO start each cycle for Brand Captains?',
+    text: 'In the 2026 UK pilot, how does HERO present the starting forecast to Brand Captains at the beginning of each cycle?',
     options: {
-      A: 'Empty — Captains build the forecast from scratch.',
-      B: 'Pre-populated with the Daybreak baseline only; Captains adjust everything else.',
-      C: 'Pre-populated with the deltas between Daybreak baseline and current resultant, so Captains only capture changes they want to MOVE the resultant — no manual matching required.',
-      D: 'Pre-populated with the previous month\'s consensus forecast.'
+      A: 'Empty — Brand Captains build the forecast from scratch each cycle.',
+      B: 'Pre-populated with the prior month\'s consensus forecast.',
+      C: 'Pre-populated with the Daybreak baseline only; Captains rebuild everything else manually.',
+      D: 'Pre-populated with the deltas between the Daybreak baseline and the current resultant forecast. Captains capture only the changes they intend to move the resultant — no manual matching is required.'
     },
     slideRefs: '33',
     section: 'End-to-end Workflow'
   },
   {
     id: 16,
-    text: 'In the 2027 target operating model, how does the process change for Brand Captains?',
+    text: 'In the 2027 target operating model, how does the Brand Captain\'s role differ from the 2026 pilot?',
     options: {
-      A: 'Captains no longer participate; the process becomes fully automated.',
-      B: 'Captains receive a pre-populated forecast and only confirm it.',
-      C: 'Captains start from the Daybreak baseline directly. Every correction tied to commercial or supply events affecting the projection requires a Base Trend adjustment.',
-      D: 'Captains operate exclusively at L1 (customer level).'
+      A: 'Brand Captains start from the Daybreak baseline directly. Corrections for commercial or supply events affecting the forecast are captured as Base Trend adjustments.',
+      B: 'Brand Captains are removed; cycles run fully automated.',
+      C: 'Brand Captains operate exclusively at Level 1 (customer level), with KAMs handling BU-level decisions.',
+      D: 'Brand Captains review a pre-populated forecast and confirm without modification.'
     },
     slideRefs: '33',
     section: 'End-to-end Workflow'
@@ -234,7 +233,7 @@ const ROLES = [
   'Other'
 ];
 
-// ── State ─────────────────────────────────────────────────────────────────────
+// ── State ───────────────────────────────────────────────────────────────────────────────
 let state = {
   screen: 'welcome',      // welcome | identity | question | confirm | results | submitting
   questionIndex: 0,       // 0-based, 0 = Q1
@@ -249,7 +248,7 @@ let state = {
   submitError: null
 };
 
-// ── Persistence ───────────────────────────────────────────────────────────────
+// ── Persistence ───────────────────────────────────────────────────────────────────────────
 function saveState() {
   try {
     localStorage.setItem(LS_KEY, JSON.stringify(state));
@@ -274,7 +273,7 @@ function clearState() {
   try { localStorage.removeItem(LS_KEY); } catch (_) {}
 }
 
-// ── DOM helpers ───────────────────────────────────────────────────────────────
+// ── DOM helpers ───────────────────────────────────────────────────────────────────────
 const $ = id => document.getElementById(id);
 const show = el => el && el.classList.remove('hidden');
 const hide = el => el && el.classList.add('hidden');
@@ -286,7 +285,7 @@ function setScreen(name) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ── Navigation ────────────────────────────────────────────────────────────────
+// ── Navigation ────────────────────────────────────────────────────────────────────────
 function goWelcome() {
   state.screen = 'welcome';
   setScreen('welcome');
@@ -321,12 +320,12 @@ function goResults(results) {
   clearState(); // submission done — clear persisted in-progress state
 }
 
-// ── Welcome screen ────────────────────────────────────────────────────────────
+// ── Welcome screen ────────────────────────────────────────────────────────────────────────
 function initWelcome() {
   $('btn-start').addEventListener('click', () => goIdentity());
 }
 
-// ── Identity screen ───────────────────────────────────────────────────────────
+// ── Identity screen ───────────────────────────────────────────────────────────────────────
 function initIdentity() {
   // Render role options
   const grid = $('role-grid');
@@ -409,7 +408,7 @@ function submitIdentity() {
   goQuestion(0);
 }
 
-// ── Question screen ───────────────────────────────────────────────────────────
+// ── Question screen ───────────────────────────────────────────────────────────────────────
 function renderQuestion(index) {
   const q = QUESTIONS[index];
   const num = index + 1;
@@ -488,7 +487,7 @@ function initQuestion() {
   });
 }
 
-// ── Confirm screen ────────────────────────────────────────────────────────────
+// ── Confirm screen ────────────────────────────────────────────────────────────────────────
 function renderConfirm() {
   const answered = Object.keys(state.answers).length;
   $('confirm-answered').textContent = `${answered} of ${TOTAL_QUESTIONS} questions answered`;
@@ -500,7 +499,7 @@ function initConfirm() {
   $('btn-go-back').addEventListener('click', () => goQuestion(TOTAL_QUESTIONS - 1));
 }
 
-// ── Submit ────────────────────────────────────────────────────────────────────
+// ── Submit ───────────────────────────────────────────────────────────────────────────────
 async function submitQuiz() {
   // Build payload
   const payload = {
@@ -509,6 +508,7 @@ async function submitQuiz() {
     role: state.userData.role,
     roleOther: state.userData.roleOther,
     answers: state.answers,
+    module: 'mod1',
     userAgent: navigator.userAgent,
     quizUrl: window.location.href
   };
@@ -533,7 +533,7 @@ async function submitQuiz() {
   goResults(result);
 }
 
-// ── Results screen ────────────────────────────────────────────────────────────
+// ── Results screen ────────────────────────────────────────────────────────────────────────
 function renderResults(data) {
   const { score, total, percent, pass, failed_questions } = data;
   const pctDisplay = Math.round(percent);
@@ -604,7 +604,7 @@ function retakeQuiz() {
   goWelcome();
 }
 
-// ── Resume prompt ─────────────────────────────────────────────────────────────
+// ── Resume prompt ─────────────────────────────────────────────────────────────────────────
 function checkResume(saved) {
   if (!saved) return false;
 
@@ -647,7 +647,7 @@ function restoreIdentityFields() {
   if (state.userData.roleOther) $('input-role-other').value = state.userData.roleOther;
 }
 
-// ── Util ──────────────────────────────────────────────────────────────────────
+// ── Util ───────────────────────────────────────────────────────────────────────────────
 function escHtml(str) {
   return String(str)
     .replace(/&/g, '&amp;')
@@ -656,7 +656,7 @@ function escHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-// ── Boot ──────────────────────────────────────────────────────────────────────
+// ── Boot ───────────────────────────────────────────────────────────────────────────────
 function init() {
   initWelcome();
   initIdentity();
@@ -673,18 +673,21 @@ function init() {
 
 document.addEventListener('DOMContentLoaded', init);
 
-// ══════════════════════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════════════════════
 // DASHBOARD
-// ══════════════════════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════════════════════════
 
 const DASH_HASH    = '3112727bdedc9e678230b70a47eb12222f8e6da33f24a9c5539f50cf4c84359c';
 const DASH_LS_KEY  = 'mod1_dash_unlocked';
 const DASH_EXPIRY  = 8 * 60 * 60 * 1000; // 8 hours
 
-let dashRows   = [];   // all rows from Sheet
-let dashFiltered = []; // rows after date filter
+let dashAllRows  = [];  // raw rows from server (never filtered)
+let dashRows     = [];  // module-filtered view of dashAllRows
+let dashFiltered = [];  // date/role-filtered view of dashRows
+let dashModule   = '';  // '', 'mod1', or 'mod2'
+let dashLastUpdated = null;
 
-// ── Init ──────────────────────────────────────────────────────────────────────
+// ── Init ───────────────────────────────────────────────────────────────────────────────
 function initDashboard() {
   $('btn-open-dashboard').addEventListener('click', () => {
     setScreen('dashboard');
@@ -707,9 +710,23 @@ function initDashboard() {
   $('dash-clear-btn').addEventListener('click', clearDateFilter);
   $('dash-lookup-btn').addEventListener('click', runLookup);
   $('dash-lookup-input').addEventListener('keydown', e => { if (e.key === 'Enter') runLookup(); });
+
+  $('dash-module-select').addEventListener('change', function() {
+    dashModule = this.value;
+    const url = new URL(window.location);
+    dashModule ? url.searchParams.set('module', dashModule) : url.searchParams.delete('module');
+    history.replaceState(null, '', url);
+    dashRows     = filterByModule(dashAllRows, dashModule);
+    dashFiltered = dashRows;
+    populateRoleFilter();
+    const from = $('dash-date-from').value, to = $('dash-date-to').value, role = $('dash-role-filter').value;
+    if (from || to || role) applyDateFilter(); else renderDash();
+  });
+
+  $('btn-dash-refresh').addEventListener('click', refreshDash);
 }
 
-// ── Auth ──────────────────────────────────────────────────────────────────────
+// ── Auth ───────────────────────────────────────────────────────────────────────────────
 function checkDashAuth() {
   const stored = localStorage.getItem(DASH_LS_KEY);
   if (stored && Date.now() - parseInt(stored) < DASH_EXPIRY) {
@@ -747,10 +764,18 @@ async function sha256(str) {
   return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
-// ── Load data ─────────────────────────────────────────────────────────────────
+// ── Load data ─────────────────────────────────────────────────────────────────────────
 async function showDashContent() {
   hide($('dash-gate'));
   show($('dash-content'));
+
+  // Sync module selector from URL on first load
+  const urlMod = new URLSearchParams(window.location.search).get('module') || '';
+  if (urlMod !== dashModule) {
+    dashModule = urlMod;
+    const sel = $('dash-module-select');
+    if (sel) sel.value = dashModule;
+  }
 
   $('dash-table-wrap').innerHTML = '<p class="muted" style="font-size:13px;">Loading…</p>';
   $('dash-kpis').innerHTML = '';
@@ -758,7 +783,10 @@ async function showDashContent() {
   try {
     const res  = await fetch(APPS_SCRIPT_URL + '?action=getData');
     const data = await res.json();
-    dashRows     = (data.rows || []).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    dashAllRows  = (data.rows || []).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    dashLastUpdated = new Date();
+    updateLastUpdatedLabel();
+    dashRows     = filterByModule(dashAllRows, dashModule);
     dashFiltered = dashRows;
     populateRoleFilter();
     renderDash();
@@ -779,7 +807,7 @@ function populateRoleFilter() {
     allRoles.map(r => `<option value="${escHtml(r)}" ${r === current ? 'selected' : ''}>${escHtml(r)}</option>`).join('');
 }
 
-// ── Date filter ───────────────────────────────────────────────────────────────
+// ── Date filter ─────────────────────────────────────────────────────────────────────────
 function applyDateFilter() {
   const from = $('dash-date-from').value;
   const to   = $('dash-date-to').value;
@@ -813,16 +841,19 @@ function clearDateFilter() {
   renderDash();
 }
 
-// ── Render all ────────────────────────────────────────────────────────────────
+// ── Render all ────────────────────────────────────────────────────────────────────────────
 function renderDash() {
   renderKPIs();
   renderDonut();
   renderHistogram();
   renderHeatmap();
   renderTable();
+  renderPassRateByRole(dashFiltered);
+  renderFirstAttemptPassRate(dashFiltered);
+  renderAttemptsToPAss(dashFiltered);
 }
 
-// ── KPIs ──────────────────────────────────────────────────────────────────────
+// ── KPIs ───────────────────────────────────────────────────────────────────────────────
 function renderKPIs() {
   const rows   = dashFiltered;
   const total  = rows.length;
@@ -847,7 +878,7 @@ function renderKPIs() {
   ).join('');
 }
 
-// ── Donut chart ───────────────────────────────────────────────────────────────
+// ── Donut chart ──────────────────────────────────────────────────────────────────────────────
 function renderDonut() {
   const canvas = $('chart-donut');
   const ctx    = canvas.getContext('2d');
@@ -898,7 +929,7 @@ function renderDonut() {
      <span style="color:#F87171;">● Fail ${fails}</span>`;
 }
 
-// ── Histogram ─────────────────────────────────────────────────────────────────
+// ── Histogram ───────────────────────────────────────────────────────────────────────────────
 function renderHistogram() {
   const canvas = $('chart-hist');
   const ctx    = canvas.getContext('2d');
@@ -964,7 +995,7 @@ function renderHistogram() {
   ctx.setLineDash([]);
 }
 
-// ── Heatmap ───────────────────────────────────────────────────────────────────
+// ── Heatmap ───────────────────────────────────────────────────────────────────────────────
 function renderHeatmap() {
   const rows = dashFiltered;
   const total = rows.length || 1;
@@ -984,7 +1015,7 @@ function renderHeatmap() {
   $('dash-heatmap').innerHTML = Object.entries(failCount).map(([q, count]) => {
     const pct   = Math.round((count / total) * 100);
     const color = pct >= 50 ? '#F87171' : pct >= 25 ? '#FFC72C' : '#14B8A6';
-    return `<div class="heatmap-row">
+    return `<div class="heatmap-row" style="cursor:pointer;" title="Q${q} — ${pct}% failed · click for details" onclick="showDrillDown(${q})">
       <span class="heatmap-label">Q${q}</span>
       <div class="heatmap-bar-track">
         <div class="heatmap-bar-fill" style="width:${pct}%;background:${color};"></div>
@@ -994,7 +1025,7 @@ function renderHeatmap() {
   }).join('');
 }
 
-// ── Lookup ────────────────────────────────────────────────────────────────────
+// ── Lookup ───────────────────────────────────────────────────────────────────────────────
 function runLookup() {
   const query  = $('dash-lookup-input').value.trim().toLowerCase();
   const result = $('dash-lookup-result');
@@ -1023,7 +1054,7 @@ function runLookup() {
   }).join('');
 }
 
-// ── Table ─────────────────────────────────────────────────────────────────────
+// ── Table ───────────────────────────────────────────────────────────────────────────────
 function renderTable() {
   const rows = dashFiltered;
   $('dash-count').textContent = rows.length + ' record(s)';
@@ -1063,4 +1094,259 @@ function renderTable() {
         }).join('')}
       </tbody>
     </table>`;
+}
+
+// ════════════════════════════════════════════════════════════════════════════════
+// NEW ANALYTICS CHARTS (additive — all existing charts/functions above unchanged)
+// ════════════════════════════════════════════════════════════════════════════════
+
+// ── Module filter helpers ─────────────────────────────────────────────────────
+function filterByModule(rows, mod) {
+  if (!mod) return rows;
+  return rows.filter(r => (r.module || 'mod1') === mod);
+}
+
+function updateLastUpdatedLabel() {
+  const el = $('dash-last-updated');
+  if (!el || !dashLastUpdated) return;
+  const t = dashLastUpdated.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+  el.textContent = 'Last updated: ' + t;
+}
+
+function refreshDash() {
+  showDashContent();
+}
+
+// ── Pass rate by role — any attempt ──────────────────────────────────────────
+function renderPassRateByRole(rows) {
+  const el = $('dash-role-pass');
+  if (!el) return;
+  if (!rows.length) { el.innerHTML = '<p class="muted" style="font-size:13px;">No data yet.</p>'; return; }
+
+  const roleMap = {};
+  rows.forEach(r => {
+    const role = r.role || 'Unknown';
+    if (!roleMap[role]) roleMap[role] = { unique: new Set(), passed: new Set() };
+    roleMap[role].unique.add(r.email);
+    if (r.status === 'Pass') roleMap[role].passed.add(r.email);
+  });
+
+  const entries = Object.entries(roleMap).map(([role, d]) => {
+    const n = d.unique.size, p = d.passed.size;
+    return { role, n, p, rate: n ? p / n : 0 };
+  }).sort((a, b) => b.rate - a.rate);
+
+  const allUnique = new Set(rows.map(r => r.email));
+  const allPassed = new Set(rows.filter(r => r.status === 'Pass').map(r => r.email));
+  const totalRate = allUnique.size ? allPassed.size / allUnique.size : 0;
+
+  el.innerHTML = renderRoleBars([
+    { role: 'Total', n: allUnique.size, p: allPassed.size, rate: totalRate, isTotal: true },
+    ...entries
+  ]);
+}
+
+// ── Pass rate by role — first attempt only ────────────────────────────────────
+function renderFirstAttemptPassRate(rows) {
+  const el = $('dash-role-first');
+  if (!el) return;
+  if (!rows.length) { el.innerHTML = '<p class="muted" style="font-size:13px;">No data yet.</p>'; return; }
+
+  // One row per email: the earliest submission = first attempt
+  const firstByEmail = {};
+  rows.forEach(r => {
+    if (!firstByEmail[r.email] || new Date(r.timestamp) < new Date(firstByEmail[r.email].timestamp)) {
+      firstByEmail[r.email] = r;
+    }
+  });
+  const firstAttempts = Object.values(firstByEmail);
+
+  const roleMap = {};
+  firstAttempts.forEach(r => {
+    const role = r.role || 'Unknown';
+    if (!roleMap[role]) roleMap[role] = { n: 0, p: 0 };
+    roleMap[role].n++;
+    if (r.status === 'Pass') roleMap[role].p++;
+  });
+
+  const entries = Object.entries(roleMap).map(([role, d]) => ({
+    role, n: d.n, p: d.p, rate: d.n ? d.p / d.n : 0
+  })).sort((a, b) => b.rate - a.rate);
+
+  const totalN = firstAttempts.length;
+  const totalP = firstAttempts.filter(r => r.status === 'Pass').length;
+
+  el.innerHTML = renderRoleBars([
+    { role: 'Total', n: totalN, p: totalP, rate: totalN ? totalP / totalN : 0, isTotal: true },
+    ...entries
+  ]);
+}
+
+// ── Shared role bar renderer ──────────────────────────────────────────────────
+function renderRoleBars(entries) {
+  return entries.map(e => {
+    const pct   = e.n ? Math.round(e.rate * 100) : 0;
+    const color = e.isTotal ? 'var(--yellow)'
+                : pct >= 70 ? '#14B8A6'
+                : pct >= 40 ? '#FFC72C'
+                : '#F87171';
+    const label = e.n ? `${pct}% (${e.p} / ${e.n})` : 'No data';
+    return `<div class="role-bar-row${e.isTotal ? ' role-bar-total' : ''}">
+      <span class="role-bar-label">${escHtml(e.role)}</span>
+      <div class="role-bar-track">
+        <div class="role-bar-fill" style="width:${pct}%;background:${color};"></div>
+      </div>
+      <span class="role-bar-val" style="color:${color};">${label}</span>
+    </div>`;
+  }).join('');
+}
+
+// ── Attempts required to pass (vertical bar canvas) ───────────────────────────
+function renderAttemptsToPAss(rows) {
+  const canvas = $('chart-attempts');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  // Per email: sort all submissions by timestamp, find first passing row
+  const byEmail = {};
+  rows.forEach(r => {
+    if (!byEmail[r.email]) byEmail[r.email] = [];
+    byEmail[r.email].push(r);
+  });
+
+  const passers = [];
+  let notYetPassed = 0;
+  Object.values(byEmail).forEach(attempts => {
+    attempts.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+    const firstPass = attempts.findIndex(r => r.status === 'Pass');
+    if (firstPass === -1) {
+      notYetPassed++;
+    } else {
+      passers.push(firstPass + 1); // 1-based attempt number
+    }
+  });
+
+  const buckets = [
+    { label: '1',  min: 1, max: 1 },
+    { label: '2',  min: 2, max: 2 },
+    { label: '3',  min: 3, max: 3 },
+    { label: '4+', min: 4, max: Infinity }
+  ];
+  buckets.forEach(b => {
+    b.count = passers.filter(n => n >= b.min && n <= b.max).length;
+  });
+
+  const note = $('chart-attempts-note');
+  if (note) {
+    note.textContent = notYetPassed > 0
+      ? `${notYetPassed} ${notYetPassed === 1 ? 'person has' : 'people have'} attempted without passing yet.`
+      : '';
+  }
+
+  const total = passers.length || 1;
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+
+  const padL = 24, padR = 8, padT = 24, padB = 32;
+  const chartW = W - padL - padR;
+  const chartH = H - padT - padB;
+  const maxCount = Math.max(...buckets.map(b => b.count), 1);
+  const barW = chartW / buckets.length;
+  const gap  = 10;
+
+  buckets.forEach((b, i) => {
+    const pct = Math.round((b.count / total) * 100);
+    const bh  = (b.count / maxCount) * chartH;
+    const x   = padL + i * barW + gap / 2;
+    const y   = padT + chartH - bh;
+
+    ctx.fillStyle = '#14B8A6';
+    ctx.beginPath();
+    ctx.roundRect(x, y, barW - gap, Math.max(bh, 1), [4, 4, 0, 0]);
+    ctx.fill();
+
+    if (b.count > 0) {
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold 11px Calibri, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(`${pct}% (${b.count})`, x + (barW - gap) / 2, y - 4);
+    }
+
+    ctx.fillStyle = '#94A3B8';
+    ctx.font = '11px Calibri, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(b.label, x + (barW - gap) / 2, H - padB + 14);
+  });
+
+  ctx.fillStyle = '#94A3B8';
+  ctx.font = '10px Calibri, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Attempts to pass', W / 2, H - 2);
+}
+
+// ── Question drill-down modal ─────────────────────────────────────────────────
+function showDrillDown(qNum) {
+  const q = QUESTIONS.find(x => x.id === qNum);
+  if (!q) return;
+
+  const correctLetter = ANSWER_KEY['Q' + qNum];
+  const rows = dashFiltered;
+  const total = rows.length || 1;
+
+  // Count wrong-answer option selections
+  const wrongPicks = { A: 0, B: 0, C: 0, D: 0 };
+  let totalWrong = 0;
+  let failCount  = 0;
+  rows.forEach(r => {
+    if (!r.answers) return;
+    const given = (r.answers['Q' + qNum] || '').toUpperCase();
+    if (!given) return;
+    if (given !== correctLetter) {
+      wrongPicks[given] = (wrongPicks[given] || 0) + 1;
+      totalWrong++;
+      failCount++;
+    }
+  });
+
+  const failPct = Math.round((failCount / total) * 100);
+
+  const optionsHTML = ['A', 'B', 'C', 'D'].map(letter => {
+    const isCorrect = letter === correctLetter;
+    const picked    = wrongPicks[letter] || 0;
+    const wrongPct  = totalWrong ? Math.round((picked / totalWrong) * 100) : 0;
+    const cls = isCorrect ? 'correct' : (picked > 0 ? 'wrong-picked' : 'not-picked');
+    const statHTML = isCorrect
+      ? `<div class="drill-option-stat">✓ Correct answer</div>`
+      : (picked > 0 ? `<div class="drill-option-stat">${picked} selection${picked !== 1 ? 's' : ''} — ${wrongPct}% of wrong answers</div>` : '');
+    return `<div class="drill-option ${cls}">
+      <span class="drill-option-letter">${letter}</span>
+      <div class="drill-option-text">
+        <div>${escHtml(q.options[letter])}</div>
+        ${statHTML}
+      </div>
+    </div>`;
+  }).join('');
+
+  const noDataNote = !rows.some(r => r.answers)
+    ? '<p class="muted" style="font-size:12px;margin-bottom:12px;">Per-option breakdown not available for submissions before this feature was enabled.</p>'
+    : '';
+
+  $('drill-content').innerHTML = `
+    <div class="drill-q-num">Question ${qNum} · ${escHtml(q.section)}</div>
+    <div class="drill-q-text">${escHtml(q.text)}</div>
+    <div class="drill-fail-rate">${failPct}% failure rate (${failCount} of ${total} submission${total !== 1 ? 's' : ''})</div>
+    ${noDataNote}
+    ${optionsHTML}
+    <div class="drill-slide-ref">📖 Slide${q.slideRefs.includes(',') ? 's' : ''} ${escHtml(q.slideRefs)}</div>
+  `;
+
+  $('drill-modal').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDrillDown(event) {
+  // Close if: X button clicked (no event), or overlay background clicked (not the panel)
+  if (event && event.target !== $('drill-modal')) return;
+  $('drill-modal').classList.add('hidden');
+  document.body.style.overflow = '';
 }
