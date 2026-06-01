@@ -306,6 +306,8 @@ function initWelcome() {
       return;
     }
     if (sel.value === 'mod1') { window.location.href = 'index.html'; return; }
+    if (sel.value === 'mod4') { window.location.href = 'mod4.html'; return; }
+    if (sel.value === 'mod5') { window.location.href = 'mod5.html'; return; }
     const err = $('module-select-error');
     if (err) err.style.display = 'none';
     goIdentity();
