@@ -170,6 +170,8 @@ function doPost(e) {
     // 3. Route by module (minimum change — MOD 1 flow below is unchanged)
     var moduleId = String(payload.module || 'mod1').toLowerCase();
     if (moduleId === 'mod2') { return handleMod2Post(payload); }
+    if (moduleId === 'mod4') { return handleMod4Post(payload); }
+    if (moduleId === 'mod5') { return handleMod5Post(payload); }
 
     // 3. Validate required fields
     var validationError = validatePayload(payload);
@@ -723,6 +725,588 @@ function sendNotificationEmail_mod2(payload, scoreResult, sheetUrl) {
   var subject = '[MOD 2 Quiz] ' + name + ' — ' + score + '/' + total + ' — ' + status;
   var body =
     name + ' (' + email + ', ' + role + ') just submitted the MOD 2 Knowledge Check.\n\n' +
+    'Score: ' + score + ' / ' + total + ' (' + pct + '%)\n' +
+    'Status: ' + status + '\n' +
+    'Questions failed: ' + failedCount + ' of ' + total + failedList + '\n\n' +
+    'Full row written to the Sheet:\n' + sheetUrl;
+
+  MailApp.sendEmail({ to: RENE_EMAIL, cc: RENE_COPY_EMAIL, subject: subject, body: body });
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// MOD 4 — Exceptions & Customer Variations (additive)
+// ══════════════════════════════════════════════════════════════════════════════
+
+const ANSWER_KEY_MOD4 = {
+  Q1:'B', Q2:'C', Q3:'A', Q4:'D', Q5:'A',
+  Q6:'B', Q7:'A', Q8:'C', Q9:'B', Q10:'D'
+};
+const TOTAL_QUESTIONS_MOD4 = 10;
+const PASS_THRESHOLD_MOD4  = 8;
+const QUIZ_URL_MOD4        = 'https://enerbartoli.github.io/mod1-knowledge-check/mod4.html';
+
+const SLIDE_REFS_MOD4 = {
+  Q1:'5',     Q2:'6',     Q3:'7',     Q4:'6, 7',  Q5:'6',
+  Q6:'7',     Q7:'8',     Q8:'6, 7, 8', Q9:'6',   Q10:'7'
+};
+
+const QUESTION_TEXT_MOD4 = {
+  Q1: 'Why do DI, FAN, and Amazon need to be discussed as a separate group in MOD 4?',
+  Q2: 'In the UK pilot, who owns the DI forecast number and how is it built?',
+  Q3: 'For FAN items, which team builds the forecast volume, and what does the KAM do?',
+  Q4: 'Where does the full DI or FAN forecast volume land in the Reconciliation Template?',
+  Q5: 'Which statement correctly describes the Evergreen exception for DI?',
+  Q6: 'Why are FAN items deliberately handled outside the Daybreak baseline?',
+  Q7: 'How is Amazon treated in the UK pilot?',
+  Q8: 'Across DI, FAN, and Amazon, what is Demand Planning\'s role?',
+  Q9: 'A KAM is reviewing a DI account and finds an item that has shipped with a stable, repeating pattern for 18 months. The KAM wants the item to start from a Daybreak baseline rather than be built bottom-up. What should happen?',
+  Q10:'A KAM at FP-2 receives a FAN allocation from the regional category team for a franchise release in week 30. The KAM believes the allocation is too high for their account and wants to adjust it down. What is the correct action?'
+};
+
+const RATIONALES_MOD4 = {
+  Q1: 'The three are not grouped by revenue, scope, or coverage. They are grouped because their demand history is erratic, discontinuous, and opportunistic — DI is program-driven, FAN is event-driven, Amazon has highly irregular ordering rhythm — which is exactly what a history-based statistical baseline cannot project well. That is why each one needs its own handling model.',
+  Q2: 'For DI there is no Daybreak baseline by default. The KAM builds the forecast bottom-up by Forecasting Partner using account knowledge — committed programs, signed orders, customer plans — not statistical extrapolation. DP facilitates but the account team carries the build.',
+  Q3: 'FAN volume sits with the team that owns the moment — the regional category team. KAMs validate timing and feasibility at their account but do not re-cut the FAN number.',
+  Q4: 'Both DI and FAN have no underlying Daybreak baseline. The entire forecast volume is captured as Base Trend enrichment at L1 — the L1 lock is essentially all-Base-Trend with no statistical signal to challenge against.',
+  Q5: 'Evergreen is owned by Sales Operations — not by KAM, not by DP. Evergreen items behave like standard CF (Daybreak baseline applies, KAM enriches on top). The Evergreen list must be confirmed before each cycle.',
+  Q6: 'FAN history contains one-off spikes (franchise releases, film tie-ins, time-limited campaigns) that would create false signals downstream and pollute the baseline for standard CF items. The exception is deliberate.',
+  Q7: 'For the pilot, Amazon is deliberately treated as a standard customer so the team learns the standard flow first. Daybreak generates the baseline; statistical disaggregation assigns Amazon\'s share; the Amazon KAM reviews and adjusts.',
+  Q8: 'In all three models DP plays the same role — facilitate and challenge. DP does not carry the build. DI is built bottom-up by the KAM partner-by-partner. FAN volume is owned by the regional category team. Amazon (under pilot treatment) is owned by the Amazon KAM in the standard Session 2 flow.',
+  Q9: 'Evergreen designation is owned by Sales Ops — not by the KAM, DP, or Captain. Until Sales Ops designates the item Evergreen, it stays in the DI bottom-up flow.',
+  Q10:'For FAN, the regional category team owns the number. KAMs validate timing and feasibility but do not re-cut. Magnitude concerns route back to the volume owner, not to DP or the baseline.'
+};
+
+function handleMod4Post(payload) {
+  try {
+    var validationError = validatePayload_mod4(payload);
+    if (validationError) return buildResponse({ error: validationError }, 400);
+
+    var scoreResult = scoreSubmission_mod4(payload.answers);
+    var sheetUrl    = appendToSheet_mod4(payload, scoreResult);
+    sendEmails_mod4(payload, scoreResult, sheetUrl);
+
+    return buildResponse({
+      score:            scoreResult.score,
+      total:            TOTAL_QUESTIONS_MOD4,
+      percent:          scoreResult.percent,
+      pass:             scoreResult.pass,
+      failed_questions: scoreResult.failedQNums
+    });
+  } catch (err) {
+    Logger.log('handleMod4Post error: ' + err.message + '\n' + err.stack);
+    return buildResponse({ error: 'Server error. Please try again.' }, 500);
+  }
+}
+
+function validatePayload_mod4(p) {
+  if (!p.name || String(p.name).trim().length < 2) return 'Name is required.';
+  var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!p.email || !emailRe.test(String(p.email).trim())) return 'Valid email is required.';
+  if (!p.role) return 'Role is required.';
+  if (!p.answers || typeof p.answers !== 'object') return 'Answers are required.';
+  for (var i = 1; i <= TOTAL_QUESTIONS_MOD4; i++) {
+    var key = 'Q' + i;
+    var val = p.answers[key];
+    if (!val || !['A','B','C','D'].includes(String(val).toUpperCase())) {
+      return 'Answer for ' + key + ' is missing or invalid.';
+    }
+  }
+  return null;
+}
+
+function scoreSubmission_mod4(answers) {
+  var score = 0;
+  var results = {};
+  var failedQNums = [];
+  for (var i = 1; i <= TOTAL_QUESTIONS_MOD4; i++) {
+    var key     = 'Q' + i;
+    var given   = String(answers[key] || '').toUpperCase();
+    var correct = ANSWER_KEY_MOD4[key];
+    var isCorrect = given === correct;
+    results[key] = { given: given, correct: isCorrect };
+    if (isCorrect) { score++; } else { failedQNums.push(i); }
+  }
+  var percent = Math.round((score / TOTAL_QUESTIONS_MOD4) * 10000) / 100;
+  return { score: score, percent: percent, pass: score >= PASS_THRESHOLD_MOD4, results: results, failedQNums: failedQNums };
+}
+
+function appendToSheet_mod4(payload, scoreResult) {
+  var ss    = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(SHEET_NAME);
+  if (!sheet) { sheet = ss.insertSheet(SHEET_NAME); writeHeaders(sheet); }
+  if (sheet.getLastRow() === 0) writeHeaders(sheet);
+
+  var moduleId      = 'mod4';
+  var attemptNumber = computeAttemptNumber(String(payload.email).trim().toLowerCase(), moduleId, sheet);
+
+  var now = new Date();
+  var row = [
+    now, payload.name.trim(), payload.email.trim().toLowerCase(), payload.role,
+    payload.roleOther || '', scoreResult.score, scoreResult.percent,
+    scoreResult.pass ? 'Pass' : 'Fail'
+  ];
+
+  // Q1–Q10 answer + correct pairs
+  for (var i = 1; i <= TOTAL_QUESTIONS_MOD4; i++) {
+    var key = 'Q' + i;
+    var r   = scoreResult.results[key];
+    row.push(r.given);
+    row.push(r.correct);
+  }
+  // Q11–Q16 placeholder blanks — preserves column alignment (6 blank pairs)
+  for (var j = 0; j < 6; j++) {
+    row.push('');
+    row.push('');
+  }
+
+  row.push(scoreResult.failedQNums.join(', '));
+  row.push(true);
+  row.push((payload.userAgent || '').slice(0, 200));
+  row.push(moduleId);
+  row.push(attemptNumber);
+
+  sheet.appendRow(row);
+  return ss.getUrl();
+}
+
+function sendEmails_mod4(payload, scoreResult, sheetUrl) {
+  var name  = payload.name.trim();
+  var email = payload.email.trim().toLowerCase();
+  try {
+    if (scoreResult.pass) {
+      sendPassEmail_mod4(email, name, scoreResult.score, TOTAL_QUESTIONS_MOD4, scoreResult.percent);
+    } else {
+      sendFailEmail_mod4(email, name, scoreResult.score, TOTAL_QUESTIONS_MOD4, scoreResult.percent, scoreResult.failedQNums);
+    }
+    sendNotificationEmail_mod4(payload, scoreResult, sheetUrl);
+    return true;
+  } catch (err) {
+    Logger.log('MOD 4 email error: ' + err.message);
+    return false;
+  }
+}
+
+function emailShell_mod4(contentHtml) {
+  return '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#f0f4f8;font-family:Arial,sans-serif;">' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f4f8;padding:32px 0;">' +
+    '<tr><td align="center">' +
+    '<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">' +
+    '<tr><td style="background:#0d1b2e;padding:28px 40px;text-align:center;">' +
+    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Forecast Enrichment Programme · UK Pilot</p>' +
+    '<p style="margin:8px 0 0;color:#ffffff;font-size:20px;font-weight:700;">MOD 4 Knowledge Check</p>' +
+    '</td></tr>' +
+    '<tr><td style="padding:40px;">' + contentHtml + '</td></tr>' +
+    '<tr><td style="background:#f8f9fa;padding:20px 40px;border-top:1px solid #e9ecef;text-align:center;">' +
+    '<p style="margin:0;color:#6c757d;font-size:12px;">Rene Bartoli · Demand Planning · Forecast Enrichment Program</p>' +
+    '</td></tr>' +
+    '</table></td></tr></table></body></html>';
+}
+
+function sendPassEmail_mod4(toEmail, name, score, total, pct) {
+  var subject = '✓ MOD 4 Knowledge Check — Passed';
+  var content =
+    '<div style="text-align:center;margin-bottom:32px;">' +
+    '<div style="display:inline-block;background:#d4edda;border-radius:50%;width:72px;height:72px;line-height:72px;font-size:36px;">✓</div>' +
+    '<h2 style="margin:16px 0 4px;color:#0d1b2e;font-size:24px;">Well done, ' + name + '!</h2>' +
+    '<p style="margin:0;color:#6c757d;font-size:15px;">You\'ve passed the MOD 4 knowledge check</p>' +
+    '</div>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f9fa;border-radius:8px;margin-bottom:28px;">' +
+    '<tr>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">' + score + '/' + total + '</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Score</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">' + Math.round(pct) + '%</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Accuracy</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">PASS</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Status</p>' +
+    '</td>' +
+    '</tr></table>' +
+    '<p style="color:#495057;font-size:15px;line-height:1.6;">You\'ve met the <strong>80% threshold</strong> for MOD 4 — Exceptions &amp; Customer Variations.</p>' +
+    '<div style="background:#e8f8f5;border-left:4px solid #00c9a7;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
+    '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">What\'s next</p>' +
+    '<p style="margin:6px 0 0;color:#495057;font-size:14px;">Hands-on enrichment practice in HERO for DI / FAN / Amazon patterns. Continue with MOD 5 — Reconciliation &amp; Decision Narrative.</p>' +
+    '</div>' +
+    '<p style="color:#6c757d;font-size:14px;line-height:1.6;">If you have questions about MOD 4 concepts, revisit the facilitator deck in the project SharePoint or reach out to the Demand Planning team.</p>';
+  MailApp.sendEmail({ to: toEmail, subject: subject, htmlBody: emailShell_mod4(content) });
+}
+
+function sendFailEmail_mod4(toEmail, name, score, total, pct, failedQNums) {
+  var subject = 'MOD 4 Knowledge Check — Please review and retry';
+
+  var missedRows = failedQNums.map(function(num) {
+    var key        = 'Q' + num;
+    var qText      = QUESTION_TEXT_MOD4[key] || '';
+    var refs       = SLIDE_REFS_MOD4[key] || '';
+    var rationale  = RATIONALES_MOD4[key] || '';
+    var slideLabel = refs.indexOf(',') > -1 ? 'Slides' : 'Slide';
+    return '<tr style="border-bottom:1px solid #e9ecef;">' +
+      '<td style="padding:12px 8px;color:#0d1b2e;font-weight:700;font-size:13px;white-space:nowrap;">Q' + num + '</td>' +
+      '<td style="padding:12px 8px;font-size:13px;line-height:1.5;">' +
+        '<div style="color:#495057;">' + qText + '</div>' +
+        '<div style="color:#6c757d;font-style:italic;margin-top:6px;font-size:12px;">' + rationale + '</div>' +
+      '</td>' +
+      '<td style="padding:12px 8px;color:#00c9a7;font-size:13px;white-space:nowrap;">' + slideLabel + ' ' + refs + '</td>' +
+      '</tr>';
+  }).join('');
+
+  var content =
+    '<div style="text-align:center;margin-bottom:32px;">' +
+    '<div style="display:inline-block;background:#fff3cd;border-radius:50%;width:72px;height:72px;line-height:72px;font-size:36px;">📋</div>' +
+    '<h2 style="margin:16px 0 4px;color:#0d1b2e;font-size:24px;">Hi ' + name + '</h2>' +
+    '<p style="margin:0;color:#6c757d;font-size:15px;">A little more review needed</p>' +
+    '</div>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f9fa;border-radius:8px;margin-bottom:28px;">' +
+    '<tr>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#ffd60a;">' + score + '/' + total + '</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Score</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#ffd60a;">' + Math.round(pct) + '%</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Accuracy</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#dc3545;">RETRY</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Status</p>' +
+    '</td>' +
+    '</tr></table>' +
+    '<p style="color:#495057;font-size:15px;line-height:1.6;">No worries — the goal is for everyone to fully land MOD 4 before working with DI / FAN / Amazon in HERO.</p>' +
+    '<h3 style="color:#0d1b2e;font-size:16px;font-weight:700;margin:24px 0 12px;">Questions to Review to Better Your Understanding</h3>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e9ecef;border-radius:8px;overflow:hidden;margin:20px 0;">' +
+    '<tr style="background:#0d1b2e;">' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">#</th>' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Question &amp; Rationale</th>' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Review</th>' +
+    '</tr>' +
+    missedRows +
+    '</table>' +
+    '<div style="background:#fff3cd;border-left:4px solid #ffd60a;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
+    '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">Note</p>' +
+    '<p style="margin:6px 0 0;color:#495057;font-size:14px;">I\'m deliberately not sharing the correct answers here — go back to the material and find them yourself. That\'s where the learning sticks.</p>' +
+    '</div>' +
+    '<div style="text-align:center;margin-top:28px;">' +
+    '<a href="' + QUIZ_URL_MOD4 + '" style="display:inline-block;background:#ffd60a;color:#0d1b2e;font-weight:700;font-size:15px;padding:14px 32px;border-radius:8px;text-decoration:none;">Retake the Quiz →</a>' +
+    '</div>';
+
+  MailApp.sendEmail({ to: toEmail, subject: subject, htmlBody: emailShell_mod4(content) });
+}
+
+function sendNotificationEmail_mod4(payload, scoreResult, sheetUrl) {
+  var name        = payload.name.trim();
+  var email       = payload.email.trim().toLowerCase();
+  var role        = payload.role + (payload.roleOther ? ' (' + payload.roleOther + ')' : '');
+  var score       = scoreResult.score;
+  var total       = TOTAL_QUESTIONS_MOD4;
+  var pct         = scoreResult.percent;
+  var status      = scoreResult.pass ? 'PASS' : 'FAIL';
+  var failedCount = scoreResult.failedQNums.length;
+  var failedList  = failedCount > 0
+    ? '  (' + scoreResult.failedQNums.map(function(n) { return 'Q' + n; }).join(', ') + ')'
+    : '';
+
+  var subject = '[MOD 4 Quiz] ' + name + ' — ' + score + '/' + total + ' — ' + status;
+  var body =
+    name + ' (' + email + ', ' + role + ') just submitted the MOD 4 Knowledge Check.\n\n' +
+    'Score: ' + score + ' / ' + total + ' (' + pct + '%)\n' +
+    'Status: ' + status + '\n' +
+    'Questions failed: ' + failedCount + ' of ' + total + failedList + '\n\n' +
+    'Full row written to the Sheet:\n' + sheetUrl;
+
+  MailApp.sendEmail({ to: RENE_EMAIL, cc: RENE_COPY_EMAIL, subject: subject, body: body });
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// MOD 5 — Reconciliation & Decision Narrative (additive)
+// ══════════════════════════════════════════════════════════════════════════════
+
+const ANSWER_KEY_MOD5 = {
+  Q1:'A', Q2:'B', Q3:'C', Q4:'D', Q5:'A',
+  Q6:'B', Q7:'C', Q8:'D', Q9:'A', Q10:'B',
+  Q11:'C', Q12:'D', Q13:'A', Q14:'B', Q15:'C'
+};
+const TOTAL_QUESTIONS_MOD5 = 15;
+const PASS_THRESHOLD_MOD5  = 12;
+const QUIZ_URL_MOD5        = 'https://enerbartoli.github.io/mod1-knowledge-check/mod5.html';
+
+const SLIDE_REFS_MOD5 = {
+  Q1:'20',        Q2:'21, 30, 31',  Q3:'23, 63',    Q4:'23',        Q5:'18, 24',
+  Q6:'24, 26',    Q7:'25',          Q8:'27',        Q9:'28',        Q10:'29, 31',
+  Q11:'30',       Q12:'33, 35, 37', Q13:'42',       Q14:'52',       Q15:'54, 59'
+};
+
+const QUESTION_TEXT_MOD5 = {
+  Q1: 'Reconciliation, as defined in MOD 5, is the meeting where the team:',
+  Q2: 'Which description matches the UK reconciliation standard for what happens in the room?',
+  Q3: 'In what order do the four UK reconciliation sessions run, and who owns each?',
+  Q4: 'What is the rule about starting one session before the previous one finishes?',
+  Q5: 'Why does the UK pilot use three references rather than formal guardrails?',
+  Q6: 'Which reference answers the question "Is the brand at this partner congruent with what we actually ship?"',
+  Q7: 'Which statement correctly describes the AIM Shipment Revenue Forecast?',
+  Q8: 'On the POS Pace Chart, the projected red dashed line sits below the green target line for an SKU. What should the KAM do?',
+  Q9: 'What is the correct drill order when reconciling movements?',
+  Q10:'In the 7-part decision narrative, what does the final beat capture?',
+  Q11:'Which of the eight meeting-behavior rules acts as the UK substitute for formal guardrails?',
+  Q12:'The Brand Captain in Session 1 finds that the current consensus for Brand A is +30 units/week above the Daybreak baseline at Level 2.5, driven by a confirmed listing expansion at FP-1 effective W26. What is the Captain\'s correct action?',
+  Q13:'A KAM in Session 2 identifies that a brand at their Forecasting Partner has been gradually widening distribution for two cycles, with no specific account-level event. The shift looks structural. Which bucket does this belong in, and who acts?',
+  Q14:'Marketing + DP in Session 3 want to apply an adjustment that lifts Brand B by +8,000 units in Q3 based on a confirmed campaign. Where does this adjustment land?',
+  Q15:'At Executive Sign-Off, how many key movements are presented and how long does each get?'
+};
+
+const RATIONALES_MOD5 = {
+  Q1: 'The training mantra defines reconciliation as TELL → CHALLENGE → DECIDE → SIGN OFF. It is a decision meeting, not a build session and not a confirmation step.',
+  Q2: 'Reconciliation is structured challenge against the three references, exception-based, decision-focused with named owners and due dates. No live forecast entry, no line-by-line rebuild, no open-ended debate.',
+  Q3: 'The cascade is fixed: Captain at L2.5 first → KAM at L1 → Marketing+DP for the top-down challenge → Market Leader for sign-off.',
+  Q4: 'Strict sequencing — the handoff between sessions is a hard gate. If Captain has not finished at 2.5, Commercial does not start; if Commercial has not confirmed L1, Marketing+DP does not start; and so on.',
+  Q5: 'Other markets use formal guardrails. The UK has not yet defined them, so the team triangulates using AIM at BU/Brand, historical actuals at Brand × Forecasting Partner, and POS Glidepath at SKU.',
+  Q6: 'Each reference has a grain and a question. Historical actuals at Brand × Forecasting Partner answers brand-at-partner congruence. AIM answers totals at BU/Brand; POS answers SKU-level consumer signal.',
+  Q7: 'AIM does not bake in past or future stimuli — its objectivity is its strength and its weakness. Statistical bounds hold roughly 8 out of 10 times when there is no exceptional stimulus. Refresh is monthly, not real-time.',
+  Q8: 'The tool flags where to look, not what to do — a gap is a signal, not an order. The KAM looks for a named driver and routes via Enrichment at L1 or R&O.',
+  Q9: 'Drill is permission-based. Start at the BU/Brand total and drill only when the level above tells you to. Drilling to SKU first creates noise without context.',
+  Q10:'Step 7 is "Who owns next?" — a named person and a date. If a row leaves the room without an owner and a due date, it is not a decision; it is a parking-lot item.',
+  Q11:'Rule 5 (Cite a reference or move to R&O) is the explicit UK substitute for guardrails — every challenge must cite one of the three references, otherwise the item is routed to R&O.',
+  Q12:'Session 1 is ANCHOR → RECONCILE → NEUTRALIZE → DISAGGREGATE. Deltas vs consensus are neutralized as Base Trend Adjustments at L2.5 by the Captain. With a named driver and evidence, the item is not waiting on the KAM and not an R&O.',
+  Q13:'Structural brand-level shifts belong in Base Trend (Captain at L2.5, next cycle). A specific account-level event would be an Enrichment (KAM, this cycle). Two-bucket entries get rejected.',
+  Q14:'Marketing / DP enrichments enter at L2.5 via the Enrichment Capture Template (ECT) and disaggregate to L1 across partners using baseline disaggregation rules. Marketing + DP cannot re-open the Captain\'s Base Trend or the KAM\'s L1 enrichments — if either needs to move, the item routes back to that owner.',
+  Q15:'Three to five material movements, each told in the 7-part narrative in five minutes. If a movement does not fit in five minutes, it is not ready for sign-off and goes back to Session 3.'
+};
+
+function handleMod5Post(payload) {
+  try {
+    var validationError = validatePayload_mod5(payload);
+    if (validationError) return buildResponse({ error: validationError }, 400);
+
+    var scoreResult = scoreSubmission_mod5(payload.answers);
+    var sheetUrl    = appendToSheet_mod5(payload, scoreResult);
+    sendEmails_mod5(payload, scoreResult, sheetUrl);
+
+    return buildResponse({
+      score:            scoreResult.score,
+      total:            TOTAL_QUESTIONS_MOD5,
+      percent:          scoreResult.percent,
+      pass:             scoreResult.pass,
+      failed_questions: scoreResult.failedQNums
+    });
+  } catch (err) {
+    Logger.log('handleMod5Post error: ' + err.message + '\n' + err.stack);
+    return buildResponse({ error: 'Server error. Please try again.' }, 500);
+  }
+}
+
+function validatePayload_mod5(p) {
+  if (!p.name || String(p.name).trim().length < 2) return 'Name is required.';
+  var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!p.email || !emailRe.test(String(p.email).trim())) return 'Valid email is required.';
+  if (!p.role) return 'Role is required.';
+  if (!p.answers || typeof p.answers !== 'object') return 'Answers are required.';
+  for (var i = 1; i <= TOTAL_QUESTIONS_MOD5; i++) {
+    var key = 'Q' + i;
+    var val = p.answers[key];
+    if (!val || !['A','B','C','D'].includes(String(val).toUpperCase())) {
+      return 'Answer for ' + key + ' is missing or invalid.';
+    }
+  }
+  return null;
+}
+
+function scoreSubmission_mod5(answers) {
+  var score = 0;
+  var results = {};
+  var failedQNums = [];
+  for (var i = 1; i <= TOTAL_QUESTIONS_MOD5; i++) {
+    var key     = 'Q' + i;
+    var given   = String(answers[key] || '').toUpperCase();
+    var correct = ANSWER_KEY_MOD5[key];
+    var isCorrect = given === correct;
+    results[key] = { given: given, correct: isCorrect };
+    if (isCorrect) { score++; } else { failedQNums.push(i); }
+  }
+  var percent = Math.round((score / TOTAL_QUESTIONS_MOD5) * 10000) / 100;
+  return { score: score, percent: percent, pass: score >= PASS_THRESHOLD_MOD5, results: results, failedQNums: failedQNums };
+}
+
+function appendToSheet_mod5(payload, scoreResult) {
+  var ss    = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(SHEET_NAME);
+  if (!sheet) { sheet = ss.insertSheet(SHEET_NAME); writeHeaders(sheet); }
+  if (sheet.getLastRow() === 0) writeHeaders(sheet);
+
+  var moduleId      = 'mod5';
+  var attemptNumber = computeAttemptNumber(String(payload.email).trim().toLowerCase(), moduleId, sheet);
+
+  var now = new Date();
+  var row = [
+    now, payload.name.trim(), payload.email.trim().toLowerCase(), payload.role,
+    payload.roleOther || '', scoreResult.score, scoreResult.percent,
+    scoreResult.pass ? 'Pass' : 'Fail'
+  ];
+
+  // Q1–Q15 answer + correct pairs
+  for (var i = 1; i <= TOTAL_QUESTIONS_MOD5; i++) {
+    var key = 'Q' + i;
+    var r   = scoreResult.results[key];
+    row.push(r.given);
+    row.push(r.correct);
+  }
+  // Q16 placeholder blank — preserves column alignment (1 blank pair)
+  row.push('');
+  row.push('');
+
+  row.push(scoreResult.failedQNums.join(', '));
+  row.push(true);
+  row.push((payload.userAgent || '').slice(0, 200));
+  row.push(moduleId);
+  row.push(attemptNumber);
+
+  sheet.appendRow(row);
+  return ss.getUrl();
+}
+
+function sendEmails_mod5(payload, scoreResult, sheetUrl) {
+  var name  = payload.name.trim();
+  var email = payload.email.trim().toLowerCase();
+  try {
+    if (scoreResult.pass) {
+      sendPassEmail_mod5(email, name, scoreResult.score, TOTAL_QUESTIONS_MOD5, scoreResult.percent);
+    } else {
+      sendFailEmail_mod5(email, name, scoreResult.score, TOTAL_QUESTIONS_MOD5, scoreResult.percent, scoreResult.failedQNums);
+    }
+    sendNotificationEmail_mod5(payload, scoreResult, sheetUrl);
+    return true;
+  } catch (err) {
+    Logger.log('MOD 5 email error: ' + err.message);
+    return false;
+  }
+}
+
+function emailShell_mod5(contentHtml) {
+  return '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#f0f4f8;font-family:Arial,sans-serif;">' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f4f8;padding:32px 0;">' +
+    '<tr><td align="center">' +
+    '<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">' +
+    '<tr><td style="background:#0d1b2e;padding:28px 40px;text-align:center;">' +
+    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Forecast Enrichment Programme · UK Pilot</p>' +
+    '<p style="margin:8px 0 0;color:#ffffff;font-size:20px;font-weight:700;">MOD 5 Knowledge Check</p>' +
+    '</td></tr>' +
+    '<tr><td style="padding:40px;">' + contentHtml + '</td></tr>' +
+    '<tr><td style="background:#f8f9fa;padding:20px 40px;border-top:1px solid #e9ecef;text-align:center;">' +
+    '<p style="margin:0;color:#6c757d;font-size:12px;">Rene Bartoli · Demand Planning · Forecast Enrichment Program</p>' +
+    '</td></tr>' +
+    '</table></td></tr></table></body></html>';
+}
+
+function sendPassEmail_mod5(toEmail, name, score, total, pct) {
+  var subject = '✓ MOD 5 Knowledge Check — Passed';
+  var content =
+    '<div style="text-align:center;margin-bottom:32px;">' +
+    '<div style="display:inline-block;background:#d4edda;border-radius:50%;width:72px;height:72px;line-height:72px;font-size:36px;">✓</div>' +
+    '<h2 style="margin:16px 0 4px;color:#0d1b2e;font-size:24px;">Well done, ' + name + '!</h2>' +
+    '<p style="margin:0;color:#6c757d;font-size:15px;">You\'ve passed the MOD 5 knowledge check</p>' +
+    '</div>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f9fa;border-radius:8px;margin-bottom:28px;">' +
+    '<tr>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">' + score + '/' + total + '</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Score</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">' + Math.round(pct) + '%</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Accuracy</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">PASS</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Status</p>' +
+    '</td>' +
+    '</tr></table>' +
+    '<p style="color:#495057;font-size:15px;line-height:1.6;">You\'ve met the <strong>80% threshold</strong> for MOD 5 — Reconciliation &amp; Decision Narrative.</p>' +
+    '<div style="background:#e8f8f5;border-left:4px solid #00c9a7;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
+    '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">What\'s next</p>' +
+    '<p style="margin:6px 0 0;color:#495057;font-size:14px;">You\'re ready for the UK pilot in-person training week (Tue–Thu). Bring the references and the 7-part narrative.</p>' +
+    '</div>' +
+    '<p style="color:#6c757d;font-size:14px;line-height:1.6;">If you have questions about MOD 5 concepts, revisit the facilitator deck in the project SharePoint or reach out to the Demand Planning team.</p>';
+  MailApp.sendEmail({ to: toEmail, subject: subject, htmlBody: emailShell_mod5(content) });
+}
+
+function sendFailEmail_mod5(toEmail, name, score, total, pct, failedQNums) {
+  var subject = 'MOD 5 Knowledge Check — Please review and retry';
+
+  var missedRows = failedQNums.map(function(num) {
+    var key        = 'Q' + num;
+    var qText      = QUESTION_TEXT_MOD5[key] || '';
+    var refs       = SLIDE_REFS_MOD5[key] || '';
+    var rationale  = RATIONALES_MOD5[key] || '';
+    var slideLabel = refs.indexOf(',') > -1 ? 'Slides' : 'Slide';
+    return '<tr style="border-bottom:1px solid #e9ecef;">' +
+      '<td style="padding:12px 8px;color:#0d1b2e;font-weight:700;font-size:13px;white-space:nowrap;">Q' + num + '</td>' +
+      '<td style="padding:12px 8px;font-size:13px;line-height:1.5;">' +
+        '<div style="color:#495057;">' + qText + '</div>' +
+        '<div style="color:#6c757d;font-style:italic;margin-top:6px;font-size:12px;">' + rationale + '</div>' +
+      '</td>' +
+      '<td style="padding:12px 8px;color:#00c9a7;font-size:13px;white-space:nowrap;">' + slideLabel + ' ' + refs + '</td>' +
+      '</tr>';
+  }).join('');
+
+  var content =
+    '<div style="text-align:center;margin-bottom:32px;">' +
+    '<div style="display:inline-block;background:#fff3cd;border-radius:50%;width:72px;height:72px;line-height:72px;font-size:36px;">📋</div>' +
+    '<h2 style="margin:16px 0 4px;color:#0d1b2e;font-size:24px;">Hi ' + name + '</h2>' +
+    '<p style="margin:0;color:#6c757d;font-size:15px;">A little more review needed</p>' +
+    '</div>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f9fa;border-radius:8px;margin-bottom:28px;">' +
+    '<tr>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#ffd60a;">' + score + '/' + total + '</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Score</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#ffd60a;">' + Math.round(pct) + '%</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Accuracy</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#dc3545;">RETRY</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Status</p>' +
+    '</td>' +
+    '</tr></table>' +
+    '<p style="color:#495057;font-size:15px;line-height:1.6;">No worries — the goal is for everyone to fully land MOD 5 before the in-person training week.</p>' +
+    '<h3 style="color:#0d1b2e;font-size:16px;font-weight:700;margin:24px 0 12px;">Questions to Review to Better Your Understanding</h3>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e9ecef;border-radius:8px;overflow:hidden;margin:20px 0;">' +
+    '<tr style="background:#0d1b2e;">' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">#</th>' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Question &amp; Rationale</th>' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Review</th>' +
+    '</tr>' +
+    missedRows +
+    '</table>' +
+    '<div style="background:#fff3cd;border-left:4px solid #ffd60a;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
+    '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">Note</p>' +
+    '<p style="margin:6px 0 0;color:#495057;font-size:14px;">I\'m deliberately not sharing the correct answers here — go back to the material and find them yourself. That\'s where the learning sticks.</p>' +
+    '</div>' +
+    '<div style="text-align:center;margin-top:28px;">' +
+    '<a href="' + QUIZ_URL_MOD5 + '" style="display:inline-block;background:#ffd60a;color:#0d1b2e;font-weight:700;font-size:15px;padding:14px 32px;border-radius:8px;text-decoration:none;">Retake the Quiz →</a>' +
+    '</div>';
+
+  MailApp.sendEmail({ to: toEmail, subject: subject, htmlBody: emailShell_mod5(content) });
+}
+
+function sendNotificationEmail_mod5(payload, scoreResult, sheetUrl) {
+  var name        = payload.name.trim();
+  var email       = payload.email.trim().toLowerCase();
+  var role        = payload.role + (payload.roleOther ? ' (' + payload.roleOther + ')' : '');
+  var score       = scoreResult.score;
+  var total       = TOTAL_QUESTIONS_MOD5;
+  var pct         = scoreResult.percent;
+  var status      = scoreResult.pass ? 'PASS' : 'FAIL';
+  var failedCount = scoreResult.failedQNums.length;
+  var failedList  = failedCount > 0
+    ? '  (' + scoreResult.failedQNums.map(function(n) { return 'Q' + n; }).join(', ') + ')'
+    : '';
+
+  var subject = '[MOD 5 Quiz] ' + name + ' — ' + score + '/' + total + ' — ' + status;
+  var body =
+    name + ' (' + email + ', ' + role + ') just submitted the MOD 5 Knowledge Check.\n\n' +
     'Score: ' + score + ' / ' + total + ' (' + pct + '%)\n' +
     'Status: ' + status + '\n' +
     'Questions failed: ' + failedCount + ' of ' + total + failedList + '\n\n' +
