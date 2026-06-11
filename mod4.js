@@ -1345,7 +1345,7 @@ async function sendReminderEmails() {
       document.querySelectorAll('.pending-user-cb').forEach(cb => { cb.checked = false; });
       updatePendingCount();
     } else {
-      if (status) { status.style.color = 'var(--coral)'; status.textContent = 'Error: ' + (data.error || 'Unknown'); }
+      if (status) { status.style.color = 'var(--coral)'; status.textContent = 'Error: ' + (data.error || data.status || JSON.stringify(data)); }
     }
   } catch(err) {
     if (status) { status.style.color = 'var(--coral)'; status.textContent = 'Network error — check Apps Script is deployed.'; }
