@@ -1231,35 +1231,92 @@ function closeDrillDown(event) {
   document.body.style.overflow = '';
 }
 
+
 // ── Pending users ──────────────────────────────────────────────────────────────
 let pendingActiveModules = new Set(['mod1', 'mod2', 'mod4', 'mod5']);
+let pendingViewType = 'never'; // 'never' | 'failed'
 
-function renderPendingUsers() {
-  const allMods = ['mod1', 'mod2', 'mod4', 'mod5'];
-  const modLabels = { mod1: 'MOD 1', mod2: 'MOD 2', mod4: 'MOD 4', mod5: 'MOD 5' };
+function computePendingBuckets() {
+  const attemptedMap = {};
+  const infoMap      = {};
 
-  const passedMap = {};
   dashAllRows.forEach(r => {
     const mod = r.module || 'mod1';
-    if (!passedMap[r.email]) passedMap[r.email] = { name: r.name, email: r.email, passed: new Set() };
-    if (!passedMap[r.email].name) passedMap[r.email].name = r.name;
-    if (r.status === 'Pass') passedMap[r.email].passed.add(mod);
+    const em  = r.email;
+    if (!infoMap[em])      infoMap[em]      = { name: r.name, email: em, passed: new Set() };
+    if (!attemptedMap[em]) attemptedMap[em] = new Set();
+    if (!infoMap[em].name) infoMap[em].name = r.name;
+    attemptedMap[em].add(mod);
+    if (r.status === 'Pass') infoMap[em].passed.add(mod);
   });
 
-  const pendingPerMod = {};
+  const neverAttempted = {};
+  const failedOnly     = {};
+
+  Object.keys(infoMap).forEach(em => {
+    const info      = infoMap[em];
+    const attempted = attemptedMap[em] || new Set();
+    [...pendingActiveModules].forEach(mod => {
+      if (info.passed.has(mod)) return;
+      if (!attempted.has(mod)) {
+        if (!neverAttempted[em]) neverAttempted[em] = { name: info.name, email: em, mods: [] };
+        neverAttempted[em].mods.push(mod);
+      } else {
+        if (!failedOnly[em]) failedOnly[em] = { name: info.name, email: em, mods: [] };
+        failedOnly[em].mods.push(mod);
+      }
+    });
+  });
+
+  return { neverAttempted, failedOnly };
+}
+
+function renderPendingUsers() {
+  const allMods   = ['mod1', 'mod2', 'mod4', 'mod5'];
+  const modLabels = { mod1: 'MOD 1', mod2: 'MOD 2', mod4: 'MOD 4', mod5: 'MOD 5' };
+
+  const { neverAttempted, failedOnly } = computePendingBuckets();
+
+  const neverPerMod  = {};
+  const failedPerMod = {};
   allMods.forEach(m => {
-    pendingPerMod[m] = Object.values(passedMap).filter(u => !u.passed.has(m)).length;
+    neverPerMod[m]  = Object.values(neverAttempted).filter(u => u.mods.includes(m)).length;
+    failedPerMod[m] = Object.values(failedOnly).filter(u => u.mods.includes(m)).length;
   });
 
+  // View toggle
+  const toggleEl = $('pending-view-toggle');
+  if (toggleEl) {
+    const nTotal = Object.keys(neverAttempted).length;
+    const fTotal = Object.keys(failedOnly).length;
+    toggleEl.innerHTML = '';
+    [
+      { key: 'never',  label: 'Never taken the test',   count: nTotal },
+      { key: 'failed', label: 'Taken — not yet passed', count: fTotal }
+    ].forEach(t => {
+      const active = pendingViewType === t.key;
+      const btn = document.createElement('button');
+      btn.dataset.type = t.key;
+      btn.style.cssText = `padding:7px 18px;font-size:12px;font-weight:700;border-radius:20px;cursor:pointer;margin-right:4px;` +
+        `border:1.5px solid ${active ? 'var(--yellow)' : 'var(--navy-light)'};` +
+        `background:${active ? 'var(--yellow)' : 'transparent'};` +
+        `color:${active ? 'var(--navy-dark)' : 'var(--gray-muted)'};`;
+      btn.innerHTML = `${escHtml(t.label)} <span style="background:${active ? 'rgba(0,0,0,.15)' : 'var(--navy-light)'};border-radius:10px;padding:1px 7px;margin-left:4px;">${t.count}</span>`;
+      btn.addEventListener('click', () => { pendingViewType = t.key; renderPendingUsers(); });
+      toggleEl.appendChild(btn);
+    });
+  }
+
+  // Module tabs
   const tabsEl = $('pending-mod-tabs');
   if (tabsEl) {
     tabsEl.innerHTML = allMods.map(m => {
       const active = pendingActiveModules.has(m);
-      const count  = pendingPerMod[m];
-      return `<button class="pending-tab ${active ? 'pending-tab-active' : ''}" data-mod="${m}"
-        style="padding:6px 14px;font-size:12px;font-weight:700;border-radius:20px;border:1.5px solid ${active ? 'var(--teal)' : 'var(--navy-light)'};
+      const count  = pendingViewType === 'never' ? neverPerMod[m] : failedPerMod[m];
+      return `<button class="pending-tab${active ? ' pending-tab-active' : ''}" data-mod="${m}"
+        style="padding:5px 12px;font-size:11px;font-weight:700;border-radius:16px;border:1.5px solid ${active ? 'var(--teal)' : 'var(--navy-light)'};
         background:${active ? 'var(--teal)' : 'transparent'};color:${active ? 'var(--navy-dark)' : 'var(--gray-muted)'};cursor:pointer;">
-        ${modLabels[m]} <span style="background:${active ? 'rgba(0,0,0,.15)' : 'var(--navy-light)'};border-radius:10px;padding:1px 7px;margin-left:4px;">${count}</span>
+        ${modLabels[m]} <span style="background:${active ? 'rgba(0,0,0,.15)' : 'var(--navy-light)'};border-radius:10px;padding:1px 6px;margin-left:3px;">${count}</span>
       </button>`;
     }).join('');
     tabsEl.querySelectorAll('.pending-tab').forEach(btn => {
@@ -1272,33 +1329,30 @@ function renderPendingUsers() {
     });
   }
 
-  const pendingUsers = {};
-  Object.values(passedMap).forEach(u => {
-    const missing = [...pendingActiveModules].filter(m => !u.passed.has(m));
-    if (!missing.length) return;
-    pendingUsers[u.email] = { name: u.name, email: u.email, missingMods: missing };
-  });
-
-  const listEl = $('pending-user-list');
+  // User list for current view
+  const source  = pendingViewType === 'never' ? neverAttempted : failedOnly;
+  const entries = Object.values(source).sort((a, b) => a.name.localeCompare(b.name));
+  const listEl  = $('pending-user-list');
   if (!listEl) return;
 
-  const entries = Object.values(pendingUsers).sort((a, b) => a.name.localeCompare(b.name));
   if (!entries.length) {
-    listEl.innerHTML = '<p style="color:var(--teal);font-size:13px;padding:8px 0;">All participants have passed the selected modules.</p>';
+    const msg = pendingViewType === 'never'
+      ? 'All participants have at least one attempt for the selected modules.'
+      : 'No participants have outstanding failed attempts for the selected modules.';
+    listEl.innerHTML = `<p style="color:var(--teal);font-size:13px;padding:8px 0;">${msg}</p>`;
     const btn = $('btn-send-reminders');
     if (btn) btn.disabled = true;
-    const cnt = $('pending-selected-count');
-    if (cnt) cnt.textContent = '';
+    if ($('pending-selected-count')) $('pending-selected-count').textContent = '';
     return;
   }
 
   listEl.innerHTML = entries.map(u => {
-    const modBadges = u.missingMods.map(m =>
+    const modBadges = u.mods.map(m =>
       `<span style="font-size:11px;background:var(--navy-light);color:var(--gray-muted);border-radius:4px;padding:2px 8px;">${modLabels[m]}</span>`
     ).join(' ');
     return `<label style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;cursor:pointer;border:1px solid var(--navy-light);margin-bottom:6px;background:var(--navy-mid);">
       <input type="checkbox" class="pending-user-cb" value="${escHtml(u.email)}"
-        data-name="${escHtml(u.name)}" data-modules="${escHtml(u.missingMods.join(','))}"
+        data-name="${escHtml(u.name)}" data-modules="${escHtml(u.mods.join(','))}" data-type="${pendingViewType}"
         style="width:15px;height:15px;accent-color:var(--teal);" onchange="updatePendingCount()">
       <div style="flex:1;min-width:0;">
         <div style="font-size:14px;font-weight:600;color:var(--white);">${escHtml(u.name)}</div>
@@ -1329,7 +1383,8 @@ async function sendReminderEmails() {
   const recipients = checkboxes.map(cb => ({
     name:    cb.dataset.name,
     email:   cb.value,
-    modules: cb.dataset.modules.split(',').filter(Boolean)
+    modules: cb.dataset.modules.split(',').filter(Boolean),
+    type:    cb.dataset.type || pendingViewType
   }));
 
   const btn    = $('btn-send-reminders');
@@ -1345,7 +1400,7 @@ async function sendReminderEmails() {
     if (data.ok) {
       if (status) {
         status.style.color = 'var(--teal)';
-        status.textContent = `✓ ${data.sent} reminder${data.sent !== 1 ? 's' : ''} sent. Rene will receive a summary.`;
+        status.textContent = `✓ ${data.sent} reminder${data.sent !== 1 ? 's' : ''} sent. You will receive a summary shortly.`;
       }
       document.querySelectorAll('.pending-user-cb').forEach(cb => { cb.checked = false; });
       updatePendingCount();

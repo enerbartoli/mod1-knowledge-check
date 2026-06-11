@@ -1335,7 +1335,7 @@ function handleSendReminders(e) {
     var failed = [];
     recipients.forEach(function(r) {
       try {
-        sendReminderEmailToUser(r.name, r.email, r.modules);
+        sendReminderEmailToUser(r.name, r.email, r.modules, r.type || 'never');
         sent.push(r);
       } catch(err) {
         failed.push({ email: r.email, error: err.message });
@@ -1363,8 +1363,10 @@ var MODULE_URLS = {
   mod5: 'https://enerbartoli.github.io/mod1-knowledge-check/mod5.html'
 };
 
-function sendReminderEmailToUser(name, email, modules) {
+function sendReminderEmailToUser(name, email, modules, type) {
   var firstName = name.split(' ')[0];
+  var MATERIAL_URL = 'https://hasbroinc-my.sharepoint.com/:f:/g/personal/bartolr_na_hasbro_com/IgDTVoUhXY2yRrvpzKMu9DOlAYapr_YaxJ5FFKt3bQ4PkP0?e=4zLYnp';
+
   var moduleRows = modules.map(function(m) {
     var label = MODULE_LABELS[m] || m;
     var url   = MODULE_URLS[m] || '#';
@@ -1376,25 +1378,54 @@ function sendReminderEmailToUser(name, email, modules) {
     '</tr>';
   }).join('');
 
-  var content =
-    '<p style="color:#495057;font-size:15px;line-height:1.7;">Hi ' + firstName + ',</p>' +
-    '<p style="color:#495057;font-size:15px;line-height:1.7;">This is a reminder that your participation in the <strong>HERO Forecast Enrichment Programme</strong> requires you to pass all knowledge-check modules <strong>before the Kick-Off session</strong>.</p>' +
-    '<p style="color:#495057;font-size:15px;line-height:1.7;">Passing all modules is a prerequisite for your account to be enabled in the <strong>production version of HERO</strong>. The modules below are still showing as outstanding for you:</p>' +
+  var modTable =
     '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e9ecef;border-radius:8px;overflow:hidden;margin:20px 0;">' +
     '<tr style="background:#0d1b2e;">' +
     '<th style="padding:10px 12px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Outstanding Module</th>' +
     '<th style="padding:10px 12px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:center;">Action</th>' +
     '</tr>' +
     moduleRows +
-    '</table>' +
-    '<div style="background:#fff3cd;border-left:4px solid #ffd60a;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
-    '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">Why this matters</p>' +
-    '<p style="margin:6px 0 0;color:#495057;font-size:14px;">Each module ensures you have the knowledge to use HERO confidently and accurately. Completing them before Kick-Off means you can participate fully from day one.</p>' +
-    '</div>' +
-    '<p style="color:#495057;font-size:15px;line-height:1.7;">If you have any questions about the material or the process, please reach out to your programme lead directly.</p>' +
-    '<p style="color:#495057;font-size:14px;line-height:1.7;margin-top:28px;">Good luck — you\'ve got this.<br><strong>HERO Tool Notifications</strong></p>';
+    '</table>';
 
-  var subject = 'Action Required: Complete Your HERO Knowledge Checks Before Kick-Off';
+  var content, subject;
+
+  if (type === 'failed') {
+    subject = 'Action Required: Retake Your HERO Knowledge Checks Before Kick-Off';
+    content =
+      '<p style="color:#495057;font-size:15px;line-height:1.7;">Hi ' + firstName + ',</p>' +
+      '<p style="color:#495057;font-size:15px;line-height:1.7;">This is a reminder that you have attempted the following <strong>HERO Forecast Enrichment knowledge-check module(s)</strong> but have not yet achieved a passing score:</p>' +
+      modTable +
+      '<p style="color:#495057;font-size:15px;line-height:1.7;">Passing all modules is a prerequisite for your account to be enabled in the <strong>production version of HERO</strong> before the Kick-Off session. Please review the material and retake the quiz at your earliest convenience.</p>' +
+      '<div style="background:#fff3cd;border-left:4px solid #ffd60a;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
+      '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">Course material</p>' +
+      '<p style="margin:6px 0 0;color:#495057;font-size:14px;">The full training material is available in the ' +
+      '<a href="' + MATERIAL_URL + '" style="color:#0d7a5f;font-weight:600;">Forecast Enrichment Programme SharePoint folder</a>. ' +
+      'Review the relevant slides before retaking.</p>' +
+      '</div>' +
+      '<p style="color:#495057;font-size:15px;line-height:1.7;">If you have any questions, please reach out to your programme lead.</p>' +
+      '<p style="color:#495057;font-size:14px;line-height:1.7;margin-top:28px;">Good luck — you can do it.<br><strong>HERO Tool Notifications</strong></p>';
+  } else {
+    // type === 'never' (default)
+    subject = 'Action Required: Complete Your HERO Knowledge Checks Before Kick-Off';
+    content =
+      '<p style="color:#495057;font-size:15px;line-height:1.7;">Hi ' + firstName + ',</p>' +
+      '<p style="color:#495057;font-size:15px;line-height:1.7;">This is a reminder that the following <strong>HERO Forecast Enrichment knowledge-check module(s)</strong> are still outstanding for you:</p>' +
+      modTable +
+      '<p style="color:#495057;font-size:15px;line-height:1.7;">Passing all modules is a prerequisite for your account to be enabled in the <strong>production version of HERO</strong> before the Kick-Off session.</p>' +
+      '<div style="background:#e8f5f0;border-left:4px solid #00c9a7;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
+      '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">Start here — course material</p>' +
+      '<p style="margin:6px 0 0;color:#495057;font-size:14px;">All training materials are available in the ' +
+      '<a href="' + MATERIAL_URL + '" style="color:#0d7a5f;font-weight:600;">Forecast Enrichment Programme SharePoint folder</a>. ' +
+      'Review the relevant module slides before taking the quiz.</p>' +
+      '</div>' +
+      '<div style="background:#fff3cd;border-left:4px solid #ffd60a;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
+      '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">Why this matters</p>' +
+      '<p style="margin:6px 0 0;color:#495057;font-size:14px;">Each module ensures you have the knowledge to use HERO confidently and accurately. Completing them before Kick-Off means you can participate fully from day one.</p>' +
+      '</div>' +
+      '<p style="color:#495057;font-size:15px;line-height:1.7;">If you have any questions about the material or the process, please reach out to your programme lead directly.</p>' +
+      '<p style="color:#495057;font-size:14px;line-height:1.7;margin-top:28px;">Good luck — you\'ve got this.<br><strong>HERO Tool Notifications</strong></p>';
+  }
+
   var shell = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#f0f4f8;font-family:Calibri,Arial,sans-serif;">' +
     '<table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:32px 16px;">' +
     '<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08);">' +
@@ -1418,11 +1449,14 @@ function sendReminderSummaryToRene(sent, failed) {
   var dateStr = Utilities.formatDate(now, Session.getScriptTimeZone(), 'dd MMM yyyy HH:mm');
 
   var sentRows = sent.map(function(r) {
-    var mods = (r.modules || []).map(function(m) { return MODULE_LABELS[m] || m; }).join('<br>');
+    var mods     = (r.modules || []).map(function(m) { return MODULE_LABELS[m] || m; }).join('<br>');
+    var typeLabel = r.type === 'failed' ? 'Taken — not yet passed' : 'Never attempted';
+    var typeColor = r.type === 'failed' ? '#FFC72C' : '#00c9a7';
     return '<tr style="border-bottom:1px solid #e9ecef;">' +
       '<td style="padding:9px 12px;font-size:14px;color:#0d1b2e;">' + r.name + '</td>' +
       '<td style="padding:9px 12px;font-size:14px;color:#495057;">' + r.email + '</td>' +
       '<td style="padding:9px 12px;font-size:13px;color:#495057;">' + mods + '</td>' +
+      '<td style="padding:9px 12px;font-size:12px;font-weight:700;color:' + typeColor + ';">' + typeLabel + '</td>' +
     '</tr>';
   }).join('');
 
@@ -1444,7 +1478,8 @@ function sendReminderSummaryToRene(sent, failed) {
     '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e9ecef;border-radius:8px;overflow:hidden;margin:16px 0;">' +
     '<tr style="background:#0d1b2e;"><th style="padding:9px 12px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Name</th>' +
     '<th style="padding:9px 12px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Email</th>' +
-    '<th style="padding:9px 12px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Outstanding Modules</th></tr>' +
+    '<th style="padding:9px 12px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Outstanding Modules</th>' +
+    '<th style="padding:9px 12px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Type</th></tr>' +
     sentRows +
     '</table>' +
     (failedRows ? '<p style="color:#dc3545;font-size:14px;margin-top:20px;"><strong>' + failed.length + ' failed to send:</strong></p>' +
