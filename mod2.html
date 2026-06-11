@@ -360,6 +360,37 @@
         <div id="dash-table-wrap"></div>
       </div>
 
+      <!-- ── Pending Users & Reminder Emails ─────────────────────────────── -->
+      <div class="card" style="padding:20px 24px;" id="pending-users-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:16px;">
+          <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gray-muted);margin:0;">Pending users — no successful attempt</p>
+          <button id="btn-pending-refresh" class="btn btn-ghost" style="padding:7px 16px;font-size:13px;">↻ Refresh</button>
+        </div>
+
+        <!-- Module tabs -->
+        <div id="pending-mod-tabs" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;"></div>
+
+        <!-- Select all / actions row -->
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px;">
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--gray-muted);cursor:pointer;">
+            <input type="checkbox" id="pending-select-all" style="width:15px;height:15px;accent-color:var(--teal);">
+            Select / deselect all
+          </label>
+          <span id="pending-selected-count" style="font-size:12px;color:var(--gray-muted);"></span>
+        </div>
+
+        <!-- User list -->
+        <div id="pending-user-list" style="margin-bottom:16px;"></div>
+
+        <!-- Send button -->
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+          <button id="btn-send-reminders" class="btn btn-teal" style="padding:10px 24px;font-size:14px;" disabled>
+            ✉ Send Reminder Emails
+          </button>
+          <span id="pending-send-status" style="font-size:13px;color:var(--teal);"></span>
+        </div>
+      </div>
+
       <div style="text-align:center;">
         <button id="btn-dash-to-quiz" class="btn-link" style="font-size:13px;color:var(--gray-muted);">← Back to quiz</button>
       </div>

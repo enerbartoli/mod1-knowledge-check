@@ -610,6 +610,13 @@ function initDashboard() {
   });
 
   $('btn-dash-refresh').addEventListener('click', refreshDash);
+  $('btn-pending-refresh').addEventListener('click', renderPendingUsers);
+  $('pending-select-all').addEventListener('change', function() {
+    const checked = this.checked;
+    document.querySelectorAll('.pending-user-cb').forEach(cb => { cb.checked = checked; });
+    updatePendingCount();
+  });
+  $('btn-send-reminders').addEventListener('click', sendReminderEmails);
 }
 
 function checkDashAuth() {
@@ -722,6 +729,7 @@ function renderDash() {
   renderPassRateByRole(dashFiltered);
   renderFirstAttemptPassRate(dashFiltered);
   renderAttemptsToPAss(dashFiltered);
+  renderPendingUsers();
 }
 
 function renderKPIs() {
@@ -1221,4 +1229,134 @@ function closeDrillDown(event) {
   if (event && event.target !== $('drill-modal')) return;
   $('drill-modal').classList.add('hidden');
   document.body.style.overflow = '';
+}
+
+// ── Pending users ──────────────────────────────────────────────────────────────
+let pendingActiveModules = new Set(['mod1', 'mod2', 'mod4', 'mod5']);
+
+function renderPendingUsers() {
+  const allMods = ['mod1', 'mod2', 'mod4', 'mod5'];
+  const modLabels = { mod1: 'MOD 1', mod2: 'MOD 2', mod4: 'MOD 4', mod5: 'MOD 5' };
+
+  const passedMap = {};
+  dashAllRows.forEach(r => {
+    const mod = r.module || 'mod1';
+    if (!passedMap[r.email]) passedMap[r.email] = { name: r.name, email: r.email, passed: new Set() };
+    if (!passedMap[r.email].name) passedMap[r.email].name = r.name;
+    if (r.status === 'Pass') passedMap[r.email].passed.add(mod);
+  });
+
+  const pendingPerMod = {};
+  allMods.forEach(m => {
+    pendingPerMod[m] = Object.values(passedMap).filter(u => !u.passed.has(m)).length;
+  });
+
+  const tabsEl = $('pending-mod-tabs');
+  if (tabsEl) {
+    tabsEl.innerHTML = allMods.map(m => {
+      const active = pendingActiveModules.has(m);
+      const count  = pendingPerMod[m];
+      return `<button class="pending-tab ${active ? 'pending-tab-active' : ''}" data-mod="${m}"
+        style="padding:6px 14px;font-size:12px;font-weight:700;border-radius:20px;border:1.5px solid ${active ? 'var(--teal)' : 'var(--navy-light)'};
+        background:${active ? 'var(--teal)' : 'transparent'};color:${active ? 'var(--navy-dark)' : 'var(--gray-muted)'};cursor:pointer;">
+        ${modLabels[m]} <span style="background:${active ? 'rgba(0,0,0,.15)' : 'var(--navy-light)'};border-radius:10px;padding:1px 7px;margin-left:4px;">${count}</span>
+      </button>`;
+    }).join('');
+    tabsEl.querySelectorAll('.pending-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const m = btn.dataset.mod;
+        if (pendingActiveModules.has(m)) pendingActiveModules.delete(m);
+        else pendingActiveModules.add(m);
+        renderPendingUsers();
+      });
+    });
+  }
+
+  const pendingUsers = {};
+  Object.values(passedMap).forEach(u => {
+    const missing = [...pendingActiveModules].filter(m => !u.passed.has(m));
+    if (!missing.length) return;
+    pendingUsers[u.email] = { name: u.name, email: u.email, missingMods: missing };
+  });
+
+  const listEl = $('pending-user-list');
+  if (!listEl) return;
+
+  const entries = Object.values(pendingUsers).sort((a, b) => a.name.localeCompare(b.name));
+  if (!entries.length) {
+    listEl.innerHTML = '<p style="color:var(--teal);font-size:13px;padding:8px 0;">All participants have passed the selected modules.</p>';
+    const btn = $('btn-send-reminders');
+    if (btn) btn.disabled = true;
+    const cnt = $('pending-selected-count');
+    if (cnt) cnt.textContent = '';
+    return;
+  }
+
+  listEl.innerHTML = entries.map(u => {
+    const modBadges = u.missingMods.map(m =>
+      `<span style="font-size:11px;background:var(--navy-light);color:var(--gray-muted);border-radius:4px;padding:2px 8px;">${modLabels[m]}</span>`
+    ).join(' ');
+    return `<label style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;cursor:pointer;border:1px solid var(--navy-light);margin-bottom:6px;background:var(--navy-mid);">
+      <input type="checkbox" class="pending-user-cb" value="${escHtml(u.email)}"
+        data-name="${escHtml(u.name)}" data-modules="${escHtml(u.missingMods.join(','))}"
+        style="width:15px;height:15px;accent-color:var(--teal);" onchange="updatePendingCount()">
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:14px;font-weight:600;color:var(--white);">${escHtml(u.name)}</div>
+        <div style="font-size:12px;color:var(--gray-muted);margin-top:2px;">${escHtml(u.email)}</div>
+      </div>
+      <div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;">${modBadges}</div>
+    </label>`;
+  }).join('');
+
+  updatePendingCount();
+}
+
+function updatePendingCount() {
+  const checked = document.querySelectorAll('.pending-user-cb:checked').length;
+  const total   = document.querySelectorAll('.pending-user-cb').length;
+  const cnt = $('pending-selected-count');
+  if (cnt) cnt.textContent = checked ? `${checked} of ${total} selected` : '';
+  const btn = $('btn-send-reminders');
+  if (btn) btn.disabled = checked === 0;
+  const selAll = $('pending-select-all');
+  if (selAll) selAll.checked = total > 0 && checked === total;
+}
+
+async function sendReminderEmails() {
+  const checkboxes = [...document.querySelectorAll('.pending-user-cb:checked')];
+  if (!checkboxes.length) return;
+
+  const recipients = checkboxes.map(cb => ({
+    name:    cb.dataset.name,
+    email:   cb.value,
+    modules: cb.dataset.modules.split(',').filter(Boolean)
+  }));
+
+  const btn    = $('btn-send-reminders');
+  const status = $('pending-send-status');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Sending…';
+  if (status) status.textContent = '';
+
+  try {
+    const url = APPS_SCRIPT_URL + '?action=sendReminders&data=' + encodeURIComponent(JSON.stringify({ recipients }));
+    const res  = await fetch(url);
+    const data = await res.json();
+    if (data.ok) {
+      if (status) {
+        status.style.color = 'var(--teal)';
+        status.textContent = `✓ ${data.sent} reminder${data.sent !== 1 ? 's' : ''} sent. Rene will receive a summary.`;
+      }
+      document.querySelectorAll('.pending-user-cb').forEach(cb => { cb.checked = false; });
+      updatePendingCount();
+    } else {
+      if (status) { status.style.color = 'var(--coral)'; status.textContent = 'Error: ' + (data.error || 'Unknown'); }
+    }
+  } catch(err) {
+    if (status) { status.style.color = 'var(--coral)'; status.textContent = 'Network error — check Apps Script is deployed.'; }
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '✉ Send Reminder Emails';
+    updatePendingCount();
+  }
 }

@@ -144,6 +144,9 @@ function doGet(e) {
     }
     return buildResponse({ rows: rows });
   }
+  if (e && e.parameter && e.parameter.action === 'sendReminders') {
+    return handleSendReminders(e);
+  }
   return buildResponse({ status: 'MOD 1 Quiz backend is running.' });
 }
 
@@ -1313,4 +1316,149 @@ function sendNotificationEmail_mod5(payload, scoreResult, sheetUrl) {
     'Full row written to the Sheet:\n' + sheetUrl;
 
   MailApp.sendEmail({ to: RENE_EMAIL, cc: RENE_COPY_EMAIL, subject: subject, body: body });
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// REMINDER EMAILS — Dashboard "Pending Users" feature
+// ══════════════════════════════════════════════════════════════════════════════
+
+function handleSendReminders(e) {
+  try {
+    var dataStr = e && e.parameter && e.parameter.data ? e.parameter.data : '{}';
+    var payload;
+    try { payload = JSON.parse(dataStr); } catch(err) { return buildResponse({ error: 'Invalid JSON in data param.' }, 400); }
+
+    var recipients = payload.recipients || [];
+    if (!recipients.length) return buildResponse({ error: 'No recipients provided.' }, 400);
+
+    var sent = [];
+    var failed = [];
+    recipients.forEach(function(r) {
+      try {
+        sendReminderEmailToUser(r.name, r.email, r.modules);
+        sent.push(r);
+      } catch(err) {
+        failed.push({ email: r.email, error: err.message });
+      }
+    });
+
+    sendReminderSummaryToRene(sent, failed);
+    return buildResponse({ ok: true, sent: sent.length, failed: failed.length });
+  } catch(err) {
+    return buildResponse({ error: err.message }, 500);
+  }
+}
+
+var MODULE_LABELS = {
+  mod1: 'MOD 1 — Forecast Enrichment Foundations',
+  mod2: 'MOD 2 — Enrichment Practice',
+  mod4: 'MOD 4 — Exceptions & Customer Variations',
+  mod5: 'MOD 5 — Reconciliation & Decision Narrative'
+};
+
+var MODULE_URLS = {
+  mod1: 'https://enerbartoli.github.io/mod1-knowledge-check/',
+  mod2: 'https://enerbartoli.github.io/mod1-knowledge-check/mod2.html',
+  mod4: 'https://enerbartoli.github.io/mod1-knowledge-check/mod4.html',
+  mod5: 'https://enerbartoli.github.io/mod1-knowledge-check/mod5.html'
+};
+
+function sendReminderEmailToUser(name, email, modules) {
+  var firstName = name.split(' ')[0];
+  var moduleRows = modules.map(function(m) {
+    var label = MODULE_LABELS[m] || m;
+    var url   = MODULE_URLS[m] || '#';
+    return '<tr>' +
+      '<td style="padding:10px 12px;border-bottom:1px solid #e9ecef;color:#0d1b2e;font-size:14px;">' + label + '</td>' +
+      '<td style="padding:10px 12px;border-bottom:1px solid #e9ecef;text-align:center;">' +
+        '<a href="' + url + '" style="display:inline-block;background:#ffd60a;color:#0d1b2e;font-weight:700;font-size:13px;padding:6px 16px;border-radius:6px;text-decoration:none;">Take Quiz →</a>' +
+      '</td>' +
+    '</tr>';
+  }).join('');
+
+  var content =
+    '<p style="color:#495057;font-size:15px;line-height:1.7;">Hi ' + firstName + ',</p>' +
+    '<p style="color:#495057;font-size:15px;line-height:1.7;">This is a reminder that your participation in the <strong>HERO Forecast Enrichment Programme</strong> requires you to pass all knowledge-check modules <strong>before the Kick-Off session</strong>.</p>' +
+    '<p style="color:#495057;font-size:15px;line-height:1.7;">Passing all modules is a prerequisite for your account to be enabled in the <strong>production version of HERO</strong>. The modules below are still showing as outstanding for you:</p>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e9ecef;border-radius:8px;overflow:hidden;margin:20px 0;">' +
+    '<tr style="background:#0d1b2e;">' +
+    '<th style="padding:10px 12px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Outstanding Module</th>' +
+    '<th style="padding:10px 12px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:center;">Action</th>' +
+    '</tr>' +
+    moduleRows +
+    '</table>' +
+    '<div style="background:#fff3cd;border-left:4px solid #ffd60a;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
+    '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">Why this matters</p>' +
+    '<p style="margin:6px 0 0;color:#495057;font-size:14px;">Each module ensures you have the knowledge to use HERO confidently and accurately. Completing them before Kick-Off means you can participate fully from day one.</p>' +
+    '</div>' +
+    '<p style="color:#495057;font-size:15px;line-height:1.7;">If you have any questions about the material or the process, please reach out to your programme lead directly.</p>' +
+    '<p style="color:#495057;font-size:14px;line-height:1.7;margin-top:28px;">Good luck — you\'ve got this.<br><strong>HERO Tool Notifications</strong></p>';
+
+  var subject = 'Action Required: Complete Your HERO Knowledge Checks Before Kick-Off';
+  var shell = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#f0f4f8;font-family:Calibri,Arial,sans-serif;">' +
+    '<table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:32px 16px;">' +
+    '<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08);">' +
+    '<tr><td style="background:#0d1b2e;padding:28px 32px;">' +
+    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;">Forecast Enrichment Programme · UK Pilot</p>' +
+    '<h1 style="margin:8px 0 0;color:#ffffff;font-size:22px;font-weight:700;">Knowledge Check Reminder</h1>' +
+    '</td></tr>' +
+    '<tr><td style="padding:32px;">' + content + '</td></tr>' +
+    '<tr><td style="background:#f8f9fa;padding:20px 32px;border-top:1px solid #e9ecef;">' +
+    '<p style="margin:0;color:#6c757d;font-size:12px;">This is an automated message from the HERO Forecast Enrichment Programme. Please do not reply to this email.</p>' +
+    '</td></tr>' +
+    '</table></td></tr></table></body></html>';
+
+  MailApp.sendEmail({ to: email, subject: subject, htmlBody: shell });
+}
+
+function sendReminderSummaryToRene(sent, failed) {
+  if (!sent.length && !failed.length) return;
+
+  var now = new Date();
+  var dateStr = Utilities.formatDate(now, Session.getScriptTimeZone(), 'dd MMM yyyy HH:mm');
+
+  var sentRows = sent.map(function(r) {
+    var mods = (r.modules || []).map(function(m) { return MODULE_LABELS[m] || m; }).join('<br>');
+    return '<tr style="border-bottom:1px solid #e9ecef;">' +
+      '<td style="padding:9px 12px;font-size:14px;color:#0d1b2e;">' + r.name + '</td>' +
+      '<td style="padding:9px 12px;font-size:14px;color:#495057;">' + r.email + '</td>' +
+      '<td style="padding:9px 12px;font-size:13px;color:#495057;">' + mods + '</td>' +
+    '</tr>';
+  }).join('');
+
+  var failedRows = failed.length ? failed.map(function(f) {
+    return '<tr><td style="padding:9px 12px;color:#dc3545;font-size:14px;">' + f.email + '</td>' +
+      '<td style="padding:9px 12px;color:#dc3545;font-size:14px;">' + f.error + '</td></tr>';
+  }).join('') : '';
+
+  var body =
+    '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#f0f4f8;font-family:Calibri,Arial,sans-serif;">' +
+    '<table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:32px 16px;">' +
+    '<table width="640" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08);">' +
+    '<tr><td style="background:#0d1b2e;padding:24px 32px;">' +
+    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;">Dashboard · Reminder Summary</p>' +
+    '<h1 style="margin:8px 0 0;color:#fff;font-size:20px;font-weight:700;">Reminder Emails Sent — ' + dateStr + '</h1>' +
+    '</td></tr>' +
+    '<tr><td style="padding:28px 32px;">' +
+    '<p style="color:#495057;font-size:15px;"><strong>' + sent.length + '</strong> reminder email' + (sent.length !== 1 ? 's' : '') + ' sent successfully.</p>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e9ecef;border-radius:8px;overflow:hidden;margin:16px 0;">' +
+    '<tr style="background:#0d1b2e;"><th style="padding:9px 12px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Name</th>' +
+    '<th style="padding:9px 12px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Email</th>' +
+    '<th style="padding:9px 12px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Outstanding Modules</th></tr>' +
+    sentRows +
+    '</table>' +
+    (failedRows ? '<p style="color:#dc3545;font-size:14px;margin-top:20px;"><strong>' + failed.length + ' failed to send:</strong></p>' +
+      '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #f5c6cb;border-radius:8px;overflow:hidden;">' +
+      '<tr style="background:#f8d7da;"><th style="padding:9px 12px;font-size:12px;text-align:left;">Email</th><th style="padding:9px 12px;font-size:12px;text-align:left;">Error</th></tr>' +
+      failedRows + '</table>' : '') +
+    '</td></tr>' +
+    '<tr><td style="background:#f8f9fa;padding:16px 32px;border-top:1px solid #e9ecef;">' +
+    '<p style="margin:0;color:#6c757d;font-size:12px;">Sent via HERO Tool Dashboard · Forecast Enrichment Programme</p>' +
+    '</td></tr></table></td></tr></table></body></html>';
+
+  MailApp.sendEmail({
+    to: RENE_COPY_EMAIL,
+    subject: '[HERO Dashboard] Reminder summary — ' + sent.length + ' email(s) sent on ' + dateStr,
+    htmlBody: body
+  });
 }
