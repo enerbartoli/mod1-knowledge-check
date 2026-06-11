@@ -1206,7 +1206,7 @@ function computePendingBuckets() {
 
   dashAllRows.forEach(r => {
     const mod = r.module || 'mod1';
-    const em  = r.email;
+    const em  = (r.email || '').toLowerCase().trim();
     if (!infoMap[em])      infoMap[em]      = { name: r.name, email: em, passed: new Set() };
     if (!attemptedMap[em]) attemptedMap[em] = new Set();
     if (!infoMap[em].name) infoMap[em].name = r.name;
