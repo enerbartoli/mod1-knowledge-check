@@ -259,7 +259,8 @@
           "options_authoritative": true
         }
       ],
-      "options_authoritative": true
+      "options_authoritative": true,
+      "nav_label": "MOD 1 — Baseline & Workflow"
     },
     {
       "module_id": "mod2",
@@ -530,7 +531,8 @@
           "harvested_on": "2026-08-07"
         }
       ],
-      "options_authoritative": true
+      "options_authoritative": true,
+      "nav_label": "MOD 2 — Enrichment Practice"
     },
     {
       "module_id": "mod4",
@@ -695,7 +697,8 @@
           "options_authoritative": true
         }
       ],
-      "options_authoritative": true
+      "options_authoritative": true,
+      "nav_label": "MOD 4 — Exceptions & Customer Variations"
     },
     {
       "module_id": "mod5",
@@ -934,7 +937,8 @@
           "options_authoritative": true
         }
       ],
-      "options_authoritative": true
+      "options_authoritative": true,
+      "nav_label": "MOD 5 — Reconciliation & Decision Narrative"
     },
     {
       "module_id": "mod7",
@@ -1098,7 +1102,8 @@
           "options_authoritative": true
         }
       ],
-      "options_authoritative": true
+      "options_authoritative": true,
+      "nav_label": "MOD 7 — HERO Data Flow & Cycle Start"
     },
     {
       "module_id": "mod3",
@@ -1263,7 +1268,8 @@
           "options_authoritative": true
         }
       ],
-      "options_authoritative": true
+      "options_authoritative": true,
+      "nav_label": "MOD 3 — HERO in Practice"
     }
   ],
   "derived_from": "KC_Canonical_QuestionBank_v3_2026-08-07.json",
@@ -1274,6 +1280,7 @@
     "mod2 Q11 rationale corrected; key (D) and options unchanged.",
     "mod4 Q4 REWRITTEN (stem + options + correct A + rationale). Prior submissions kept valid against the earlier version.",
     "slide_refs verified against decks 2026-08-07: mod2 Q7 32->35, mod2 Q11 31->34 (DE_MOD2_FACILITATOR_DECK_v4_with-notes_2026-07-16.pptx, 57 slides); mod4 Q4 '6, 7' verified unchanged (H.E.R.O Enrichment Training Mod 4 & 5_v5.1_2026-05-31.pptx, 74 slides).",
-    "Added MOD 3 — HERO in Practice (10 questions). References are named manual sections, not slides: slide_refs holds the manual reference and the module carries ref_type='manual_section'. options_authoritative:true."
+    "Added MOD 3 — HERO in Practice (10 questions). References are named manual sections, not slides: slide_refs holds the manual reference and the module carries ref_type='manual_section'. options_authoritative:true.",
+    "Added nav_label per module (single source for the nav menu and dashboard filters, consumed by tools/generate_registry.js)."
   ]
 }

@@ -23,4 +23,10 @@ node tools/verify_inventory.js || {
   echo "pre-commit: inventory is stale — commit blocked. Run: node tools/generate_inventory.js  then re-commit." >&2
   exit 1
 }
+
+node tools/verify_registry.js || {
+  echo "" >&2
+  echo "pre-commit: module registry drift — commit blocked. Run: node tools/generate_registry.js  then re-commit." >&2
+  exit 1
+}
 exit 0

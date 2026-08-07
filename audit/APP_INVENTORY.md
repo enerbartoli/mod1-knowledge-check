@@ -4,7 +4,7 @@
 <!-- structural_sha: e724868341e82f5ea077a29b2b980ac176d76f7cd8ff4bf40420f2b3f011d74a -->
 
 - Generated: **2026-08-07**
-- Commit at generation (HEAD): `b41747b159585be9d425d765f37c3d325cdb6e40`
+- Commit at generation (HEAD): `4a0480cf7e42c7ecd8724c5df057d6c3d2d618c0`
 - Guard bank: `KC_Canonical_QuestionBank_v4_2026-08-07.json`
 - Structural hash: `e724868341e82f5ea077a29b2b980ac176d76f7cd8ff4bf40420f2b3f011d74a` (the drift guard fails the build if this stops matching the repo)
 

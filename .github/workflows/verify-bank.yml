@@ -12,6 +12,8 @@ on:
       - 'quiz.js'
       - 'mod*.js'
       - 'index.html'
+      - 'modules.js'
+      - 'dashboard-data.js'
       - 'backend/apps-script.gs'
       - 'KC_Canonical_QuestionBank_*.json'
       - 'audit/APP_INVENTORY.md'
@@ -22,6 +24,8 @@ on:
       - 'quiz.js'
       - 'mod*.js'
       - 'index.html'
+      - 'modules.js'
+      - 'dashboard-data.js'
       - 'backend/apps-script.gs'
       - 'KC_Canonical_QuestionBank_*.json'
       - 'audit/APP_INVENTORY.md'
@@ -41,3 +45,5 @@ jobs:
         run: node tools/verify_bank.js
       - name: Verify app inventory is up to date
         run: node tools/verify_inventory.js
+      - name: Verify module registry (menu + dashboard filters) matches the bank
+        run: node tools/verify_registry.js

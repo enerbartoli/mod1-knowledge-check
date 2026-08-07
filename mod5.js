@@ -305,9 +305,9 @@ function initWelcome() {
       if (err) err.style.display = 'block';
       return;
     }
-    if (sel.value === 'mod1') { window.location.href = 'index.html'; return; }
-    if (sel.value === 'mod2') { window.location.href = 'mod2.html'; return; }
-    if (sel.value === 'mod4') { window.location.href = 'mod4.html'; return; }
+    var _cur = (document.body.dataset && document.body.dataset.module) || null;
+    var _target = (window.HERO_MODULES || []).find(function(m){ return m.id === sel.value; });
+    if (_target && _target.id !== _cur) { window.location.href = _target.url; return; }
     const err = $('module-select-error');
     if (err) err.style.display = 'none';
     goIdentity();
@@ -796,7 +796,7 @@ function renderHistogram() {
   const ctx    = canvas.getContext('2d');
   const rows   = dashFiltered;
 
-  const modPassThreshold = { mod1: 13, mod2: 12, mod4: 8, mod5: 12 };
+  const modPassThreshold = Object.fromEntries((window.HERO_MODULES || []).map(function(m){ return [m.id, m.pass]; }));
   const passes = rows.filter(r => {
     const thr = modPassThreshold[r.module || 'mod1'] || 13;
     return (r.score || 0) >= thr;
@@ -1233,7 +1233,7 @@ function closeDrillDown(event) {
 
 
 // ── Pending users ──────────────────────────────────────────────────────────────
-let pendingActiveModules = new Set(['mod1', 'mod2', 'mod4', 'mod5']);
+let pendingActiveModules = new Set((window.HERO_MODULES || []).map(function(m){ return m.id; }));
 let pendingViewType = 'never'; // 'never' | 'failed'
 
 function computePendingBuckets() {
@@ -1272,8 +1272,8 @@ function computePendingBuckets() {
 }
 
 function renderPendingUsers() {
-  const allMods   = ['mod1', 'mod2', 'mod4', 'mod5'];
-  const modLabels = { mod1: 'MOD 1', mod2: 'MOD 2', mod4: 'MOD 4', mod5: 'MOD 5' };
+  const allMods   = (window.HERO_MODULES || []).map(function(m){ return m.id; });
+  const modLabels = Object.fromEntries((window.HERO_MODULES || []).map(function(m){ return [m.id, m.short]; }));
 
   const { neverAttempted, failedOnly } = computePendingBuckets();
 
