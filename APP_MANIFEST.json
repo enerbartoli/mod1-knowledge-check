@@ -1,0 +1,579 @@
+{
+  "generated_on": "2026-08-07",
+  "generator": "tools/generate_manifest.js",
+  "note": "Derived from actual repo files. Do not edit by hand — re-run the generator.",
+  "pages_base_url": "https://enerbartoli.github.io/mod1-knowledge-check/",
+  "canonical_banks": [
+    "KC_Canonical_QuestionBank_v1_2026-08-06.json",
+    "KC_Canonical_QuestionBank_v2_2026-08-07.json"
+  ],
+  "guard_bank": "KC_Canonical_QuestionBank_v2_2026-08-07.json",
+  "modules": [
+    {
+      "module_id": "mod2",
+      "js_file": "mod2.js",
+      "html_file": "mod2.html",
+      "title": "MOD 2 Knowledge Check · Enrichment Practice",
+      "pass_threshold": 12,
+      "total_questions": 15,
+      "ls_key": "mod2_quiz_state",
+      "posts_module": "mod2",
+      "client_answer_key_present": true,
+      "questions": [
+        {
+          "id": "Q1",
+          "section": "Baseline Training",
+          "slide_refs": "4, 5, 6",
+          "fingerprint": "7467435b3505",
+          "client_key": "A"
+        },
+        {
+          "id": "Q2",
+          "section": "Baseline Training",
+          "slide_refs": "4",
+          "fingerprint": "4286d1584150",
+          "client_key": "B"
+        },
+        {
+          "id": "Q3",
+          "section": "Baseline Training",
+          "slide_refs": "7, 8",
+          "fingerprint": "c7242ed59ef4",
+          "client_key": "C"
+        },
+        {
+          "id": "Q4",
+          "section": "Baseline Training",
+          "slide_refs": "9, 10",
+          "fingerprint": "4a93227f7d2f",
+          "client_key": "C"
+        },
+        {
+          "id": "Q5",
+          "section": "Baseline Training",
+          "slide_refs": "11, 12, 13, 14",
+          "fingerprint": "1ea3ef950650",
+          "client_key": "D"
+        },
+        {
+          "id": "Q6",
+          "section": "Set vs Base Trend",
+          "slide_refs": "24",
+          "fingerprint": "ba6c9acfed3e",
+          "client_key": "B"
+        },
+        {
+          "id": "Q7",
+          "section": "Set vs Base Trend",
+          "slide_refs": "32",
+          "fingerprint": "82c1654cff87",
+          "client_key": "B"
+        },
+        {
+          "id": "Q8",
+          "section": "Set vs Base Trend",
+          "slide_refs": "29",
+          "fingerprint": "fe7fde40959e",
+          "client_key": "C"
+        },
+        {
+          "id": "Q9",
+          "section": "Enrichment Types",
+          "slide_refs": "26",
+          "fingerprint": "dd0ae51a0602",
+          "client_key": "A"
+        },
+        {
+          "id": "Q10",
+          "section": "Enrichment Types",
+          "slide_refs": "37",
+          "fingerprint": "e4141bf0b48a",
+          "client_key": "A"
+        },
+        {
+          "id": "Q11",
+          "section": "Enrichment Types",
+          "slide_refs": "31",
+          "fingerprint": "bb0ce7e89031",
+          "client_key": "D"
+        },
+        {
+          "id": "Q12",
+          "section": "Base Trend Corrections",
+          "slide_refs": "39",
+          "fingerprint": "eb7cf03b088e",
+          "client_key": "C"
+        },
+        {
+          "id": "Q13",
+          "section": "Base Trend Corrections",
+          "slide_refs": "44",
+          "fingerprint": "6738b295e2a7",
+          "client_key": "A"
+        },
+        {
+          "id": "Q14",
+          "section": "No-Enrichment Paths",
+          "slide_refs": "51",
+          "fingerprint": "7958d48e0d39",
+          "client_key": "D"
+        },
+        {
+          "id": "Q15",
+          "section": "No-Enrichment Paths",
+          "slide_refs": "54",
+          "fingerprint": "abdb8ec969f2",
+          "client_key": "B"
+        }
+      ]
+    },
+    {
+      "module_id": "mod4",
+      "js_file": "mod4.js",
+      "html_file": "mod4.html",
+      "title": "MOD 4 Knowledge Check · Exceptions &amp; Customer Variations",
+      "pass_threshold": 8,
+      "total_questions": 10,
+      "ls_key": "mod4_quiz_state",
+      "posts_module": "mod4",
+      "client_answer_key_present": true,
+      "questions": [
+        {
+          "id": "Q1",
+          "section": "DI, FAN & Amazon",
+          "slide_refs": "5",
+          "fingerprint": "653dcd2748bc",
+          "client_key": "B"
+        },
+        {
+          "id": "Q2",
+          "section": "Direct Import (DI)",
+          "slide_refs": "6",
+          "fingerprint": "69a13a8854f3",
+          "client_key": "C"
+        },
+        {
+          "id": "Q3",
+          "section": "FAN Items",
+          "slide_refs": "7",
+          "fingerprint": "ac10c9dad916",
+          "client_key": "A"
+        },
+        {
+          "id": "Q4",
+          "section": "Reconciliation Template",
+          "slide_refs": "6, 7",
+          "fingerprint": "dbaddd45e509",
+          "client_key": "D"
+        },
+        {
+          "id": "Q5",
+          "section": "Direct Import (DI)",
+          "slide_refs": "6",
+          "fingerprint": "9737fc48f9ba",
+          "client_key": "A"
+        },
+        {
+          "id": "Q6",
+          "section": "FAN Items",
+          "slide_refs": "7",
+          "fingerprint": "94ca080bd677",
+          "client_key": "B"
+        },
+        {
+          "id": "Q7",
+          "section": "Amazon",
+          "slide_refs": "8",
+          "fingerprint": "759b4c446b02",
+          "client_key": "A"
+        },
+        {
+          "id": "Q8",
+          "section": "Demand Planning Role",
+          "slide_refs": "6, 7, 8",
+          "fingerprint": "746820920e1f",
+          "client_key": "C"
+        },
+        {
+          "id": "Q9",
+          "section": "Direct Import (DI)",
+          "slide_refs": "6",
+          "fingerprint": "532e155cb721",
+          "client_key": "B"
+        },
+        {
+          "id": "Q10",
+          "section": "FAN Items",
+          "slide_refs": "7",
+          "fingerprint": "94699684748b",
+          "client_key": "D"
+        }
+      ]
+    },
+    {
+      "module_id": "mod5",
+      "js_file": "mod5.js",
+      "html_file": "mod5.html",
+      "title": "MOD 5 Knowledge Check · Reconciliation &amp; Decision Narrative",
+      "pass_threshold": 12,
+      "total_questions": 15,
+      "ls_key": "mod5_quiz_state",
+      "posts_module": "mod5",
+      "client_answer_key_present": true,
+      "questions": [
+        {
+          "id": "Q1",
+          "section": "Reconciliation Defined",
+          "slide_refs": "20",
+          "fingerprint": "c0fd38e8e3ae",
+          "client_key": "A"
+        },
+        {
+          "id": "Q2",
+          "section": "UK Standard",
+          "slide_refs": "21, 30, 31",
+          "fingerprint": "6ff11bdc6b99",
+          "client_key": "B"
+        },
+        {
+          "id": "Q3",
+          "section": "Session Cascade",
+          "slide_refs": "23, 63",
+          "fingerprint": "ec10d898f2b3",
+          "client_key": "C"
+        },
+        {
+          "id": "Q4",
+          "section": "Session Cascade",
+          "slide_refs": "23",
+          "fingerprint": "cfa397cd904a",
+          "client_key": "D"
+        },
+        {
+          "id": "Q5",
+          "section": "Three References",
+          "slide_refs": "18, 24",
+          "fingerprint": "9a51432317f4",
+          "client_key": "A"
+        },
+        {
+          "id": "Q6",
+          "section": "Three References",
+          "slide_refs": "24, 26",
+          "fingerprint": "0567bb16e0dc",
+          "client_key": "B"
+        },
+        {
+          "id": "Q7",
+          "section": "Three References",
+          "slide_refs": "25",
+          "fingerprint": "6cbf13c25e7a",
+          "client_key": "C"
+        },
+        {
+          "id": "Q8",
+          "section": "POS Pace Chart",
+          "slide_refs": "27",
+          "fingerprint": "cdc60f8795ea",
+          "client_key": "D"
+        },
+        {
+          "id": "Q9",
+          "section": "Drill Order",
+          "slide_refs": "28",
+          "fingerprint": "b494e669633d",
+          "client_key": "A"
+        },
+        {
+          "id": "Q10",
+          "section": "7-Part Narrative",
+          "slide_refs": "29, 31",
+          "fingerprint": "3b61b2ffeec0",
+          "client_key": "B"
+        },
+        {
+          "id": "Q11",
+          "section": "Meeting Behavior",
+          "slide_refs": "30",
+          "fingerprint": "aed0767fe3b6",
+          "client_key": "C"
+        },
+        {
+          "id": "Q12",
+          "section": "Session 1 — Brand Captain",
+          "slide_refs": "33, 35, 37",
+          "fingerprint": "6ede9586b39f",
+          "client_key": "D"
+        },
+        {
+          "id": "Q13",
+          "section": "Session 2 — KAM",
+          "slide_refs": "42",
+          "fingerprint": "a93ea2134bff",
+          "client_key": "A"
+        },
+        {
+          "id": "Q14",
+          "section": "Session 3 — Marketing & DP",
+          "slide_refs": "52",
+          "fingerprint": "1ce38cbaba94",
+          "client_key": "B"
+        },
+        {
+          "id": "Q15",
+          "section": "Session 4 — Sign-Off",
+          "slide_refs": "54, 59",
+          "fingerprint": "cbb3d5103b78",
+          "client_key": "C"
+        }
+      ]
+    },
+    {
+      "module_id": "mod7",
+      "js_file": "mod7.js",
+      "html_file": "mod7.html",
+      "title": "MOD 7 Knowledge Check — HERO Data Flow &amp; Cycle Start",
+      "pass_threshold": 8,
+      "total_questions": 10,
+      "ls_key": "mod7_quiz_state",
+      "posts_module": "mod7",
+      "client_answer_key_present": true,
+      "questions": [
+        {
+          "id": "Q1",
+          "section": "HERO ↔ Logility Data Flow",
+          "slide_refs": "4, 5",
+          "fingerprint": "997631355fa7",
+          "client_key": "C"
+        },
+        {
+          "id": "Q2",
+          "section": "The UA1 Window",
+          "slide_refs": "7",
+          "fingerprint": "aa6c374ead7b",
+          "client_key": "B"
+        },
+        {
+          "id": "Q3",
+          "section": "Template Routing",
+          "slide_refs": "6",
+          "fingerprint": "0b2b63c76a14",
+          "client_key": "D"
+        },
+        {
+          "id": "Q4",
+          "section": "Deleting Adjustments",
+          "slide_refs": "7",
+          "fingerprint": "8a2cbcc79ac7",
+          "client_key": "A"
+        },
+        {
+          "id": "Q5",
+          "section": "Clearing Adjustments",
+          "slide_refs": "12",
+          "fingerprint": "9843f1a8c418",
+          "client_key": "B"
+        },
+        {
+          "id": "Q6",
+          "section": "The Frozen Window",
+          "slide_refs": "8",
+          "fingerprint": "b5a6eb550c49",
+          "client_key": "C"
+        },
+        {
+          "id": "Q7",
+          "section": "Flooring & Zeros",
+          "slide_refs": "10, 13",
+          "fingerprint": "54f8650ecd6d",
+          "client_key": "D"
+        },
+        {
+          "id": "Q8",
+          "section": "Scenario — Baseline Movement",
+          "slide_refs": "15",
+          "fingerprint": "0fabbdd91bfa",
+          "client_key": "B"
+        },
+        {
+          "id": "Q9",
+          "section": "Scenario — Orphaned Adjustment",
+          "slide_refs": "16",
+          "fingerprint": "41d5eadffe47",
+          "client_key": "C"
+        },
+        {
+          "id": "Q10",
+          "section": "Scenario — Systemic Movement",
+          "slide_refs": "14, 18",
+          "fingerprint": "98346dc19031",
+          "client_key": "A"
+        }
+      ]
+    },
+    {
+      "module_id": "mod1",
+      "js_file": "quiz.js",
+      "html_file": "index.html",
+      "title": "MOD 1 Knowledge Check · Forecast Enrichment",
+      "pass_threshold": 13,
+      "total_questions": 16,
+      "ls_key": "mod1_quiz_state",
+      "posts_module": null,
+      "client_answer_key_present": true,
+      "questions": [
+        {
+          "id": "Q1",
+          "section": "Why we're changing",
+          "slide_refs": "2, 4",
+          "fingerprint": "e306b3929195",
+          "client_key": "A"
+        },
+        {
+          "id": "Q2",
+          "section": "End-to-end picture",
+          "slide_refs": "4, 5",
+          "fingerprint": "330bb3671614",
+          "client_key": "B"
+        },
+        {
+          "id": "Q3",
+          "section": "Statistical Baseline 101",
+          "slide_refs": "8, 10",
+          "fingerprint": "ecbfa380891e",
+          "client_key": "C"
+        },
+        {
+          "id": "Q4",
+          "section": "Statistical Baseline 101",
+          "slide_refs": "11",
+          "fingerprint": "ab90665dc027",
+          "client_key": "A"
+        },
+        {
+          "id": "Q5",
+          "section": "SKU Types",
+          "slide_refs": "12, 13",
+          "fingerprint": "821b4b89f4ec",
+          "client_key": "C"
+        },
+        {
+          "id": "Q6",
+          "section": "SKU Types",
+          "slide_refs": "14",
+          "fingerprint": "52ee0a337ab6",
+          "client_key": "A"
+        },
+        {
+          "id": "Q7",
+          "section": "SKU Types",
+          "slide_refs": "15",
+          "fingerprint": "48135d47c4cf",
+          "client_key": "D"
+        },
+        {
+          "id": "Q8",
+          "section": "Disaggregation",
+          "slide_refs": "10, 16",
+          "fingerprint": "eb3d0dbb5382",
+          "client_key": "C"
+        },
+        {
+          "id": "Q9",
+          "section": "Disaggregation",
+          "slide_refs": "16",
+          "fingerprint": "92c19184df0c",
+          "client_key": "D"
+        },
+        {
+          "id": "Q10",
+          "section": "Disaggregation",
+          "slide_refs": "17, 19, 20, 21",
+          "fingerprint": "cc2951a54c4e",
+          "client_key": "B"
+        },
+        {
+          "id": "Q11",
+          "section": "Disaggregation",
+          "slide_refs": "22",
+          "fingerprint": "20c4ee1210c1",
+          "client_key": "B"
+        },
+        {
+          "id": "Q12",
+          "section": "Enrichment Principles",
+          "slide_refs": "25",
+          "fingerprint": "86bd56294ba5",
+          "client_key": "C"
+        },
+        {
+          "id": "Q13",
+          "section": "Reconciliation",
+          "slide_refs": "32",
+          "fingerprint": "c2bb09fdb8d3",
+          "client_key": "D"
+        },
+        {
+          "id": "Q14",
+          "section": "UK Pilot Roles",
+          "slide_refs": "33",
+          "fingerprint": "ee088a518d54",
+          "client_key": "B"
+        },
+        {
+          "id": "Q15",
+          "section": "End-to-end Workflow",
+          "slide_refs": "33",
+          "fingerprint": "d71d46b66fe7",
+          "client_key": "D"
+        },
+        {
+          "id": "Q16",
+          "section": "End-to-end Workflow",
+          "slide_refs": "33",
+          "fingerprint": "7bfe19f29e32",
+          "client_key": "A"
+        }
+      ]
+    }
+  ],
+  "backend": {
+    "file": "backend/apps-script.gs",
+    "routes": [
+      {
+        "module": "mod2",
+        "handler": "handleMod2Post"
+      },
+      {
+        "module": "mod4",
+        "handler": "handleMod4Post"
+      },
+      {
+        "module": "mod5",
+        "handler": "handleMod5Post"
+      },
+      {
+        "module": "mod7",
+        "handler": "handleMod7Post"
+      }
+    ],
+    "handlers": [
+      "handleMod2Post",
+      "handleMod4Post",
+      "handleMod5Post",
+      "handleMod7Post"
+    ],
+    "thresholds": {
+      "TOTAL_QUESTIONS_MOD2": 15,
+      "PASS_THRESHOLD_MOD2": 12,
+      "TOTAL_QUESTIONS_MOD4": 10,
+      "PASS_THRESHOLD_MOD4": 8,
+      "TOTAL_QUESTIONS_MOD5": 15,
+      "PASS_THRESHOLD_MOD5": 12,
+      "TOTAL_QUESTIONS_MOD7": 10,
+      "PASS_THRESHOLD_MOD7": 8
+    },
+    "reminder_endpoint": true,
+    "getData_endpoint": true
+  }
+}

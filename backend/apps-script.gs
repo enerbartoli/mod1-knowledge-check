@@ -175,6 +175,7 @@ function doPost(e) {
     if (moduleId === 'mod2') { return handleMod2Post(payload); }
     if (moduleId === 'mod4') { return handleMod4Post(payload); }
     if (moduleId === 'mod5') { return handleMod5Post(payload); }
+    if (moduleId === 'mod7') { return handleMod7Post(payload); }
 
     // 3. Validate required fields
     var validationError = validatePayload(payload);
@@ -1310,6 +1311,293 @@ function sendNotificationEmail_mod5(payload, scoreResult, sheetUrl) {
   var subject = '[MOD 5 Quiz] ' + name + ' — ' + score + '/' + total + ' — ' + status;
   var body =
     name + ' (' + email + ', ' + role + ') just submitted the MOD 5 Knowledge Check.\n\n' +
+    'Score: ' + score + ' / ' + total + ' (' + pct + '%)\n' +
+    'Status: ' + status + '\n' +
+    'Questions failed: ' + failedCount + ' of ' + total + failedList + '\n\n' +
+    'Full row written to the Sheet:\n' + sheetUrl;
+
+  MailApp.sendEmail({ to: RENE_EMAIL, cc: RENE_COPY_EMAIL, subject: subject, body: body });
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// MOD 7 — HERO Data Flow & Cycle Start (additive)
+// ══════════════════════════════════════════════════════════════════════════════
+
+const ANSWER_KEY_MOD7 = {
+  Q1:'C', Q2:'B', Q3:'D', Q4:'A', Q5:'B',
+  Q6:'C', Q7:'D', Q8:'B', Q9:'C', Q10:'A'
+};
+const TOTAL_QUESTIONS_MOD7 = 10;
+const PASS_THRESHOLD_MOD7  = 8;
+const QUIZ_URL_MOD7        = 'https://enerbartoli.github.io/mod1-knowledge-check/mod7.html';
+// Slide refs use the deck numbering 1–23 from
+// DP_MOD7_DataFlow_CycleStart_Facilitator_v1_2026-08-06.pptx
+const SLIDE_REFS_MOD7 = {
+  Q1:'4, 5',   Q2:'7',      Q3:'6',   Q4:'7',   Q5:'12',
+  Q6:'8',      Q7:'10, 13', Q8:'15',  Q9:'16',  Q10:'14, 18'
+};
+
+const QUESTION_TEXT_MOD7 = {
+  Q1: 'Which forecast array does HERO read from Logility?',
+  Q2: 'Which statement describes how HERO treats UA1 across the planning horizon?',
+  Q3: 'Demand Planning enters a Level 2.5 Base Trend Adjustment in the Reconciliation template. Where does it land in the Field Forecast?',
+  Q4: 'You delete a Base Trend Adjustment in HERO. What actually becomes zero?',
+  Q5: 'You have confirmed that a Base Trend Adjustment is stale and needs to go. How do you clear it?',
+  Q6: 'A colleague changed UA1 directly in Logility inside the frozen window. What does HERO now know about that change?',
+  Q7: 'A line publishes as zero in Logility. What does that tell you about the HERO inputs behind it?',
+  Q8: 'Last cycle: baseline 1,000 with an L1 Base Trend Adjustment of −200, giving 800. This cycle the baseline is 900, the −200 is still there, and the preliminary forecast reads 700. The commercial reason for the −200 still applies. What do you do?',
+  Q9: 'A material shows baseline 0 this cycle with a Level 2.5 Base Trend Adjustment of −24,258 still authored against it, so the preliminary forecast reads −24,258. You have confirmed with the source owner that the baseline was removed on purpose and the adjustment existed only to offset that old baseline. What do you do?',
+  Q10:'You download a fresh template at cycle start and find that baseline and previous-cycle values have moved across many SKUs, several partners and more than one brand, with no business event behind it. What is the correct first action?'
+};
+
+const RATIONALES_MOD7 = {
+  Q1: 'Only the Resultant, the statistical proposal loaded by Genpact, travels from Logility into HERO. Every other array you see in a template is served from HERO\'s own database. HERO reads the Resultant and never writes it, which is what protects the Genpact proposal from being overwritten.',
+  Q2: 'UA1 is the one array with a window restriction. HERO writes it from month +5 onward and suppresses it from its exports inside the rolling months 0 to 4. That is deliberate: it is the only array and the only period where HERO and Logility are meant to differ, which gives the commercial team room for Non-Forecast-Related work without touching the Consensus.',
+  Q3: 'What routes the value is the template, not the author. A Level 2.5 Base Trend Adjustment entered in the Reconciliation template lands in UA1 regardless of who entered it. The Marketing and Demand Planning exclusion from the Field Forecast applies only to enrichments captured in the Enrichment Capture template.',
+  Q4: 'Removing a change never sends a zero to the array. It zeroes the delta that the change represented, so UA1 and the Consensus simply lose that delta\'s effect. Neither becomes zero. And on UA1 the removal only takes effect while the affected weeks are still outside the frozen window.',
+  Q5: 'Enter a numeric zero. Leaving the cell blank is not a reliable instruction to clear an existing adjustment: the adjustment stays in place and you walk away believing you cleared something you did not. For enrichments there is a second valid route, setting the status to DECLINED, but reconciliation adjustments have no status field.',
+  Q6: 'Nothing, and nothing will change that on its own. HERO suppresses UA1 in the frozen window so the edit is not overwritten, but HERO does not read UA1 in any window, so no download, upload or refresh will bring it in. It exists in HERO only if someone deliberately makes the equivalent change inside HERO. The only array HERO reads from Logility is the Resultant.',
+  Q7: 'Nothing reassuring. Logility floors the published totals on both sides, so a negative raw HERO total can publish as zero. A negative sitting underneath positive components never surfaces downstream, nothing errors and nothing is rejected. Review the total Preliminary Consensus Forecast in HERO instead.',
+  Q8: 'Confirm why the source baseline moved, then keep the adjustment and accept 700. Changing the adjustment to force the total back to 800 makes it stop representing its commercial reason and start representing "whatever gets me to last month\'s number". A baseline movement is a prompt to investigate, not evidence of an error.',
+  Q9: 'Once the removal is confirmed and the adjustment existed only to offset that baseline, clear it with a numeric zero in a fresh template. Adding a positive adjustment to cancel the negative leaves two adjustments where there should be none and destroys the traceability. If the baseline should still have been there, the case goes to the squad instead.',
+  Q10:'Stop, capture examples and escalate with the evidence. One odd row is a question you can work through; the same unexpected pattern across many items, partners or brands is a systemic signal. Broad compensating adjustments during an open investigation restore the number you expected and make it impossible to tell later which changes were genuine decisions.'
+};
+
+function handleMod7Post(payload) {
+  try {
+    var validationError = validatePayload_mod7(payload);
+    if (validationError) return buildResponse({ error: validationError }, 400);
+
+    var scoreResult = scoreSubmission_mod7(payload.answers);
+    var sheetUrl    = appendToSheet_mod7(payload, scoreResult);
+    sendEmails_mod7(payload, scoreResult, sheetUrl);
+
+    return buildResponse({
+      score:            scoreResult.score,
+      total:            TOTAL_QUESTIONS_MOD7,
+      percent:          scoreResult.percent,
+      pass:             scoreResult.pass,
+      failed_questions: scoreResult.failedQNums
+    });
+  } catch (err) {
+    Logger.log('handleMod7Post error: ' + err.message + '\n' + err.stack);
+    return buildResponse({ error: 'Server error. Please try again.' }, 500);
+  }
+}
+
+function validatePayload_mod7(p) {
+  if (!p.name || String(p.name).trim().length < 2) return 'Name is required.';
+  var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!p.email || !emailRe.test(String(p.email).trim())) return 'Valid email is required.';
+  if (!p.role) return 'Role is required.';
+  if (!p.answers || typeof p.answers !== 'object') return 'Answers are required.';
+  for (var i = 1; i <= TOTAL_QUESTIONS_MOD7; i++) {
+    var key = 'Q' + i;
+    var val = p.answers[key];
+    if (!val || !['A','B','C','D'].includes(String(val).toUpperCase())) {
+      return 'Answer for ' + key + ' is missing or invalid.';
+    }
+  }
+  return null;
+}
+
+function scoreSubmission_mod7(answers) {
+  var score = 0;
+  var results = {};
+  var failedQNums = [];
+  for (var i = 1; i <= TOTAL_QUESTIONS_MOD7; i++) {
+    var key     = 'Q' + i;
+    var given   = String(answers[key] || '').toUpperCase();
+    var correct = ANSWER_KEY_MOD7[key];
+    var isCorrect = given === correct;
+    results[key] = { given: given, correct: isCorrect };
+    if (isCorrect) { score++; } else { failedQNums.push(i); }
+  }
+  var percent = Math.round((score / TOTAL_QUESTIONS_MOD7) * 10000) / 100;
+  return { score: score, percent: percent, pass: score >= PASS_THRESHOLD_MOD7, results: results, failedQNums: failedQNums };
+}
+
+function appendToSheet_mod7(payload, scoreResult) {
+  var ss    = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(SHEET_NAME);
+  if (!sheet) { sheet = ss.insertSheet(SHEET_NAME); writeHeaders(sheet); }
+  if (sheet.getLastRow() === 0) writeHeaders(sheet);
+
+  var moduleId      = 'mod7';
+  var attemptNumber = computeAttemptNumber(String(payload.email).trim().toLowerCase(), moduleId, sheet);
+
+  var now = new Date();
+  var row = [
+    now, payload.name.trim(), payload.email.trim().toLowerCase(), payload.role,
+    payload.roleOther || '', scoreResult.score, scoreResult.percent,
+    scoreResult.pass ? 'Pass' : 'Fail'
+  ];
+
+  // Q1–Q10 answer + correct pairs
+  for (var i = 1; i <= TOTAL_QUESTIONS_MOD7; i++) {
+    var key = 'Q' + i;
+    var r   = scoreResult.results[key];
+    row.push(r.given);
+    row.push(r.correct);
+  }
+  // Q11–Q16 placeholders blank — preserves column alignment (6 blank pairs)
+  for (var j = 0; j < 6; j++) {
+    row.push('');
+    row.push('');
+  }
+
+  row.push(scoreResult.failedQNums.join(', '));
+  row.push(true);
+  row.push((payload.userAgent || '').slice(0, 200));
+  row.push(moduleId);
+  row.push(attemptNumber);
+
+  sheet.appendRow(row);
+  return ss.getUrl();
+}
+
+function sendEmails_mod7(payload, scoreResult, sheetUrl) {
+  var name  = payload.name.trim();
+  var email = payload.email.trim().toLowerCase();
+  try {
+    if (scoreResult.pass) {
+      sendPassEmail_mod7(email, name, scoreResult.score, TOTAL_QUESTIONS_MOD7, scoreResult.percent);
+    } else {
+      sendFailEmail_mod7(email, name, scoreResult.score, TOTAL_QUESTIONS_MOD7, scoreResult.percent, scoreResult.failedQNums);
+    }
+    sendNotificationEmail_mod7(payload, scoreResult, sheetUrl);
+    return true;
+  } catch (err) {
+    Logger.log('MOD 7 email error: ' + err.message);
+    return false;
+  }
+}
+
+function emailShell_mod7(contentHtml) {
+  return '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#f0f4f8;font-family:Arial,sans-serif;">' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f4f8;padding:32px 0;">' +
+    '<tr><td align="center">' +
+    '<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">' +
+    '<tr><td style="background:#0d1b2e;padding:28px 40px;text-align:center;">' +
+    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Forecast Enrichment Programme · UK Pilot</p>' +
+    '<p style="margin:8px 0 0;color:#ffffff;font-size:20px;font-weight:700;">MOD 7 Knowledge Check</p>' +
+    '</td></tr>' +
+    '<tr><td style="padding:40px;">' + contentHtml + '</td></tr>' +
+    '<tr><td style="background:#f8f9fa;padding:20px 40px;border-top:1px solid #e9ecef;text-align:center;">' +
+    '<p style="margin:0;color:#6c757d;font-size:12px;">Rene Bartoli · Demand Planning · Forecast Enrichment Program</p>' +
+    '</td></tr>' +
+    '</table></td></tr></table></body></html>';
+}
+
+function sendPassEmail_mod7(toEmail, name, score, total, pct) {
+  var subject = '✓ MOD 7 Knowledge Check — Passed';
+  var content =
+    '<div style="text-align:center;margin-bottom:32px;">' +
+    '<div style="display:inline-block;background:#d4edda;border-radius:50%;width:72px;height:72px;line-height:72px;font-size:36px;">✓</div>' +
+    '<h2 style="margin:16px 0 4px;color:#0d1b2e;font-size:24px;">Well done, ' + name + '!</h2>' +
+    '<p style="margin:0;color:#6c757d;font-size:15px;">You\'ve passed the MOD 7 knowledge check</p>' +
+    '</div>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f9fa;border-radius:8px;margin-bottom:28px;">' +
+    '<tr>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">' + score + '/' + total + '</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Score</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">' + Math.round(pct) + '%</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Accuracy</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">PASS</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Status</p>' +
+    '</td>' +
+    '</tr></table>' +
+    '<p style="color:#495057;font-size:15px;line-height:1.6;">You\'ve met the <strong>80% threshold</strong> for MOD 7 — HERO Data Flow &amp; Cycle Start.</p>' +
+    '<div style="background:#e8f8f5;border-left:4px solid #00c9a7;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
+    '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">What\'s next</p>' +
+    '<p style="margin:6px 0 0;color:#495057;font-size:14px;">Run the five-minute cycle-start check on your own scope this week, then run it live in your team\'s first meeting of the next cycle. You are the person your team will ask.</p>' +
+    '</div>' +
+    '<p style="color:#6c757d;font-size:14px;line-height:1.6;">If you have questions about MOD 7 concepts, revisit the facilitator deck in the project SharePoint or reach out to the Demand Planning team.</p>';
+  MailApp.sendEmail({ to: toEmail, subject: subject, htmlBody: emailShell_mod7(content) });
+}
+
+function sendFailEmail_mod7(toEmail, name, score, total, pct, failedQNums) {
+  var subject = 'MOD 7 Knowledge Check — Please review and retry';
+
+  var missedRows = failedQNums.map(function(num) {
+    var key        = 'Q' + num;
+    var qText      = QUESTION_TEXT_MOD7[key] || '';
+    var refs       = SLIDE_REFS_MOD7[key] || '';
+    var rationale  = RATIONALES_MOD7[key] || '';
+    var slideLabel = refs.indexOf(',') > -1 ? 'Slides' : 'Slide';
+    return '<tr style="border-bottom:1px solid #e9ecef;">' +
+      '<td style="padding:12px 8px;color:#0d1b2e;font-weight:700;font-size:13px;white-space:nowrap;">Q' + num + '</td>' +
+      '<td style="padding:12px 8px;font-size:13px;line-height:1.5;">' +
+        '<div style="color:#495057;">' + qText + '</div>' +
+        '<div style="color:#6c757d;font-style:italic;margin-top:6px;font-size:12px;">' + rationale + '</div>' +
+      '</td>' +
+      '<td style="padding:12px 8px;color:#00c9a7;font-size:13px;white-space:nowrap;">' + slideLabel + ' ' + refs + '</td>' +
+      '</tr>';
+  }).join('');
+
+  var content =
+    '<div style="text-align:center;margin-bottom:32px;">' +
+    '<div style="display:inline-block;background:#fff3cd;border-radius:50%;width:72px;height:72px;line-height:72px;font-size:36px;">📋</div>' +
+    '<h2 style="margin:16px 0 4px;color:#0d1b2e;font-size:24px;">Hi ' + name + '</h2>' +
+    '<p style="margin:0;color:#6c757d;font-size:15px;">A little more review needed</p>' +
+    '</div>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f9fa;border-radius:8px;margin-bottom:28px;">' +
+    '<tr>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#ffd60a;">' + score + '/' + total + '</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Score</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#ffd60a;">' + Math.round(pct) + '%</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Accuracy</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#dc3545;">RETRY</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Status</p>' +
+    '</td>' +
+    '</tr></table>' +
+    '<p style="color:#495057;font-size:15px;line-height:1.6;">No worries — the goal is for everyone to fully land MOD 7 before running it live at cycle start.</p>' +
+    '<h3 style="color:#0d1b2e;font-size:16px;font-weight:700;margin:24px 0 12px;">Questions to Review to Better Your Understanding</h3>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e9ecef;border-radius:8px;overflow:hidden;margin:20px 0;">' +
+    '<tr style="background:#0d1b2e;">' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">#</th>' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Question &amp; Rationale</th>' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Review</th>' +
+    '</tr>' +
+    missedRows +
+    '</table>' +
+    '<div style="background:#fff3cd;border-left:4px solid #ffd60a;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
+    '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">Note</p>' +
+    '<p style="margin:6px 0 0;color:#495057;font-size:14px;">I\'m deliberately not sharing the correct answers here — go back to the material and find them yourself. That\'s where the learning sticks.</p>' +
+    '</div>' +
+    '<div style="text-align:center;margin-top:28px;">' +
+    '<a href="' + QUIZ_URL_MOD7 + '" style="display:inline-block;background:#ffd60a;color:#0d1b2e;font-weight:700;font-size:15px;padding:14px 32px;border-radius:8px;text-decoration:none;">Retake the Quiz →</a>' +
+    '</div>';
+
+  MailApp.sendEmail({ to: toEmail, subject: subject, htmlBody: emailShell_mod7(content) });
+}
+
+function sendNotificationEmail_mod7(payload, scoreResult, sheetUrl) {
+  var name        = payload.name.trim();
+  var email       = payload.email.trim().toLowerCase();
+  var role        = payload.role + (payload.roleOther ? ' (' + payload.roleOther + ')' : '');
+  var score       = scoreResult.score;
+  var total       = TOTAL_QUESTIONS_MOD7;
+  var pct         = scoreResult.percent;
+  var status      = scoreResult.pass ? 'PASS' : 'FAIL';
+  var failedCount = scoreResult.failedQNums.length;
+  var failedList  = failedCount > 0
+    ? '  (' + scoreResult.failedQNums.map(function(n) { return 'Q' + n; }).join(', ') + ')'
+    : '';
+
+  var subject = '[MOD 7 Quiz] ' + name + ' — ' + score + '/' + total + ' — ' + status;
+  var body =
+    name + ' (' + email + ', ' + role + ') just submitted the MOD 7 Knowledge Check.\n\n' +
     'Score: ' + score + ' / ' + total + ' (' + pct + '%)\n' +
     'Status: ' + status + '\n' +
     'Questions failed: ' + failedCount + ' of ' + total + failedList + '\n\n' +
