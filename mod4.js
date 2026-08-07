@@ -83,15 +83,15 @@ const QUESTIONS = [
   },
   {
     id: 5,
-    text: 'Which statement correctly describes the Evergreen exception for DI?',
+    text: 'Which statement correctly describes the Evergreen designation?',
     options: {
-      A: 'Sales Operations designates specific DI products as Evergreen; designated items behave like standard Carry-Forward items, with a Daybreak baseline that the KAM enriches on top.',
-      B: 'Any DI item with 12 months of stable history is automatically designated Evergreen by Demand Planning.',
-      C: 'The KAM nominates Evergreen items at the start of each cycle; DP confirms.',
-      D: 'Evergreen is a UK-only exception that does not apply in NA or EU markets.'
+      A: 'Sales Operations designates items as Evergreen; they then sit on a Daybreak baseline.',
+      B: 'Any item with 12 months of stable shipping history is automatically designated Evergreen by Demand Planning.',
+      C: 'The Key Account Manager nominates Evergreen items at cycle start, and Demand Planning confirms the list.',
+      D: 'Evergreen is a United Kingdom-only exception that does not apply in North America or in Europe.'
     },
     slideRefs: '6',
-    rationale: 'Evergreen is owned by Sales Operations — not by KAM, not by DP. Evergreen items behave like standard CF (Daybreak baseline applies, KAM enriches on top). The Evergreen list must be confirmed before each cycle.',
+    rationale: 'Sales Operations owns the Evergreen designation. Not the Key Account Manager, not Demand Planning, not the Brand Captain. Once an item is designated, it stops being built bottom-up and sits on a Daybreak baseline that the KAM enriches on top, like any Carry-Forward item. The designation is not automatic and it is not a market-specific quirk: what varies by market is which segments start outside the statistical model in the first place.',
     section: 'Direct Import (DI)'
   },
   {
@@ -135,12 +135,12 @@ const QUESTIONS = [
   },
   {
     id: 9,
-    text: 'A KAM is reviewing a DI account and finds an item that has shipped with a stable, repeating pattern for 18 months. The KAM wants the item to start from a Daybreak baseline rather than be built bottom-up. What should happen?',
+    text: 'A Key Account Manager (KAM) is reviewing an account in a segment the market has agreed not to forecast statistically, so its items are built bottom-up. One item has shipped a stable, repeating pattern for 18 months, and the KAM wants it to start from a Daybreak baseline instead. What should happen?',
     options: {
-      A: 'The KAM flags it directly in HERO as Evergreen and the Daybreak baseline applies from the next cycle.',
-      B: 'The KAM raises the item with Sales Operations for Evergreen designation; if approved, the item behaves like a standard CF with a Daybreak baseline. Until then, it stays in the DI bottom-up flow.',
-      C: 'Demand Planning re-classifies the item as Carry-Forward and applies the standard CF flow.',
-      D: 'The Brand Captain converts the item to Carry-Forward at Level 2.5 and locks the new treatment.'
+      A: 'The KAM flags it directly in HERO as Evergreen, and the Daybreak baseline applies from the next cycle onward.',
+      B: 'Sales Operations owns the designation. Until the item is designated, it stays in the bottom-up flow.',
+      C: 'Demand Planning re-classifies the item as Carry-Forward and applies the standard Carry-Forward flow.',
+      D: 'The Brand Captain converts the item to Carry-Forward at Level 2.5 and locks in the new treatment.'
     },
     slideRefs: '6',
     rationale: 'Evergreen designation is owned by Sales Ops — not by the KAM, DP, or Captain. Until Sales Ops designates the item Evergreen, it stays in the DI bottom-up flow.',

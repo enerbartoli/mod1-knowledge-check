@@ -37,3 +37,26 @@ check was raised.**
 
 ### Scope
 - Only MOD 2 Q7, MOD 2 Q11 (rationale), and MOD 4 Q4 changed. MOD 1, MOD 5, MOD 7 and all other MOD 2 / MOD 4 questions untouched.
+
+## 2026-08-07 (later) — MOD 4 Q5 & Q9 generalised (channel → segment scope)
+
+Patch in place, no rescoring. **Keys unchanged** (Q5 = A, Q9 = B), so scores are
+unaffected — this was wording, not re-keying. Prior MOD 4 submissions (24 at the
+supersession date) stay valid.
+
+### MOD 4 Q5 — SUPERSEDED (stem + options + rationale)
+- Reframed from "the Evergreen exception for DI" to "the Evergreen designation": Evergreen
+  is the route by which an item outside the statistical model joins it, not a DI-channel
+  quirk (UK excludes DI; NA forecasts DI statistically). Correct answer stays A.
+
+### MOD 4 Q9 — SUPERSEDED (stem + options; rationale unchanged)
+- Reframed from a "DI account" to "a segment the market has agreed not to forecast
+  statistically", and the previously-correct option B no longer describes an undefined
+  KAM→Sales-Ops nomination circuit — it now states only what is decided: Sales Operations
+  owns the designation, and until then the item stays bottom-up. Correct answer stays B.
+  The rationale was already correctly scoped and was left unchanged.
+
+### Slide references — NOT verified
+- Q5 and Q9 both carry slide_refs "6". The MOD 4/5 deck
+  (H.E.R.O Enrichment Training Mod 4 & 5_v5.1_2026-05-31.pptx) is not reachable from the
+  build environment, so these were left unchanged and not verified. Confirm against the deck.

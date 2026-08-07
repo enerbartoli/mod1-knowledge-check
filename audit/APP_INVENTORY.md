@@ -1,12 +1,12 @@
 # App Inventory
 
 <!-- GENERATED FILE — do not edit by hand. Run: node tools/generate_inventory.js -->
-<!-- structural_sha: e724868341e82f5ea077a29b2b980ac176d76f7cd8ff4bf40420f2b3f011d74a -->
+<!-- structural_sha: 88a9d5a13dfd2ed127fd86c5249f9564a77cd7b9898cd8ce2e93289fafe8e756 -->
 
 - Generated: **2026-08-07**
-- Commit at generation (HEAD): `d7ffda844d15384deb14f07216350e005dac771d`
+- Commit at generation (HEAD): `9410b019e3e1fb9334e00fb26ace2b6d6309d5b5`
 - Guard bank: `KC_Canonical_QuestionBank_v4_2026-08-07.json`
-- Structural hash: `e724868341e82f5ea077a29b2b980ac176d76f7cd8ff4bf40420f2b3f011d74a` (the drift guard fails the build if this stops matching the repo)
+- Structural hash: `88a9d5a13dfd2ed127fd86c5249f9564a77cd7b9898cd8ce2e93289fafe8e756` (the drift guard fails the build if this stops matching the repo)
 
 ## Modules
 
@@ -444,14 +444,14 @@
 - **C** Both: adjustments layered on the resultant, since every segment carries a baseline once the cycle opens.
 - **D** UK DI and FAN: the full volume as Base Trend at Level 2.5. US DI: the full volume as Base Trend at Level 1.
 
-**Q5** · fingerprint `9737fc48f9ba` · correct **A** · rationale yes · slides 6
+**Q5** · fingerprint `de9a92ac87b3` · correct **A** · rationale yes · slides 6
 
-> Which statement correctly describes the Evergreen exception for DI?
+> Which statement correctly describes the Evergreen designation?
 
-- **A ✓** Sales Operations designates specific DI products as Evergreen; designated items behave like standard Carry-Forward items, with a Daybreak baseline that the KAM enriches on top.
-- **B** Any DI item with 12 months of stable history is automatically designated Evergreen by Demand Planning.
-- **C** The KAM nominates Evergreen items at the start of each cycle; DP confirms.
-- **D** Evergreen is a UK-only exception that does not apply in NA or EU markets.
+- **A ✓** Sales Operations designates items as Evergreen; they then sit on a Daybreak baseline.
+- **B** Any item with 12 months of stable shipping history is automatically designated Evergreen by Demand Planning.
+- **C** The Key Account Manager nominates Evergreen items at cycle start, and Demand Planning confirms the list.
+- **D** Evergreen is a United Kingdom-only exception that does not apply in North America or in Europe.
 
 **Q6** · fingerprint `94ca080bd677` · correct **B** · rationale yes · slides 7
 
@@ -480,14 +480,14 @@
 - **C ✓** Demand Planning facilitates and challenges but does not own the volume — the KAM carries the build for DI and Amazon; the regional category team owns the volume for FAN.
 - **D** Demand Planning owns DI and FAN; the KAM owns Amazon.
 
-**Q9** · fingerprint `532e155cb721` · correct **B** · rationale yes · slides 6
+**Q9** · fingerprint `363ca3375f33` · correct **B** · rationale yes · slides 6
 
-> A KAM is reviewing a DI account and finds an item that has shipped with a stable, repeating pattern for 18 months. The KAM wants the item to start from a Daybreak baseline rather than be built bottom-up. What should happen?
+> A Key Account Manager (KAM) is reviewing an account in a segment the market has agreed not to forecast statistically, so its items are built bottom-up. One item has shipped a stable, repeating pattern for 18 months, and the KAM wants it to start from a Daybreak baseline instead. What should happen?
 
-- **A** The KAM flags it directly in HERO as Evergreen and the Daybreak baseline applies from the next cycle.
-- **B ✓** The KAM raises the item with Sales Operations for Evergreen designation; if approved, the item behaves like a standard CF with a Daybreak baseline. Until then, it stays in the DI bottom-up flow.
-- **C** Demand Planning re-classifies the item as Carry-Forward and applies the standard CF flow.
-- **D** The Brand Captain converts the item to Carry-Forward at Level 2.5 and locks the new treatment.
+- **A** The KAM flags it directly in HERO as Evergreen, and the Daybreak baseline applies from the next cycle onward.
+- **B ✓** Sales Operations owns the designation. Until the item is designated, it stays in the bottom-up flow.
+- **C** Demand Planning re-classifies the item as Carry-Forward and applies the standard Carry-Forward flow.
+- **D** The Brand Captain converts the item to Carry-Forward at Level 2.5 and locks in the new treatment.
 
 **Q10** · fingerprint `94699684748b` · correct **D** · rationale yes · slides 7
 

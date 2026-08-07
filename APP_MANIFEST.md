@@ -67,11 +67,11 @@ Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 | Q2 | Direct Import (DI) | 6 | `69a13a8854f3` | C |
 | Q3 | FAN Items | 7 | `ac10c9dad916` | A |
 | Q4 | Reconciliation Template | 6, 7 | `3bec1d538b9e` | A |
-| Q5 | Direct Import (DI) | 6 | `9737fc48f9ba` | A |
+| Q5 | Direct Import (DI) | 6 | `de9a92ac87b3` | A |
 | Q6 | FAN Items | 7 | `94ca080bd677` | B |
 | Q7 | Amazon | 8 | `759b4c446b02` | A |
 | Q8 | Demand Planning Role | 6, 7, 8 | `746820920e1f` | C |
-| Q9 | Direct Import (DI) | 6 | `532e155cb721` | B |
+| Q9 | Direct Import (DI) | 6 | `363ca3375f33` | B |
 | Q10 | FAN Items | 7 | `94699684748b` | D |
 
 ### mod5 — MOD 5 Knowledge Check · Reconciliation &amp; Decision Narrative

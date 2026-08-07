@@ -608,18 +608,19 @@
         },
         {
           "id": "Q5",
-          "text": "Which statement correctly describes the Evergreen exception for DI?",
+          "text": "Which statement correctly describes the Evergreen designation?",
           "options": {
-            "A": "Sales Operations designates specific DI products as Evergreen; designated items behave like standard Carry-Forward items, with a Daybreak baseline that the KAM enriches on top.",
-            "B": "Any DI item with 12 months of stable history is automatically designated Evergreen by Demand Planning.",
-            "C": "The KAM nominates Evergreen items at the start of each cycle; DP confirms.",
-            "D": "Evergreen is a UK-only exception that does not apply in NA or EU markets."
+            "A": "Sales Operations designates items as Evergreen; they then sit on a Daybreak baseline.",
+            "B": "Any item with 12 months of stable shipping history is automatically designated Evergreen by Demand Planning.",
+            "C": "The Key Account Manager nominates Evergreen items at cycle start, and Demand Planning confirms the list.",
+            "D": "Evergreen is a United Kingdom-only exception that does not apply in North America or in Europe."
           },
           "correct": "A",
-          "rationale": "Evergreen is owned by Sales Operations — not by KAM, not by DP. Evergreen items behave like standard CF (Daybreak baseline applies, KAM enriches on top). The Evergreen list must be confirmed before each cycle.",
+          "rationale": "Sales Operations owns the Evergreen designation. Not the Key Account Manager, not Demand Planning, not the Brand Captain. Once an item is designated, it stops being built bottom-up and sits on a Daybreak baseline that the KAM enriches on top, like any Carry-Forward item. The designation is not automatic and it is not a market-specific quirk: what varies by market is which segments start outside the statistical model in the first place.",
           "slide_refs": "6",
-          "fingerprint": "9737fc48f9ba",
-          "options_authoritative": true
+          "fingerprint": "de9a92ac87b3",
+          "options_authoritative": true,
+          "superseded_on": "2026-08-07"
         },
         {
           "id": "Q6",
@@ -668,18 +669,19 @@
         },
         {
           "id": "Q9",
-          "text": "A KAM is reviewing a DI account and finds an item that has shipped with a stable, repeating pattern for 18 months. The KAM wants the item to start from a Daybreak baseline rather than be built bottom-up. What should happen?",
+          "text": "A Key Account Manager (KAM) is reviewing an account in a segment the market has agreed not to forecast statistically, so its items are built bottom-up. One item has shipped a stable, repeating pattern for 18 months, and the KAM wants it to start from a Daybreak baseline instead. What should happen?",
           "options": {
-            "A": "The KAM flags it directly in HERO as Evergreen and the Daybreak baseline applies from the next cycle.",
-            "B": "The KAM raises the item with Sales Operations for Evergreen designation; if approved, the item behaves like a standard CF with a Daybreak baseline. Until then, it stays in the DI bottom-up flow.",
-            "C": "Demand Planning re-classifies the item as Carry-Forward and applies the standard CF flow.",
-            "D": "The Brand Captain converts the item to Carry-Forward at Level 2.5 and locks the new treatment."
+            "A": "The KAM flags it directly in HERO as Evergreen, and the Daybreak baseline applies from the next cycle onward.",
+            "B": "Sales Operations owns the designation. Until the item is designated, it stays in the bottom-up flow.",
+            "C": "Demand Planning re-classifies the item as Carry-Forward and applies the standard Carry-Forward flow.",
+            "D": "The Brand Captain converts the item to Carry-Forward at Level 2.5 and locks in the new treatment."
           },
           "correct": "B",
           "rationale": "Evergreen designation is owned by Sales Ops — not by the KAM, DP, or Captain. Until Sales Ops designates the item Evergreen, it stays in the DI bottom-up flow.",
           "slide_refs": "6",
-          "fingerprint": "532e155cb721",
-          "options_authoritative": true
+          "fingerprint": "363ca3375f33",
+          "options_authoritative": true,
+          "superseded_on": "2026-08-07"
         },
         {
           "id": "Q10",
@@ -1281,6 +1283,7 @@
     "mod4 Q4 REWRITTEN (stem + options + correct A + rationale). Prior submissions kept valid against the earlier version.",
     "slide_refs verified against decks 2026-08-07: mod2 Q7 32->35, mod2 Q11 31->34 (DE_MOD2_FACILITATOR_DECK_v4_with-notes_2026-07-16.pptx, 57 slides); mod4 Q4 '6, 7' verified unchanged (H.E.R.O Enrichment Training Mod 4 & 5_v5.1_2026-05-31.pptx, 74 slides).",
     "Added MOD 3 — HERO in Practice (10 questions). References are named manual sections, not slides: slide_refs holds the manual reference and the module carries ref_type='manual_section'. options_authoritative:true.",
-    "Added nav_label per module (single source for the nav menu and dashboard filters, consumed by tools/generate_registry.js)."
+    "Added nav_label per module (single source for the nav menu and dashboard filters, consumed by tools/generate_registry.js).",
+    "mod4 Q5 & Q9 generalised from DI channel to segment scope (Evergreen). Q5: stem+options+rationale; Q9: stem+options (rationale unchanged). Keys unchanged (A, B). Prior submissions kept valid against earlier versions."
   ]
 }
