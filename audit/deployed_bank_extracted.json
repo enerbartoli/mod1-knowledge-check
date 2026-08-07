@@ -1,0 +1,889 @@
+{
+  "schema_version": "1.0",
+  "generated_on": "2026-08-07-audit",
+  "modules": [
+    {
+      "module_id": "mod1",
+      "questions": [
+        {
+          "id": "Q1",
+          "text": "Why is Hasbro implementing the new Forecast Enrichment process now?",
+          "options": {
+            "A": "To address chronic gaps in forecast traceability, manual workload, and the ability to measure the value of commercial intelligence.",
+            "B": "To replace Logility with Daybreak as the planning system.",
+            "C": "To reduce the number of Demand Planning resources required each cycle.",
+            "D": "To consolidate Sales, Marketing, and Demand Planning under a single team."
+          },
+          "section": "Why we're changing",
+          "deployed_key": "A",
+          "fingerprint": "e306b3929195"
+        },
+        {
+          "id": "Q2",
+          "text": "Which statement best describes the role of the Daybreak statistical baseline in the new process?",
+          "options": {
+            "A": "Daybreak produces the final forecast used directly by Supply Planning; no further input is needed.",
+            "B": "Daybreak models baseline demand behavior; commercial input must be added through enrichments to capture what the historical data cannot see.",
+            "C": "Sales, Marketing, and Demand Planning each maintain independent baselines that are reconciled at year-end.",
+            "D": "The baseline replaces all commercial input; enrichments are optional refinements."
+          },
+          "section": "End-to-end picture",
+          "deployed_key": "B",
+          "fingerprint": "330bb3671614"
+        },
+        {
+          "id": "Q3",
+          "text": "Which statement is correct about the Daybreak statistical baseline?",
+          "options": {
+            "A": "It is built by Sales each cycle based on customer commitments.",
+            "B": "It is set to the prior year's volume adjusted by a fixed growth factor.",
+            "C": "It uses Hasbro's real historical shipment data and item attributes — through machine learning — to predict future demand patterns.",
+            "D": "It is identical to the Financial Forecast and updated on the same cadence."
+          },
+          "section": "Statistical Baseline 101",
+          "deployed_key": "C",
+          "fingerprint": "ecbfa380891e"
+        },
+        {
+          "id": "Q4",
+          "text": "Which statement correctly describes the three-party operating model that produces the baseline?",
+          "options": {
+            "A": "Daybreak provides the machine-learning engine; Genpact executes the operational tasks; Hasbro Demand Planning owns governance and sign-off.",
+            "B": "Genpact provides the engine; Daybreak validates the outputs; Hasbro Demand Planning sets the parameters.",
+            "C": "Hasbro Demand Planning generates the baseline; Genpact provides the model design; Daybreak hosts the data.",
+            "D": "All three parties contribute equally to model generation, validation, and sign-off."
+          },
+          "section": "Statistical Baseline 101",
+          "deployed_key": "A",
+          "fingerprint": "ab90665dc027"
+        },
+        {
+          "id": "Q5",
+          "text": "Which SKUs are treated using Daybreak's standard machine-learning forecasting approach?",
+          "options": {
+            "A": "All active SKUs in the portfolio, including new product introductions.",
+            "B": "Pure NPI items in their first 12 months of life.",
+            "C": "Carry-Forward items with at least 52 weeks of historical shipment data.",
+            "D": "Fan items, regardless of how much history they have."
+          },
+          "section": "SKU Types",
+          "deployed_key": "C",
+          "fingerprint": "821b4b89f4ec"
+        },
+        {
+          "id": "Q6",
+          "text": "How is an NPI's forecast generated during its cold-start phase (0–8 weeks of history)?",
+          "options": {
+            "A": "By shaping the Brand Plan annual volume with attribute-based shape and level models (category, launch timing, price tier).",
+            "B": "By copying the predecessor product's historical pattern.",
+            "C": "By projecting the first month of actuals forward.",
+            "D": "By applying Daybreak's carry-forward model with extrapolated history."
+          },
+          "section": "SKU Types",
+          "deployed_key": "A",
+          "fingerprint": "52ee0a337ab6"
+        },
+        {
+          "id": "Q7",
+          "text": "Why are UK Fan items handled without a statistical baseline?",
+          "options": {
+            "A": "Daybreak's licensing model prevents its use on Fan products.",
+            "B": "Fan volume is too small to justify the model's processing cost.",
+            "C": "Fan items are forecasted in a separate system maintained by Marketing.",
+            "D": "Fan demand is driven by entertainment events with no recurring pattern; historical data cannot meaningfully predict future demand. Marketing and Commercial build the forecast directly."
+          },
+          "section": "SKU Types",
+          "deployed_key": "D",
+          "fingerprint": "48135d47c4cf"
+        },
+        {
+          "id": "Q8",
+          "text": "At which planning level is the Daybreak statistical baseline generated?",
+          "options": {
+            "A": "Planning Level 1 — Customer × Planning SKU × Channel.",
+            "B": "Planning Level 2 — Planning SKU × Customer.",
+            "C": "Planning Level 3 — Parent SKU × Business Unit × Channel.",
+            "D": "Planning Level 5 — Brand × Business Unit."
+          },
+          "section": "Disaggregation",
+          "deployed_key": "C",
+          "fingerprint": "eb3d0dbb5382"
+        },
+        {
+          "id": "Q9",
+          "text": "What is the purpose of forecast disaggregation in the new process?",
+          "options": {
+            "A": "To convert weekly forecasts into monthly buckets for financial reporting.",
+            "B": "To translate the Consensus Forecast into the Financial Forecast for the budget cycle.",
+            "C": "To split the forecast between Domestic and Direct Import channels.",
+            "D": "To break the L3 statistical baseline down to the Customer × Planning SKU × Channel level (L1), so that Sales can review and enrich the forecast at the level where commercial decisions are made."
+          },
+          "section": "Disaggregation",
+          "deployed_key": "D",
+          "fingerprint": "92c19184df0c"
+        },
+        {
+          "id": "Q10",
+          "text": "How does the disaggregation method differ between a Carry-Forward item and an NPI item?",
+          "options": {
+            "A": "Both methods are identical — only the source system differs.",
+            "B": "Carry-Forward uses the SKU's own statistical proportionality based on its history; NPI uses brand-level historical customer mix combined with P2M volume splits, because the NPI has no shipment history of its own.",
+            "C": "Carry-Forward is disaggregated manually; NPI is disaggregated automatically.",
+            "D": "Carry-Forward is disaggregated only at L1; NPI only at L3."
+          },
+          "section": "Disaggregation",
+          "deployed_key": "B",
+          "fingerprint": "cc2951a54c4e"
+        },
+        {
+          "id": "Q11",
+          "text": "What is the purpose of the Forecasting Range?",
+          "options": {
+            "A": "It controls when Daybreak runs the statistical model for each cycle.",
+            "B": "It defines, per customer × SKU, the period during which the customer should receive baseline disaggregation. Outside that period, the customer is excluded from the disaggregation logic.",
+            "C": "It sets the look-back window used by the Logility Moving Average Model.",
+            "D": "It determines the timing of the Joint Marketing & Demand Planning Reconciliation Session."
+          },
+          "section": "Disaggregation",
+          "deployed_key": "B",
+          "fingerprint": "20c4ee1210c1"
+        },
+        {
+          "id": "Q12",
+          "text": "Which statement best describes when an enrichment should be applied to the baseline?",
+          "options": {
+            "A": "On every SKU in the portfolio, each cycle, to confirm review.",
+            "B": "Only when Marketing or Demand Planning requests an adjustment.",
+            "C": "Only for events the statistical baseline cannot see — known commercial activity, structural changes, supply-related shifts, or committed plans.",
+            "D": "Only when the forecast is below the Financial Forecast target."
+          },
+          "section": "Enrichment Principles",
+          "deployed_key": "C",
+          "fingerprint": "86bd56294ba5"
+        },
+        {
+          "id": "Q13",
+          "text": "What is the purpose of the Joint Marketing & Demand Planning Reconciliation Session?",
+          "options": {
+            "A": "To allow Marketing to override Sales' L1 enrichments in cases where Marketing has better visibility.",
+            "B": "To finalize the Daybreak baseline before it is loaded to Logility for the cycle.",
+            "C": "To replace the legacy Brand DMR meetings that exist today in North America.",
+            "D": "To combine the bottom-up commercial view with top-down statistical and brand-strategic views, apply BU-level corrections, and prepare the proposal for Executive Sign-Off."
+          },
+          "section": "Reconciliation",
+          "deployed_key": "D",
+          "fingerprint": "c2bb09fdb8d3"
+        },
+        {
+          "id": "Q14",
+          "text": "In the UK pilot, which statement correctly describes the scope split between Key Account Managers (KAMs) and Brand Captains?",
+          "options": {
+            "A": "Both roles can edit the baseline at any planning level; the most recent edit wins.",
+            "B": "Brand Captains own SKU × BU-level (Level 2.5) Base Trend adjustments. KAMs capture account-specific enrichments and account-level deltas at L1; baseline adjustments by KAMs are exceptions, not the default.",
+            "C": "Only Demand Planning can adjust the baseline; both KAMs and Brand Captains submit requests for review.",
+            "D": "The KAM owns baseline adjustments at all levels; the Brand Captain reviews after the fact."
+          },
+          "section": "UK Pilot Roles",
+          "deployed_key": "B",
+          "fingerprint": "ee088a518d54"
+        },
+        {
+          "id": "Q15",
+          "text": "In the 2026 UK pilot, how does HERO present the starting forecast to Brand Captains at the beginning of each cycle?",
+          "options": {
+            "A": "Empty — Brand Captains build the forecast from scratch each cycle.",
+            "B": "Pre-populated with the prior month's consensus forecast.",
+            "C": "Pre-populated with the Daybreak baseline only; Captains rebuild everything else manually.",
+            "D": "Pre-populated with the deltas between the Daybreak baseline and the current resultant forecast. Captains capture only the changes they intend to move the resultant — no manual matching is required."
+          },
+          "section": "End-to-end Workflow",
+          "deployed_key": "D",
+          "fingerprint": "d71d46b66fe7"
+        },
+        {
+          "id": "Q16",
+          "text": "In the 2027 target operating model, how does the Brand Captain's role differ from the 2026 pilot?",
+          "options": {
+            "A": "Brand Captains start from the Daybreak baseline directly. Corrections for commercial or supply events affecting the forecast are captured as Base Trend adjustments.",
+            "B": "Brand Captains are removed; cycles run fully automated.",
+            "C": "Brand Captains operate exclusively at Level 1 (customer level), with KAMs handling BU-level decisions.",
+            "D": "Brand Captains review a pre-populated forecast and confirm without modification."
+          },
+          "section": "End-to-end Workflow",
+          "deployed_key": "A",
+          "fingerprint": "7bfe19f29e32"
+        }
+      ]
+    },
+    {
+      "module_id": "mod2",
+      "questions": [
+        {
+          "id": "Q1",
+          "text": "A carry-forward item shows two consecutive years of stable seasonal demand, with no confirmed commercial event, no supply issue, and no distribution change in scope. The Daybreak baseline and the Resultant Forecast track the same seasonal shape at L3. What is the correct action?",
+          "options": {
+            "A": "Accept the L3 baseline — no enrichment required.",
+            "B": "Apply a positive base trend adjustment to lock the seasonal pattern into next year.",
+            "C": "Override the Daybreak baseline with the Sales Forecast.",
+            "D": "Submit a disaggregation adjustment request to DP/Genpact."
+          },
+          "section": "Baseline Training",
+          "deployed_key": "A",
+          "fingerprint": "7467435b3505"
+        },
+        {
+          "id": "Q2",
+          "text": "You are reviewing a scenario where the total demand at L3 looks correct against history, but the customer-level split at L2 routes most of the volume to inactive partners. Where does the issue live?",
+          "options": {
+            "A": "In the L3 baseline — apply a base trend correction.",
+            "B": "In the L2 disaggregation — fix the customer mix without changing L3.",
+            "C": "In the Daybreak engine — escalate to Genpact for a model rerun.",
+            "D": "In both layers — apply offsetting enrichments at L3 and L1."
+          },
+          "section": "Baseline Training",
+          "deployed_key": "B",
+          "fingerprint": "4286d1584150"
+        },
+        {
+          "id": "Q3",
+          "text": "An item shipped near zero for several months in 2025 because of a confirmed stockout. The Daybreak baseline now projects 2026 demand at a fraction of the pre-stockout run-rate, because the model learned the suppression as true decline. What is the correct action?",
+          "options": {
+            "A": "Apply a positive promo enrichment to lift demand back to historical levels.",
+            "B": "Override the Daybreak baseline with the Sales Forecast each cycle going forward.",
+            "C": "Cleanse the stockout-affected months in historical data so Daybreak can rebuild an accurate baseline.",
+            "D": "Accept the Daybreak baseline — the model is reading the most recent year correctly."
+          },
+          "section": "Baseline Training",
+          "deployed_key": "C",
+          "fingerprint": "c7242ed59ef4"
+        },
+        {
+          "id": "Q4",
+          "text": "A Warm Start NPI with under 12 months of history has 16 weeks of actuals below the 2026 Resultant plan, and Daybreak has slashed the 2027 baseline by more than half. After reviewing together, you and the Brand Captain agree Daybreak's drop is too aggressive and the SKU can still rebound. What is the correct action?",
+          "options": {
+            "A": "Accept the Daybreak 2027 baseline — 16 weeks of actuals is sufficient to confirm the structural decline.",
+            "B": "Apply negative sets in each under-performing month to align the forecast to Daybreak's corrected view.",
+            "C": "Recalculate overall demand and apply an L2.5 Base Trend adjustment via the Brand Captain's reconciliation template.",
+            "D": "Submit a disaggregation request to DP/Genpact to redistribute the volume across a wider customer base."
+          },
+          "section": "Baseline Training",
+          "deployed_key": "C",
+          "fingerprint": "4a93227f7d2f"
+        },
+        {
+          "id": "Q5",
+          "text": "A carry-forward item is exclusive to a single retailer — that retailer absorbs ~100% of actuals across the past two years. The Current Resultant disaggregation routes a large share to other customers with no recent history, while the Moving Average method routes ~100% to the exclusive partner. What is the correct action?",
+          "options": {
+            "A": "Keep the Current disaggregation; the model will self-correct over time.",
+            "B": "Apply a negative base trend to remove the non-active customers.",
+            "C": "Submit a disaggregation request to DP/Genpact to rebuild the customer hierarchy.",
+            "D": "Switch the L2 disaggregation method from Current to Moving Average."
+          },
+          "section": "Baseline Training",
+          "deployed_key": "D",
+          "fingerprint": "1ea3ef950650"
+        },
+        {
+          "id": "Q6",
+          "text": "Which statement correctly describes the difference between a Set and a Base Trend enrichment?",
+          "options": {
+            "A": "A Set is positive only; a Base Trend can be positive or negative.",
+            "B": "A set cleanses out of the historical shipments after the period passes; base trend adjustment are never used to clean the history therefore its impact remains.",
+            "C": "A Set is owned by Sales; a Base Trend is owned by Demand Planning.",
+            "D": "A Set applies to NPI items only; a Base Trend applies to carry-forward items only."
+          },
+          "section": "Set vs Base Trend",
+          "deployed_key": "B",
+          "fingerprint": "ba6c9acfed3e"
+        },
+        {
+          "id": "Q7",
+          "text": "A customer pulls confirmed annual demand into a specific order window (ladder), with offsetting reductions in the months from which demand is being moved. The full-year total does not change. Which enrichment approach is correct?",
+          "options": {
+            "A": "Positive base trend in the ladder month + negative base trend in the pulled-from months.",
+            "B": "Positive set in the ladder month + negative sets in the pulled-from months.",
+            "C": "Single positive base trend in the ladder month — the negative offset is not needed.",
+            "D": "No enrichment — let the baseline absorb the timing shift over the next cycle."
+          },
+          "section": "Set vs Base Trend",
+          "deployed_key": "B",
+          "fingerprint": "82c1654cff87"
+        },
+        {
+          "id": "Q8",
+          "text": "A customer is adding new stores to its distribution. The initial pipeline fill ships in one window (F1), and ongoing replenishment continues in those new stores afterwards. Which enrichment approach is correct?",
+          "options": {
+            "A": "Single base trend from F1 onward — covers both the fill and ongoing replenishment.",
+            "B": "Single set in F1 — covers the fill; the model will pick up the new run-rate from actuals.",
+            "C": "Set in F1 for the new-store fill + base trend from F2 onward for ongoing replenishment.",
+            "D": "Two sets — one in F1 for the fill, one in F2 onward for replenishment."
+          },
+          "section": "Set vs Base Trend",
+          "deployed_key": "C",
+          "fingerprint": "fe7fde40959e"
+        },
+        {
+          "id": "Q9",
+          "text": "An established carry-forward item has a future confirmed retail promotion that is not already reflected in baseline behavior. The promo will generate incremental units in a specific ship window. Which enrichment is correct?",
+          "options": {
+            "A": "Promo enrichment for the confirmed incremental units in the relevant ship week(s).",
+            "B": "Positive base trend for the promo lift, to persist into future cycles.",
+            "C": "Set enrichment for the entire month containing the promo.",
+            "D": "No enrichment — the baseline will capture the lift once actuals come in."
+          },
+          "section": "Enrichment Types",
+          "deployed_key": "A",
+          "fingerprint": "dd0ae51a0602"
+        },
+        {
+          "id": "Q10",
+          "text": "A customer has provided a specific pre-order quantity and timing for a new item with no comparable history. What is the correct way to capture it?",
+          "options": {
+            "A": "Pre-order enrichment for the confirmed quantity and timing only.",
+            "B": "Pre-order enrichment for the confirmed quantity, plus an additional run-rate estimate for the rest of the year.",
+            "C": "Set enrichment for the pre-order, then convert to base trend once actuals start coming in.",
+            "D": "No enrichment — the NPI baseline will absorb the pre-order."
+          },
+          "section": "Enrichment Types",
+          "deployed_key": "A",
+          "fingerprint": "e4141bf0b48a"
+        },
+        {
+          "id": "Q11",
+          "text": "An NPI's stat baseline already includes the channel-fill volume in its launch shape, but the team needs the fill visible as a discrete set for allocation traceability. What is the correct approach in F1?",
+          "options": {
+            "A": "Add a positive set for the channel-fill on top of the existing baseline.",
+            "B": "Apply a positive base trend in F1 to make the channel-fill visible.",
+            "C": "Submit a disaggregation request to split the channel-fill into a separate baseline component.",
+            "D": "To reflect a negative base trend enrichment in correspondent period to offset the channel-fill already inside the baseline, plus a positive set enrichment of equal magnitude in the same month."
+          },
+          "section": "Enrichment Types",
+          "deployed_key": "D",
+          "fingerprint": "bb0ce7e89031"
+        },
+        {
+          "id": "Q12",
+          "text": "Last year a deal spike inflated demand for a specific period, and the promotion is not repeating this year. The baseline is now projecting the spike forward as if it were normal seasonality. What is the correct action?",
+          "options": {
+            "A": "Apply a positive promo enrichment to confirm the new run-rate.",
+            "B": "Submit a disaggregation adjustment to redistribute the spike across customers.",
+            "C": "Apply a negative base trend to remove the phantom spike from the projection.",
+            "D": "Let the baseline run — actuals will pull it back to normal within two cycles."
+          },
+          "section": "Base Trend Corrections",
+          "deployed_key": "C",
+          "fingerprint": "eb7cf03b088e"
+        },
+        {
+          "id": "Q13",
+          "text": "A specific customer has discontinued an item that remains active at other customers. The baseline is still allocating volume to the dropped customer based on past proportions. What is the correct action?",
+          "options": {
+            "A": "Apply a negative base trend and update the forecasting range to stop allocating to that customer.",
+            "B": "Wait — the model will reduce the customer's share once actuals show zero.",
+            "C": "Submit a disaggregation request to remove the customer from the L2 split.",
+            "D": "Apply a one-time negative set for the year, then let the baseline rebuild."
+          },
+          "section": "Base Trend Corrections",
+          "deployed_key": "A",
+          "fingerprint": "6738b295e2a7"
+        },
+        {
+          "id": "Q14",
+          "text": "A customer is changing its buying route from Domestic to Direct Import. Total demand is unchanged — only the channel is moving. The volume in scope currently sits in the baseline. What is the correct approach?",
+          "options": {
+            "A": "Create a positive enrichment on DI and an offsetting negative enrichment on DOM.",
+            "B": "Submit a disaggregation request to reroute the volume between channels.",
+            "C": "Apply a base trend on DI to grow the channel; let DOM decay through actuals.",
+            "D": "Use the channel-shift functionality on the baseline to move volume from DOM to DI."
+          },
+          "section": "No-Enrichment Paths",
+          "deployed_key": "D",
+          "fingerprint": "7958d48e0d39"
+        },
+        {
+          "id": "Q15",
+          "text": "At the BU/brand level the L3 total is accurate against history, but the L2 customer split allocates too much volume to a customer with declining actuals. What is the correct path?",
+          "options": {
+            "A": "Apply a negative enrichment on the over-allocated customer to bring the split back in line.",
+            "B": "Submit a disaggregation adjustment request to DP/Genpact; do not enter an enrichment.",
+            "C": "Apply offsetting enrichments — negative on the over-allocated customer, positive on the under-allocated one.",
+            "D": "Switch the L2 disaggregation method from Moving Average back to Current Resultant."
+          },
+          "section": "No-Enrichment Paths",
+          "deployed_key": "B",
+          "fingerprint": "abdb8ec969f2"
+        }
+      ]
+    },
+    {
+      "module_id": "mod4",
+      "questions": [
+        {
+          "id": "Q1",
+          "text": "Why do DI, FAN, and Amazon need to be discussed as a separate group in MOD 4?",
+          "options": {
+            "A": "They are the three customer segments that contribute the highest revenue in the UK market.",
+            "B": "Their historical demand behaves erratically — discontinuous and opportunistic — so a history-based statistical model cannot predict it adequately, and each one needs a tailored handling approach.",
+            "C": "They are the three account groups that are out of scope for the UK pilot.",
+            "D": "They are the only customer groups that have a dedicated KAM assigned in the UK."
+          },
+          "section": "DI, FAN & Amazon",
+          "deployed_key": "B",
+          "fingerprint": "653dcd2748bc"
+        },
+        {
+          "id": "Q2",
+          "text": "In the UK pilot, who owns the DI forecast number and how is it built?",
+          "options": {
+            "A": "Daybreak generates the baseline; the KAM reviews and adjusts using the standard enrichment flow.",
+            "B": "Demand Planning builds the DI number from statistical extrapolation; the KAM validates.",
+            "C": "The KAM owns the number and builds it partner-by-partner from account knowledge — committed programs, signed orders, customer plans.",
+            "D": "The regional category team owns it; the KAM validates timing only."
+          },
+          "section": "Direct Import (DI)",
+          "deployed_key": "C",
+          "fingerprint": "69a13a8854f3"
+        },
+        {
+          "id": "Q3",
+          "text": "For FAN items, which team builds the forecast volume, and what does the KAM do?",
+          "options": {
+            "A": "The regional category team allocates volumes per client based on the launch plan; the KAM validates timing and feasibility at their account but does not re-cut the volume.",
+            "B": "The KAM builds the forecast bottom-up partner-by-partner, the same way DI is built.",
+            "C": "Daybreak builds the baseline; the KAM enriches as needed.",
+            "D": "Marketing owns the number; KAMs are not involved."
+          },
+          "section": "FAN Items",
+          "deployed_key": "A",
+          "fingerprint": "ac10c9dad916"
+        },
+        {
+          "id": "Q4",
+          "text": "Where does the full DI or FAN forecast volume land in the Reconciliation Template?",
+          "options": {
+            "A": "Split between the Daybreak baseline at L3 and Enrichment lines at L1.",
+            "B": "As a separate Sales Forecast line outside the template.",
+            "C": "In the same Enrichment lines used for promos and listings.",
+            "D": "As Base Trend enrichment at Level 1, because there is no Daybreak baseline at SKU level underneath."
+          },
+          "section": "Reconciliation Template",
+          "deployed_key": "D",
+          "fingerprint": "dbaddd45e509"
+        },
+        {
+          "id": "Q5",
+          "text": "Which statement correctly describes the Evergreen exception for DI?",
+          "options": {
+            "A": "Sales Operations designates specific DI products as Evergreen; designated items behave like standard Carry-Forward items, with a Daybreak baseline that the KAM enriches on top.",
+            "B": "Any DI item with 12 months of stable history is automatically designated Evergreen by Demand Planning.",
+            "C": "The KAM nominates Evergreen items at the start of each cycle; DP confirms.",
+            "D": "Evergreen is a UK-only exception that does not apply in NA or EU markets."
+          },
+          "section": "Direct Import (DI)",
+          "deployed_key": "A",
+          "fingerprint": "9737fc48f9ba"
+        },
+        {
+          "id": "Q6",
+          "text": "Why are FAN items deliberately handled outside the Daybreak baseline?",
+          "options": {
+            "A": "FAN items have insufficient shipment history for the statistical engine to process them.",
+            "B": "FAN demand is tied to one-off cultural moments (franchise releases, film tie-ins, time-limited campaigns) with no reliable repeat pattern — keeping them out of the baseline protects the statistical engine for standard CF items.",
+            "C": "FAN volume is too small to justify the model's run-time.",
+            "D": "FAN items are excluded by Daybreak's licensing terms."
+          },
+          "section": "FAN Items",
+          "deployed_key": "B",
+          "fingerprint": "94ca080bd677"
+        },
+        {
+          "id": "Q7",
+          "text": "How is Amazon treated in the UK pilot?",
+          "options": {
+            "A": "As a standard customer — Daybreak generates the brand-level baseline, statistical disaggregation assigns Amazon's share, and the Amazon KAM reviews and adjusts using the standard Enrichment and Base Trend tools.",
+            "B": "Bottom-up by KAM, with no baseline — the same as DI.",
+            "C": "Bottom-up by the regional category team — the same as FAN.",
+            "D": "Outside the pilot scope; Amazon joins after the July cycle."
+          },
+          "section": "Amazon",
+          "deployed_key": "A",
+          "fingerprint": "759b4c446b02"
+        },
+        {
+          "id": "Q8",
+          "text": "Across DI, FAN, and Amazon, what is Demand Planning's role?",
+          "options": {
+            "A": "Demand Planning owns the forecast number for all three patterns end-to-end.",
+            "B": "Demand Planning is not involved; the KAM or the category team owns the volume on its own.",
+            "C": "Demand Planning facilitates and challenges but does not own the volume — the KAM carries the build for DI and Amazon; the regional category team owns the volume for FAN.",
+            "D": "Demand Planning owns DI and FAN; the KAM owns Amazon."
+          },
+          "section": "Demand Planning Role",
+          "deployed_key": "C",
+          "fingerprint": "746820920e1f"
+        },
+        {
+          "id": "Q9",
+          "text": "A KAM is reviewing a DI account and finds an item that has shipped with a stable, repeating pattern for 18 months. The KAM wants the item to start from a Daybreak baseline rather than be built bottom-up. What should happen?",
+          "options": {
+            "A": "The KAM flags it directly in HERO as Evergreen and the Daybreak baseline applies from the next cycle.",
+            "B": "The KAM raises the item with Sales Operations for Evergreen designation; if approved, the item behaves like a standard CF with a Daybreak baseline. Until then, it stays in the DI bottom-up flow.",
+            "C": "Demand Planning re-classifies the item as Carry-Forward and applies the standard CF flow.",
+            "D": "The Brand Captain converts the item to Carry-Forward at Level 2.5 and locks the new treatment."
+          },
+          "section": "Direct Import (DI)",
+          "deployed_key": "B",
+          "fingerprint": "532e155cb721"
+        },
+        {
+          "id": "Q10",
+          "text": "A KAM at FP-2 receives a FAN allocation from the regional category team for a franchise release in week 30. The KAM believes the allocation is too high for their account and wants to adjust it down. What is the correct action?",
+          "options": {
+            "A": "Re-cut the FAN volume to match the KAM's account view and submit the revised number.",
+            "B": "Drop the FAN volume to zero for the account and capture the rest as Enrichment.",
+            "C": "Push the allocation back to Demand Planning and ask DP to reset the baseline.",
+            "D": "Validate timing and feasibility at the account, raise the magnitude concern back to the regional category team (the volume owner), and do not unilaterally re-cut the FAN number."
+          },
+          "section": "FAN Items",
+          "deployed_key": "D",
+          "fingerprint": "94699684748b"
+        }
+      ]
+    },
+    {
+      "module_id": "mod5",
+      "questions": [
+        {
+          "id": "Q1",
+          "text": "Reconciliation, as defined in MOD 5, is the meeting where the team:",
+          "options": {
+            "A": "Tells the story of the number, challenges whether it is believable, decides what moves forward, and creates accountability for the forecast.",
+            "B": "Builds the next month's forecast line by line from scratch.",
+            "C": "Reviews aggregate variance vs the Financial Forecast only.",
+            "D": "Confirms the Daybreak baseline before it is loaded to Logility."
+          },
+          "section": "Reconciliation Defined",
+          "deployed_key": "A",
+          "fingerprint": "c0fd38e8e3ae"
+        },
+        {
+          "id": "Q2",
+          "text": "Which description matches the UK reconciliation standard for what happens in the room?",
+          "options": {
+            "A": "Typing forecast changes into the template live so the room sees the impact in real time.",
+            "B": "A structured challenge against three named references, focused on material exceptions, ending in decisions with named owners and due dates.",
+            "C": "A line-by-line review of every SKU in the portfolio to confirm the build.",
+            "D": "An open-ended discussion to surface concerns without committing to specific actions."
+          },
+          "section": "UK Standard",
+          "deployed_key": "B",
+          "fingerprint": "6ff11bdc6b99"
+        },
+        {
+          "id": "Q3",
+          "text": "In what order do the four UK reconciliation sessions run, and who owns each?",
+          "options": {
+            "A": "Marketing+DP → Brand Captain → KAM → Market Leader.",
+            "B": "DP → Marketing → Brand Captain → Sign-Off.",
+            "C": "Brand Captain (Baseline) → KAM (Commercial) → Marketing + DP → Market Leader (Sign-Off).",
+            "D": "KAM → Brand Captain → Market Leader → Marketing + DP."
+          },
+          "section": "Session Cascade",
+          "deployed_key": "C",
+          "fingerprint": "ec10d898f2b3"
+        },
+        {
+          "id": "Q4",
+          "text": "What is the rule about starting one session before the previous one finishes?",
+          "options": {
+            "A": "Sessions can run in parallel as long as each owner is in the room.",
+            "B": "Marketing + DP can start before KAM finishes, because Marketing operates top-down.",
+            "C": "Sign-Off can begin once any two earlier sessions have closed.",
+            "D": "If the prior session has not closed, the next session does not start."
+          },
+          "section": "Session Cascade",
+          "deployed_key": "D",
+          "fingerprint": "cfa397cd904a"
+        },
+        {
+          "id": "Q5",
+          "text": "Why does the UK pilot use three references rather than formal guardrails?",
+          "options": {
+            "A": "The UK has not yet defined formal guardrail thresholds, so the team triangulates using AIM Shipment Revenue, prior-year actuals, and POS Glidepath instead.",
+            "B": "The three references are a UK-only experiment that permanently replaces guardrails.",
+            "C": "The three references and guardrails are the same thing, just renamed.",
+            "D": "Guardrails were removed from the program globally because they were too restrictive."
+          },
+          "section": "Three References",
+          "deployed_key": "A",
+          "fingerprint": "9a51432317f4"
+        },
+        {
+          "id": "Q6",
+          "text": "Which reference answers the question \"Is the brand at this partner congruent with what we actually ship?\"",
+          "options": {
+            "A": "AIM Shipment Revenue Forecast at BU / Brand.",
+            "B": "Historical actuals at Brand × Forecasting Partner.",
+            "C": "POS Glidepath at SKU.",
+            "D": "The Financial Forecast."
+          },
+          "section": "Three References",
+          "deployed_key": "B",
+          "fingerprint": "0567bb16e0dc"
+        },
+        {
+          "id": "Q7",
+          "text": "Which statement correctly describes the AIM Shipment Revenue Forecast?",
+          "options": {
+            "A": "AIM is updated weekly and refreshed in real time.",
+            "B": "AIM is a fully enriched forecast that already includes promos, listings, and supply events.",
+            "C": "AIM is a naive statistical baseline with statistical bounds; actuals fall within those bounds roughly 8 out of 10 times when there is no exceptional stimulus.",
+            "D": "AIM replaces the Consensus Forecast once a quarter has closed."
+          },
+          "section": "Three References",
+          "deployed_key": "C",
+          "fingerprint": "6cbf13c25e7a"
+        },
+        {
+          "id": "Q8",
+          "text": "On the POS Pace Chart, the projected red dashed line sits below the green target line for an SKU. What should the KAM do?",
+          "options": {
+            "A": "Reduce the SKU's Sales Forecast by the gap percentage immediately during the session.",
+            "B": "Escalate to leadership before doing anything else.",
+            "C": "Ignore the gap — the Pace Chart is for Marketing, not for KAMs.",
+            "D": "Read the gap as a miss-risk signal: open the SKU for review, look for a named driver (promo, OOS, channel shift, listing), and decide whether to enrich at L1 or route to R&O."
+          },
+          "section": "POS Pace Chart",
+          "deployed_key": "D",
+          "fingerprint": "cdc60f8795ea"
+        },
+        {
+          "id": "Q9",
+          "text": "What is the correct drill order when reconciling movements?",
+          "options": {
+            "A": "BU / Brand total first (AIM and historical totals); drill to Brand × Forecasting Partner only when the total flags; drill to SKU vs POS Glidepath only when Brand × Partner flags.",
+            "B": "SKU level first, then Brand × Partner, then BU / Brand total.",
+            "C": "Brand × Partner first, then SKU, then BU / Brand total.",
+            "D": "All three levels reviewed in parallel, then converged."
+          },
+          "section": "Drill Order",
+          "deployed_key": "A",
+          "fingerprint": "b494e669633d"
+        },
+        {
+          "id": "Q10",
+          "text": "In the 7-part decision narrative, what does the final beat capture?",
+          "options": {
+            "A": "The driver and the evidence.",
+            "B": "The decision and a named owner with a due date — never \"the team.\"",
+            "C": "The size of the movement and its timing.",
+            "D": "The next cycle's outlook for the brand."
+          },
+          "section": "7-Part Narrative",
+          "deployed_key": "B",
+          "fingerprint": "3b61b2ffeec0"
+        },
+        {
+          "id": "Q11",
+          "text": "Which of the eight meeting-behavior rules acts as the UK substitute for formal guardrails?",
+          "options": {
+            "A": "Come prepared, or don't comment.",
+            "B": "Challenge the number, not the person.",
+            "C": "Cite a reference or move to R&O — do not opine.",
+            "D": "Material exceptions only — don't drift."
+          },
+          "section": "Meeting Behavior",
+          "deployed_key": "C",
+          "fingerprint": "aed0767fe3b6"
+        },
+        {
+          "id": "Q12",
+          "text": "The Brand Captain in Session 1 finds that the current consensus for Brand A is +30 units/week above the Daybreak baseline at Level 2.5, driven by a confirmed listing expansion at FP-1 effective W26. What is the Captain's correct action?",
+          "options": {
+            "A": "Wait for Session 2 and ask the KAM at FP-1 to capture it as an Enrichment.",
+            "B": "Override the Daybreak baseline directly by replacing the source data.",
+            "C": "Route the gap to R&O for next cycle.",
+            "D": "Load the +30 units/week as a Base Trend Adjustment at L2.5 in HERO, document the driver and evidence, and lock the L3 baseline so Daybreak + Base Trend = consensus."
+          },
+          "section": "Session 1 — Brand Captain",
+          "deployed_key": "D",
+          "fingerprint": "6ede9586b39f"
+        },
+        {
+          "id": "Q13",
+          "text": "A KAM in Session 2 identifies that a brand at their Forecasting Partner has been gradually widening distribution for two cycles, with no specific account-level event. The shift looks structural. Which bucket does this belong in, and who acts?",
+          "options": {
+            "A": "Base Trend at L2.5 — the KAM flags it back to the Brand Captain, who owns it next cycle.",
+            "B": "Enrichment at L1 — the KAM captures it this cycle.",
+            "C": "R&O — log with options and resolve later.",
+            "D": "Both Enrichment and Base Trend — captured at both levels for traceability."
+          },
+          "section": "Session 2 — KAM",
+          "deployed_key": "A",
+          "fingerprint": "a93ea2134bff"
+        },
+        {
+          "id": "Q14",
+          "text": "Marketing + DP in Session 3 want to apply an adjustment that lifts Brand B by +8,000 units in Q3 based on a confirmed campaign. Where does this adjustment land?",
+          "options": {
+            "A": "At Level 1 directly, bypassing the Captain's L2.5 baseline.",
+            "B": "At Level 2.5 via the Enrichment Capture Template (ECT); the backend disaggregates to Level 1 across partners using baseline disaggregation rules.",
+            "C": "At Level 3 only, leaving partners untouched.",
+            "D": "At Level 1 by re-opening the KAM's enrichments from Session 2."
+          },
+          "section": "Session 3 — Marketing & DP",
+          "deployed_key": "B",
+          "fingerprint": "1ce38cbaba94"
+        },
+        {
+          "id": "Q15",
+          "text": "At Executive Sign-Off, how many key movements are presented and how long does each get?",
+          "options": {
+            "A": "Eight to ten movements, ten minutes each.",
+            "B": "Every movement larger than 1% of BU, no time limit.",
+            "C": "Three to five material movements, told in the 7-part narrative, five minutes each.",
+            "D": "The full Sales Forecast, line by line."
+          },
+          "section": "Session 4 — Sign-Off",
+          "deployed_key": "C",
+          "fingerprint": "cbb3d5103b78"
+        }
+      ]
+    },
+    {
+      "module_id": "mod7",
+      "questions": [
+        {
+          "id": "Q1",
+          "text": "Which forecast array does HERO read from Logility?",
+          "options": {
+            "A": "UA1, so the template always reflects the latest Sales Forecast in Logility.",
+            "B": "UA1 through UA6, refreshed each time a template is downloaded.",
+            "C": "The Resultant only. Every other array in a template comes from HERO's own database.",
+            "D": "ADS3, because it is the Consensus Forecast that Logility calculates."
+          },
+          "section": "HERO ↔ Logility Data Flow",
+          "deployed_key": "C",
+          "fingerprint": "997631355fa7"
+        },
+        {
+          "id": "Q2",
+          "text": "Which statement describes how HERO treats UA1 across the planning horizon?",
+          "options": {
+            "A": "HERO writes UA1 across the full horizon, the same as every other array it manages.",
+            "B": "HERO writes UA1 from month +5 onward and suppresses it inside the rolling months 0 to 4.",
+            "C": "HERO never writes UA1; it is maintained directly in Logility in every period.",
+            "D": "HERO writes UA1 only inside months 0 to 4, where the near-term number matters most."
+          },
+          "section": "The UA1 Window",
+          "deployed_key": "B",
+          "fingerprint": "aa6c374ead7b"
+        },
+        {
+          "id": "Q3",
+          "text": "Demand Planning enters a Level 2.5 Base Trend Adjustment in the Reconciliation template. Where does it land in the Field Forecast?",
+          "options": {
+            "A": "Nowhere. Demand Planning adjustments reach the Consensus only, never a Field Forecast array.",
+            "B": "In UA2, alongside the commercial promotion enrichments.",
+            "C": "It is held in HERO for attribution and is not exported until a Brand Captain confirms it.",
+            "D": "In UA1, exactly as it would if a Brand Captain or a commercial lead had entered it."
+          },
+          "section": "Template Routing",
+          "deployed_key": "D",
+          "fingerprint": "0b2b63c76a14"
+        },
+        {
+          "id": "Q4",
+          "text": "You delete a Base Trend Adjustment in HERO. What actually becomes zero?",
+          "options": {
+            "A": "The delta that the adjustment represented. UA1 and the Consensus lose its effect, but neither becomes zero.",
+            "B": "UA1 for the affected weeks, which is published to Logility as an explicit zero.",
+            "C": "Both UA1 and the Consensus value for the affected weeks.",
+            "D": "Nothing at all. Deletions are recorded for audit and take effect at the next cycle."
+          },
+          "section": "Deleting Adjustments",
+          "deployed_key": "A",
+          "fingerprint": "8a2cbcc79ac7"
+        },
+        {
+          "id": "Q5",
+          "text": "You have confirmed that a Base Trend Adjustment is stale and needs to go. How do you clear it?",
+          "options": {
+            "A": "Delete the row from the workbook before uploading.",
+            "B": "Enter a numeric zero in the cell.",
+            "C": "Clear the cell so it is blank, which instructs HERO to remove the adjustment.",
+            "D": "Enter the same value with the opposite sign in the following week."
+          },
+          "section": "Clearing Adjustments",
+          "deployed_key": "B",
+          "fingerprint": "9843f1a8c418"
+        },
+        {
+          "id": "Q6",
+          "text": "A colleague changed UA1 directly in Logility inside the frozen window. What does HERO now know about that change?",
+          "options": {
+            "A": "It is already in HERO, because the frozen window keeps the two systems aligned.",
+            "B": "It reaches HERO at the next Friday export batch.",
+            "C": "Nothing, until someone downloads and uploads a template covering that scope.",
+            "D": "Nothing, and the change will be overwritten by HERO on the next export."
+          },
+          "section": "The Frozen Window",
+          "deployed_key": "C",
+          "fingerprint": "95e4e6b710ba"
+        },
+        {
+          "id": "Q7",
+          "text": "A line publishes as zero in Logility. What does that tell you about the HERO inputs behind it?",
+          "options": {
+            "A": "The inputs are clean, since Logility would reject anything invalid.",
+            "B": "The enrichments were excluded from the Consensus export.",
+            "C": "The baseline for that line was removed at source.",
+            "D": "Nothing reassuring. Logility floors the published totals, so a negative raw HERO total can publish as zero."
+          },
+          "section": "Flooring & Zeros",
+          "deployed_key": "D",
+          "fingerprint": "54f8650ecd6d"
+        },
+        {
+          "id": "Q8",
+          "text": "Last cycle: baseline 1,000 with an L1 Base Trend Adjustment of −200, giving 800. This cycle the baseline is 900, the −200 is still there, and the preliminary forecast reads 700. The commercial reason for the −200 still applies. What do you do?",
+          "options": {
+            "A": "Change the adjustment to −100 so the total returns to the 800 agreed last cycle.",
+            "B": "Confirm why the baseline moved, keep the −200, and accept 700.",
+            "C": "Clear the adjustment and re-enter it once the baseline movement has been explained.",
+            "D": "Raise it with the squad, because a baseline that moves between cycles is a defect."
+          },
+          "section": "Scenario — Baseline Movement",
+          "deployed_key": "B",
+          "fingerprint": "0fabbdd91bfa"
+        },
+        {
+          "id": "Q9",
+          "text": "A material shows baseline 0 this cycle with a Level 2.5 Base Trend Adjustment of −24,258 still authored against it, so the preliminary forecast reads −24,258. You have confirmed with the source owner that the baseline was removed on purpose and the adjustment existed only to offset that old baseline. What do you do?",
+          "options": {
+            "A": "Leave it. Logility floors the total to zero, so the published number is already correct.",
+            "B": "Enter +24,258 in the same weeks so the two adjustments net to zero.",
+            "C": "Replace the adjustment with a numeric zero in a fresh template.",
+            "D": "Wait for the next cycle, when HERO will clear the adjustment automatically once the baseline stays at zero."
+          },
+          "section": "Scenario — Orphaned Adjustment",
+          "deployed_key": "C",
+          "fingerprint": "41d5eadffe47"
+        },
+        {
+          "id": "Q10",
+          "text": "You download a fresh template at cycle start and find that baseline and previous-cycle values have moved across many SKUs, several partners and more than one brand, with no business event behind it. What is the correct first action?",
+          "options": {
+            "A": "Stop, capture examples, and escalate with the evidence before making corrections.",
+            "B": "Restore the previous cycle's totals with Base Trend Adjustments so the forecast stays stable, then report it.",
+            "C": "Compare against the workbook you saved last cycle to work out which values are wrong.",
+            "D": "Correct the largest movements now and leave the smaller ones for the squad to investigate."
+          },
+          "section": "Scenario — Systemic Movement",
+          "deployed_key": "A",
+          "fingerprint": "98346dc19031"
+        }
+      ]
+    }
+  ]
+}
