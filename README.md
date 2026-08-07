@@ -75,6 +75,38 @@ See **SETUP.md** for full step-by-step instructions.
 | AL | Email Sent? |
 | AM | User-Agent |
 
+## Integrity guard (prevents question-bank drift)
+
+Question content lives in hand-maintained JS files (`quiz.js` = mod1, `modN.js` = modN).
+Two checks keep them honest and keep the docs matched to the repo. Both run in
+**pre-commit** and in **CI**, and both **fail the build** (they never merely warn).
+
+- **Bank guard** (`tools/verify_bank.js`) — compares every rendered page against the
+  canonical bank `KC_Canonical_QuestionBank_v2_2026-08-07.json` by absolute comparison,
+  so a **new module is validated on its first commit**, not just edits. Catches
+  fingerprint drift, option reorder, a keyed option that is no longer correct, an
+  `ANSWER_KEY` that disagrees with the bank, unregistered modules, and missing/extra
+  questions.
+- **Inventory guard** (`tools/verify_inventory.js`) — fails if `audit/APP_INVENTORY.md`
+  is stale versus the repo (structural-hash mismatch). Regenerate with
+  `node tools/generate_inventory.js` and commit.
+
+Generated docs (never edit by hand — re-run the generator):
+
+- `APP_MANIFEST.md` / `APP_MANIFEST.json` — `node tools/generate_manifest.js`
+- `audit/APP_INVENTORY.md` — `node tools/generate_inventory.js` (full stems, options,
+  correct letters, fingerprints, backend handlers, Sheet columns, `QUIZ_CLOSED`,
+  and a live submissions-per-module snapshot)
+
+Enable the pre-commit hook once per clone:
+
+```sh
+sh tools/install-hooks.sh   # sets core.hooksPath -> tools/git-hooks
+```
+
+See `tools/README.md` for detail and the authoritative-vs-harvested rule (mod1/mod4/mod5/mod7
+are bank-authoritative; mod2 is harvested from the deployed page).
+
 ## Maintenance
 
 - **Close the quiz:** Set `QUIZ_CLOSED = true` in `apps-script.gs` and redeploy.

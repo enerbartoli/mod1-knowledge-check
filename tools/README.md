@@ -39,10 +39,28 @@ This sets `core.hooksPath` to `tools/git-hooks`, so `tools/git-hooks/pre-commit`
 before every commit and blocks it on drift. If `node` is unavailable locally the hook
 skips (CI still enforces).
 
+## Inventory guard
+
+`tools/generate_inventory.js` writes `audit/APP_INVENTORY.md` from the actual repo
+(per-module URL/JS/#questions/threshold/authoritative-or-harvested; per-question id,
+fingerprint, full stem, four options, correct letter, rationale presence, slide refs;
+backend handlers, Sheet name + columns, email template functions, `QUIZ_CLOSED`; and a
+live submissions-per-module snapshot). It embeds a `structural_sha` marker.
+
+`tools/verify_inventory.js` recomputes that structural hash from the repo (offline-safe —
+no live counts, no dates) and **fails** if the committed inventory is stale or missing.
+Fix by re-running the generator and committing.
+
+```sh
+node tools/generate_inventory.js   # regenerate after any structural change
+node tools/verify_inventory.js     # guard check (also run by hook + CI)
+```
+
 ## CI
 
-`.github/workflows/verify-bank.yml` runs the same check on every push and pull request
-that touches a quiz page, the bank, or the guard itself, and fails the build on drift.
+`.github/workflows/verify-bank.yml` runs BOTH guards (bank + inventory) on every push and
+pull request that touches a quiz page, `index.html`, the backend, the bank, the inventory,
+or `tools/**`, and fails the build on drift.
 
 ## Authoritative vs harvested modules
 

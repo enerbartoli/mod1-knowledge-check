@@ -12,11 +12,15 @@ if ! command -v node >/dev/null 2>&1; then
   exit 0
 fi
 
-node tools/verify_bank.js
-status=$?
-if [ "$status" -ne 0 ]; then
+node tools/verify_bank.js || {
   echo "" >&2
-  echo "pre-commit: drift guard FAILED — commit blocked. Fix the page(s) or update the canonical bank deliberately." >&2
+  echo "pre-commit: bank drift guard FAILED — commit blocked. Fix the page(s) or update the canonical bank deliberately." >&2
   exit 1
-fi
+}
+
+node tools/verify_inventory.js || {
+  echo "" >&2
+  echo "pre-commit: inventory is stale — commit blocked. Run: node tools/generate_inventory.js  then re-commit." >&2
+  exit 1
+}
 exit 0

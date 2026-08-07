@@ -11,15 +11,21 @@ on:
     paths:
       - 'quiz.js'
       - 'mod*.js'
+      - 'index.html'
+      - 'backend/apps-script.gs'
       - 'KC_Canonical_QuestionBank_*.json'
-      - 'tools/verify_bank.js'
+      - 'audit/APP_INVENTORY.md'
+      - 'tools/**'
       - '.github/workflows/verify-bank.yml'
   pull_request:
     paths:
       - 'quiz.js'
       - 'mod*.js'
+      - 'index.html'
+      - 'backend/apps-script.gs'
       - 'KC_Canonical_QuestionBank_*.json'
-      - 'tools/verify_bank.js'
+      - 'audit/APP_INVENTORY.md'
+      - 'tools/**'
       - '.github/workflows/verify-bank.yml'
   workflow_dispatch: {}
 
@@ -33,3 +39,5 @@ jobs:
           node-version: '20'
       - name: Verify rendered pages against canonical bank
         run: node tools/verify_bank.js
+      - name: Verify app inventory is up to date
+        run: node tools/verify_inventory.js
