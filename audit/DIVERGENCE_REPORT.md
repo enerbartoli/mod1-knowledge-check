@@ -118,3 +118,8 @@ The keyed letter **C** is scored correct. Deployed C reads *"Nothing, until some
 | Q13 | A | A | yes |
 | Q14 | D | D | yes |
 | Q15 | B | B | yes |
+---
+
+## Open items (escalated, no change made)
+
+- **mod2 Q11 — keyed option contradicts its rationale.** Deployed keyed option (B... see bank) describes a *negative base trend enrichment + positive set*, while the canonical rationale describes *two offsetting sets*. The source does not resolve which mechanism is intended. **Escalated; left unchanged** in both the deployed page and the harvested v2 bank pending a content decision. The drift guard treats mod2 as harvested (asserts the deployed options have not changed since harvest), so this question is frozen as-is until resolved.

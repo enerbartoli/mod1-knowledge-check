@@ -1,0 +1,22 @@
+#!/bin/sh
+# Drift guard — blocks a commit whose rendered quiz pages do not match the
+# canonical question bank. Runs on every commit (including the first commit of
+# a brand-new module, because the guard checks against the absolute canonical
+# file, not against the previous commit).
+#
+# Enable once per clone:  git config core.hooksPath tools/git-hooks
+# (or run: sh tools/install-hooks.sh)
+
+if ! command -v node >/dev/null 2>&1; then
+  echo "pre-commit: node not found; skipping drift guard (CI will still enforce it)." >&2
+  exit 0
+fi
+
+node tools/verify_bank.js
+status=$?
+if [ "$status" -ne 0 ]; then
+  echo "" >&2
+  echo "pre-commit: drift guard FAILED — commit blocked. Fix the page(s) or update the canonical bank deliberately." >&2
+  exit 1
+fi
+exit 0

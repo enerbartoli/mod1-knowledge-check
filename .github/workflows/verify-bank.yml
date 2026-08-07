@@ -1,0 +1,35 @@
+name: verify-question-bank
+
+# Drift guard. Fails the build (not just warns) whenever a rendered quiz page
+# stops matching the canonical question bank. Runs on every push and PR, so a
+# brand-new module is checked on its first commit — it is compared against the
+# absolute canonical bank, never against the previous state.
+
+on:
+  push:
+    branches: ['**']
+    paths:
+      - 'quiz.js'
+      - 'mod*.js'
+      - 'KC_Canonical_QuestionBank_*.json'
+      - 'tools/verify_bank.js'
+      - '.github/workflows/verify-bank.yml'
+  pull_request:
+    paths:
+      - 'quiz.js'
+      - 'mod*.js'
+      - 'KC_Canonical_QuestionBank_*.json'
+      - 'tools/verify_bank.js'
+      - '.github/workflows/verify-bank.yml'
+  workflow_dispatch: {}
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Verify rendered pages against canonical bank
+        run: node tools/verify_bank.js

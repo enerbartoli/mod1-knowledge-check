@@ -324,7 +324,7 @@
         },
         {
           "id": "Q4",
-          "text": "A Warm Start NPI has 16 weeks of actuals that came in below the 2026 Resultant plan. Daybreak interprets this as a structural correction and slashes the 2027 baseline by more than half. The item still has under 12 months of history. What is the correct action?",
+          "text": "A Warm Start NPI with under 12 months of history has 16 weeks of actuals below the 2026 Resultant plan, and Daybreak has slashed the 2027 baseline by more than half. After reviewing together, you and the Brand Captain agree Daybreak's drop is too aggressive and the SKU can still rebound. What is the correct action?",
           "options": {
             "A": "Accept the Daybreak 2027 baseline — 16 weeks of actuals is sufficient to confirm the structural decline.",
             "B": "Apply negative sets in each under-performing month to align the forecast to Daybreak's corrected view.",
@@ -334,10 +334,11 @@
           "correct": "C",
           "rationale": "Sixteen weeks of actuals on an NPI with under twelve months of history is not enough signal to justify a structural reset of the next-year baseline, so the team recalculates demand together to balance the model's signal against commercial knowledge.",
           "slide_refs": "9, 10",
-          "fingerprint": "a325de116030",
+          "fingerprint": "4a93227f7d2f",
           "options_authoritative": true,
           "harvested_from": "deployed mod2.html",
-          "harvested_on": "2026-08-07"
+          "harvested_on": "2026-08-07",
+          "text_harvested_from": "deployed mod2.html"
         },
         {
           "id": "Q5",
@@ -375,7 +376,7 @@
         },
         {
           "id": "Q7",
-          "text": "A customer pulls confirmed annual demand into a specific order window, with offsetting reductions in the months from which demand is being moved. The full-year total does not change. Which enrichment approach is correct?",
+          "text": "A customer pulls confirmed annual demand into a specific order window (ladder), with offsetting reductions in the months from which demand is being moved. The full-year total does not change. Which enrichment approach is correct?",
           "options": {
             "A": "Positive base trend in the ladder month + negative base trend in the pulled-from months.",
             "B": "Positive set in the ladder month + negative sets in the pulled-from months.",
@@ -385,10 +386,11 @@
           "correct": "B",
           "rationale": "A ladder is a timing move, not incremental demand — sets are the right tool because they cleanse out of history, while base trend would permanently distort next year's baseline with the same timing shift.",
           "slide_refs": "32",
-          "fingerprint": "d14fd4942dc3",
+          "fingerprint": "82c1654cff87",
           "options_authoritative": true,
           "harvested_from": "deployed mod2.html",
-          "harvested_on": "2026-08-07"
+          "harvested_on": "2026-08-07",
+          "text_harvested_from": "deployed mod2.html"
         },
         {
           "id": "Q8",
@@ -1099,6 +1101,7 @@
   ],
   "derived_from": "KC_Canonical_QuestionBank_v1_2026-08-06.json",
   "change_log": [
-    "mod2 options harvested from deployed mod2.js on 2026-08-07; fingerprints recomputed; options_authoritative set true for mod2."
+    "mod2 options harvested from deployed mod2.js on 2026-08-07; fingerprints recomputed; options_authoritative set true for mod2.",
+    "mod2 question STEMS also harvested from deployed (Q4, Q7 differed from spec text; no scoring effect). mod2 is fully harvested from the deployed page; spec text is not treated as authoritative for mod2."
   ]
 }
