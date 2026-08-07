@@ -5,7 +5,8 @@
   "pages_base_url": "https://enerbartoli.github.io/mod1-knowledge-check/",
   "canonical_banks": [
     "KC_Canonical_QuestionBank_v1_2026-08-06.json",
-    "KC_Canonical_QuestionBank_v2_2026-08-07.json"
+    "KC_Canonical_QuestionBank_v2_2026-08-07.json",
+    "KC_Canonical_QuestionBank_v3_2026-08-07.json"
   ],
   "guard_bank": "KC_Canonical_QuestionBank_v2_2026-08-07.json",
   "modules": [
@@ -66,8 +67,8 @@
           "id": "Q7",
           "section": "Set vs Base Trend",
           "slide_refs": "32",
-          "fingerprint": "82c1654cff87",
-          "client_key": "B"
+          "fingerprint": "e9e7b593c6c1",
+          "client_key": "A"
         },
         {
           "id": "Q8",
@@ -163,8 +164,8 @@
           "id": "Q4",
           "section": "Reconciliation Template",
           "slide_refs": "6, 7",
-          "fingerprint": "dbaddd45e509",
-          "client_key": "D"
+          "fingerprint": "3bec1d538b9e",
+          "client_key": "A"
         },
         {
           "id": "Q5",

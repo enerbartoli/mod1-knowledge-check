@@ -8,7 +8,7 @@ const TOTAL_QUESTIONS   = 10;
 const LS_KEY            = 'mod4_quiz_state';
 
 const ANSWER_KEY = {
-  Q1:'B', Q2:'C', Q3:'A', Q4:'D', Q5:'A',
+  Q1:'B', Q2:'C', Q3:'A', Q4:'A', Q5:'A',
   Q6:'B', Q7:'A', Q8:'C', Q9:'B', Q10:'D'
 };
 
@@ -70,15 +70,15 @@ const QUESTIONS = [
   },
   {
     id: 4,
-    text: 'Where does the full DI or FAN forecast volume land in the Reconciliation Template?',
+    text: 'In the UK pilot, DI and FAN are not forecast statistically, so Daybreak produces no baseline for them. In the US, DI is forecast statistically. Where does the full forecast volume land in the Reconciliation Template in each case?',
     options: {
-      A: 'Split between the Daybreak baseline at L3 and Enrichment lines at L1.',
-      B: 'As a separate Sales Forecast line outside the template.',
-      C: 'In the same Enrichment lines used for promos and listings.',
-      D: 'As Base Trend enrichment at Level 1, because there is no Daybreak baseline at SKU level underneath.'
+      A: 'UK DI and FAN: the full volume as Base Trend at Level 1. US DI: adjustments layered on the statistical baseline.',
+      B: 'Both: the full volume as Base Trend at Level 1, since DI and FAN always sit outside the statistical model.',
+      C: 'Both: adjustments layered on the resultant, since every segment carries a baseline once the cycle opens.',
+      D: 'UK DI and FAN: the full volume as Base Trend at Level 2.5. US DI: the full volume as Base Trend at Level 1.'
     },
     slideRefs: '6, 7',
-    rationale: 'Both DI and FAN have no underlying Daybreak baseline. The entire forecast volume is captured as Base Trend enrichment at L1 — the L1 lock is essentially all-Base-Trend with no statistical signal to challenge against.',
+    rationale: 'What decides this is not the channel or the item class, it is whether the market agreed to forecast that segment statistically. Where there is no Daybreak baseline, the full volume enters as Base Trend at Level 1, and the Level 1 lock is essentially all Base Trend with no statistical signal to challenge against. Where there is a baseline, as with DI in the US, the segment behaves like any other: the resultant is the starting point and the team layers enrichments and Base Trend on top. The resultant itself is never overwritten in either case.',
     section: 'Reconciliation Template'
   },
   {

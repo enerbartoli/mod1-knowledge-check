@@ -40,8 +40,9 @@ function grabConst(src, name) {
 
 function loadBankFlags() {
   // options_authoritative per module, from the guard bank (v2 if present)
-  const banks = fs.readdirSync(REPO).filter(f => /^KC_Canonical_QuestionBank_v.*\.json$/.test(f)).sort();
-  const bankFile = banks.find(b => b.includes('v2')) || banks[banks.length - 1] || null;
+  const banks = fs.readdirSync(REPO).filter(f => /^KC_Canonical_QuestionBank_v\d+.*\.json$/.test(f));
+  banks.sort((a, b) => (parseInt((a.match(/_v(\d+)/) || [])[1] || 0)) - (parseInt((b.match(/_v(\d+)/) || [])[1] || 0)));
+  const bankFile = banks.length ? banks[banks.length - 1] : null;
   const flags = {};
   if (bankFile) {
     const bank = JSON.parse(read(bankFile));

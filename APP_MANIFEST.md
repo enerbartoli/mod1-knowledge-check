@@ -27,7 +27,7 @@ Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 | Q4 | Baseline Training | 9, 10 | `4a93227f7d2f` | C |
 | Q5 | Baseline Training | 11, 12, 13, 14 | `1ea3ef950650` | D |
 | Q6 | Set vs Base Trend | 24 | `ba6c9acfed3e` | B |
-| Q7 | Set vs Base Trend | 32 | `82c1654cff87` | B |
+| Q7 | Set vs Base Trend | 32 | `e9e7b593c6c1` | A |
 | Q8 | Set vs Base Trend | 29 | `fe7fde40959e` | C |
 | Q9 | Enrichment Types | 26 | `dd0ae51a0602` | A |
 | Q10 | Enrichment Types | 37 | `e4141bf0b48a` | A |
@@ -47,7 +47,7 @@ Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 | Q1 | DI, FAN & Amazon | 5 | `653dcd2748bc` | B |
 | Q2 | Direct Import (DI) | 6 | `69a13a8854f3` | C |
 | Q3 | FAN Items | 7 | `ac10c9dad916` | A |
-| Q4 | Reconciliation Template | 6, 7 | `dbaddd45e509` | D |
+| Q4 | Reconciliation Template | 6, 7 | `3bec1d538b9e` | A |
 | Q5 | Direct Import (DI) | 6 | `9737fc48f9ba` | A |
 | Q6 | FAN Items | 7 | `94ca080bd677` | B |
 | Q7 | Amazon | 8 | `759b4c446b02` | A |
@@ -151,3 +151,4 @@ Endpoints: getData=yes · sendReminders=yes
 
 - `KC_Canonical_QuestionBank_v1_2026-08-06.json`
 - `KC_Canonical_QuestionBank_v2_2026-08-07.json`  ← used by the drift guard
+- `KC_Canonical_QuestionBank_v3_2026-08-07.json`

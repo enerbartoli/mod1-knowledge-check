@@ -23,9 +23,12 @@ const path = require('path');
 const crypto = require('crypto');
 
 const REPO = path.resolve(__dirname, '..');
-const CANONICAL = process.argv[2]
-  ? path.resolve(process.argv[2])
-  : path.join(REPO, 'KC_Canonical_QuestionBank_v2_2026-08-07.json');
+function newestBank() {
+  const banks = fs.readdirSync(REPO).filter(f => /^KC_Canonical_QuestionBank_v\d+.*\.json$/.test(f));
+  banks.sort((a, b) => (parseInt((a.match(/_v(\d+)/) || [])[1] || 0)) - (parseInt((b.match(/_v(\d+)/) || [])[1] || 0)));
+  return banks.length ? path.join(REPO, banks[banks.length - 1]) : null;
+}
+const CANONICAL = process.argv[2] ? path.resolve(process.argv[2]) : newestBank();
 
 const LETTERS = ['A', 'B', 'C', 'D'];
 const fail = [];

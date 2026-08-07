@@ -1,12 +1,12 @@
 # App Inventory
 
 <!-- GENERATED FILE — do not edit by hand. Run: node tools/generate_inventory.js -->
-<!-- structural_sha: ca0a42d8371577ca001517892bfb63db51ab6efeab0335620f69af7ebe31a6e7 -->
+<!-- structural_sha: 459e13a7a988afdc788e5973cb56e4c4013bbcca7ab71922340dd98c9436eb76 -->
 
 - Generated: **2026-08-07**
-- Commit at generation (HEAD): `7f3c7b70c8cd953a73f8711e47f9dc2e83c5b4c9`
-- Guard bank: `KC_Canonical_QuestionBank_v2_2026-08-07.json`
-- Structural hash: `ca0a42d8371577ca001517892bfb63db51ab6efeab0335620f69af7ebe31a6e7` (the drift guard fails the build if this stops matching the repo)
+- Commit at generation (HEAD): `385676f732e94e49e1a9e2a9b8e131f17aec9c68`
+- Guard bank: `KC_Canonical_QuestionBank_v3_2026-08-07.json`
+- Structural hash: `459e13a7a988afdc788e5973cb56e4c4013bbcca7ab71922340dd98c9436eb76` (the drift guard fails the build if this stops matching the repo)
 
 ## Modules
 
@@ -226,14 +226,14 @@
 - **C** A Set is owned by Sales; a Base Trend is owned by Demand Planning.
 - **D** A Set applies to NPI items only; a Base Trend applies to carry-forward items only.
 
-**Q7** · fingerprint `82c1654cff87` · correct **B** · rationale yes · slides 32
+**Q7** · fingerprint `e9e7b593c6c1` · correct **A** · rationale yes · slides 32
 
 > A customer pulls confirmed annual demand into a specific order window (ladder), with offsetting reductions in the months from which demand is being moved. The full-year total does not change. Which enrichment approach is correct?
 
-- **A** Positive base trend in the ladder month + negative base trend in the pulled-from months.
-- **B ✓** Positive set in the ladder month + negative sets in the pulled-from months.
-- **C** Single positive base trend in the ladder month — the negative offset is not needed.
-- **D** No enrichment — let the baseline absorb the timing shift over the next cycle.
+- **A ✓** A Demand Phase Shift pair: positive rows in the order window, negative rows where the demand comes from.
+- **B** A Set pair: positive Sets in the order window, negative Sets on the weeks the demand is taken from.
+- **C** A single Base Trend Adjustment in the order window, sized to the volume the customer is pulling forward.
+- **D** No enrichment. The full-year total is unchanged, so the forecast already reflects the customer's plan.
 
 **Q8** · fingerprint `fe7fde40959e` · correct **C** · rationale yes · slides 29
 
@@ -339,14 +339,14 @@
 - **C** Daybreak builds the baseline; the KAM enriches as needed.
 - **D** Marketing owns the number; KAMs are not involved.
 
-**Q4** · fingerprint `dbaddd45e509` · correct **D** · rationale yes · slides 6, 7
+**Q4** · fingerprint `3bec1d538b9e` · correct **A** · rationale yes · slides 6, 7
 
-> Where does the full DI or FAN forecast volume land in the Reconciliation Template?
+> In the UK pilot, DI and FAN are not forecast statistically, so Daybreak produces no baseline for them. In the US, DI is forecast statistically. Where does the full forecast volume land in the Reconciliation Template in each case?
 
-- **A** Split between the Daybreak baseline at L3 and Enrichment lines at L1.
-- **B** As a separate Sales Forecast line outside the template.
-- **C** In the same Enrichment lines used for promos and listings.
-- **D ✓** As Base Trend enrichment at Level 1, because there is no Daybreak baseline at SKU level underneath.
+- **A ✓** UK DI and FAN: the full volume as Base Trend at Level 1. US DI: adjustments layered on the statistical baseline.
+- **B** Both: the full volume as Base Trend at Level 1, since DI and FAN always sit outside the statistical model.
+- **C** Both: adjustments layered on the resultant, since every segment carries a baseline once the cycle opens.
+- **D** UK DI and FAN: the full volume as Base Trend at Level 2.5. US DI: the full volume as Base Trend at Level 1.
 
 **Q5** · fingerprint `9737fc48f9ba` · correct **A** · rationale yes · slides 6
 

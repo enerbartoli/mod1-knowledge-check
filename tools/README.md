@@ -1,7 +1,7 @@
 # Question-bank drift guard
 
 Keeps the rendered quiz pages (`quiz.js` = mod1, `modN.js` = modN) in lockstep with
-the canonical question bank (`KC_Canonical_QuestionBank_v2_2026-08-07.json`).
+the canonical question bank (the newest `KC_Canonical_QuestionBank_v*.json` (currently `v3_2026-08-07`)).
 
 ## Why it exists
 

@@ -82,7 +82,8 @@ Two checks keep them honest and keep the docs matched to the repo. Both run in
 **pre-commit** and in **CI**, and both **fail the build** (they never merely warn).
 
 - **Bank guard** (`tools/verify_bank.js`) — compares every rendered page against the
-  canonical bank `KC_Canonical_QuestionBank_v2_2026-08-07.json` by absolute comparison,
+  newest canonical bank (`KC_Canonical_QuestionBank_v*.json`, auto-selected; currently
+  `v3_2026-08-07`) by absolute comparison,
   so a **new module is validated on its first commit**, not just edits. Catches
   fingerprint drift, option reorder, a keyed option that is no longer correct, an
   `ANSWER_KEY` that disagrees with the bank, unregistered modules, and missing/extra
@@ -106,6 +107,13 @@ sh tools/install-hooks.sh   # sets core.hooksPath -> tools/git-hooks
 
 See `tools/README.md` for detail and the authoritative-vs-harvested rule (mod1/mod4/mod5/mod7
 are bank-authoritative; mod2 is harvested from the deployed page).
+
+**Backend is out of scope of the guard.** The Apps Script Web App is edited directly in the
+Apps Script editor, outside git, so `backend/apps-script.gs` in the repo can fall behind what
+is actually deployed. The fingerprint/inventory guard does **not** detect repo-versus-deployed
+backend drift — an automated comparison is a separate piece of work, not yet built. Anyone
+changing the backend should edit the repo copy (`backend/apps-script.gs`) and deploy from it,
+so the two stay in sync.
 
 ## Maintenance
 

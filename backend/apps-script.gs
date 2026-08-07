@@ -53,7 +53,7 @@ const QUESTION_TEXT = {
 
 const ANSWER_KEY_MOD2 = {
   Q1:'A', Q2:'B', Q3:'C', Q4:'C', Q5:'D',
-  Q6:'B', Q7:'B', Q8:'C', Q9:'A', Q10:'A',
+  Q6:'B', Q7:'A', Q8:'C', Q9:'A', Q10:'A',
   Q11:'D', Q12:'C', Q13:'A', Q14:'D', Q15:'B'
 };
 const TOTAL_QUESTIONS_MOD2 = 15;
@@ -92,11 +92,11 @@ const RATIONALES_MOD2 = {
   Q4:  'When the team has assessed that Daybreak\'s reduction is too aggressive — not enough history for a structural reset — the correct path is to recalculate demand with commercial knowledge and lock the agreed view via an L2.5 Base Trend adjustment using the Brand Captain\'s template.',
   Q5:  'For an exclusive item, Moving Average over recent actuals captures the real customer mix while Current Resultant fragments to inactive partners — switching the disaggregation method is the direct fix, no L3 enrichment needed.',
   Q6:  'Sets are for one-time events because they cleanse out of history after they ship; Base Trend is for structural changes that should repeat because it permanently enters the baseline.',
-  Q7:  'A ladder is a timing move, not incremental demand — sets are the right tool because they cleanse out of history, while base trend would permanently distort next year\'s baseline with the same timing shift.',
+  Q7:  'A ladder moves existing demand between weeks and creates none, which is what Demand Phase Shift is for, authored as a positive and negative pair. This was ratified on 16 July 2026 and it explicitly rules out SET and base trend for a timing move. SET is reserved for a true set build, and only a set build that also pulls demand forward carries a SET on both legs. A base trend would push the timing shift permanently into next year\'s baseline, and doing nothing leaves the forecast on the old phasing even though the annual total is right.',
   Q8:  'The new-store fill is one-time (Set, cleanses out) and the higher run-rate is structural (Base Trend, enters baseline) — using a single enrichment type for both would either contaminate next year\'s baseline or leave the ongoing lift uncaptured.',
   Q9:  'A confirmed, incremental, time-bounded promo is exactly what the promo enrichment type was built for — base trend would inflate next year\'s baseline, and a set would over-capture by extending beyond the promo window.',
   Q10: 'Pre-orders are entered at confirmed quantity only — adding speculative volume beyond the commitment undermines the rationale for using the enrichment type in the first place.',
-  Q11: 'The channel-fill is already in the NPI baseline, so a single positive set would double-count — two offsetting sets keep the total unchanged while making the fill visible for allocation, and both cleanse out after launch.',
+  Q11: 'The launch baseline already carries the fill, so the negative Base Trend removes the excess the model encoded and the positive SET restores the agreed fill on the same weeks. The launch-week total is unchanged and the fill is visible as a discrete line for allocation. What stops the model replicating the fill next year is the SET: cleansing runs in the opposite direction, so cleansed history is shipments minus the SET, which leaves replenishment. Two offsetting SETs would hold the total just as well but would net to zero in cleansing and the model would relearn the fill.',
   Q12: 'A non-repeating historical spike that the model is echoing forward needs to be removed structurally — negative base trend corrects it now, and flagging the period for historical cleansing prevents the same correction from being needed next cycle.',
   Q13: 'A customer exit is a structural change — base trend removes the phantom volume while the forecasting-range update prevents the model from continuing to route demand to a customer that no longer takes the item.',
   Q14: 'Channel shift is a routing change, not new demand — the channel-shift functionality moves baseline volume cleanly between channels, while creating offsetting enrichments would distort total demand.',
@@ -742,7 +742,7 @@ function sendNotificationEmail_mod2(payload, scoreResult, sheetUrl) {
 // ══════════════════════════════════════════════════════════════════════════════
 
 const ANSWER_KEY_MOD4 = {
-  Q1:'B', Q2:'C', Q3:'A', Q4:'D', Q5:'A',
+  Q1:'B', Q2:'C', Q3:'A', Q4:'A', Q5:'A',
   Q6:'B', Q7:'A', Q8:'C', Q9:'B', Q10:'D'
 };
 const TOTAL_QUESTIONS_MOD4 = 10;
@@ -758,7 +758,7 @@ const QUESTION_TEXT_MOD4 = {
   Q1: 'Why do DI, FAN, and Amazon need to be discussed as a separate group in MOD 4?',
   Q2: 'In the UK pilot, who owns the DI forecast number and how is it built?',
   Q3: 'For FAN items, which team builds the forecast volume, and what does the KAM do?',
-  Q4: 'Where does the full DI or FAN forecast volume land in the Reconciliation Template?',
+  Q4: 'In the UK pilot, DI and FAN are not forecast statistically, so Daybreak produces no baseline for them. In the US, DI is forecast statistically. Where does the full forecast volume land in the Reconciliation Template in each case?',
   Q5: 'Which statement correctly describes the Evergreen exception for DI?',
   Q6: 'Why are FAN items deliberately handled outside the Daybreak baseline?',
   Q7: 'How is Amazon treated in the UK pilot?',
@@ -771,7 +771,7 @@ const RATIONALES_MOD4 = {
   Q1: 'The three are not grouped by revenue, scope, or coverage. They are grouped because their demand history is erratic, discontinuous, and opportunistic — DI is program-driven, FAN is event-driven, Amazon has highly irregular ordering rhythm — which is exactly what a history-based statistical baseline cannot project well. That is why each one needs its own handling model.',
   Q2: 'For DI there is no Daybreak baseline by default. The KAM builds the forecast bottom-up by Forecasting Partner using account knowledge — committed programs, signed orders, customer plans — not statistical extrapolation. DP facilitates but the account team carries the build.',
   Q3: 'FAN volume sits with the team that owns the moment — the regional category team. KAMs validate timing and feasibility at their account but do not re-cut the FAN number.',
-  Q4: 'Both DI and FAN have no underlying Daybreak baseline. The entire forecast volume is captured as Base Trend enrichment at L1 — the L1 lock is essentially all-Base-Trend with no statistical signal to challenge against.',
+  Q4: 'What decides this is not the channel or the item class, it is whether the market agreed to forecast that segment statistically. Where there is no Daybreak baseline, the full volume enters as Base Trend at Level 1, and the Level 1 lock is essentially all Base Trend with no statistical signal to challenge against. Where there is a baseline, as with DI in the US, the segment behaves like any other: the resultant is the starting point and the team layers enrichments and Base Trend on top. The resultant itself is never overwritten in either case.',
   Q5: 'Evergreen is owned by Sales Operations — not by KAM, not by DP. Evergreen items behave like standard CF (Daybreak baseline applies, KAM enriches on top). The Evergreen list must be confirmed before each cycle.',
   Q6: 'FAN history contains one-off spikes (franchise releases, film tie-ins, time-limited campaigns) that would create false signals downstream and pollute the baseline for standard CF items. The exception is deliberate.',
   Q7: 'For the pilot, Amazon is deliberately treated as a standard customer so the team learns the standard flow first. Daybreak generates the baseline; statistical disaggregation assigns Amazon\'s share; the Amazon KAM reviews and adjusts.',

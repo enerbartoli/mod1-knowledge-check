@@ -9,7 +9,7 @@ const LS_KEY            = 'mod2_quiz_state';
 
 const ANSWER_KEY = {
   Q1:'A', Q2:'B', Q3:'C', Q4:'C', Q5:'D',
-  Q6:'B', Q7:'B', Q8:'C', Q9:'A', Q10:'A',
+  Q6:'B', Q7:'A', Q8:'C', Q9:'A', Q10:'A',
   Q11:'D', Q12:'C', Q13:'A', Q14:'D', Q15:'B'
 };
 
@@ -112,13 +112,13 @@ const QUESTIONS = [
     id: 7,
     text: 'A customer pulls confirmed annual demand into a specific order window (ladder), with offsetting reductions in the months from which demand is being moved. The full-year total does not change. Which enrichment approach is correct?',
     options: {
-      A: 'Positive base trend in the ladder month + negative base trend in the pulled-from months.',
-      B: 'Positive set in the ladder month + negative sets in the pulled-from months.',
-      C: 'Single positive base trend in the ladder month — the negative offset is not needed.',
-      D: 'No enrichment — let the baseline absorb the timing shift over the next cycle.'
+      A: 'A Demand Phase Shift pair: positive rows in the order window, negative rows where the demand comes from.',
+      B: 'A Set pair: positive Sets in the order window, negative Sets on the weeks the demand is taken from.',
+      C: 'A single Base Trend Adjustment in the order window, sized to the volume the customer is pulling forward.',
+      D: 'No enrichment. The full-year total is unchanged, so the forecast already reflects the customer\'s plan.'
     },
     slideRefs: '32',
-    rationale: 'A ladder is a timing move, not incremental demand — sets are the right tool because they cleanse out of history, while base trend would permanently distort next year\'s baseline with the same timing shift.',
+    rationale: 'A ladder moves existing demand between weeks and creates none, which is what Demand Phase Shift is for, authored as a positive and negative pair. This was ratified on 16 July 2026 and it explicitly rules out SET and base trend for a timing move. SET is reserved for a true set build, and only a set build that also pulls demand forward carries a SET on both legs. A base trend would push the timing shift permanently into next year\'s baseline, and doing nothing leaves the forecast on the old phasing even though the annual total is right.',
     section: 'Set vs Base Trend'
   },
   {
@@ -170,7 +170,7 @@ const QUESTIONS = [
       D: 'To reflect a negative base trend enrichment in correspondent period to offset the channel-fill already inside the baseline, plus a positive set enrichment of equal magnitude in the same month.'
     },
     slideRefs: '31',
-    rationale: 'The channel-fill is already in the NPI baseline, so a single positive set would double-count — two offsetting sets keep the total unchanged while making the fill visible for allocation, and both cleanse out after launch.',
+    rationale: 'The launch baseline already carries the fill, so the negative Base Trend removes the excess the model encoded and the positive SET restores the agreed fill on the same weeks. The launch-week total is unchanged and the fill is visible as a discrete line for allocation. What stops the model replicating the fill next year is the SET: cleansing runs in the opposite direction, so cleansed history is shipments minus the SET, which leaves replenishment. Two offsetting SETs would hold the total just as well but would net to zero in cleansing and the model would relearn the fill.',
     section: 'Enrichment Types'
   },
   {
