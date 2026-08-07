@@ -9,6 +9,7 @@ Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 | Module | Page | JS | Questions | Pass | Posts as | Client key in JS |
 |---|---|---|---|---|---|---|
 | mod2 | mod2.html | mod2.js | 15 | 12 | mod2 | yes |
+| mod3 | mod3.html | mod3.js | 10 | 8 | mod3 | yes |
 | mod4 | mod4.html | mod4.js | 10 | 8 | mod4 | yes |
 | mod5 | mod5.html | mod5.js | 15 | 12 | mod5 | yes |
 | mod7 | mod7.html | mod7.js | 10 | 8 | mod7 | yes |
@@ -36,6 +37,24 @@ Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 | Q13 | Base Trend Corrections | 44 | `6738b295e2a7` | A |
 | Q14 | No-Enrichment Paths | 51 | `7958d48e0d39` | D |
 | Q15 | No-Enrichment Paths | 54 | `abdb8ec969f2` | B |
+
+### mod3 — MOD 3 — HERO in Practice
+
+- JS: `mod3.js` · HTML: `mod3.html` · localStorage key: `mod3_quiz_state`
+- Questions: 10 · Pass threshold: 8
+
+| Q | section | slides | fingerprint | client key |
+|---|---|---|---|---|
+| Q1 | Choosing your template |  | `06e41cb3fe2e` | A |
+| Q2 | Choosing your template |  | `b666cbc1143a` | C |
+| Q3 | Dashboard or template |  | `df6119d35aca` | B |
+| Q4 | Dashboard or template |  | `a2b219a94918` | D |
+| Q5 | Which surface takes what |  | `8387ec8a45f1` | C |
+| Q6 | Scope and shared work |  | `a70bd7982d92` | A |
+| Q7 | Clearing and reverting |  | `8471510e493b` | D |
+| Q8 | After you upload |  | `c285bbd77473` | B |
+| Q9 | After you upload |  | `56ef1ac1df6b` | C |
+| Q10 | Starting a cycle |  | `2fc112156d09` | A |
 
 ### mod4 — MOD 4 Knowledge Check · Exceptions &amp; Customer Variations
 
@@ -128,9 +147,10 @@ Routing (`doPost`):
 - `mod4` → `handleMod4Post`
 - `mod5` → `handleMod5Post`
 - `mod7` → `handleMod7Post`
+- `mod3` → `handleMod3Post`
 - `mod1` → inline flow in `doPost` (no dedicated handler)
 
-Per-module handlers found: handleMod2Post, handleMod4Post, handleMod5Post, handleMod7Post
+Per-module handlers found: handleMod2Post, handleMod4Post, handleMod5Post, handleMod7Post, handleMod3Post
 
 Thresholds/constants:
 
@@ -142,6 +162,8 @@ Thresholds/constants:
 - `PASS_THRESHOLD_MOD5` = 12
 - `TOTAL_QUESTIONS_MOD7` = 10
 - `PASS_THRESHOLD_MOD7` = 8
+- `TOTAL_QUESTIONS_MOD3` = 10
+- `PASS_THRESHOLD_MOD3` = 8
 
 Endpoints: getData=yes · sendReminders=yes
 
@@ -152,3 +174,4 @@ Endpoints: getData=yes · sendReminders=yes
 - `KC_Canonical_QuestionBank_v1_2026-08-06.json`
 - `KC_Canonical_QuestionBank_v2_2026-08-07.json`  ← used by the drift guard
 - `KC_Canonical_QuestionBank_v3_2026-08-07.json`
+- `KC_Canonical_QuestionBank_v4_2026-08-07.json`

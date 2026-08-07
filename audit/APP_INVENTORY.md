@@ -1,12 +1,12 @@
 # App Inventory
 
 <!-- GENERATED FILE — do not edit by hand. Run: node tools/generate_inventory.js -->
-<!-- structural_sha: fd627df9e314093b818fc69475f8d0ddd207955195ffe15032faa1143ad0d3c6 -->
+<!-- structural_sha: e724868341e82f5ea077a29b2b980ac176d76f7cd8ff4bf40420f2b3f011d74a -->
 
 - Generated: **2026-08-07**
-- Commit at generation (HEAD): `a7686e27039c7a3a6efc9268714eb46bd5a51d90`
-- Guard bank: `KC_Canonical_QuestionBank_v3_2026-08-07.json`
-- Structural hash: `fd627df9e314093b818fc69475f8d0ddd207955195ffe15032faa1143ad0d3c6` (the drift guard fails the build if this stops matching the repo)
+- Commit at generation (HEAD): `b41747b159585be9d425d765f37c3d325cdb6e40`
+- Guard bank: `KC_Canonical_QuestionBank_v4_2026-08-07.json`
+- Structural hash: `e724868341e82f5ea077a29b2b980ac176d76f7cd8ff4bf40420f2b3f011d74a` (the drift guard fails the build if this stops matching the repo)
 
 ## Modules
 
@@ -14,6 +14,7 @@
 |---|---|---|---|---|---|
 | mod1 | https://enerbartoli.github.io/mod1-knowledge-check/ | quiz.js | 16 | 13 | authoritative |
 | mod2 | https://enerbartoli.github.io/mod1-knowledge-check/mod2.html | mod2.js | 15 | 12 | authoritative |
+| mod3 | https://enerbartoli.github.io/mod1-knowledge-check/mod3.html | mod3.js | 10 | 8 | authoritative |
 | mod4 | https://enerbartoli.github.io/mod1-knowledge-check/mod4.html | mod4.js | 10 | 8 | authoritative |
 | mod5 | https://enerbartoli.github.io/mod1-knowledge-check/mod5.html | mod5.js | 15 | 12 | authoritative |
 | mod7 | https://enerbartoli.github.io/mod1-knowledge-check/mod7.html | mod7.js | 10 | 8 | authoritative |
@@ -306,6 +307,101 @@
 - **B ✓** Submit a disaggregation adjustment request to DP/Genpact; do not enter an enrichment.
 - **C** Apply offsetting enrichments — negative on the over-allocated customer, positive on the under-allocated one.
 - **D** Switch the L2 disaggregation method from Moving Average back to Current Resultant.
+
+### mod3
+
+- Page: https://enerbartoli.github.io/mod1-knowledge-check/mod3.html · JS: `mod3.js` · HTML: `mod3.html`
+- Questions: 10 · Pass threshold: 8 · Options: authoritative (bank is source of truth)
+
+**Q1** · fingerprint `06e41cb3fe2e` · correct **A** · rationale no · slides —
+
+> You have two workbooks available: the Enrichment Capture Template (ECT) and the Forecast Reconciliation Template (FRT). Which rule of thumb tells you which one to use?
+
+- **A ✓** Use the ECT for dated business events. Use the FRT to change the final number for given weeks.
+- **B** Use the ECT for Level 1 work and the FRT for Level 2.5 work, whatever the change is.
+- **C** Use the ECT for increases and the FRT for decreases, since only the FRT accepts negatives.
+- **D** Use whichever you already have open, since both write to the same place and HERO reconciles them.
+
+**Q2** · fingerprint `b666cbc1143a` · correct **C** · rationale no · slides —
+
+> You are entering a retail promotion in the Enrichment Capture Template. How do you populate the Expected Shipment Lift?
+
+- **A** In percent and in units, so HERO can cross-check the two figures.
+- **B** In units only. The percent field is a display convenience and is ignored.
+- **C ✓** In percent or in units, one of the two, never both and never neither.
+- **D** In whichever field you prefer, leaving both blank if the volume is not yet known.
+
+**Q3** · fingerprint `df6119d35aca` · correct **B** · rationale no · slides —
+
+> A Key Account Manager wants to compare this cycle against the last three, look for patterns across brands, and then make a change. Where does each part of that belong?
+
+- **A** Both in the template, since it already carries previous-cycle columns and avoids switching tools.
+- **B ✓** Analysis in the dashboard, the change in the template. The template is an execution interface.
+- **C** Both in the dashboard, since it holds the history and can write changes back to HERO.
+- **D** Analysis in the template and the change in the dashboard, which is where entries are committed.
+
+**Q4** · fingerprint `a2b219a94918` · correct **D** · rationale no · slides —
+
+> You upload a valid workbook, then open the Power BI dashboard and the numbers do not match what you just entered. What is the most likely explanation?
+
+- **A** The upload was partially saved, so some rows landed and others were silently dropped.
+- **B** The dashboard reads Logility rather than HERO, so it only matches after the Friday export.
+- **C** Your entries were rejected. A successful upload always appears in the dashboard immediately.
+- **D ✓** Timing. The dashboard refreshes after backend processing, so it can lag your upload.
+
+**Q5** · fingerprint `8387ec8a45f1` · correct **C** · rationale no · slides —
+
+> A brand team confirms a customer pre-order and a pallet adjustment (TMO), and separately asks you to lift a brand's weekly number by a set amount with no event behind it. Where does each one go?
+
+- **A** All three in the Enrichment Capture Template, since all three change the forecast.
+- **B** All three through reconciliation, since all three end up in the same final number.
+- **C ✓** Pre-order and TMO in the Enrichment Capture Template; the brand lift in reconciliation.
+- **D** Pre-order in the Enrichment Capture Template; TMO and the brand lift through reconciliation.
+
+**Q6** · fingerprint `a70bd7982d92` · correct **A** · rationale no · slides —
+
+> You downloaded an all-brands workbook this morning and kept it open while you worked. A colleague has been uploading changes for one of those brands during the same period. You now upload yours. What happens?
+
+- **A ✓** Your upload can replace your colleague's work, because your scope overlaps theirs.
+- **B** HERO merges both, keeping your colleague's rows for their brand and yours for the rest.
+- **C** HERO rejects your upload, because another user has already written into that scope today.
+- **D** Nothing is lost. Your workbook only carries the rows you actually edited before uploading.
+
+**Q7** · fingerprint `8471510e493b` · correct **D** · rationale no · slides —
+
+> You need to remove two things: an enrichment that is no longer happening, and a Base Trend Adjustment that has gone stale. How do you clear each?
+
+- **A** Both: delete the row from the workbook before uploading, so nothing stale is carried up.
+- **B** Both: clear the cell so it is blank, which tells HERO to remove the existing entry.
+- **C** Enrichment: enter a numeric zero. Base Trend Adjustment: set its Status to DECLINED.
+- **D ✓** Enrichment: set its Status to DECLINED. Base Trend Adjustment: enter a numeric zero.
+
+**Q8** · fingerprint `c285bbd77473` · correct **B** · rationale no · slides —
+
+> You upload a Level 2.5 adjustment. Twenty minutes later it is still not visible at Level 1 or in the dashboard. What do you do?
+
+- **A** Upload the workbook again, since a change that has not appeared did not register.
+- **B ✓** Wait for the next fan-out run. Level 2.5 reaches Level 1 through that job, not on save.
+- **C** Re-enter the same adjustment at Level 1, so the number is right while 2.5 catches up.
+- **D** Raise it with the squad as a defect, since Level 2.5 and Level 1 should always agree instantly.
+
+**Q9** · fingerprint `56ef1ac1df6b` · correct **C** · rationale no · slides —
+
+> You uploaded an approved change on a Tuesday. When does it reach Logility?
+
+- **A** On upload. HERO writes to Logility as soon as a workbook passes validation.
+- **B** After the next fan-out, which is the job that pushes HERO's output into Logility.
+- **C ✓** On the weekly Friday export. Uploading holds the change in HERO until it runs.
+- **D** Once the dashboard refresh completes, since publication follows the resolved surfaces.
+
+**Q10** · fingerprint `2fc112156d09` · correct **A** · rationale no · slides —
+
+> It is the first day of a new planning cycle. What is the correct way to start?
+
+- **A ✓** Wait for the cycle refresh, download fresh at the narrowest scope, review the total.
+- **B** Download fresh as soon as the portal opens and start correcting the adjustments that look odd.
+- **C** Open last cycle's workbook, compare it against the portal, and edit whichever values disagree.
+- **D** Wait for the cycle refresh, then check the dashboard and apply your changes there directly.
 
 ### mod4
 
@@ -649,11 +745,12 @@ Routing (`doPost`):
 - `mod4` → `handleMod4Post`
 - `mod5` → `handleMod5Post`
 - `mod7` → `handleMod7Post`
+- `mod3` → `handleMod3Post`
 - `mod1` → inline flow in `doPost` (no dedicated handler)
 
-Handlers: `handleMod2Post`, `handleMod4Post`, `handleMod5Post`, `handleMod7Post`
+Handlers: `handleMod2Post`, `handleMod3Post`, `handleMod4Post`, `handleMod5Post`, `handleMod7Post`
 
-Email template functions: `emailShell_mod2`, `emailShell_mod4`, `emailShell_mod5`, `emailShell_mod7`, `sendEmails`, `sendFailEmail_mod2`, `sendFailEmail_mod4`, `sendFailEmail_mod5`, `sendFailEmail_mod7`, `sendNotificationEmail_mod2`, `sendNotificationEmail_mod4`, `sendNotificationEmail_mod5`, `sendNotificationEmail_mod7`, `sendPassEmail_mod2`, `sendPassEmail_mod4`, `sendPassEmail_mod5`, `sendPassEmail_mod7`
+Email template functions: `emailShell_mod2`, `emailShell_mod3`, `emailShell_mod4`, `emailShell_mod5`, `emailShell_mod7`, `sendEmails`, `sendFailEmail_mod2`, `sendFailEmail_mod3`, `sendFailEmail_mod4`, `sendFailEmail_mod5`, `sendFailEmail_mod7`, `sendNotificationEmail_mod2`, `sendNotificationEmail_mod3`, `sendNotificationEmail_mod4`, `sendNotificationEmail_mod5`, `sendNotificationEmail_mod7`, `sendPassEmail_mod2`, `sendPassEmail_mod3`, `sendPassEmail_mod4`, `sendPassEmail_mod5`, `sendPassEmail_mod7`
 
 Sheet columns (from `writeHeaders`; moduleId + attemptNumber are appended by each handler without headers):
 
@@ -705,12 +802,13 @@ Sheet columns (from `writeHeaders`; moduleId + attemptNumber are appended by eac
 
 ## Submissions per module (snapshot, informational — not part of the structural hash)
 
-_As of 2026-08-07 — total 114._
+_As of 2026-08-07 — total 115._
 
 | Module | Submissions |
 |---|---|
 | mod1 | 51 |
 | mod2 | 21 |
+| mod3 | 0 |
 | mod4 | 24 |
 | mod5 | 18 |
-| mod7 | 0 |
+| mod7 | 1 |

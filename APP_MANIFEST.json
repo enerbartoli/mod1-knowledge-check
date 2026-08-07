@@ -6,7 +6,8 @@
   "canonical_banks": [
     "KC_Canonical_QuestionBank_v1_2026-08-06.json",
     "KC_Canonical_QuestionBank_v2_2026-08-07.json",
-    "KC_Canonical_QuestionBank_v3_2026-08-07.json"
+    "KC_Canonical_QuestionBank_v3_2026-08-07.json",
+    "KC_Canonical_QuestionBank_v4_2026-08-07.json"
   ],
   "guard_bank": "KC_Canonical_QuestionBank_v2_2026-08-07.json",
   "modules": [
@@ -125,6 +126,89 @@
           "slide_refs": "54",
           "fingerprint": "abdb8ec969f2",
           "client_key": "B"
+        }
+      ]
+    },
+    {
+      "module_id": "mod3",
+      "js_file": "mod3.js",
+      "html_file": "mod3.html",
+      "title": "MOD 3 — HERO in Practice",
+      "pass_threshold": 8,
+      "total_questions": 10,
+      "ls_key": "mod3_quiz_state",
+      "posts_module": "mod3",
+      "client_answer_key_present": true,
+      "questions": [
+        {
+          "id": "Q1",
+          "section": "Choosing your template",
+          "slide_refs": null,
+          "fingerprint": "06e41cb3fe2e",
+          "client_key": "A"
+        },
+        {
+          "id": "Q2",
+          "section": "Choosing your template",
+          "slide_refs": null,
+          "fingerprint": "b666cbc1143a",
+          "client_key": "C"
+        },
+        {
+          "id": "Q3",
+          "section": "Dashboard or template",
+          "slide_refs": null,
+          "fingerprint": "df6119d35aca",
+          "client_key": "B"
+        },
+        {
+          "id": "Q4",
+          "section": "Dashboard or template",
+          "slide_refs": null,
+          "fingerprint": "a2b219a94918",
+          "client_key": "D"
+        },
+        {
+          "id": "Q5",
+          "section": "Which surface takes what",
+          "slide_refs": null,
+          "fingerprint": "8387ec8a45f1",
+          "client_key": "C"
+        },
+        {
+          "id": "Q6",
+          "section": "Scope and shared work",
+          "slide_refs": null,
+          "fingerprint": "a70bd7982d92",
+          "client_key": "A"
+        },
+        {
+          "id": "Q7",
+          "section": "Clearing and reverting",
+          "slide_refs": null,
+          "fingerprint": "8471510e493b",
+          "client_key": "D"
+        },
+        {
+          "id": "Q8",
+          "section": "After you upload",
+          "slide_refs": null,
+          "fingerprint": "c285bbd77473",
+          "client_key": "B"
+        },
+        {
+          "id": "Q9",
+          "section": "After you upload",
+          "slide_refs": null,
+          "fingerprint": "56ef1ac1df6b",
+          "client_key": "C"
+        },
+        {
+          "id": "Q10",
+          "section": "Starting a cycle",
+          "slide_refs": null,
+          "fingerprint": "2fc112156d09",
+          "client_key": "A"
         }
       ]
     },
@@ -556,13 +640,18 @@
       {
         "module": "mod7",
         "handler": "handleMod7Post"
+      },
+      {
+        "module": "mod3",
+        "handler": "handleMod3Post"
       }
     ],
     "handlers": [
       "handleMod2Post",
       "handleMod4Post",
       "handleMod5Post",
-      "handleMod7Post"
+      "handleMod7Post",
+      "handleMod3Post"
     ],
     "thresholds": {
       "TOTAL_QUESTIONS_MOD2": 15,
@@ -572,7 +661,9 @@
       "TOTAL_QUESTIONS_MOD5": 15,
       "PASS_THRESHOLD_MOD5": 12,
       "TOTAL_QUESTIONS_MOD7": 10,
-      "PASS_THRESHOLD_MOD7": 8
+      "PASS_THRESHOLD_MOD7": 8,
+      "TOTAL_QUESTIONS_MOD3": 10,
+      "PASS_THRESHOLD_MOD3": 8
     },
     "reminder_endpoint": true,
     "getData_endpoint": true

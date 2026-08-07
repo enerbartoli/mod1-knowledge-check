@@ -176,6 +176,7 @@ function doPost(e) {
     if (moduleId === 'mod4') { return handleMod4Post(payload); }
     if (moduleId === 'mod5') { return handleMod5Post(payload); }
     if (moduleId === 'mod7') { return handleMod7Post(payload); }
+    if (moduleId === 'mod3') { return handleMod3Post(payload); }
 
     // 3. Validate required fields
     var validationError = validatePayload(payload);
@@ -1605,6 +1606,301 @@ function sendNotificationEmail_mod7(payload, scoreResult, sheetUrl) {
 
   MailApp.sendEmail({ to: RENE_EMAIL, cc: RENE_COPY_EMAIL, subject: subject, body: body });
 }
+
+// ══════════════════════════════════════════════════════════════════════════════
+// MOD 3 — HERO in Practice: which surface, and why (additive)
+// ══════════════════════════════════════════════════════════════════════════════
+
+const ANSWER_KEY_MOD3 = {
+  Q1:'A', Q2:'C', Q3:'B', Q4:'D', Q5:'C',
+  Q6:'A', Q7:'D', Q8:'B', Q9:'C', Q10:'A'
+};
+const TOTAL_QUESTIONS_MOD3 = 10;
+const PASS_THRESHOLD_MOD3  = 8;
+const QUIZ_URL_MOD3        = 'https://enerbartoli.github.io/mod1-knowledge-check/mod3.html';
+
+// MOD 3 references named manual sections, not slide numbers (live practice module).
+const MANUAL_REFS_MOD3 = {
+  Q1: 'HERO Manual, Enrichment Capture Template (ECT), callout "Enrichments vs reconciliation"; Forecast Reconciliation Template (FRT), "When to use it"',
+  Q2: 'HERO Manual, "Validation & error catalogue", error catalogue table; "Field-by-field reference", enrichment template fields',
+  Q3: 'Build Learnings KB, section 13, "Mechanics - applies at every level"; HERO Manual, "Reference views & dashboards"',
+  Q4: 'Canonical Facts One-Pager, "Calendar, timing and access"; HERO Manual, "Reference views & dashboards", callout "Timing"; "End-to-end user workflow"',
+  Q5: 'HERO Manual, Enrichment Capture Template (ECT), table "Supported enrichment types"; Canonical Facts One-Pager, fact 25',
+  Q6: 'Canonical Facts One-Pager, fact 38; Cycle Start Review Guide, "Fresh Templates and Shared Work"',
+  Q7: 'HERO Manual, Enrichment Capture Template (ECT), "Cancelling or removing an enrichment"; Canonical Facts One-Pager, fact 33',
+  Q8: 'HERO Manual, "Timing & system sync", "The fan-out (how Level 2.5 changes reach Level 1)"; Build Learnings KB, section 13',
+  Q9: 'HERO Manual, "Timing & system sync", "Publication to Logility"',
+  Q10: 'Cycle Start Review Guide, "The Five-Minute Cycle-Start Check"; Canonical Facts One-Pager, fact 36',
+};
+
+const QUESTION_TEXT_MOD3 = {
+  Q1: 'You have two workbooks available: the Enrichment Capture Template (ECT) and the Forecast Reconciliation Template (FRT). Which rule of thumb tells you which one to use?',
+  Q2: 'You are entering a retail promotion in the Enrichment Capture Template. How do you populate the Expected Shipment Lift?',
+  Q3: 'A Key Account Manager wants to compare this cycle against the last three, look for patterns across brands, and then make a change. Where does each part of that belong?',
+  Q4: 'You upload a valid workbook, then open the Power BI dashboard and the numbers do not match what you just entered. What is the most likely explanation?',
+  Q5: 'A brand team confirms a customer pre-order and a pallet adjustment (TMO), and separately asks you to lift a brand\'s weekly number by a set amount with no event behind it. Where does each one go?',
+  Q6: 'You downloaded an all-brands workbook this morning and kept it open while you worked. A colleague has been uploading changes for one of those brands during the same period. You now upload yours. What happens?',
+  Q7: 'You need to remove two things: an enrichment that is no longer happening, and a Base Trend Adjustment that has gone stale. How do you clear each?',
+  Q8: 'You upload a Level 2.5 adjustment. Twenty minutes later it is still not visible at Level 1 or in the dashboard. What do you do?',
+  Q9: 'You uploaded an approved change on a Tuesday. When does it reach Logility?',
+  Q10: 'It is the first day of a new planning cycle. What is the correct way to start?',
+};
+
+const RATIONALES_MOD3 = {
+  Q1: 'The pocket rule is enrichments for dated business events, reconciliation when the ask is effectively "change the final number for these weeks". The level you work at is a separate choice: both templates exist at more than one level, and both accept positive and negative values.',
+  Q2: 'Validation rejects the row if both lift fields are populated or if neither is. Enter one lift mode per row. A retail promotion also requires the Retail Promotion Mechanism field: each enrichment type carries its own extra required field on top of the common ones.',
+  Q3: 'The reconciliation template was deliberately built as an execution interface, not an analysis tool. Analysis lives in the dashboard. This is an anti-scope-creep principle taken from a prior tool that collapsed under its own weight within a week of launch. The dashboard is a read surface: nothing is written back from it, and changes only enter HERO through a template upload.',
+  Q4: 'A reported mismatch between the dashboard and a fresh template of the same scope is almost always a timing mismatch, not a data mismatch. The workbook shows authored intent immediately; the dashboard matches only after the backend processing run and the refresh, which currently runs every 90 minutes. Rejected uploads are never partially saved: HERO returns an annotated workbook instead.',
+  Q5: 'Pre-orders and TMO are supported enrichment types tied to dated events, so both are captured in the Enrichment Capture Template. A request to move the final weekly number with no event behind it is a reconciliation ask and is entered as a Base Trend Adjustment. Worth remembering: TMO is the one enrichment type that never sums into the consensus the way the others do, it stays an independent adjustment.',
+  Q6: 'Templates are scope-locked at download time, and HERO validates an upload against the latest backend state. In an overlapping scope, a later upload can replace work uploaded earlier by someone else. The habits that prevent this: download fresh, use the narrowest practical brand and forecast-partner selection, and agree ownership before two people edit the same partner, SKU and week scope.',
+  Q7: 'Since the 20 July 2026 release, DECLINED is the recommended way to cancel an enrichment: the row stays visible in the template and the audit trail but is excluded from calculated downstream outputs. Reconciliation and Base Trend Adjustments have no status field, so they are cleared with a numeric zero. Blank is not zero, and rows are never deleted.',
+  Q8: 'Level 1 reads and writes are immediate. A Level 2.5 change needs the fan-out job to distribute it down to the partner rows and refresh the Level 1 view that feeds the dashboard. The fan-out runs on a fixed schedule, several times a day on UK weekdays. If you saw the green upload confirmation your data is captured and safe; re-uploading or duplicating the entry at Level 1 creates work that then has to be undone.',
+  Q9: 'Uploading a workbook does not push Logility. HERO publishes through the weekly Friday noon Eastern export pipeline, and anything authored during the week is held in HERO until that pipeline runs. The fan-out is an internal job that moves Level 2.5 changes down to Level 1; it publishes nothing externally.',
+  Q10: 'The cycle-start check begins by waiting for the cycle refresh to finish, then downloading a fresh template at the narrowest practical brand and forecast-partner selection, then reviewing the total Preliminary Consensus Forecast before touching anything. Never reuse a prior-cycle workbook, and never try to make changes in the dashboard: it is a read surface and nothing is written back from it.',
+};
+
+function handleMod3Post(payload) {
+  try {
+    var validationError = validatePayload_mod3(payload);
+    if (validationError) return buildResponse({ error: validationError }, 400);
+
+    var scoreResult = scoreSubmission_mod3(payload.answers);
+    var sheetUrl    = appendToSheet_mod3(payload, scoreResult);
+    sendEmails_mod3(payload, scoreResult, sheetUrl);
+
+    return buildResponse({
+      score:            scoreResult.score,
+      total:            TOTAL_QUESTIONS_MOD3,
+      percent:          scoreResult.percent,
+      pass:             scoreResult.pass,
+      failed_questions: scoreResult.failedQNums
+    });
+  } catch (err) {
+    Logger.log('handleMod3Post error: ' + err.message + '\n' + err.stack);
+    return buildResponse({ error: 'Server error. Please try again.' }, 500);
+  }
+}
+
+function validatePayload_mod3(p) {
+  if (!p.name || String(p.name).trim().length < 2) return 'Name is required.';
+  var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!p.email || !emailRe.test(String(p.email).trim())) return 'Valid email is required.';
+  if (!p.role) return 'Role is required.';
+  if (!p.answers || typeof p.answers !== 'object') return 'Answers are required.';
+  for (var i = 1; i <= TOTAL_QUESTIONS_MOD3; i++) {
+    var key = 'Q' + i;
+    var val = p.answers[key];
+    if (!val || !['A','B','C','D'].includes(String(val).toUpperCase())) {
+      return 'Answer for ' + key + ' is missing or invalid.';
+    }
+  }
+  return null;
+}
+
+function scoreSubmission_mod3(answers) {
+  var score = 0;
+  var results = {};
+  var failedQNums = [];
+  for (var i = 1; i <= TOTAL_QUESTIONS_MOD3; i++) {
+    var key     = 'Q' + i;
+    var given   = String(answers[key] || '').toUpperCase();
+    var correct = ANSWER_KEY_MOD3[key];
+    var isCorrect = given === correct;
+    results[key] = { given: given, correct: isCorrect };
+    if (isCorrect) { score++; } else { failedQNums.push(i); }
+  }
+  var percent = Math.round((score / TOTAL_QUESTIONS_MOD3) * 10000) / 100;
+  return { score: score, percent: percent, pass: score >= PASS_THRESHOLD_MOD3, results: results, failedQNums: failedQNums };
+}
+
+function appendToSheet_mod3(payload, scoreResult) {
+  var ss    = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(SHEET_NAME);
+  if (!sheet) { sheet = ss.insertSheet(SHEET_NAME); writeHeaders(sheet); }
+  if (sheet.getLastRow() === 0) writeHeaders(sheet);
+
+  var moduleId      = 'mod3';
+  var attemptNumber = computeAttemptNumber(String(payload.email).trim().toLowerCase(), moduleId, sheet);
+
+  var now = new Date();
+  var row = [
+    now, payload.name.trim(), payload.email.trim().toLowerCase(), payload.role,
+    payload.roleOther || '', scoreResult.score, scoreResult.percent,
+    scoreResult.pass ? 'Pass' : 'Fail'
+  ];
+
+  // Q1–Q10 answer + correct pairs
+  for (var i = 1; i <= TOTAL_QUESTIONS_MOD3; i++) {
+    var key = 'Q' + i;
+    var r   = scoreResult.results[key];
+    row.push(r.given);
+    row.push(r.correct);
+  }
+  // Q11–Q16 placeholders blank — preserves column alignment (6 blank pairs)
+  for (var j = 0; j < 6; j++) {
+    row.push('');
+    row.push('');
+  }
+
+  row.push(scoreResult.failedQNums.join(', '));
+  row.push(true);
+  row.push((payload.userAgent || '').slice(0, 200));
+  row.push(moduleId);
+  row.push(attemptNumber);
+
+  sheet.appendRow(row);
+  return ss.getUrl();
+}
+
+function sendEmails_mod3(payload, scoreResult, sheetUrl) {
+  var name  = payload.name.trim();
+  var email = payload.email.trim().toLowerCase();
+  try {
+    if (scoreResult.pass) {
+      sendPassEmail_mod3(email, name, scoreResult.score, TOTAL_QUESTIONS_MOD3, scoreResult.percent);
+    } else {
+      sendFailEmail_mod3(email, name, scoreResult.score, TOTAL_QUESTIONS_MOD3, scoreResult.percent, scoreResult.failedQNums);
+    }
+    sendNotificationEmail_mod3(payload, scoreResult, sheetUrl);
+    return true;
+  } catch (err) {
+    Logger.log('MOD 3 email error: ' + err.message);
+    return false;
+  }
+}
+
+function emailShell_mod3(contentHtml) {
+  return '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#f0f4f8;font-family:Arial,sans-serif;">' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f4f8;padding:32px 0;">' +
+    '<tr><td align="center">' +
+    '<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">' +
+    '<tr><td style="background:#0d1b2e;padding:28px 40px;text-align:center;">' +
+    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Forecast Enrichment Programme · UK Pilot</p>' +
+    '<p style="margin:8px 0 0;color:#ffffff;font-size:20px;font-weight:700;">MOD 3 Knowledge Check</p>' +
+    '</td></tr>' +
+    '<tr><td style="padding:40px;">' + contentHtml + '</td></tr>' +
+    '<tr><td style="background:#f8f9fa;padding:20px 40px;border-top:1px solid #e9ecef;text-align:center;">' +
+    '<p style="margin:0;color:#6c757d;font-size:12px;">Rene Bartoli · Demand Planning · Forecast Enrichment Program</p>' +
+    '</td></tr>' +
+    '</table></td></tr></table></body></html>';
+}
+
+function sendPassEmail_mod3(toEmail, name, score, total, pct) {
+  var subject = '✓ MOD 3 Knowledge Check — Passed';
+  var content =
+    '<div style="text-align:center;margin-bottom:32px;">' +
+    '<div style="display:inline-block;background:#d4edda;border-radius:50%;width:72px;height:72px;line-height:72px;font-size:36px;">✓</div>' +
+    '<h2 style="margin:16px 0 4px;color:#0d1b2e;font-size:24px;">Well done, ' + name + '!</h2>' +
+    '<p style="margin:0;color:#6c757d;font-size:15px;">You\'ve passed the MOD 3 knowledge check</p>' +
+    '</div>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f9fa;border-radius:8px;margin-bottom:28px;">' +
+    '<tr>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">' + score + '/' + total + '</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Score</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">' + Math.round(pct) + '%</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Accuracy</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">PASS</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Status</p>' +
+    '</td>' +
+    '</tr></table>' +
+    '<p style="color:#495057;font-size:15px;line-height:1.6;">You\'ve met the <strong>80% threshold</strong> for MOD 3 — HERO in Practice.</p>' +
+    '<div style="background:#e8f8f5;border-left:4px solid #00c9a7;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
+    '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">What\'s next</p>' +
+    '<p style="margin:6px 0 0;color:#495057;font-size:14px;">You have the surface calls down — which template, when the dashboard reads versus when a template writes, and what HERO does after you upload. Put it to work in your next live cycle.</p>' +
+    '</div>' +
+    '<p style="color:#6c757d;font-size:14px;line-height:1.6;">If you have questions about MOD 3 topics, check the HERO Manual and the Canonical Facts One-Pager in the project SharePoint or reach out to the Demand Planning team.</p>';
+  MailApp.sendEmail({ to: toEmail, subject: subject, htmlBody: emailShell_mod3(content) });
+}
+
+function sendFailEmail_mod3(toEmail, name, score, total, pct, failedQNums) {
+  var subject = 'MOD 3 Knowledge Check — Please review and retry';
+
+  var missedRows = failedQNums.map(function(num) {
+    var key   = 'Q' + num;
+    var qText = QUESTION_TEXT_MOD3[key] || '';
+    var ref   = MANUAL_REFS_MOD3[key] || '';
+    var rationale = RATIONALES_MOD3[key] || '';
+    return '<tr style="border-bottom:1px solid #e9ecef;">' +
+      '<td style="padding:12px 8px;color:#0d1b2e;font-weight:700;font-size:13px;white-space:nowrap;vertical-align:top;">Q' + num + '</td>' +
+      '<td style="padding:12px 8px;font-size:13px;line-height:1.5;vertical-align:top;">' +
+        '<div style="color:#495057;">' + qText + '</div>' +
+        '<div style="color:#6c757d;font-style:italic;margin-top:6px;font-size:12px;">' + rationale + '</div>' +
+      '</td>' +
+      '<td style="padding:12px 8px;color:#00c9a7;font-size:12px;line-height:1.5;vertical-align:top;">' + ref + '</td>' +
+      '</tr>';
+  }).join('');
+
+  var content =
+    '<div style="text-align:center;margin-bottom:32px;">' +
+    '<div style="display:inline-block;background:#fff3cd;border-radius:50%;width:72px;height:72px;line-height:72px;font-size:36px;">\U0001F4CB</div>' +
+    '<h2 style="margin:16px 0 4px;color:#0d1b2e;font-size:24px;">Hi ' + name + '</h2>' +
+    '<p style="margin:0;color:#6c757d;font-size:15px;">A little more review needed</p>' +
+    '</div>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f9fa;border-radius:8px;margin-bottom:28px;">' +
+    '<tr>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#ffd60a;">' + score + '/' + total + '</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Score</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#ffd60a;">' + Math.round(pct) + '%</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Accuracy</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#dc3545;">RETRY</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Status</p>' +
+    '</td>' +
+    '</tr></table>' +
+    '<p style="color:#495057;font-size:15px;line-height:1.6;">No worries — this one is about surface choices, and they click quickly with a little review.</p>' +
+    '<h3 style="color:#0d1b2e;font-size:16px;font-weight:700;margin:24px 0 12px;">Questions to Review to Better Your Understanding</h3>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e9ecef;border-radius:8px;overflow:hidden;margin:20px 0;table-layout:fixed;">' +
+    '<tr style="background:#0d1b2e;">' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;width:36px;">#</th>' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Question &amp; Rationale</th>' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Where to look</th>' +
+    '</tr>' +
+    missedRows +
+    '</table>' +
+    '<div style="background:#fff3cd;border-left:4px solid #ffd60a;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
+    '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">Note</p>' +
+    '<p style="margin:6px 0 0;color:#495057;font-size:14px;">I\'m deliberately not sharing the correct answers here — go back to the material and find them yourself. That\'s where the learning sticks.</p>' +
+    '</div>' +
+    '<div style="text-align:center;margin-top:28px;">' +
+    '<a href="' + QUIZ_URL_MOD3 + '" style="display:inline-block;background:#ffd60a;color:#0d1b2e;font-weight:700;font-size:15px;padding:14px 32px;border-radius:8px;text-decoration:none;">Retake the Quiz →</a>' +
+    '</div>';
+
+  MailApp.sendEmail({ to: toEmail, subject: subject, htmlBody: emailShell_mod3(content) });
+}
+
+function sendNotificationEmail_mod3(payload, scoreResult, sheetUrl) {
+  var name        = payload.name.trim();
+  var email       = payload.email.trim().toLowerCase();
+  var role        = payload.role + (payload.roleOther ? ' (' + payload.roleOther + ')' : '');
+  var score       = scoreResult.score;
+  var total       = TOTAL_QUESTIONS_MOD3;
+  var pct         = scoreResult.percent;
+  var status      = scoreResult.pass ? 'PASS' : 'FAIL';
+  var failedCount = scoreResult.failedQNums.length;
+  var failedList  = failedCount > 0
+    ? '  (' + scoreResult.failedQNums.map(function(n) { return 'Q' + n; }).join(', ') + ')'
+    : '';
+
+  var subject = '[MOD 3 Quiz] ' + name + ' — ' + score + '/' + total + ' — ' + status;
+  var body =
+    name + ' (' + email + ', ' + role + ') just submitted the MOD 3 Knowledge Check.\n\n' +
+    'Score: ' + score + ' / ' + total + ' (' + pct + '%)\n' +
+    'Status: ' + status + '\n' +
+    'Questions failed: ' + failedCount + ' of ' + total + failedList + '\n\n' +
+    'Full row written to the Sheet:\n' + sheetUrl;
+
+  MailApp.sendEmail({ to: RENE_EMAIL, cc: RENE_COPY_EMAIL, subject: subject, body: body });
+}
+
 
 // ══════════════════════════════════════════════════════════════════════════════
 // REMINDER EMAILS — Dashboard "Pending Users" feature
