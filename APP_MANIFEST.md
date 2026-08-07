@@ -27,11 +27,11 @@ Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 | Q4 | Baseline Training | 9, 10 | `4a93227f7d2f` | C |
 | Q5 | Baseline Training | 11, 12, 13, 14 | `1ea3ef950650` | D |
 | Q6 | Set vs Base Trend | 24 | `ba6c9acfed3e` | B |
-| Q7 | Set vs Base Trend | 32 | `e9e7b593c6c1` | A |
+| Q7 | Set vs Base Trend | 35 | `e9e7b593c6c1` | A |
 | Q8 | Set vs Base Trend | 29 | `fe7fde40959e` | C |
 | Q9 | Enrichment Types | 26 | `dd0ae51a0602` | A |
 | Q10 | Enrichment Types | 37 | `e4141bf0b48a` | A |
-| Q11 | Enrichment Types | 31 | `bb0ce7e89031` | D |
+| Q11 | Enrichment Types | 34 | `bb0ce7e89031` | D |
 | Q12 | Base Trend Corrections | 39 | `eb7cf03b088e` | C |
 | Q13 | Base Trend Corrections | 44 | `6738b295e2a7` | A |
 | Q14 | No-Enrichment Paths | 51 | `7958d48e0d39` | D |

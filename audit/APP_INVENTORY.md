@@ -1,12 +1,12 @@
 # App Inventory
 
 <!-- GENERATED FILE — do not edit by hand. Run: node tools/generate_inventory.js -->
-<!-- structural_sha: 459e13a7a988afdc788e5973cb56e4c4013bbcca7ab71922340dd98c9436eb76 -->
+<!-- structural_sha: fd627df9e314093b818fc69475f8d0ddd207955195ffe15032faa1143ad0d3c6 -->
 
 - Generated: **2026-08-07**
-- Commit at generation (HEAD): `385676f732e94e49e1a9e2a9b8e131f17aec9c68`
+- Commit at generation (HEAD): `a7686e27039c7a3a6efc9268714eb46bd5a51d90`
 - Guard bank: `KC_Canonical_QuestionBank_v3_2026-08-07.json`
-- Structural hash: `459e13a7a988afdc788e5973cb56e4c4013bbcca7ab71922340dd98c9436eb76` (the drift guard fails the build if this stops matching the repo)
+- Structural hash: `fd627df9e314093b818fc69475f8d0ddd207955195ffe15032faa1143ad0d3c6` (the drift guard fails the build if this stops matching the repo)
 
 ## Modules
 
@@ -226,7 +226,7 @@
 - **C** A Set is owned by Sales; a Base Trend is owned by Demand Planning.
 - **D** A Set applies to NPI items only; a Base Trend applies to carry-forward items only.
 
-**Q7** · fingerprint `e9e7b593c6c1` · correct **A** · rationale yes · slides 32
+**Q7** · fingerprint `e9e7b593c6c1` · correct **A** · rationale yes · slides 35
 
 > A customer pulls confirmed annual demand into a specific order window (ladder), with offsetting reductions in the months from which demand is being moved. The full-year total does not change. Which enrichment approach is correct?
 
@@ -262,7 +262,7 @@
 - **C** Set enrichment for the pre-order, then convert to base trend once actuals start coming in.
 - **D** No enrichment — the NPI baseline will absorb the pre-order.
 
-**Q11** · fingerprint `bb0ce7e89031` · correct **D** · rationale yes · slides 31
+**Q11** · fingerprint `bb0ce7e89031` · correct **D** · rationale yes · slides 34
 
 > An NPI's stat baseline already includes the channel-fill volume in its launch shape, but the team needs the fill visible as a discrete set for allocation traceability. What is the correct approach in F1?
 

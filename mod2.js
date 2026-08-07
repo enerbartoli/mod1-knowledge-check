@@ -117,7 +117,7 @@ const QUESTIONS = [
       C: 'A single Base Trend Adjustment in the order window, sized to the volume the customer is pulling forward.',
       D: 'No enrichment. The full-year total is unchanged, so the forecast already reflects the customer\'s plan.'
     },
-    slideRefs: '32',
+    slideRefs: '35',
     rationale: 'A ladder moves existing demand between weeks and creates none, which is what Demand Phase Shift is for, authored as a positive and negative pair. This was ratified on 16 July 2026 and it explicitly rules out SET and base trend for a timing move. SET is reserved for a true set build, and only a set build that also pulls demand forward carries a SET on both legs. A base trend would push the timing shift permanently into next year\'s baseline, and doing nothing leaves the forecast on the old phasing even though the annual total is right.',
     section: 'Set vs Base Trend'
   },
@@ -169,7 +169,7 @@ const QUESTIONS = [
       C: 'Submit a disaggregation request to split the channel-fill into a separate baseline component.',
       D: 'To reflect a negative base trend enrichment in correspondent period to offset the channel-fill already inside the baseline, plus a positive set enrichment of equal magnitude in the same month.'
     },
-    slideRefs: '31',
+    slideRefs: '34',
     rationale: 'The launch baseline already carries the fill, so the negative Base Trend removes the excess the model encoded and the positive SET restores the agreed fill on the same weeks. The launch-week total is unchanged and the fill is visible as a discrete line for allocation. What stops the model replicating the fill next year is the SET: cleansing runs in the opposite direction, so cleansed history is shipments minus the SET, which leaves replenishment. Two offsetting SETs would hold the total just as well but would net to zero in cleansing and the model would relearn the fill.',
     section: 'Enrichment Types'
   },
