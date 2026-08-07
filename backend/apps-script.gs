@@ -345,7 +345,7 @@ function emailShell(contentHtml) {
     '<tr><td align="center">' +
     '<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">' +
     '<tr><td style="background:#0d1b2e;padding:28px 40px;text-align:center;">' +
-    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Forecast Enrichment Programme · UK Pilot</p>' +
+    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Forecast Enrichment Programme · HERO Deployment</p>' +
     '<p style="margin:8px 0 0;color:#ffffff;font-size:20px;font-weight:700;">MOD 1 Knowledge Check</p>' +
     '</td></tr>' +
     '<tr><td style="padding:40px;">' + contentHtml + '</td></tr>' +
@@ -611,7 +611,7 @@ function emailShell_mod2(contentHtml) {
     '<tr><td align="center">' +
     '<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">' +
     '<tr><td style="background:#0d1b2e;padding:28px 40px;text-align:center;">' +
-    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Forecast Enrichment Programme · UK Pilot</p>' +
+    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Forecast Enrichment Programme · HERO Deployment</p>' +
     '<p style="margin:8px 0 0;color:#ffffff;font-size:20px;font-weight:700;">MOD 2 Knowledge Check</p>' +
     '</td></tr>' +
     '<tr><td style="padding:40px;">' + contentHtml + '</td></tr>' +
@@ -897,7 +897,7 @@ function emailShell_mod4(contentHtml) {
     '<tr><td align="center">' +
     '<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">' +
     '<tr><td style="background:#0d1b2e;padding:28px 40px;text-align:center;">' +
-    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Forecast Enrichment Programme · UK Pilot</p>' +
+    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Forecast Enrichment Programme · HERO Deployment</p>' +
     '<p style="margin:8px 0 0;color:#ffffff;font-size:20px;font-weight:700;">MOD 4 Knowledge Check</p>' +
     '</td></tr>' +
     '<tr><td style="padding:40px;">' + contentHtml + '</td></tr>' +
@@ -1193,7 +1193,7 @@ function emailShell_mod5(contentHtml) {
     '<tr><td align="center">' +
     '<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">' +
     '<tr><td style="background:#0d1b2e;padding:28px 40px;text-align:center;">' +
-    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Forecast Enrichment Programme · UK Pilot</p>' +
+    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Forecast Enrichment Programme · HERO Deployment</p>' +
     '<p style="margin:8px 0 0;color:#ffffff;font-size:20px;font-weight:700;">MOD 5 Knowledge Check</p>' +
     '</td></tr>' +
     '<tr><td style="padding:40px;">' + contentHtml + '</td></tr>' +
@@ -1480,7 +1480,7 @@ function emailShell_mod7(contentHtml) {
     '<tr><td align="center">' +
     '<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">' +
     '<tr><td style="background:#0d1b2e;padding:28px 40px;text-align:center;">' +
-    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Forecast Enrichment Programme · UK Pilot</p>' +
+    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Forecast Enrichment Programme · HERO Deployment</p>' +
     '<p style="margin:8px 0 0;color:#ffffff;font-size:20px;font-weight:700;">MOD 7 Knowledge Check</p>' +
     '</td></tr>' +
     '<tr><td style="padding:40px;">' + contentHtml + '</td></tr>' +
@@ -1775,7 +1775,7 @@ function emailShell_mod3(contentHtml) {
     '<tr><td align="center">' +
     '<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">' +
     '<tr><td style="background:#0d1b2e;padding:28px 40px;text-align:center;">' +
-    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Forecast Enrichment Programme · UK Pilot</p>' +
+    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Forecast Enrichment Programme · HERO Deployment</p>' +
     '<p style="margin:8px 0 0;color:#ffffff;font-size:20px;font-weight:700;">MOD 3 Knowledge Check</p>' +
     '</td></tr>' +
     '<tr><td style="padding:40px;">' + contentHtml + '</td></tr>' +
@@ -2014,7 +2014,7 @@ function sendReminderEmailToUser(name, email, modules, type) {
     '<table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:32px 16px;">' +
     '<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08);">' +
     '<tr><td style="background:#0d1b2e;padding:28px 32px;">' +
-    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;">Forecast Enrichment Programme · UK Pilot</p>' +
+    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;">Forecast Enrichment Programme · HERO Deployment</p>' +
     '<h1 style="margin:8px 0 0;color:#ffffff;font-size:22px;font-weight:700;">Knowledge Check Reminder</h1>' +
     '</td></tr>' +
     '<tr><td style="padding:32px;">' + content + '</td></tr>' +

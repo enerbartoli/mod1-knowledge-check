@@ -4,7 +4,7 @@
 <!-- structural_sha: e724868341e82f5ea077a29b2b980ac176d76f7cd8ff4bf40420f2b3f011d74a -->
 
 - Generated: **2026-08-07**
-- Commit at generation (HEAD): `4a0480cf7e42c7ecd8724c5df057d6c3d2d618c0`
+- Commit at generation (HEAD): `d7ffda844d15384deb14f07216350e005dac771d`
 - Guard bank: `KC_Canonical_QuestionBank_v4_2026-08-07.json`
 - Structural hash: `e724868341e82f5ea077a29b2b980ac176d76f7cd8ff4bf40420f2b3f011d74a` (the drift guard fails the build if this stops matching the repo)
 
@@ -802,13 +802,13 @@ Sheet columns (from `writeHeaders`; moduleId + attemptNumber are appended by eac
 
 ## Submissions per module (snapshot, informational — not part of the structural hash)
 
-_As of 2026-08-07 — total 115._
+_As of 2026-08-07 — total 116._
 
 | Module | Submissions |
 |---|---|
 | mod1 | 51 |
 | mod2 | 21 |
-| mod3 | 0 |
+| mod3 | 1 |
 | mod4 | 24 |
 | mod5 | 18 |
 | mod7 | 1 |
