@@ -1,6 +1,6 @@
 # App Manifest
 
-_Generated 2026-08-07 by `tools/generate_manifest.js` from the actual repo files. Do not edit by hand — re-run the generator._
+_Generated 2026-08-17 by `tools/generate_manifest.js` from the actual repo files. Do not edit by hand — re-run the generator._
 
 Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 
@@ -122,8 +122,8 @@ Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 
 | Q | section | slides | fingerprint | client key |
 |---|---|---|---|---|
-| Q1 | Why we're changing | 2, 4 | `e306b3929195` | A |
-| Q2 | End-to-end picture | 4, 5 | `330bb3671614` | B |
+| Q1 | Why we're changing | 2, 4 | `a9a0e9ef03b2` | A |
+| Q2 | End-to-end picture | 4, 5 | `fa4f2acfa21b` | B |
 | Q3 | Statistical Baseline 101 | 8, 10 | `ecbfa380891e` | C |
 | Q4 | Statistical Baseline 101 | 11 | `ab90665dc027` | A |
 | Q5 | SKU Types | 12, 13 | `821b4b89f4ec` | C |
@@ -175,3 +175,4 @@ Endpoints: getData=yes · sendReminders=yes
 - `KC_Canonical_QuestionBank_v2_2026-08-07.json`  ← used by the drift guard
 - `KC_Canonical_QuestionBank_v3_2026-08-07.json`
 - `KC_Canonical_QuestionBank_v4_2026-08-07.json`
+- `KC_Canonical_QuestionBank_v5_2026-08-17.json`

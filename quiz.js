@@ -36,8 +36,8 @@ const QUESTIONS = [
     options: {
       A: 'To address chronic gaps in forecast traceability, manual workload, and the ability to measure the value of commercial intelligence.',
       B: 'To replace Logility with Daybreak as the planning system.',
-      C: 'To reduce the number of Demand Planning resources required each cycle.',
-      D: 'To consolidate Sales, Marketing, and Demand Planning under a single team.'
+      C: 'To bring the forecast closer to the Financial Forecast target each cycle, so the two numbers stop diverging.',
+      D: 'To move the planning cycle from a monthly rhythm to a weekly one, so the forecast refreshes more often.'
     },
     slideRefs: '2, 4',
     section: 'Why we\'re changing'
@@ -46,10 +46,10 @@ const QUESTIONS = [
     id: 2,
     text: 'Which statement best describes the role of the Daybreak statistical baseline in the new process?',
     options: {
-      A: 'Daybreak produces the final forecast used directly by Supply Planning; no further input is needed.',
+      A: 'Daybreak produces the finished forecast for the cycle, and the enrichment steps that follow exist for reporting and audit purposes only.',
       B: 'Daybreak models baseline demand behavior; commercial input must be added through enrichments to capture what the historical data cannot see.',
       C: 'Sales, Marketing, and Demand Planning each maintain independent baselines that are reconciled at year-end.',
-      D: 'The baseline replaces all commercial input; enrichments are optional refinements.'
+      D: 'The baseline sets the volume for the cycle, and enrichments are used only to redistribute that volume across customers and weeks.'
     },
     slideRefs: '4, 5',
     section: 'End-to-end picture'

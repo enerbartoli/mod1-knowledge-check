@@ -1,5 +1,5 @@
 {
-  "generated_on": "2026-08-07",
+  "generated_on": "2026-08-17",
   "generator": "tools/generate_manifest.js",
   "note": "Derived from actual repo files. Do not edit by hand — re-run the generator.",
   "pages_base_url": "https://enerbartoli.github.io/mod1-knowledge-check/",
@@ -7,7 +7,8 @@
     "KC_Canonical_QuestionBank_v1_2026-08-06.json",
     "KC_Canonical_QuestionBank_v2_2026-08-07.json",
     "KC_Canonical_QuestionBank_v3_2026-08-07.json",
-    "KC_Canonical_QuestionBank_v4_2026-08-07.json"
+    "KC_Canonical_QuestionBank_v4_2026-08-07.json",
+    "KC_Canonical_QuestionBank_v5_2026-08-17.json"
   ],
   "guard_bank": "KC_Canonical_QuestionBank_v2_2026-08-07.json",
   "modules": [
@@ -511,14 +512,14 @@
           "id": "Q1",
           "section": "Why we're changing",
           "slide_refs": "2, 4",
-          "fingerprint": "e306b3929195",
+          "fingerprint": "a9a0e9ef03b2",
           "client_key": "A"
         },
         {
           "id": "Q2",
           "section": "End-to-end picture",
           "slide_refs": "4, 5",
-          "fingerprint": "330bb3671614",
+          "fingerprint": "fa4f2acfa21b",
           "client_key": "B"
         },
         {

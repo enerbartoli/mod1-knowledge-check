@@ -1,0 +1,88 @@
+{
+  "patch_version": "1.0",
+  "created_on": "2026-08-17",
+  "author": "Rene Bartoli (rene.bartoli@hasbro.com)",
+  "purpose": "Replace four incorrect options in MOD 1 Q1 and Q2. The options being removed frame the change as headcount reduction, team consolidation, or commercial input becoming unnecessary. Each replacement preserves the misconception the original option tested, without referring to people, headcount or team structure.",
+  "target_repo": "https://github.com/enerbartoli/mod1-knowledge-check",
+  "canonical_bank_expected": "KC_Canonical_QuestionBank_v1_2026-08-06.json (use a later _v2_ file if one exists and report which was used)",
+  "rules": [
+    "Correct answer letters do not move: Q1 stays A, Q2 stays B.",
+    "Question stems are not modified.",
+    "Correct option text is not modified (Q1 A, Q2 B).",
+    "Answer key is not modified, server-side or anywhere else.",
+    "Apply new_text character for character. Do not reword, shorten or improve.",
+    "If current_text_expected does not match what is deployed, stop and report the difference instead of editing."
+  ],
+  "patches": [
+    {
+      "module_id": "mod1",
+      "question_id": "Q1",
+      "stem_unchanged": "Why is Hasbro implementing the new Forecast Enrichment process now?",
+      "correct_letter_unchanged": "A",
+      "fingerprint_before": "e306b3929195",
+      "fingerprint_after": "RECOMPUTE",
+      "options": [
+        {
+          "letter": "A",
+          "action": "unchanged",
+          "text": "To address chronic gaps in forecast traceability, manual workload, and the ability to measure the value of commercial intelligence."
+        },
+        {
+          "letter": "B",
+          "action": "unchanged",
+          "text": "To replace Logility with Daybreak as the planning system."
+        },
+        {
+          "letter": "C",
+          "action": "replace",
+          "current_text_expected": "To reduce the number of Demand Planning resources required each cycle.",
+          "new_text": "To bring the forecast closer to the Financial Forecast target each cycle, so the two numbers stop diverging.",
+          "reason": "Removes headcount reduction framing. Keeps a real misconception: that the process exists to hit the Financial Forecast number."
+        },
+        {
+          "letter": "D",
+          "action": "replace",
+          "current_text_expected": "To consolidate Sales, Marketing, and Demand Planning under a single team.",
+          "new_text": "To move the planning cycle from a monthly rhythm to a weekly one, so the forecast refreshes more often.",
+          "reason": "Removes reorganisation framing. Replaced with a plausible but wrong cadence change."
+        }
+      ]
+    },
+    {
+      "module_id": "mod1",
+      "question_id": "Q2",
+      "stem_unchanged": "Which statement best describes the role of the Daybreak statistical baseline in the new process?",
+      "correct_letter_unchanged": "B",
+      "fingerprint_before": "330bb3671614",
+      "fingerprint_after": "RECOMPUTE",
+      "options": [
+        {
+          "letter": "A",
+          "action": "replace",
+          "current_text_expected": "Daybreak produces the final forecast used directly by Supply Planning; no further input is needed.",
+          "new_text": "Daybreak produces the finished forecast for the cycle, and the enrichment steps that follow exist for reporting and audit purposes only.",
+          "reason": "Keeps the misconception that the baseline is the finished forecast. Drops the implication that commercial input is not needed."
+        },
+        {
+          "letter": "B",
+          "action": "unchanged",
+          "text": "Daybreak models baseline demand behavior; commercial input must be added through enrichments to capture what the historical data cannot see."
+        },
+        {
+          "letter": "C",
+          "action": "unchanged",
+          "text": "Sales, Marketing, and Demand Planning each maintain independent baselines that are reconciled at year-end."
+        },
+        {
+          "letter": "D",
+          "action": "replace",
+          "current_text_expected": "The baseline replaces all commercial input; enrichments are optional refinements.",
+          "new_text": "The baseline sets the volume for the cycle, and enrichments are used only to redistribute that volume across customers and weeks.",
+          "reason": "Keeps enrichment as secondary, which is the misconception being tested, reframed as volume reallocation instead of commercial input being replaced."
+        }
+      ]
+    }
+  ],
+  "change_note_to_add_to_canonical": "2026-08-17: Q1 options C and D and Q2 options A and D replaced. Distractors implying headcount reduction, team consolidation, or commercial input becoming unnecessary were removed for change-management reasons. Stem, correct letter and correct option text unchanged.",
+  "commit_message": "fix(mod1): replace Q1/Q2 distractors with role-neutral options"
+}

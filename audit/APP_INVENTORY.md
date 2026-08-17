@@ -1,12 +1,12 @@
 # App Inventory
 
 <!-- GENERATED FILE — do not edit by hand. Run: node tools/generate_inventory.js -->
-<!-- structural_sha: 88a9d5a13dfd2ed127fd86c5249f9564a77cd7b9898cd8ce2e93289fafe8e756 -->
+<!-- structural_sha: 1119817a440eae4d78100a69027ffd206008eadad4dc70437a0d54013f49fd29 -->
 
-- Generated: **2026-08-07**
-- Commit at generation (HEAD): `9410b019e3e1fb9334e00fb26ace2b6d6309d5b5`
-- Guard bank: `KC_Canonical_QuestionBank_v4_2026-08-07.json`
-- Structural hash: `88a9d5a13dfd2ed127fd86c5249f9564a77cd7b9898cd8ce2e93289fafe8e756` (the drift guard fails the build if this stops matching the repo)
+- Generated: **2026-08-17**
+- Commit at generation (HEAD): `de5204993f8831308ea3429d45b23deab64ebb21`
+- Guard bank: `KC_Canonical_QuestionBank_v5_2026-08-17.json`
+- Structural hash: `1119817a440eae4d78100a69027ffd206008eadad4dc70437a0d54013f49fd29` (the drift guard fails the build if this stops matching the repo)
 
 ## Modules
 
@@ -24,23 +24,23 @@
 - Page: https://enerbartoli.github.io/mod1-knowledge-check/ · JS: `quiz.js` · HTML: `index.html`
 - Questions: 16 · Pass threshold: 13 · Options: authoritative (bank is source of truth)
 
-**Q1** · fingerprint `e306b3929195` · correct **A** · rationale no · slides 2, 4
+**Q1** · fingerprint `a9a0e9ef03b2` · correct **A** · rationale no · slides 2, 4
 
 > Why is Hasbro implementing the new Forecast Enrichment process now?
 
 - **A ✓** To address chronic gaps in forecast traceability, manual workload, and the ability to measure the value of commercial intelligence.
 - **B** To replace Logility with Daybreak as the planning system.
-- **C** To reduce the number of Demand Planning resources required each cycle.
-- **D** To consolidate Sales, Marketing, and Demand Planning under a single team.
+- **C** To bring the forecast closer to the Financial Forecast target each cycle, so the two numbers stop diverging.
+- **D** To move the planning cycle from a monthly rhythm to a weekly one, so the forecast refreshes more often.
 
-**Q2** · fingerprint `330bb3671614` · correct **B** · rationale no · slides 4, 5
+**Q2** · fingerprint `fa4f2acfa21b` · correct **B** · rationale no · slides 4, 5
 
 > Which statement best describes the role of the Daybreak statistical baseline in the new process?
 
-- **A** Daybreak produces the final forecast used directly by Supply Planning; no further input is needed.
+- **A** Daybreak produces the finished forecast for the cycle, and the enrichment steps that follow exist for reporting and audit purposes only.
 - **B ✓** Daybreak models baseline demand behavior; commercial input must be added through enrichments to capture what the historical data cannot see.
 - **C** Sales, Marketing, and Demand Planning each maintain independent baselines that are reconciled at year-end.
-- **D** The baseline replaces all commercial input; enrichments are optional refinements.
+- **D** The baseline sets the volume for the cycle, and enrichments are used only to redistribute that volume across customers and weeks.
 
 **Q3** · fingerprint `ecbfa380891e` · correct **C** · rationale no · slides 8, 10
 
@@ -802,7 +802,7 @@ Sheet columns (from `writeHeaders`; moduleId + attemptNumber are appended by eac
 
 ## Submissions per module (snapshot, informational — not part of the structural hash)
 
-_As of 2026-08-07 — total 116._
+_As of 2026-08-17 — total 116._
 
 | Module | Submissions |
 |---|---|
