@@ -1,12 +1,12 @@
 # App Inventory
 
 <!-- GENERATED FILE — do not edit by hand. Run: node tools/generate_inventory.js -->
-<!-- structural_sha: 5640ab3c3d35b2a7f79edc61ece0add1ea136e1412b3ca28874e25dfe3fec4ee -->
+<!-- structural_sha: 9cbfa58f41f71a7878c27513ec0e5ce702666e38420a0ee12c28dcb0ab7f36f9 -->
 
 - Generated: **2026-08-18**
-- Commit at generation (HEAD): `42ef7da3af9630e37843b2f6862bc6aae88bb6dc`
+- Commit at generation (HEAD): `ead36b142ad5ca96bb999a72ca3f9ad828de97a0`
 - Guard bank: `KC_Canonical_QuestionBank_v6_2026-08-17.json`
-- Structural hash: `5640ab3c3d35b2a7f79edc61ece0add1ea136e1412b3ca28874e25dfe3fec4ee` (the drift guard fails the build if this stops matching the repo)
+- Structural hash: `9cbfa58f41f71a7878c27513ec0e5ce702666e38420a0ee12c28dcb0ab7f36f9` (the drift guard fails the build if this stops matching the repo)
 
 ## Modules
 
@@ -69,9 +69,9 @@
 - **C ✓** Carry-Forward items with at least 52 weeks of historical shipment data.
 - **D** Fan items, regardless of how much history they have.
 
-**Q6** · fingerprint `52ee0a337ab6` · correct **A** · rationale no · slides 14
+**Q6** · fingerprint `b6f763ba8472` · correct **A** · rationale no · slides 14
 
-> How is an NPI's forecast generated during its cold-start phase (0–8 weeks of history)?
+> How is an NPI's forecast generated during its cold-start phase (0–16 weeks of history)?
 
 - **A ✓** By shaping the Brand Plan annual volume with attribute-based shape and level models (category, launch timing, price tier).
 - **B** By copying the predecessor product's historical pattern.

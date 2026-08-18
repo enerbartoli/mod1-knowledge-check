@@ -127,7 +127,7 @@ Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 | Q3 | Statistical Baseline 101 | 8, 10 | `ecbfa380891e` | C |
 | Q4 | Statistical Baseline 101 | 11 | `ab90665dc027` | A |
 | Q5 | SKU Types | 12, 13 | `821b4b89f4ec` | C |
-| Q6 | SKU Types | 14 | `52ee0a337ab6` | A |
+| Q6 | SKU Types | 14 | `b6f763ba8472` | A |
 | Q7 | SKU Types | 15 | `0f29f6e2d1e2` | D |
 | Q8 | Disaggregation | 10, 16 | `eb3d0dbb5382` | C |
 | Q9 | Disaggregation | 16 | `92c19184df0c` | D |
