@@ -43,7 +43,7 @@ const QUESTION_TEXT = {
   Q12: 'Which statement best describes when an enrichment should be applied to the baseline?',
   Q13: 'What is the purpose of the Joint Marketing & Demand Planning Reconciliation Session?',
   Q14: 'How is scope split between the Level 2.5 Base Trend and the Level 1 account work?',
-  Q15: 'How does HERO present the starting forecast at Level 2.5 at the beginning of each cycle?',
+  Q15: 'You enter an adjustment in HERO. What happens to the Daybreak baseline underneath it?',
   Q16: 'In the target operating model, how does Level 2.5 work differ from the first year of deployment?'
 };
 

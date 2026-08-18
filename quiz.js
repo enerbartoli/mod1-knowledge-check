@@ -200,12 +200,12 @@ const QUESTIONS = [
   },
   {
     id: 15,
-    text: 'How does HERO present the starting forecast at Level 2.5 at the beginning of each cycle?',
+    text: 'You enter an adjustment in HERO. What happens to the Daybreak baseline underneath it?',
     options: {
-      A: 'Empty. The Level 2.5 view starts blank at every cycle open, so the whole forecast has to be built from scratch before any review can begin.',
-      B: 'Pre-populated with the prior month\'s consensus forecast, so the starting point is last cycle\'s agreed number rather than anything the model produced.',
-      C: 'Pre-populated with the Daybreak baseline only, so every commercial adjustment made in the prior cycle has to be found and rebuilt by hand.',
-      D: 'Pre-populated with the deltas between the Daybreak baseline and the current resultant, so only intended changes are captured and no manual matching is needed.'
+      A: 'It is replaced by your adjusted number, so next cycle starts from what you entered instead of the model.',
+      B: 'It is held in a separate file that someone merges by hand before the forecast publishes.',
+      C: 'It is averaged with your adjustment, so the number that publishes lands between the two.',
+      D: 'It stays untouched. Your adjustment sits on top of it as a separate, traceable layer.'
     },
     slideRefs: '33',
     section: 'End-to-end Workflow'

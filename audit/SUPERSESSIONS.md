@@ -86,3 +86,28 @@ Q7, Q8, Q9), mod5 x8 (Q2, Q3, Q4, Q5, Q11, Q12, Q13, Q14), mod7 x1 (Q3). MOD 3 u
   is affected.
 - Backend note: market-specific wording remains in questions NOT listed above and in non-question
   email copy (e.g., pass-email "what's next" text). Out of scope for this patch.
+
+## 2026-08-18 — MOD 1 Q15 replaced (baseline-layering question, key unchanged)
+
+Patch in place, no rescoring. MOD 1 Q15 was **replaced, not re-keyed** — the stem and all four
+options are new, so nobody can be rescored against an option set they never saw. Existing MOD 1
+results stay valid as recorded.
+
+- **This supersedes the Q15 text set in the 2026-08-17 market-neutral commit** (earlier the same
+  cycle). That version tested how the Level 2.5 view is pre-populated at cycle open; the item was
+  judged too narrow and too easy to misread. The replacement tests the architectural point MOD 1
+  is meant to land: HERO never overwrites the Daybreak statistical baseline, it layers a
+  traceable adjustment on top of it.
+- New stem: "You enter an adjustment in HERO. What happens to the Daybreak baseline underneath it?"
+  Correct answer: D ("It stays untouched. Your adjustment sits on top of it as a separate,
+  traceable layer.").
+- **Key did not move.** ANSWER_KEY.Q15 is still 'D', byte-identical to before. MOD 1 remains 16
+  questions; TOTAL_QUESTIONS (16) and PASS_THRESHOLD (13) unchanged. No new version of the check
+  was raised.
+- Applied to quiz.js (page), KC_Canonical_QuestionBank_v6_2026-08-17.json (fingerprint recomputed
+  aca3448b9b8e -> 23479eba6c1a), dashboard-data.js (drill-down), and the backend fail-email
+  QUESTION_TEXT (Q15 stem). Inventory and manifest regenerated; all three guards green.
+- **slide_refs left at '33' and flagged for review.** Slide 33 taught the Level 2.5 cycle-start
+  workflow that was removed, so the reference is probably now wrong. The MOD 1 facilitator deck is
+  not in the repo, so the correct slide could not be located from here. Do not treat '33' as
+  verified for this item; confirm against the deck and update if a better slide exists.

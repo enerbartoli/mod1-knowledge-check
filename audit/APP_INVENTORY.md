@@ -1,12 +1,12 @@
 # App Inventory
 
 <!-- GENERATED FILE — do not edit by hand. Run: node tools/generate_inventory.js -->
-<!-- structural_sha: 9cbfa58f41f71a7878c27513ec0e5ce702666e38420a0ee12c28dcb0ab7f36f9 -->
+<!-- structural_sha: 6b9a39dca7a5911383ea18fa6d40eb64a0daaf44c2e94588fa568a46e2d6c985 -->
 
 - Generated: **2026-08-18**
-- Commit at generation (HEAD): `ead36b142ad5ca96bb999a72ca3f9ad828de97a0`
+- Commit at generation (HEAD): `1e999b0d8023056909de9dea3d807687b700685d`
 - Guard bank: `KC_Canonical_QuestionBank_v6_2026-08-17.json`
-- Structural hash: `9cbfa58f41f71a7878c27513ec0e5ce702666e38420a0ee12c28dcb0ab7f36f9` (the drift guard fails the build if this stops matching the repo)
+- Structural hash: `6b9a39dca7a5911383ea18fa6d40eb64a0daaf44c2e94588fa568a46e2d6c985` (the drift guard fails the build if this stops matching the repo)
 
 ## Modules
 
@@ -150,14 +150,14 @@
 - **C** Only Demand Planning may change the forecast at any level, so KAMs and brand teams raise requests and wait for them to be actioned on their behalf.
 - **D** The KAM owns baseline adjustments at every level of the hierarchy, and the Level 2.5 owner only reviews what was entered once the cycle has closed.
 
-**Q15** · fingerprint `aca3448b9b8e` · correct **D** · rationale no · slides 33
+**Q15** · fingerprint `23479eba6c1a` · correct **D** · rationale no · slides 33
 
-> How does HERO present the starting forecast at Level 2.5 at the beginning of each cycle?
+> You enter an adjustment in HERO. What happens to the Daybreak baseline underneath it?
 
-- **A** Empty. The Level 2.5 view starts blank at every cycle open, so the whole forecast has to be built from scratch before any review can begin.
-- **B** Pre-populated with the prior month's consensus forecast, so the starting point is last cycle's agreed number rather than anything the model produced.
-- **C** Pre-populated with the Daybreak baseline only, so every commercial adjustment made in the prior cycle has to be found and rebuilt by hand.
-- **D ✓** Pre-populated with the deltas between the Daybreak baseline and the current resultant, so only intended changes are captured and no manual matching is needed.
+- **A** It is replaced by your adjusted number, so next cycle starts from what you entered instead of the model.
+- **B** It is held in a separate file that someone merges by hand before the forecast publishes.
+- **C** It is averaged with your adjustment, so the number that publishes lands between the two.
+- **D ✓** It stays untouched. Your adjustment sits on top of it as a separate, traceable layer.
 
 **Q16** · fingerprint `b6dbb8b66eed` · correct **A** · rationale no · slides 33
 
