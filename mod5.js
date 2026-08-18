@@ -45,7 +45,7 @@ const QUESTIONS = [
   },
   {
     id: 2,
-    text: 'Which description matches the UK reconciliation standard for what happens in the room?',
+    text: 'Which description matches the reconciliation standard for what happens in the room?',
     options: {
       A: 'Typing forecast changes into the template live so the room sees the impact in real time.',
       B: 'A structured challenge against three named references, focused on material exceptions, ending in decisions with named owners and due dates.',
@@ -54,19 +54,19 @@ const QUESTIONS = [
     },
     slideRefs: '21, 30, 31',
     rationale: 'Reconciliation is structured challenge against the three references, exception-based, decision-focused with named owners and due dates. No live forecast entry, no line-by-line rebuild, no open-ended debate.',
-    section: 'UK Standard'
+    section: 'Reconciliation Standard'
   },
   {
     id: 3,
-    text: 'In what order do the four UK reconciliation sessions run, and who owns each?',
+    text: 'In what order do the four reconciliation sessions run?',
     options: {
-      A: 'Marketing+DP → Brand Captain → KAM → Market Leader.',
-      B: 'DP → Marketing → Brand Captain → Sign-Off.',
-      C: 'Brand Captain (Baseline) → KAM (Commercial) → Marketing + DP → Market Leader (Sign-Off).',
-      D: 'KAM → Brand Captain → Market Leader → Marketing + DP.'
+      A: 'Joint top-down challenge → Level 2.5 Base Trend → Level 1 commercial → Sign-Off.',
+      B: 'Level 1 commercial → joint top-down challenge → Level 2.5 Base Trend → Sign-Off.',
+      C: 'Level 2.5 Base Trend → Level 1 commercial → joint top-down challenge → Sign-Off.',
+      D: 'Level 1 commercial → Level 2.5 Base Trend → Sign-Off → joint top-down challenge.'
     },
     slideRefs: '23, 63',
-    rationale: 'The cascade is fixed: Captain at L2.5 first → KAM at L1 → Marketing+DP for the top-down challenge → Market Leader for sign-off.',
+    rationale: 'The cascade is fixed: Level 2.5 Base Trend first, then the Level 1 commercial session, then the joint top-down challenge, then Sign-Off. Each session opens only once the previous one has closed.',
     section: 'Session Cascade'
   },
   {
@@ -79,20 +79,20 @@ const QUESTIONS = [
       D: 'If the prior session has not closed, the next session does not start.'
     },
     slideRefs: '23',
-    rationale: 'Strict sequencing — the handoff between sessions is a hard gate. If Captain has not finished at 2.5, Commercial does not start; if Commercial has not confirmed L1, Marketing+DP does not start; and so on.',
+    rationale: 'Strict sequencing: the handoff between sessions is a hard gate. If Level 2.5 has not closed, the Level 1 commercial session does not start; if Level 1 is not confirmed, the joint top-down session does not start, and so on.',
     section: 'Session Cascade'
   },
   {
     id: 5,
-    text: 'Why does the UK pilot use three references rather than formal guardrails?',
+    text: 'Why do some markets reconcile against three references rather than formal guardrails?',
     options: {
-      A: 'The UK has not yet defined formal guardrail thresholds, so the team triangulates using AIM Shipment Revenue, prior-year actuals, and POS Glidepath instead.',
-      B: 'The three references are a UK-only experiment that permanently replaces guardrails.',
-      C: 'The three references and guardrails are the same thing, just renamed.',
-      D: 'Guardrails were removed from the program globally because they were too restrictive.'
+      A: 'Formal guardrail thresholds are not defined yet in those markets, so the team triangulates using AIM Shipment Revenue, prior-year actuals and POS Glidepath.',
+      B: 'The three references are a temporary experiment that is intended to replace formal guardrail thresholds permanently, in every market.',
+      C: 'The three references and formal guardrails are the same mechanism under two different names, so a market only ever needs one of them.',
+      D: 'Formal guardrails were removed from the program globally because they were judged too restrictive to run a reconciliation against.'
     },
     slideRefs: '18, 24',
-    rationale: 'Other markets use formal guardrails. The UK has not yet defined them, so the team triangulates using AIM at BU/Brand, historical actuals at Brand × Forecasting Partner, and POS Glidepath at SKU.',
+    rationale: 'Where formal guardrail thresholds exist, teams reconcile against them. Where they have not been defined yet, the team triangulates using AIM at BU/Brand, historical actuals at Brand x Forecasting Partner, and POS Glidepath at SKU. The three references stand in for guardrails, they do not replace them.',
     section: 'Three References'
   },
   {
@@ -162,7 +162,7 @@ const QUESTIONS = [
   },
   {
     id: 11,
-    text: 'Which of the eight meeting-behavior rules acts as the UK substitute for formal guardrails?',
+    text: 'Which of the eight meeting-behavior rules acts as the substitute for formal guardrails?',
     options: {
       A: 'Come prepared, or don\'t comment.',
       B: 'Challenge the number, not the person.',
@@ -170,12 +170,12 @@ const QUESTIONS = [
       D: 'Material exceptions only — don\'t drift.'
     },
     slideRefs: '30',
-    rationale: 'Rule 5 (Cite a reference or move to R&O) is the explicit UK substitute for guardrails — every challenge must cite one of the three references, otherwise the item is routed to R&O.',
+    rationale: 'Rule 5 (Cite a reference or move to R&O) is the explicit substitute for guardrails: every challenge must cite one of the three references, otherwise the item is routed to R&O.',
     section: 'Meeting Behavior'
   },
   {
     id: 12,
-    text: 'The Brand Captain in Session 1 finds that the current consensus for Brand A is +30 units/week above the Daybreak baseline at Level 2.5, driven by a confirmed listing expansion at FP-1 effective W26. What is the Captain\'s correct action?',
+    text: 'In Session 1 you find that the current consensus for Brand A is +30 units/week above the Daybreak baseline at Level 2.5, driven by a confirmed listing expansion at FP-1 effective W26. What is the correct action?',
     options: {
       A: 'Wait for Session 2 and ask the KAM at FP-1 to capture it as an Enrichment.',
       B: 'Override the Daybreak baseline directly by replacing the source data.',
@@ -183,33 +183,33 @@ const QUESTIONS = [
       D: 'Load the +30 units/week as a Base Trend Adjustment at L2.5 in HERO, document the driver and evidence, and lock the L3 baseline so Daybreak + Base Trend = consensus.'
     },
     slideRefs: '33, 35, 37',
-    rationale: 'Session 1 is ANCHOR → RECONCILE → NEUTRALIZE → DISAGGREGATE. Deltas vs consensus are neutralized as Base Trend Adjustments at L2.5 by the Captain. With a named driver and evidence, the item is not waiting on the KAM and not an R&O.',
-    section: 'Session 1 — Brand Captain'
+    rationale: 'Session 1 is ANCHOR → RECONCILE → NEUTRALIZE → DISAGGREGATE. Deltas vs consensus are neutralized as Base Trend Adjustments at L2.5. With a named driver and evidence, the item is not waiting on the KAM and not an R&O.',
+    section: 'Session 1 - Level 2.5 Base Trend'
   },
   {
     id: 13,
     text: 'A KAM in Session 2 identifies that a brand at their Forecasting Partner has been gradually widening distribution for two cycles, with no specific account-level event. The shift looks structural. Which bucket does this belong in, and who acts?',
     options: {
-      A: 'Base Trend at L2.5 — the KAM flags it back to the Brand Captain, who owns it next cycle.',
+      A: 'Base Trend at L2.5. The KAM flags it so it is picked up as a Level 2.5 Base Trend adjustment next cycle.',
       B: 'Enrichment at L1 — the KAM captures it this cycle.',
       C: 'R&O — log with options and resolve later.',
       D: 'Both Enrichment and Base Trend — captured at both levels for traceability.'
     },
     slideRefs: '42',
-    rationale: 'Structural brand-level shifts belong in Base Trend (Captain at L2.5, next cycle). A specific account-level event would be an Enrichment (KAM, this cycle). Two-bucket entries get rejected.',
+    rationale: 'Structural brand-level shifts belong in Base Trend at L2.5 and are actioned next cycle. A specific account-level event would be an Enrichment, captured by the KAM this cycle. Two-bucket entries get rejected.',
     section: 'Session 2 — KAM'
   },
   {
     id: 14,
     text: 'Marketing + DP in Session 3 want to apply an adjustment that lifts Brand B by +8,000 units in Q3 based on a confirmed campaign. Where does this adjustment land?',
     options: {
-      A: 'At Level 1 directly, bypassing the Captain\'s L2.5 baseline.',
+      A: 'At Level 1 directly, bypassing the Level 2.5 baseline agreed in Session 1.',
       B: 'At Level 2.5 via the Enrichment Capture Template (ECT); the backend disaggregates to Level 1 across partners using baseline disaggregation rules.',
       C: 'At Level 3 only, leaving partners untouched.',
       D: 'At Level 1 by re-opening the KAM\'s enrichments from Session 2.'
     },
     slideRefs: '52',
-    rationale: 'Marketing / DP enrichments enter at L2.5 via the Enrichment Capture Template (ECT) and disaggregate to L1 across partners using baseline disaggregation rules. Marketing + DP cannot re-open the Captain\'s Base Trend or the KAM\'s L1 enrichments — if either needs to move, the item routes back to that owner.',
+    rationale: 'Marketing / DP enrichments enter at L2.5 via the Enrichment Capture Template (ECT) and disaggregate to L1 across partners using baseline disaggregation rules. Session 3 does not re-open the Base Trend agreed in Session 1 or the L1 enrichments captured in Session 2. If either needs to move, the item routes back to the session that owns it.',
     section: 'Session 3 — Marketing & DP'
   },
   {

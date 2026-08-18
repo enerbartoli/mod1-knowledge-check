@@ -60,3 +60,29 @@ supersession date) stay valid.
 - Q5 and Q9 both carry slide_refs "6". The MOD 4/5 deck
   (H.E.R.O Enrichment Training Mod 4 & 5_v5.1_2026-05-31.pptx) is not reachable from the
   build environment, so these were left unchanged and not verified. Confirm against the deck.
+
+## 2026-08-17 — Market-neutral rewrite (22 questions, no key changes)
+
+Twenty-two questions were made market-neutral: every reference to the United Kingdom, to
+the pilot, and to the Brand Captain role was removed so each question reads the same way in
+any market. Scope: mod1 x5 (Q7, Q13, Q14, Q15, Q16), mod2 x1 (Q4), mod4 x7 (Q1, Q2, Q4, Q5,
+Q7, Q8, Q9), mod5 x8 (Q2, Q3, Q4, Q5, Q11, Q12, Q13, Q14), mod7 x1 (Q3). MOD 3 unchanged.
+
+- **No answer key moved.** All six ANSWER_KEY objects are byte-identical to before. Prior
+  submissions stay valid and comparable; nothing was rescored, and no new version of the
+  check was raised.
+- **Ownership at Level 2.5 is never named by role.** Questions name the level or the session,
+  not the actor, because ownership at 2.5 varies by market.
+- **ROLES arrays deliberately left unchanged** ("Brand Captain" in every module, "Change
+  Agent / Pilot POC" in mod3). Relabelling them would split the dashboard's pass-rate-by-role
+  history across two label sets. This is intentional.
+- Applied to the pages (quiz.js, mod2.js, mod4.js, mod5.js, mod7.js) and to the backend
+  fail-email data (QUESTION_TEXT and RATIONALES for the changed stems/rationales). Canonical
+  bank KC_Canonical_QuestionBank_v6_2026-08-17.json produced from v5 with fingerprints
+  recomputed for the 20 questions whose text or options changed; v1..v5 left in place. Guard
+  auto-selects the newest bank (v6).
+- Length signal (informational): 9 questions have the correct option longest by >30 chars, all
+  pre-existing (the correct option was not rewritten in those). None of the six full rewrites
+  is affected.
+- Backend note: market-specific wording remains in questions NOT listed above and in non-question
+  email copy (e.g., pass-email "what's next" text). Out of scope for this patch.

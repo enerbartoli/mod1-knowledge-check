@@ -35,16 +35,16 @@ const QUESTION_TEXT = {
   Q4:  'Which statement correctly describes the three-party operating model that produces the baseline?',
   Q5:  'Which SKUs are treated using Daybreak\'s standard machine-learning forecasting approach?',
   Q6:  'How is an NPI\'s forecast generated during its cold-start phase (0–8 weeks of history)?',
-  Q7:  'Why are UK Fan items handled without a statistical baseline?',
+  Q7:  'Why are Fan items handled without a statistical baseline?',
   Q8:  'At which planning level is the Daybreak statistical baseline generated?',
   Q9:  'What is the purpose of forecast disaggregation in the new process?',
   Q10: 'How does the disaggregation method differ between a Carry-Forward item and an NPI item?',
   Q11: 'What is the purpose of the Forecasting Range?',
   Q12: 'Which statement best describes when an enrichment should be applied to the baseline?',
   Q13: 'What is the purpose of the Joint Marketing & Demand Planning Reconciliation Session?',
-  Q14: 'In the UK pilot, which statement correctly describes the scope split between Key Account Managers (KAMs) and Brand Captains?',
-  Q15: 'In the 2026 UK pilot, how does HERO present the starting forecast to Brand Captains at the beginning of each cycle?',
-  Q16: 'In the 2027 target operating model, how does the Brand Captain\'s role differ from the 2026 pilot?'
+  Q14: 'How is scope split between the Level 2.5 Base Trend and the Level 1 account work?',
+  Q15: 'How does HERO present the starting forecast at Level 2.5 at the beginning of each cycle?',
+  Q16: 'In the target operating model, how does Level 2.5 work differ from the first year of deployment?'
 };
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -71,7 +71,7 @@ const QUESTION_TEXT_MOD2 = {
   Q1:  'A carry-forward item shows two consecutive years of stable seasonal demand, with no confirmed commercial event, no supply issue, and no distribution change in scope. The Daybreak baseline and the Resultant Forecast track the same seasonal shape at L3. What is the correct action?',
   Q2:  'You are reviewing a scenario where the total demand at L3 looks correct against history, but the customer-level split at L2 routes most of the volume to inactive partners. Where does the issue live?',
   Q3:  'An item shipped near zero for several months in 2025 because of a confirmed stockout. The Daybreak baseline now projects 2026 demand at a fraction of the pre-stockout run-rate, because the model learned the suppression as true decline. What is the correct action?',
-  Q4:  'A Warm Start NPI with under 12 months of history has 16 weeks of actuals below the 2026 Resultant plan, and Daybreak has slashed the 2027 baseline by more than half. After reviewing together, you and the Brand Captain agree Daybreak\'s drop is too aggressive and the SKU can still rebound. What is the correct action?',
+  Q4:  '... After reviewing together, you and the brand team agree Daybreak\'s drop is too aggressive and the SKU can still rebound. What is the correct action?',
   Q5:  'A carry-forward item is exclusive to a single retailer — that retailer absorbs ~100% of actuals across the past two years. The Current Resultant disaggregation routes a large share to other customers with no recent history, while the Moving Average method routes ~100% to the exclusive partner. What is the correct action?',
   Q6:  'Which statement correctly describes the difference between a Set and a Base Trend enrichment?',
   Q7:  'A customer pulls confirmed annual demand into a specific order window, with offsetting reductions in the months from which demand is being moved. The full-year total does not change. Which enrichment approach is correct?',
@@ -89,7 +89,7 @@ const RATIONALES_MOD2 = {
   Q1:  'Two consecutive years of clean history that converge with the baseline mean the model is fit-for-purpose at L3 — adding an enrichment without a missing event would introduce noise without adding value.',
   Q2:  'When L3 totals are right but the customer mix is wrong, the issue lives in the L2 disaggregation logic — adding an enrichment at L3 would inflate the total instead of fixing the split.',
   Q3:  'Stockout-suppressed history is contaminated input, not a true demand signal, so cleansing the affected months at source rebuilds the baseline durably and avoids re-doing the same correction every cycle.',
-  Q4:  'When the team has assessed that Daybreak\'s reduction is too aggressive — not enough history for a structural reset — the correct path is to recalculate demand with commercial knowledge and lock the agreed view via an L2.5 Base Trend adjustment using the Brand Captain\'s template.',
+  Q4:  'When the team has assessed that Daybreak\'s reduction is too aggressive, because there is not enough history for a structural reset, the correct path is to recalculate demand with commercial knowledge and lock the agreed view via an L2.5 Base Trend adjustment using the Level 2.5 reconciliation template.',
   Q5:  'For an exclusive item, Moving Average over recent actuals captures the real customer mix while Current Resultant fragments to inactive partners — switching the disaggregation method is the direct fix, no L3 enrichment needed.',
   Q6:  'Sets are for one-time events because they cleanse out of history after they ship; Base Trend is for structural changes that should repeat because it permanently enters the baseline.',
   Q7:  'A ladder moves existing demand between weeks and creates none, which is what Demand Phase Shift is for, authored as a positive and negative pair. This was ratified on 16 July 2026 and it explicitly rules out SET and base trend for a timing move. SET is reserved for a true set build, and only a set build that also pulls demand forward carries a SET on both legs. A base trend would push the timing shift permanently into next year\'s baseline, and doing nothing leaves the forecast on the old phasing even though the annual total is right.',
@@ -757,12 +757,12 @@ const SLIDE_REFS_MOD4 = {
 
 const QUESTION_TEXT_MOD4 = {
   Q1: 'Why do DI, FAN, and Amazon need to be discussed as a separate group in MOD 4?',
-  Q2: 'In the UK pilot, who owns the DI forecast number and how is it built?',
+  Q2: 'In a market where DI is not forecast statistically, who owns the DI number and how is it built?',
   Q3: 'For FAN items, which team builds the forecast volume, and what does the KAM do?',
-  Q4: 'In the UK pilot, DI and FAN are not forecast statistically, so Daybreak produces no baseline for them. In the US, DI is forecast statistically. Where does the full forecast volume land in the Reconciliation Template in each case?',
+  Q4: 'Two markets treat Direct Import (DI) differently. One has agreed not to forecast it statistically, so Daybreak produces no baseline for it. The other forecasts it statistically. Where does the full forecast volume land in the Reconciliation Template in each case?',
   Q5: 'Which statement correctly describes the Evergreen designation?',
   Q6: 'Why are FAN items deliberately handled outside the Daybreak baseline?',
-  Q7: 'How is Amazon treated in the UK pilot?',
+  Q7: 'How is Amazon treated when a market first goes live on the process?',
   Q8: 'Across DI, FAN, and Amazon, what is Demand Planning\'s role?',
   Q9: 'A Key Account Manager (KAM) is reviewing an account in a segment the market has agreed not to forecast statistically, so its items are built bottom-up. One item has shipped a stable, repeating pattern for 18 months, and the KAM wants it to start from a Daybreak baseline instead. What should happen?',
   Q10:'A KAM at FP-2 receives a FAN allocation from the regional category team for a franchise release in week 30. The KAM believes the allocation is too high for their account and wants to adjust it down. What is the correct action?'
@@ -770,14 +770,14 @@ const QUESTION_TEXT_MOD4 = {
 
 const RATIONALES_MOD4 = {
   Q1: 'The three are not grouped by revenue, scope, or coverage. They are grouped because their demand history is erratic, discontinuous, and opportunistic — DI is program-driven, FAN is event-driven, Amazon has highly irregular ordering rhythm — which is exactly what a history-based statistical baseline cannot project well. That is why each one needs its own handling model.',
-  Q2: 'For DI there is no Daybreak baseline by default. The KAM builds the forecast bottom-up by Forecasting Partner using account knowledge — committed programs, signed orders, customer plans — not statistical extrapolation. DP facilitates but the account team carries the build.',
+  Q2: 'Where DI sits outside the statistical model there is no Daybreak baseline. The KAM builds the forecast bottom-up by Forecasting Partner using account knowledge, meaning committed programs, signed orders and customer plans, not statistical extrapolation. DP facilitates but the account team carries the build.',
   Q3: 'FAN volume sits with the team that owns the moment — the regional category team. KAMs validate timing and feasibility at their account but do not re-cut the FAN number.',
-  Q4: 'What decides this is not the channel or the item class, it is whether the market agreed to forecast that segment statistically. Where there is no Daybreak baseline, the full volume enters as Base Trend at Level 1, and the Level 1 lock is essentially all Base Trend with no statistical signal to challenge against. Where there is a baseline, as with DI in the US, the segment behaves like any other: the resultant is the starting point and the team layers enrichments and Base Trend on top. The resultant itself is never overwritten in either case.',
-  Q5: 'Sales Operations owns the Evergreen designation. Not the Key Account Manager, not Demand Planning, not the Brand Captain. Once an item is designated, it stops being built bottom-up and sits on a Daybreak baseline that the KAM enriches on top, like any Carry-Forward item. The designation is not automatic and it is not a market-specific quirk: what varies by market is which segments start outside the statistical model in the first place.',
+  Q4: 'What decides this is not the channel or the item class, it is whether the market agreed to forecast that segment statistically. Where there is no Daybreak baseline, the full volume enters as Base Trend at Level 1, and the Level 1 lock is essentially all Base Trend with no statistical signal to challenge against. Where there is a baseline, the segment behaves like any other: the resultant is the starting point and the team layers enrichments and Base Trend on top. The resultant itself is never overwritten in either case.',
+  Q5: 'Sales Operations owns the Evergreen designation. Not the Key Account Manager, not Demand Planning, not the brand team. Once an item is designated, it stops being built bottom-up and sits on a Daybreak baseline that the KAM enriches on top, like any Carry-Forward item. The designation is not automatic and it is not a market-specific quirk: what varies by market is which segments start outside the statistical model in the first place.',
   Q6: 'FAN history contains one-off spikes (franchise releases, film tie-ins, time-limited campaigns) that would create false signals downstream and pollute the baseline for standard CF items. The exception is deliberate.',
-  Q7: 'For the pilot, Amazon is deliberately treated as a standard customer so the team learns the standard flow first. Daybreak generates the baseline; statistical disaggregation assigns Amazon\'s share; the Amazon KAM reviews and adjusts.',
-  Q8: 'In all three models DP plays the same role — facilitate and challenge. DP does not carry the build. DI is built bottom-up by the KAM partner-by-partner. FAN volume is owned by the regional category team. Amazon (under pilot treatment) is owned by the Amazon KAM in the standard Session 2 flow.',
-  Q9: 'Evergreen designation is owned by Sales Ops — not by the KAM, DP, or Captain. Until Sales Ops designates the item Evergreen, it stays in the DI bottom-up flow.',
+  Q7: 'At launch, Amazon is deliberately treated as a standard customer so the team learns the standard flow first. Daybreak generates the baseline; statistical disaggregation assigns Amazon\'s share; the Amazon KAM reviews and adjusts.',
+  Q8: 'In all three models DP plays the same role, facilitate and challenge. DP does not carry the build. DI is built bottom-up by the KAM partner-by-partner. FAN volume is owned by the regional category team. Amazon, under the launch treatment, is owned by the Amazon KAM in the standard Session 2 flow.',
+  Q9: 'Evergreen designation is owned by Sales Operations, not by the KAM, Demand Planning, or the brand team. Until Sales Operations designates the item Evergreen, it stays in the bottom-up flow.',
   Q10:'For FAN, the regional category team owns the number. KAMs validate timing and feasibility but do not re-cut. Magnitude concerns route back to the volume owner, not to DP or the baseline.'
 };
 
@@ -1045,17 +1045,17 @@ const SLIDE_REFS_MOD5 = {
 
 const QUESTION_TEXT_MOD5 = {
   Q1: 'Reconciliation, as defined in MOD 5, is the meeting where the team:',
-  Q2: 'Which description matches the UK reconciliation standard for what happens in the room?',
-  Q3: 'In what order do the four UK reconciliation sessions run, and who owns each?',
+  Q2: 'Which description matches the reconciliation standard for what happens in the room?',
+  Q3: 'In what order do the four reconciliation sessions run?',
   Q4: 'What is the rule about starting one session before the previous one finishes?',
-  Q5: 'Why does the UK pilot use three references rather than formal guardrails?',
+  Q5: 'Why do some markets reconcile against three references rather than formal guardrails?',
   Q6: 'Which reference answers the question "Is the brand at this partner congruent with what we actually ship?"',
   Q7: 'Which statement correctly describes the AIM Shipment Revenue Forecast?',
   Q8: 'On the POS Pace Chart, the projected red dashed line sits below the green target line for an SKU. What should the KAM do?',
   Q9: 'What is the correct drill order when reconciling movements?',
   Q10:'In the 7-part decision narrative, what does the final beat capture?',
-  Q11:'Which of the eight meeting-behavior rules acts as the UK substitute for formal guardrails?',
-  Q12:'The Brand Captain in Session 1 finds that the current consensus for Brand A is +30 units/week above the Daybreak baseline at Level 2.5, driven by a confirmed listing expansion at FP-1 effective W26. What is the Captain\'s correct action?',
+  Q11:'Which of the eight meeting-behavior rules acts as the substitute for formal guardrails?',
+  Q12:'In Session 1 you find that the current consensus for Brand A is +30 units/week above the Daybreak baseline at Level 2.5, driven by a confirmed listing expansion at FP-1 effective W26. What is the correct action?',
   Q13:'A KAM in Session 2 identifies that a brand at their Forecasting Partner has been gradually widening distribution for two cycles, with no specific account-level event. The shift looks structural. Which bucket does this belong in, and who acts?',
   Q14:'Marketing + DP in Session 3 want to apply an adjustment that lifts Brand B by +8,000 units in Q3 based on a confirmed campaign. Where does this adjustment land?',
   Q15:'At Executive Sign-Off, how many key movements are presented and how long does each get?'
@@ -1064,18 +1064,18 @@ const QUESTION_TEXT_MOD5 = {
 const RATIONALES_MOD5 = {
   Q1: 'The training mantra defines reconciliation as TELL → CHALLENGE → DECIDE → SIGN OFF. It is a decision meeting, not a build session and not a confirmation step.',
   Q2: 'Reconciliation is structured challenge against the three references, exception-based, decision-focused with named owners and due dates. No live forecast entry, no line-by-line rebuild, no open-ended debate.',
-  Q3: 'The cascade is fixed: Captain at L2.5 first → KAM at L1 → Marketing+DP for the top-down challenge → Market Leader for sign-off.',
-  Q4: 'Strict sequencing — the handoff between sessions is a hard gate. If Captain has not finished at 2.5, Commercial does not start; if Commercial has not confirmed L1, Marketing+DP does not start; and so on.',
-  Q5: 'Other markets use formal guardrails. The UK has not yet defined them, so the team triangulates using AIM at BU/Brand, historical actuals at Brand × Forecasting Partner, and POS Glidepath at SKU.',
+  Q3: 'The cascade is fixed: Level 2.5 Base Trend first, then the Level 1 commercial session, then the joint top-down challenge, then Sign-Off. Each session opens only once the previous one has closed.',
+  Q4: 'Strict sequencing: the handoff between sessions is a hard gate. If Level 2.5 has not closed, the Level 1 commercial session does not start; if Level 1 is not confirmed, the joint top-down session does not start, and so on.',
+  Q5: 'Where formal guardrail thresholds exist, teams reconcile against them. Where they have not been defined yet, the team triangulates using AIM at BU/Brand, historical actuals at Brand x Forecasting Partner, and POS Glidepath at SKU. The three references stand in for guardrails, they do not replace them.',
   Q6: 'Each reference has a grain and a question. Historical actuals at Brand × Forecasting Partner answers brand-at-partner congruence. AIM answers totals at BU/Brand; POS answers SKU-level consumer signal.',
   Q7: 'AIM does not bake in past or future stimuli — its objectivity is its strength and its weakness. Statistical bounds hold roughly 8 out of 10 times when there is no exceptional stimulus. Refresh is monthly, not real-time.',
   Q8: 'The tool flags where to look, not what to do — a gap is a signal, not an order. The KAM looks for a named driver and routes via Enrichment at L1 or R&O.',
   Q9: 'Drill is permission-based. Start at the BU/Brand total and drill only when the level above tells you to. Drilling to SKU first creates noise without context.',
   Q10:'Step 7 is "Who owns next?" — a named person and a date. If a row leaves the room without an owner and a due date, it is not a decision; it is a parking-lot item.',
-  Q11:'Rule 5 (Cite a reference or move to R&O) is the explicit UK substitute for guardrails — every challenge must cite one of the three references, otherwise the item is routed to R&O.',
-  Q12:'Session 1 is ANCHOR → RECONCILE → NEUTRALIZE → DISAGGREGATE. Deltas vs consensus are neutralized as Base Trend Adjustments at L2.5 by the Captain. With a named driver and evidence, the item is not waiting on the KAM and not an R&O.',
-  Q13:'Structural brand-level shifts belong in Base Trend (Captain at L2.5, next cycle). A specific account-level event would be an Enrichment (KAM, this cycle). Two-bucket entries get rejected.',
-  Q14:'Marketing / DP enrichments enter at L2.5 via the Enrichment Capture Template (ECT) and disaggregate to L1 across partners using baseline disaggregation rules. Marketing + DP cannot re-open the Captain\'s Base Trend or the KAM\'s L1 enrichments — if either needs to move, the item routes back to that owner.',
+  Q11:'Rule 5 (Cite a reference or move to R&O) is the explicit substitute for guardrails: every challenge must cite one of the three references, otherwise the item is routed to R&O.',
+  Q12:'Session 1 is ANCHOR → RECONCILE → NEUTRALIZE → DISAGGREGATE. Deltas vs consensus are neutralized as Base Trend Adjustments at L2.5. With a named driver and evidence, the item is not waiting on the KAM and not an R&O.',
+  Q13:'Structural brand-level shifts belong in Base Trend at L2.5 and are actioned next cycle. A specific account-level event would be an Enrichment, captured by the KAM this cycle. Two-bucket entries get rejected.',
+  Q14:'Marketing / DP enrichments enter at L2.5 via the Enrichment Capture Template (ECT) and disaggregate to L1 across partners using baseline disaggregation rules. Session 3 does not re-open the Base Trend agreed in Session 1 or the L1 enrichments captured in Session 2. If either needs to move, the item routes back to the session that owns it.',
   Q15:'Three to five material movements, each told in the 7-part narrative in five minutes. If a movement does not fit in five minutes, it is not ready for sign-off and goes back to Session 3.'
 };
 

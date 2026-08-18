@@ -33,10 +33,10 @@ const QUESTIONS = [
     id: 1,
     text: 'Why do DI, FAN, and Amazon need to be discussed as a separate group in MOD 4?',
     options: {
-      A: 'They are the three customer segments that contribute the highest revenue in the UK market.',
+      A: 'They are the three customer segments that contribute the highest revenue in the market.',
       B: 'Their historical demand behaves erratically — discontinuous and opportunistic — so a history-based statistical model cannot predict it adequately, and each one needs a tailored handling approach.',
-      C: 'They are the three account groups that are out of scope for the UK pilot.',
-      D: 'They are the only customer groups that have a dedicated KAM assigned in the UK.'
+      C: 'They are the three account groups that are out of scope for the current deployment.',
+      D: 'They are the only customer groups with a dedicated Key Account Manager assigned to them.'
     },
     slideRefs: '5',
     rationale: 'The three are not grouped by revenue, scope, or coverage. They are grouped because their demand history is erratic, discontinuous, and opportunistic — DI is program-driven, FAN is event-driven, Amazon has highly irregular ordering rhythm — which is exactly what a history-based statistical baseline cannot project well.',
@@ -44,7 +44,7 @@ const QUESTIONS = [
   },
   {
     id: 2,
-    text: 'In the UK pilot, who owns the DI forecast number and how is it built?',
+    text: 'In a market where DI is not forecast statistically, who owns the DI number and how is it built?',
     options: {
       A: 'Daybreak generates the baseline; the KAM reviews and adjusts using the standard enrichment flow.',
       B: 'Demand Planning builds the DI number from statistical extrapolation; the KAM validates.',
@@ -52,7 +52,7 @@ const QUESTIONS = [
       D: 'The regional category team owns it; the KAM validates timing only.'
     },
     slideRefs: '6',
-    rationale: 'For DI there is no Daybreak baseline by default. The KAM builds the forecast bottom-up by Forecasting Partner using account knowledge — committed programs, signed orders, customer plans — not statistical extrapolation. DP facilitates but the account team carries the build.',
+    rationale: 'Where DI sits outside the statistical model there is no Daybreak baseline. The KAM builds the forecast bottom-up by Forecasting Partner using account knowledge, meaning committed programs, signed orders and customer plans, not statistical extrapolation. DP facilitates but the account team carries the build.',
     section: 'Direct Import (DI)'
   },
   {
@@ -70,15 +70,15 @@ const QUESTIONS = [
   },
   {
     id: 4,
-    text: 'In the UK pilot, DI and FAN are not forecast statistically, so Daybreak produces no baseline for them. In the US, DI is forecast statistically. Where does the full forecast volume land in the Reconciliation Template in each case?',
+    text: 'Two markets treat Direct Import (DI) differently. One has agreed not to forecast it statistically, so Daybreak produces no baseline for it. The other forecasts it statistically. Where does the full forecast volume land in the Reconciliation Template in each case?',
     options: {
-      A: 'UK DI and FAN: the full volume as Base Trend at Level 1. US DI: adjustments layered on the statistical baseline.',
-      B: 'Both: the full volume as Base Trend at Level 1, since DI and FAN always sit outside the statistical model.',
+      A: 'No baseline: the full volume as Base Trend at Level 1. With a baseline: adjustments layered on the statistical baseline.',
+      B: 'Both: the full volume as Base Trend at Level 1, since DI always sits outside the statistical model wherever it is planned.',
       C: 'Both: adjustments layered on the resultant, since every segment carries a baseline once the cycle opens.',
-      D: 'UK DI and FAN: the full volume as Base Trend at Level 2.5. US DI: the full volume as Base Trend at Level 1.'
+      D: 'No baseline: the full volume as Base Trend at Level 2.5. With a baseline: the full volume as Base Trend at Level 1.'
     },
     slideRefs: '6, 7',
-    rationale: 'What decides this is not the channel or the item class, it is whether the market agreed to forecast that segment statistically. Where there is no Daybreak baseline, the full volume enters as Base Trend at Level 1, and the Level 1 lock is essentially all Base Trend with no statistical signal to challenge against. Where there is a baseline, as with DI in the US, the segment behaves like any other: the resultant is the starting point and the team layers enrichments and Base Trend on top. The resultant itself is never overwritten in either case.',
+    rationale: 'What decides this is not the channel or the item class, it is whether the market agreed to forecast that segment statistically. Where there is no Daybreak baseline, the full volume enters as Base Trend at Level 1, and the Level 1 lock is essentially all Base Trend with no statistical signal to challenge against. Where there is a baseline, the segment behaves like any other: the resultant is the starting point and the team layers enrichments and Base Trend on top. The resultant itself is never overwritten in either case.',
     section: 'Reconciliation Template'
   },
   {
@@ -88,10 +88,10 @@ const QUESTIONS = [
       A: 'Sales Operations designates items as Evergreen; they then sit on a Daybreak baseline.',
       B: 'Any item with 12 months of stable shipping history is automatically designated Evergreen by Demand Planning.',
       C: 'The Key Account Manager nominates Evergreen items at cycle start, and Demand Planning confirms the list.',
-      D: 'Evergreen is a United Kingdom-only exception that does not apply in North America or in Europe.'
+      D: 'Evergreen is a single-market exception that does not apply anywhere else in the program.'
     },
     slideRefs: '6',
-    rationale: 'Sales Operations owns the Evergreen designation. Not the Key Account Manager, not Demand Planning, not the Brand Captain. Once an item is designated, it stops being built bottom-up and sits on a Daybreak baseline that the KAM enriches on top, like any Carry-Forward item. The designation is not automatic and it is not a market-specific quirk: what varies by market is which segments start outside the statistical model in the first place.',
+    rationale: 'Sales Operations owns the Evergreen designation. Not the Key Account Manager, not Demand Planning, not the brand team. Once an item is designated, it stops being built bottom-up and sits on a Daybreak baseline that the KAM enriches on top, like any Carry-Forward item. The designation is not automatic and it is not a market-specific quirk: what varies by market is which segments start outside the statistical model in the first place.',
     section: 'Direct Import (DI)'
   },
   {
@@ -109,15 +109,15 @@ const QUESTIONS = [
   },
   {
     id: 7,
-    text: 'How is Amazon treated in the UK pilot?',
+    text: 'How is Amazon treated when a market first goes live on the process?',
     options: {
       A: 'As a standard customer — Daybreak generates the brand-level baseline, statistical disaggregation assigns Amazon\'s share, and the Amazon KAM reviews and adjusts using the standard Enrichment and Base Trend tools.',
       B: 'Bottom-up by KAM, with no baseline — the same as DI.',
       C: 'Bottom-up by the regional category team — the same as FAN.',
-      D: 'Outside the pilot scope; Amazon joins after the July cycle.'
+      D: 'Outside scope at launch; Amazon joins once the first cycle has closed.'
     },
     slideRefs: '8',
-    rationale: 'For the pilot, Amazon is deliberately treated as a standard customer so the team learns the standard flow first. Daybreak generates the baseline; statistical disaggregation assigns Amazon\'s share; the Amazon KAM reviews and adjusts.',
+    rationale: 'At launch, Amazon is deliberately treated as a standard customer so the team learns the standard flow first. Daybreak generates the baseline; statistical disaggregation assigns Amazon\'s share; the Amazon KAM reviews and adjusts.',
     section: 'Amazon'
   },
   {
@@ -130,7 +130,7 @@ const QUESTIONS = [
       D: 'Demand Planning owns DI and FAN; the KAM owns Amazon.'
     },
     slideRefs: '6, 7, 8',
-    rationale: 'In all three models DP plays the same role — facilitate and challenge. DP does not carry the build. DI is built bottom-up by the KAM partner-by-partner. FAN volume is owned by the regional category team. Amazon (under pilot treatment) is owned by the Amazon KAM in the standard Session 2 flow.',
+    rationale: 'In all three models DP plays the same role, facilitate and challenge. DP does not carry the build. DI is built bottom-up by the KAM partner-by-partner. FAN volume is owned by the regional category team. Amazon, under the launch treatment, is owned by the Amazon KAM in the standard Session 2 flow.',
     section: 'Demand Planning Role'
   },
   {
@@ -140,10 +140,10 @@ const QUESTIONS = [
       A: 'The KAM flags it directly in HERO as Evergreen, and the Daybreak baseline applies from the next cycle onward.',
       B: 'Sales Operations owns the designation. Until the item is designated, it stays in the bottom-up flow.',
       C: 'Demand Planning re-classifies the item as Carry-Forward and applies the standard Carry-Forward flow.',
-      D: 'The Brand Captain converts the item to Carry-Forward at Level 2.5 and locks in the new treatment.'
+      D: 'The item is converted to Carry-Forward at Level 2.5 and the new treatment is locked in there.'
     },
     slideRefs: '6',
-    rationale: 'Evergreen designation is owned by Sales Ops — not by the KAM, DP, or Captain. Until Sales Ops designates the item Evergreen, it stays in the DI bottom-up flow.',
+    rationale: 'Evergreen designation is owned by Sales Operations, not by the KAM, Demand Planning, or the brand team. Until Sales Operations designates the item Evergreen, it stays in the bottom-up flow.',
     section: 'Direct Import (DI)'
   },
   {

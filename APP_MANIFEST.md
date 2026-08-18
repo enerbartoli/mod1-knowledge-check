@@ -1,6 +1,6 @@
 # App Manifest
 
-_Generated 2026-08-17 by `tools/generate_manifest.js` from the actual repo files. Do not edit by hand — re-run the generator._
+_Generated 2026-08-18 by `tools/generate_manifest.js` from the actual repo files. Do not edit by hand — re-run the generator._
 
 Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 
@@ -25,7 +25,7 @@ Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 | Q1 | Baseline Training | 4, 5, 6 | `7467435b3505` | A |
 | Q2 | Baseline Training | 4 | `4286d1584150` | B |
 | Q3 | Baseline Training | 7, 8 | `c7242ed59ef4` | C |
-| Q4 | Baseline Training | 9, 10 | `4a93227f7d2f` | C |
+| Q4 | Baseline Training | 9, 10 | `e6b6ab320151` | C |
 | Q5 | Baseline Training | 11, 12, 13, 14 | `1ea3ef950650` | D |
 | Q6 | Set vs Base Trend | 24 | `ba6c9acfed3e` | B |
 | Q7 | Set vs Base Trend | 35 | `e9e7b593c6c1` | A |
@@ -63,15 +63,15 @@ Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 
 | Q | section | slides | fingerprint | client key |
 |---|---|---|---|---|
-| Q1 | DI, FAN & Amazon | 5 | `653dcd2748bc` | B |
-| Q2 | Direct Import (DI) | 6 | `69a13a8854f3` | C |
+| Q1 | DI, FAN & Amazon | 5 | `9d4498de34bb` | B |
+| Q2 | Direct Import (DI) | 6 | `623bb5d10a2f` | C |
 | Q3 | FAN Items | 7 | `ac10c9dad916` | A |
-| Q4 | Reconciliation Template | 6, 7 | `3bec1d538b9e` | A |
-| Q5 | Direct Import (DI) | 6 | `de9a92ac87b3` | A |
+| Q4 | Reconciliation Template | 6, 7 | `11c019c884ca` | A |
+| Q5 | Direct Import (DI) | 6 | `3f433ec2f806` | A |
 | Q6 | FAN Items | 7 | `94ca080bd677` | B |
-| Q7 | Amazon | 8 | `759b4c446b02` | A |
+| Q7 | Amazon | 8 | `6e72ea1cf0c0` | A |
 | Q8 | Demand Planning Role | 6, 7, 8 | `746820920e1f` | C |
-| Q9 | Direct Import (DI) | 6 | `363ca3375f33` | B |
+| Q9 | Direct Import (DI) | 6 | `b70c44c1aa74` | B |
 | Q10 | FAN Items | 7 | `94699684748b` | D |
 
 ### mod5 — MOD 5 Knowledge Check · Reconciliation &amp; Decision Narrative
@@ -82,19 +82,19 @@ Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 | Q | section | slides | fingerprint | client key |
 |---|---|---|---|---|
 | Q1 | Reconciliation Defined | 20 | `c0fd38e8e3ae` | A |
-| Q2 | UK Standard | 21, 30, 31 | `6ff11bdc6b99` | B |
-| Q3 | Session Cascade | 23, 63 | `ec10d898f2b3` | C |
+| Q2 | Reconciliation Standard | 21, 30, 31 | `e8c663ada127` | B |
+| Q3 | Session Cascade | 23, 63 | `6cb73a292f2c` | C |
 | Q4 | Session Cascade | 23 | `cfa397cd904a` | D |
-| Q5 | Three References | 18, 24 | `9a51432317f4` | A |
+| Q5 | Three References | 18, 24 | `93fc98e2e9c3` | A |
 | Q6 | Three References | 24, 26 | `0567bb16e0dc` | B |
 | Q7 | Three References | 25 | `6cbf13c25e7a` | C |
 | Q8 | POS Pace Chart | 27 | `cdc60f8795ea` | D |
 | Q9 | Drill Order | 28 | `b494e669633d` | A |
 | Q10 | 7-Part Narrative | 29, 31 | `3b61b2ffeec0` | B |
-| Q11 | Meeting Behavior | 30 | `aed0767fe3b6` | C |
-| Q12 | Session 1 — Brand Captain | 33, 35, 37 | `6ede9586b39f` | D |
-| Q13 | Session 2 — KAM | 42 | `a93ea2134bff` | A |
-| Q14 | Session 3 — Marketing & DP | 52 | `1ce38cbaba94` | B |
+| Q11 | Meeting Behavior | 30 | `f20c7c90f86e` | C |
+| Q12 | Session 1 - Level 2.5 Base Trend | 33, 35, 37 | `02375d7bba7b` | D |
+| Q13 | Session 2 — KAM | 42 | `cecc2733a77f` | A |
+| Q14 | Session 3 — Marketing & DP | 52 | `3dd51ee6e9f6` | B |
 | Q15 | Session 4 — Sign-Off | 54, 59 | `cbb3d5103b78` | C |
 
 ### mod7 — MOD 7 Knowledge Check — HERO Data Flow &amp; Cycle Start
@@ -106,7 +106,7 @@ Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 |---|---|---|---|---|
 | Q1 | HERO ↔ Logility Data Flow | 4, 5 | `997631355fa7` | C |
 | Q2 | The UA1 Window | 7 | `aa6c374ead7b` | B |
-| Q3 | Template Routing | 6 | `0b2b63c76a14` | D |
+| Q3 | Template Routing | 6 | `512f5ff2c2d9` | D |
 | Q4 | Deleting Adjustments | 7 | `8a2cbcc79ac7` | A |
 | Q5 | Clearing Adjustments | 12 | `9843f1a8c418` | B |
 | Q6 | The Frozen Window | 8 | `b5a6eb550c49` | C |
@@ -128,16 +128,16 @@ Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 | Q4 | Statistical Baseline 101 | 11 | `ab90665dc027` | A |
 | Q5 | SKU Types | 12, 13 | `821b4b89f4ec` | C |
 | Q6 | SKU Types | 14 | `52ee0a337ab6` | A |
-| Q7 | SKU Types | 15 | `48135d47c4cf` | D |
+| Q7 | SKU Types | 15 | `0f29f6e2d1e2` | D |
 | Q8 | Disaggregation | 10, 16 | `eb3d0dbb5382` | C |
 | Q9 | Disaggregation | 16 | `92c19184df0c` | D |
 | Q10 | Disaggregation | 17, 19, 20, 21 | `cc2951a54c4e` | B |
 | Q11 | Disaggregation | 22 | `20c4ee1210c1` | B |
 | Q12 | Enrichment Principles | 25 | `86bd56294ba5` | C |
-| Q13 | Reconciliation | 32 | `c2bb09fdb8d3` | D |
-| Q14 | UK Pilot Roles | 33 | `ee088a518d54` | B |
-| Q15 | End-to-end Workflow | 33 | `d71d46b66fe7` | D |
-| Q16 | End-to-end Workflow | 33 | `7bfe19f29e32` | A |
+| Q13 | Reconciliation | 32 | `ec40f096a918` | D |
+| Q14 | Roles & Scope | 33 | `fb1207ba6b0a` | B |
+| Q15 | End-to-end Workflow | 33 | `aca3448b9b8e` | D |
+| Q16 | End-to-end Workflow | 33 | `b6dbb8b66eed` | A |
 
 ## Backend (backend/apps-script.gs)
 
@@ -176,3 +176,4 @@ Endpoints: getData=yes · sendReminders=yes
 - `KC_Canonical_QuestionBank_v3_2026-08-07.json`
 - `KC_Canonical_QuestionBank_v4_2026-08-07.json`
 - `KC_Canonical_QuestionBank_v5_2026-08-17.json`
+- `KC_Canonical_QuestionBank_v6_2026-08-17.json`

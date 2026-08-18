@@ -104,7 +104,7 @@ const QUESTIONS = [
   },
   {
     id: 7,
-    text: 'Why are UK Fan items handled without a statistical baseline?',
+    text: 'Why are Fan items handled without a statistical baseline?',
     options: {
       A: 'Daybreak\'s licensing model prevents its use on Fan products.',
       B: 'Fan volume is too small to justify the model\'s processing cost.',
@@ -180,7 +180,7 @@ const QUESTIONS = [
     options: {
       A: 'To allow Marketing to override Sales\' L1 enrichments in cases where Marketing has better visibility.',
       B: 'To finalize the Daybreak baseline before it is loaded to Logility for the cycle.',
-      C: 'To replace the legacy Brand DMR meetings that exist today in North America.',
+      C: 'To replace the legacy Brand DMR meetings that some markets still run today.',
       D: 'To combine the bottom-up commercial view with top-down statistical and brand-strategic views, apply BU-level corrections, and prepare the proposal for Executive Sign-Off.'
     },
     slideRefs: '32',
@@ -188,36 +188,36 @@ const QUESTIONS = [
   },
   {
     id: 14,
-    text: 'In the UK pilot, which statement correctly describes the scope split between Key Account Managers (KAMs) and Brand Captains?',
+    text: 'How is scope split between the Level 2.5 Base Trend and the Level 1 account work?',
     options: {
-      A: 'Both roles can edit the baseline at any planning level; the most recent edit wins.',
-      B: 'Brand Captains own SKU × BU-level (Level 2.5) Base Trend adjustments. KAMs capture account-specific enrichments and account-level deltas at L1; baseline adjustments by KAMs are exceptions, not the default.',
-      C: 'Only Demand Planning can adjust the baseline; both KAMs and Brand Captains submit requests for review.',
-      D: 'The KAM owns baseline adjustments at all levels; the Brand Captain reviews after the fact.'
+      A: 'Both levels can edit the baseline at any point in the cycle, and whichever edit was made most recently is the one that carries into the consensus.',
+      B: 'Level 2.5 carries SKU x BU Base Trend adjustments. KAMs capture account enrichments and account-level deltas at Level 1, where baseline changes are the exception.',
+      C: 'Only Demand Planning may change the forecast at any level, so KAMs and brand teams raise requests and wait for them to be actioned on their behalf.',
+      D: 'The KAM owns baseline adjustments at every level of the hierarchy, and the Level 2.5 owner only reviews what was entered once the cycle has closed.'
     },
     slideRefs: '33',
-    section: 'UK Pilot Roles'
+    section: 'Roles & Scope'
   },
   {
     id: 15,
-    text: 'In the 2026 UK pilot, how does HERO present the starting forecast to Brand Captains at the beginning of each cycle?',
+    text: 'How does HERO present the starting forecast at Level 2.5 at the beginning of each cycle?',
     options: {
-      A: 'Empty — Brand Captains build the forecast from scratch each cycle.',
-      B: 'Pre-populated with the prior month\'s consensus forecast.',
-      C: 'Pre-populated with the Daybreak baseline only; Captains rebuild everything else manually.',
-      D: 'Pre-populated with the deltas between the Daybreak baseline and the current resultant forecast. Captains capture only the changes they intend to move the resultant — no manual matching is required.'
+      A: 'Empty. The Level 2.5 view starts blank at every cycle open, so the whole forecast has to be built from scratch before any review can begin.',
+      B: 'Pre-populated with the prior month\'s consensus forecast, so the starting point is last cycle\'s agreed number rather than anything the model produced.',
+      C: 'Pre-populated with the Daybreak baseline only, so every commercial adjustment made in the prior cycle has to be found and rebuilt by hand.',
+      D: 'Pre-populated with the deltas between the Daybreak baseline and the current resultant, so only intended changes are captured and no manual matching is needed.'
     },
     slideRefs: '33',
     section: 'End-to-end Workflow'
   },
   {
     id: 16,
-    text: 'In the 2027 target operating model, how does the Brand Captain\'s role differ from the 2026 pilot?',
+    text: 'In the target operating model, how does Level 2.5 work differ from the first year of deployment?',
     options: {
-      A: 'Brand Captains start from the Daybreak baseline directly. Corrections for commercial or supply events affecting the forecast are captured as Base Trend adjustments.',
-      B: 'Brand Captains are removed; cycles run fully automated.',
-      C: 'Brand Captains operate exclusively at Level 1 (customer level), with KAMs handling BU-level decisions.',
-      D: 'Brand Captains review a pre-populated forecast and confirm without modification.'
+      A: 'Level 2.5 starts from the Daybreak baseline directly, and corrections for commercial or supply events are captured as Base Trend adjustments.',
+      B: 'Level 2.5 disappears altogether and the cycle runs fully automated, with no human adjustment at any level of the planning hierarchy.',
+      C: 'Level 2.5 work moves down to Level 1 (customer level), and the KAMs take over all of the BU-level decisions that used to sit above them.',
+      D: 'Level 2.5 becomes a review-only step, where the pre-populated forecast is confirmed exactly as presented and no changes of any kind are entered.'
     },
     slideRefs: '33',
     section: 'End-to-end Workflow'

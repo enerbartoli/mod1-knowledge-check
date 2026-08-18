@@ -61,8 +61,8 @@ const QUESTIONS = [
     options: {
       A: 'Nowhere. Demand Planning adjustments reach the Consensus only, never a Field Forecast array.',
       B: 'In UA2, alongside the commercial promotion enrichments.',
-      C: 'It is held in HERO for attribution and is not exported until a Brand Captain confirms it.',
-      D: 'In UA1, exactly as it would if a Brand Captain or a commercial lead had entered it.'
+      C: 'It is held in HERO for attribution and is not exported until a second reviewer confirms it.',
+      D: 'In UA1, exactly as it would if any other role had entered it in that template.'
     },
     slideRefs: '6',
     rationale: 'What routes the value is the template, not the author. A Level 2.5 Base Trend Adjustment entered in the Reconciliation template lands in UA1 regardless of who entered it. The Marketing and Demand Planning exclusion from the Field Forecast applies only to enrichments captured in the Enrichment Capture template.',

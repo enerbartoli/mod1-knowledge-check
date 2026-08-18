@@ -71,15 +71,15 @@ const QUESTIONS = [
   },
   {
     id: 4,
-    text: 'A Warm Start NPI with under 12 months of history has 16 weeks of actuals below the 2026 Resultant plan, and Daybreak has slashed the 2027 baseline by more than half. After reviewing together, you and the Brand Captain agree Daybreak\'s drop is too aggressive and the SKU can still rebound. What is the correct action?',
+    text: '... After reviewing together, you and the brand team agree Daybreak\'s drop is too aggressive and the SKU can still rebound. What is the correct action?',
     options: {
       A: 'Accept the Daybreak 2027 baseline — 16 weeks of actuals is sufficient to confirm the structural decline.',
       B: 'Apply negative sets in each under-performing month to align the forecast to Daybreak\'s corrected view.',
-      C: 'Recalculate overall demand and apply an L2.5 Base Trend adjustment via the Brand Captain\'s reconciliation template.',
+      C: 'Recalculate overall demand and apply an L2.5 Base Trend adjustment via the Level 2.5 reconciliation template.',
       D: 'Submit a disaggregation request to DP/Genpact to redistribute the volume across a wider customer base.'
     },
     slideRefs: '9, 10',
-    rationale: 'When the team has assessed that Daybreak\'s reduction is too aggressive — not enough history for a structural reset — the correct path is to recalculate demand with commercial knowledge and lock the agreed view via an L2.5 Base Trend adjustment using the Brand Captain\'s template.',
+    rationale: 'When the team has assessed that Daybreak\'s reduction is too aggressive, because there is not enough history for a structural reset, the correct path is to recalculate demand with commercial knowledge and lock the agreed view via an L2.5 Base Trend adjustment using the Level 2.5 reconciliation template.',
     section: 'Baseline Training'
   },
   {

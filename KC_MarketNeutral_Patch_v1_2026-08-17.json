@@ -1,0 +1,492 @@
+{
+  "schema_version": "1.0",
+  "generated_on": "2026-08-17",
+  "purpose": "Market-neutral rewrite of the HERO knowledge-check bank. Removes every reference to the UK, to the pilot, and to the Brand Captain role, so the same modules can be run unchanged in any market.",
+  "harvested_from": "Deployed source in github.com/enerbartoli/mod1-knowledge-check @ main, fetched 2026-08-17. NOT from KC_Canonical_QuestionBank_v1_2026-08-06.json, which is stale for mod2 Q7, mod2 Q11 and mod4 Q4.",
+  "invariants": [
+    "No correct answer letter moves. Prior submissions stay scoreable against the same key.",
+    "No question is added or removed. Module lengths and pass thresholds are unchanged.",
+    "No question states who captures at Level 2.5. Ownership at that level varies by market and is deliberately left unspecified.",
+    "No em-dash in any newly authored string."
+  ],
+  "banned_terms": ["UK", "United Kingdom", "Great Britain", "pilot", "Brand Captain", "Captain", "North America", "United States", "EMEA"],
+  "out_of_scope": {
+    "roles_dropdown": "The shared ROLES array still contains 'Brand Captain' and, in mod3, 'Change Agent / Pilot POC'. Left untouched on purpose: relabelling splits the dashboard pass-rate-by-role history across old and new labels. Not evaluated content.",
+    "mod3": "MOD 3 (10 questions) carries no market or role reference in any stem, option or section. No change required.",
+    "mod2_years": "mod2 Q3 and Q4 reference 2025/2026/2027. Those are scenario dates, not market context. Left as they are."
+  },
+  "modules": [
+    {
+      "module_id": "mod1",
+      "file": "quiz.js",
+      "total_questions": 16,
+      "answer_key_unchanged": {"Q7": "D", "Q13": "D", "Q14": "B", "Q15": "D", "Q16": "A"},
+      "questions": [
+        {
+          "id": "Q7",
+          "correct": "D",
+          "change_type": "stem_only",
+          "fields": {
+            "text": {
+              "old": "Why are UK Fan items handled without a statistical baseline?",
+              "new": "Why are Fan items handled without a statistical baseline?"
+            }
+          }
+        },
+        {
+          "id": "Q13",
+          "correct": "D",
+          "change_type": "distractor_swap",
+          "fields": {
+            "options.C": {
+              "old": "To replace the legacy Brand DMR meetings that exist today in North America.",
+              "new": "To replace the legacy Brand DMR meetings that some markets still run today."
+            }
+          }
+        },
+        {
+          "id": "Q14",
+          "correct": "B",
+          "change_type": "full_rewrite",
+          "reason": "Stem, section and three of four options were built around the UK pilot split between KAMs and Brand Captains. Reframed by level so no market or role owns 2.5.",
+          "fields": {
+            "text": {
+              "old": "In the UK pilot, which statement correctly describes the scope split between Key Account Managers (KAMs) and Brand Captains?",
+              "new": "How is scope split between the Level 2.5 Base Trend and the Level 1 account work?"
+            },
+            "section": {"old": "UK Pilot Roles", "new": "Roles & Scope"},
+            "options.A": {
+              "old": "Both roles can edit the baseline at any planning level; the most recent edit wins.",
+              "new": "Both levels can edit the baseline at any point in the cycle, and whichever edit was made most recently is the one that carries into the consensus."
+            },
+            "options.B": {
+              "old": "Brand Captains own SKU x BU-level (Level 2.5) Base Trend adjustments. KAMs capture account-specific enrichments and account-level deltas at L1; baseline adjustments by KAMs are exceptions, not the default.",
+              "new": "Level 2.5 carries SKU x BU Base Trend adjustments. KAMs capture account enrichments and account-level deltas at Level 1, where baseline changes are the exception."
+            },
+            "options.C": {
+              "old": "Only Demand Planning can adjust the baseline; both KAMs and Brand Captains submit requests for review.",
+              "new": "Only Demand Planning may change the forecast at any level, so KAMs and brand teams raise requests and wait for them to be actioned on their behalf."
+            },
+            "options.D": {
+              "old": "The KAM owns baseline adjustments at all levels; the Brand Captain reviews after the fact.",
+              "new": "The KAM owns baseline adjustments at every level of the hierarchy, and the Level 2.5 owner only reviews what was entered once the cycle has closed."
+            }
+          }
+        },
+        {
+          "id": "Q15",
+          "correct": "D",
+          "change_type": "full_rewrite",
+          "reason": "Stem and three options addressed Brand Captains inside the 2026 UK pilot. Reframed as how HERO presents the Level 2.5 starting point.",
+          "fields": {
+            "text": {
+              "old": "In the 2026 UK pilot, how does HERO present the starting forecast to Brand Captains at the beginning of each cycle?",
+              "new": "How does HERO present the starting forecast at Level 2.5 at the beginning of each cycle?"
+            },
+            "options.A": {
+              "old": "Empty - Brand Captains build the forecast from scratch each cycle.",
+              "new": "Empty. The Level 2.5 view starts blank at every cycle open, so the whole forecast has to be built from scratch before any review can begin."
+            },
+            "options.B": {
+              "old": "Pre-populated with the prior month's consensus forecast.",
+              "new": "Pre-populated with the prior month's consensus forecast, so the starting point is last cycle's agreed number rather than anything the model produced."
+            },
+            "options.C": {
+              "old": "Pre-populated with the Daybreak baseline only; Captains rebuild everything else manually.",
+              "new": "Pre-populated with the Daybreak baseline only, so every commercial adjustment made in the prior cycle has to be found and rebuilt by hand."
+            },
+            "options.D": {
+              "old": "Pre-populated with the deltas between the Daybreak baseline and the current resultant forecast. Captains capture only the changes they intend to move the resultant - no manual matching is required.",
+              "new": "Pre-populated with the deltas between the Daybreak baseline and the current resultant, so only intended changes are captured and no manual matching is needed."
+            }
+          }
+        },
+        {
+          "id": "Q16",
+          "correct": "A",
+          "change_type": "full_rewrite",
+          "reason": "Stem and all four options were a Brand Captain 2026-pilot vs 2027-target comparison. Reframed as Level 2.5 work in the target model vs the first year of deployment.",
+          "fields": {
+            "text": {
+              "old": "In the 2027 target operating model, how does the Brand Captain's role differ from the 2026 pilot?",
+              "new": "In the target operating model, how does Level 2.5 work differ from the first year of deployment?"
+            },
+            "options.A": {
+              "old": "Brand Captains start from the Daybreak baseline directly. Corrections for commercial or supply events affecting the forecast are captured as Base Trend adjustments.",
+              "new": "Level 2.5 starts from the Daybreak baseline directly, and corrections for commercial or supply events are captured as Base Trend adjustments."
+            },
+            "options.B": {
+              "old": "Brand Captains are removed; cycles run fully automated.",
+              "new": "Level 2.5 disappears altogether and the cycle runs fully automated, with no human adjustment at any level of the planning hierarchy."
+            },
+            "options.C": {
+              "old": "Brand Captains operate exclusively at Level 1 (customer level), with KAMs handling BU-level decisions.",
+              "new": "Level 2.5 work moves down to Level 1 (customer level), and the KAMs take over all of the BU-level decisions that used to sit above them."
+            },
+            "options.D": {
+              "old": "Brand Captains review a pre-populated forecast and confirm without modification.",
+              "new": "Level 2.5 becomes a review-only step, where the pre-populated forecast is confirmed exactly as presented and no changes of any kind are entered."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "module_id": "mod2",
+      "file": "mod2.js",
+      "total_questions": 15,
+      "answer_key_unchanged": {"Q4": "C"},
+      "questions": [
+        {
+          "id": "Q4",
+          "correct": "C",
+          "change_type": "label_swap",
+          "reason": "This is the case where your BTA point applies cleanly. The template routes the value, so naming the Level 2.5 template instead of a role loses nothing.",
+          "fields": {
+            "text": {
+              "old": "... After reviewing together, you and the Brand Captain agree Daybreak's drop is too aggressive and the SKU can still rebound. What is the correct action?",
+              "new": "... After reviewing together, you and the brand team agree Daybreak's drop is too aggressive and the SKU can still rebound. What is the correct action?",
+              "note": "Only the clause 'you and the Brand Captain agree' changes to 'you and the brand team agree'. The rest of the stem is untouched."
+            },
+            "options.C": {
+              "old": "Recalculate overall demand and apply an L2.5 Base Trend adjustment via the Brand Captain's reconciliation template.",
+              "new": "Recalculate overall demand and apply an L2.5 Base Trend adjustment via the Level 2.5 reconciliation template."
+            },
+            "rationale": {
+              "old": "When the team has assessed that Daybreak's reduction is too aggressive - not enough history for a structural reset - the correct path is to recalculate demand with commercial knowledge and lock the agreed view via an L2.5 Base Trend adjustment using the Brand Captain's template.",
+              "new": "When the team has assessed that Daybreak's reduction is too aggressive, because there is not enough history for a structural reset, the correct path is to recalculate demand with commercial knowledge and lock the agreed view via an L2.5 Base Trend adjustment using the Level 2.5 reconciliation template."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "module_id": "mod4",
+      "file": "mod4.js",
+      "total_questions": 10,
+      "answer_key_unchanged": {"Q1": "B", "Q2": "C", "Q4": "A", "Q5": "A", "Q7": "A", "Q8": "C", "Q9": "B"},
+      "questions": [
+        {
+          "id": "Q1",
+          "correct": "B",
+          "change_type": "distractor_swap",
+          "fields": {
+            "options.A": {
+              "old": "They are the three customer segments that contribute the highest revenue in the UK market.",
+              "new": "They are the three customer segments that contribute the highest revenue in the market."
+            },
+            "options.C": {
+              "old": "They are the three account groups that are out of scope for the UK pilot.",
+              "new": "They are the three account groups that are out of scope for the current deployment."
+            },
+            "options.D": {
+              "old": "They are the only customer groups that have a dedicated KAM assigned in the UK.",
+              "new": "They are the only customer groups with a dedicated Key Account Manager assigned to them."
+            }
+          }
+        },
+        {
+          "id": "Q2",
+          "correct": "C",
+          "change_type": "stem_and_rationale",
+          "reason": "Made conditional rather than market-named, so it stays consistent with the rewritten Q4 rule.",
+          "fields": {
+            "text": {
+              "old": "In the UK pilot, who owns the DI forecast number and how is it built?",
+              "new": "In a market where DI is not forecast statistically, who owns the DI number and how is it built?"
+            },
+            "rationale": {
+              "old": "For DI there is no Daybreak baseline by default. The KAM builds the forecast bottom-up by Forecasting Partner using account knowledge - committed programs, signed orders, customer plans - not statistical extrapolation. DP facilitates but the account team carries the build.",
+              "new": "Where DI sits outside the statistical model there is no Daybreak baseline. The KAM builds the forecast bottom-up by Forecasting Partner using account knowledge, meaning committed programs, signed orders and customer plans, not statistical extrapolation. DP facilitates but the account team carries the build."
+            }
+          }
+        },
+        {
+          "id": "Q4",
+          "correct": "A",
+          "change_type": "full_rewrite",
+          "reason": "Rewritten on 7 August 2026 to contrast the UK against the US. The teaching point is that the rule is per-market, so it can be taught with two unnamed markets and lands harder.",
+          "fields": {
+            "text": {
+              "old": "In the UK pilot, DI and FAN are not forecast statistically, so Daybreak produces no baseline for them. In the US, DI is forecast statistically. Where does the full forecast volume land in the Reconciliation Template in each case?",
+              "new": "Two markets treat Direct Import (DI) differently. One has agreed not to forecast it statistically, so Daybreak produces no baseline for it. The other forecasts it statistically. Where does the full forecast volume land in the Reconciliation Template in each case?"
+            },
+            "options.A": {
+              "old": "UK DI and FAN: the full volume as Base Trend at Level 1. US DI: adjustments layered on the statistical baseline.",
+              "new": "No baseline: the full volume as Base Trend at Level 1. With a baseline: adjustments layered on the statistical baseline."
+            },
+            "options.B": {
+              "old": "Both: the full volume as Base Trend at Level 1, since DI and FAN always sit outside the statistical model.",
+              "new": "Both: the full volume as Base Trend at Level 1, since DI always sits outside the statistical model wherever it is planned."
+            },
+            "options.C": {
+              "old": "Both: adjustments layered on the resultant, since every segment carries a baseline once the cycle opens.",
+              "new": "Both: adjustments layered on the resultant, since every segment carries a baseline once the cycle opens.",
+              "note": "unchanged, listed for completeness"
+            },
+            "options.D": {
+              "old": "UK DI and FAN: the full volume as Base Trend at Level 2.5. US DI: the full volume as Base Trend at Level 1.",
+              "new": "No baseline: the full volume as Base Trend at Level 2.5. With a baseline: the full volume as Base Trend at Level 1."
+            },
+            "rationale": {
+              "old": "... Where there is a baseline, as with DI in the US, the segment behaves like any other ...",
+              "new": "What decides this is not the channel or the item class, it is whether the market agreed to forecast that segment statistically. Where there is no Daybreak baseline, the full volume enters as Base Trend at Level 1, and the Level 1 lock is essentially all Base Trend with no statistical signal to challenge against. Where there is a baseline, the segment behaves like any other: the resultant is the starting point and the team layers enrichments and Base Trend on top. The resultant itself is never overwritten in either case."
+            }
+          }
+        },
+        {
+          "id": "Q5",
+          "correct": "A",
+          "change_type": "distractor_and_rationale",
+          "fields": {
+            "options.D": {
+              "old": "Evergreen is a United Kingdom-only exception that does not apply in North America or in Europe.",
+              "new": "Evergreen is a single-market exception that does not apply anywhere else in the program."
+            },
+            "rationale": {
+              "old": "Sales Operations owns the Evergreen designation. Not the Key Account Manager, not Demand Planning, not the Brand Captain. ...",
+              "new": "Sales Operations owns the Evergreen designation. Not the Key Account Manager, not Demand Planning, not the brand team. Once an item is designated, it stops being built bottom-up and sits on a Daybreak baseline that the KAM enriches on top, like any Carry-Forward item. The designation is not automatic and it is not a market-specific quirk: what varies by market is which segments start outside the statistical model in the first place."
+            }
+          }
+        },
+        {
+          "id": "Q7",
+          "correct": "A",
+          "change_type": "stem_distractor_and_rationale",
+          "fields": {
+            "text": {
+              "old": "How is Amazon treated in the UK pilot?",
+              "new": "How is Amazon treated when a market first goes live on the process?"
+            },
+            "options.D": {
+              "old": "Outside the pilot scope; Amazon joins after the July cycle.",
+              "new": "Outside scope at launch; Amazon joins once the first cycle has closed."
+            },
+            "rationale": {
+              "old": "For the pilot, Amazon is deliberately treated as a standard customer so the team learns the standard flow first. ...",
+              "new": "At launch, Amazon is deliberately treated as a standard customer so the team learns the standard flow first. Daybreak generates the baseline; statistical disaggregation assigns Amazon's share; the Amazon KAM reviews and adjusts."
+            }
+          }
+        },
+        {
+          "id": "Q8",
+          "correct": "C",
+          "change_type": "rationale_only",
+          "fields": {
+            "rationale": {
+              "old": "... Amazon (under pilot treatment) is owned by the Amazon KAM in the standard Session 2 flow.",
+              "new": "In all three models DP plays the same role, facilitate and challenge. DP does not carry the build. DI is built bottom-up by the KAM partner-by-partner. FAN volume is owned by the regional category team. Amazon, under the launch treatment, is owned by the Amazon KAM in the standard Session 2 flow."
+            }
+          }
+        },
+        {
+          "id": "Q9",
+          "correct": "B",
+          "change_type": "distractor_and_rationale",
+          "fields": {
+            "options.D": {
+              "old": "The Brand Captain converts the item to Carry-Forward at Level 2.5 and locks in the new treatment.",
+              "new": "The item is converted to Carry-Forward at Level 2.5 and the new treatment is locked in there."
+            },
+            "rationale": {
+              "old": "Evergreen designation is owned by Sales Ops - not by the KAM, DP, or Captain. Until Sales Ops designates the item Evergreen, it stays in the DI bottom-up flow.",
+              "new": "Evergreen designation is owned by Sales Operations, not by the KAM, Demand Planning, or the brand team. Until Sales Operations designates the item Evergreen, it stays in the bottom-up flow."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "module_id": "mod5",
+      "file": "mod5.js",
+      "total_questions": 15,
+      "answer_key_unchanged": {"Q2": "B", "Q3": "C", "Q4": "D", "Q5": "A", "Q11": "C", "Q12": "D", "Q13": "A", "Q14": "B"},
+      "questions": [
+        {
+          "id": "Q2",
+          "correct": "B",
+          "change_type": "stem_and_section",
+          "fields": {
+            "text": {
+              "old": "Which description matches the UK reconciliation standard for what happens in the room?",
+              "new": "Which description matches the reconciliation standard for what happens in the room?"
+            },
+            "section": {"old": "UK Standard", "new": "Reconciliation Standard"}
+          }
+        },
+        {
+          "id": "Q3",
+          "correct": "C",
+          "change_type": "full_rewrite",
+          "reason": "All four options were an ordering of named owners, with the Brand Captain as a distinct actor from Marketing and DP. Reframed by level and session, which is the part that is fixed across markets.",
+          "fields": {
+            "text": {
+              "old": "In what order do the four UK reconciliation sessions run, and who owns each?",
+              "new": "In what order do the four reconciliation sessions run?"
+            },
+            "options.A": {
+              "old": "Marketing+DP -> Brand Captain -> KAM -> Market Leader.",
+              "new": "Joint top-down challenge -> Level 2.5 Base Trend -> Level 1 commercial -> Sign-Off."
+            },
+            "options.B": {
+              "old": "DP -> Marketing -> Brand Captain -> Sign-Off.",
+              "new": "Level 1 commercial -> joint top-down challenge -> Level 2.5 Base Trend -> Sign-Off."
+            },
+            "options.C": {
+              "old": "Brand Captain (Baseline) -> KAM (Commercial) -> Marketing + DP -> Market Leader (Sign-Off).",
+              "new": "Level 2.5 Base Trend -> Level 1 commercial -> joint top-down challenge -> Sign-Off."
+            },
+            "options.D": {
+              "old": "KAM -> Brand Captain -> Market Leader -> Marketing + DP.",
+              "new": "Level 1 commercial -> Level 2.5 Base Trend -> Sign-Off -> joint top-down challenge."
+            },
+            "rationale": {
+              "old": "The cascade is fixed: Captain at L2.5 first -> KAM at L1 -> Marketing+DP for the top-down challenge -> Market Leader for sign-off.",
+              "new": "The cascade is fixed: Level 2.5 Base Trend first, then the Level 1 commercial session, then the joint top-down challenge, then Sign-Off. Each session opens only once the previous one has closed."
+            }
+          }
+        },
+        {
+          "id": "Q4",
+          "correct": "D",
+          "change_type": "rationale_only",
+          "fields": {
+            "rationale": {
+              "old": "Strict sequencing - the handoff between sessions is a hard gate. If Captain has not finished at 2.5, Commercial does not start; if Commercial has not confirmed L1, Marketing+DP does not start; and so on.",
+              "new": "Strict sequencing: the handoff between sessions is a hard gate. If Level 2.5 has not closed, the Level 1 commercial session does not start; if Level 1 is not confirmed, the joint top-down session does not start, and so on."
+            }
+          }
+        },
+        {
+          "id": "Q5",
+          "correct": "A",
+          "change_type": "full_rewrite",
+          "reason": "Reframed from a UK fact to a conditional rule, per your decision. Stays true in any market that has not defined guardrail thresholds, and stays true as a contrast for markets that have.",
+          "fields": {
+            "text": {
+              "old": "Why does the UK pilot use three references rather than formal guardrails?",
+              "new": "Why do some markets reconcile against three references rather than formal guardrails?"
+            },
+            "options.A": {
+              "old": "The UK has not yet defined formal guardrail thresholds, so the team triangulates using AIM Shipment Revenue, prior-year actuals, and POS Glidepath instead.",
+              "new": "Formal guardrail thresholds are not defined yet in those markets, so the team triangulates using AIM Shipment Revenue, prior-year actuals and POS Glidepath."
+            },
+            "options.B": {
+              "old": "The three references are a UK-only experiment that permanently replaces guardrails.",
+              "new": "The three references are a temporary experiment that is intended to replace formal guardrail thresholds permanently, in every market."
+            },
+            "options.C": {
+              "old": "The three references and guardrails are the same thing, just renamed.",
+              "new": "The three references and formal guardrails are the same mechanism under two different names, so a market only ever needs one of them."
+            },
+            "options.D": {
+              "old": "Guardrails were removed from the program globally because they were too restrictive.",
+              "new": "Formal guardrails were removed from the program globally because they were judged too restrictive to run a reconciliation against."
+            },
+            "rationale": {
+              "old": "Other markets use formal guardrails. The UK has not yet defined them, so the team triangulates using AIM at BU/Brand, historical actuals at Brand x Forecasting Partner, and POS Glidepath at SKU.",
+              "new": "Where formal guardrail thresholds exist, teams reconcile against them. Where they have not been defined yet, the team triangulates using AIM at BU/Brand, historical actuals at Brand x Forecasting Partner, and POS Glidepath at SKU. The three references stand in for guardrails, they do not replace them."
+            }
+          }
+        },
+        {
+          "id": "Q11",
+          "correct": "C",
+          "change_type": "stem_and_rationale",
+          "note": "Options were already clean. Only the stem and rationale named the UK.",
+          "fields": {
+            "text": {
+              "old": "Which of the eight meeting-behavior rules acts as the UK substitute for formal guardrails?",
+              "new": "Which of the eight meeting-behavior rules acts as the substitute for formal guardrails?"
+            },
+            "rationale": {
+              "old": "Rule 5 (Cite a reference or move to R&O) is the explicit UK substitute for guardrails - every challenge must cite one of the three references, otherwise the item is routed to R&O.",
+              "new": "Rule 5 (Cite a reference or move to R&O) is the explicit substitute for guardrails: every challenge must cite one of the three references, otherwise the item is routed to R&O."
+            }
+          }
+        },
+        {
+          "id": "Q12",
+          "correct": "D",
+          "change_type": "stem_section_and_rationale",
+          "note": "All four options were already clean. The Captain appeared only in the stem, the section label and the rationale.",
+          "fields": {
+            "text": {
+              "old": "The Brand Captain in Session 1 finds that the current consensus for Brand A is +30 units/week above the Daybreak baseline at Level 2.5, driven by a confirmed listing expansion at FP-1 effective W26. What is the Captain's correct action?",
+              "new": "In Session 1 you find that the current consensus for Brand A is +30 units/week above the Daybreak baseline at Level 2.5, driven by a confirmed listing expansion at FP-1 effective W26. What is the correct action?"
+            },
+            "section": {"old": "Session 1 - Brand Captain", "new": "Session 1 - Level 2.5 Base Trend"},
+            "rationale": {
+              "old": "Session 1 is ANCHOR -> RECONCILE -> NEUTRALIZE -> DISAGGREGATE. Deltas vs consensus are neutralized as Base Trend Adjustments at L2.5 by the Captain. With a named driver and evidence, the item is not waiting on the KAM and not an R&O.",
+              "new": "Session 1 is ANCHOR -> RECONCILE -> NEUTRALIZE -> DISAGGREGATE. Deltas vs consensus are neutralized as Base Trend Adjustments at L2.5. With a named driver and evidence, the item is not waiting on the KAM and not an R&O."
+            }
+          }
+        },
+        {
+          "id": "Q13",
+          "correct": "A",
+          "change_type": "correct_option_and_rationale",
+          "reason": "The keyed option itself said the KAM flags it back to the Brand Captain. Reworded so the routing is to the Level 2.5 bucket next cycle, not to a named role.",
+          "fields": {
+            "options.A": {
+              "old": "Base Trend at L2.5 - the KAM flags it back to the Brand Captain, who owns it next cycle.",
+              "new": "Base Trend at L2.5. The KAM flags it so it is picked up as a Level 2.5 Base Trend adjustment next cycle."
+            },
+            "rationale": {
+              "old": "Structural brand-level shifts belong in Base Trend (Captain at L2.5, next cycle). A specific account-level event would be an Enrichment (KAM, this cycle). Two-bucket entries get rejected.",
+              "new": "Structural brand-level shifts belong in Base Trend at L2.5 and are actioned next cycle. A specific account-level event would be an Enrichment, captured by the KAM this cycle. Two-bucket entries get rejected."
+            }
+          }
+        },
+        {
+          "id": "Q14",
+          "correct": "B",
+          "change_type": "distractor_and_rationale",
+          "reason": "The old rationale taught that Marketing and DP cannot re-open the Captain's Base Trend. That claim does not survive your correction, since in some markets the same function owns both. Reframed as session protection rather than role protection, which holds everywhere.",
+          "fields": {
+            "options.A": {
+              "old": "At Level 1 directly, bypassing the Captain's L2.5 baseline.",
+              "new": "At Level 1 directly, bypassing the Level 2.5 baseline agreed in Session 1."
+            },
+            "rationale": {
+              "old": "... Marketing + DP cannot re-open the Captain's Base Trend or the KAM's L1 enrichments - if either needs to move, the item routes back to that owner.",
+              "new": "Marketing / DP enrichments enter at L2.5 via the Enrichment Capture Template (ECT) and disaggregate to L1 across partners using baseline disaggregation rules. Session 3 does not re-open the Base Trend agreed in Session 1 or the L1 enrichments captured in Session 2. If either needs to move, the item routes back to the session that owns it."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "module_id": "mod7",
+      "file": "mod7.js",
+      "total_questions": 10,
+      "answer_key_unchanged": {"Q3": "D"},
+      "questions": [
+        {
+          "id": "Q3",
+          "correct": "D",
+          "change_type": "option_swap",
+          "reason": "This is the cleanest case for your BTA point. The whole teaching is template-not-author, so removing the role name from the keyed option sharpens it rather than weakening it. The keyed option is also now shorter than before, which removes a length cue.",
+          "fields": {
+            "options.C": {
+              "old": "It is held in HERO for attribution and is not exported until a Brand Captain confirms it.",
+              "new": "It is held in HERO for attribution and is not exported until a second reviewer confirms it."
+            },
+            "options.D": {
+              "old": "In UA1, exactly as it would if a Brand Captain or a commercial lead had entered it.",
+              "new": "In UA1, exactly as it would if any other role had entered it in that template."
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "gaps_and_open_questions": [
+    "KC_Canonical_QuestionBank_v1_2026-08-06.json in 04_outputs is stale. The 7 August commit changed mod2 Q7, mod2 Q11 and mod4 Q4, and the v3 bank that commit was supposed to produce was never saved back to OneDrive. The bank must be rebuilt from the deployed source before this patch is folded into it. [GAP - needs decision on where v3 lives]",
+    "MOD 3 has no entry at all in the canonical bank, although it has been live since 7 August with 10 questions. [GAP - needs Rene]",
+    "mod1 quiz.js carries the answer key client-side, which the repo README says should never happen (server-side scoring only). Not caused by this patch, but worth a separate look. [GAP - needs Rene/Jarred]",
+    "AIM and POS are used unexpanded in mod5 Q5. The program standard is to expand every acronym on first use in a standalone deliverable. I did not expand them because I have no confirmed expansion for AIM in the sources. [GAP - needs SME]",
+    "mod4 Q7 rationale and mod5 Q5 rationale describe a launch-sequencing choice (Amazon as a standard customer first) that was made for the first market. Confirm it is the intended standard for every market before this ships. [GAP - needs Rene]",
+    "Two mod5 questions, Q5 and Q11, now teach guardrails as conditional. If any market defines formal guardrail thresholds before rollout, both need a second look."
+  ]
+}

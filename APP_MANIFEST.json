@@ -1,5 +1,5 @@
 {
-  "generated_on": "2026-08-17",
+  "generated_on": "2026-08-18",
   "generator": "tools/generate_manifest.js",
   "note": "Derived from actual repo files. Do not edit by hand — re-run the generator.",
   "pages_base_url": "https://enerbartoli.github.io/mod1-knowledge-check/",
@@ -8,7 +8,8 @@
     "KC_Canonical_QuestionBank_v2_2026-08-07.json",
     "KC_Canonical_QuestionBank_v3_2026-08-07.json",
     "KC_Canonical_QuestionBank_v4_2026-08-07.json",
-    "KC_Canonical_QuestionBank_v5_2026-08-17.json"
+    "KC_Canonical_QuestionBank_v5_2026-08-17.json",
+    "KC_Canonical_QuestionBank_v6_2026-08-17.json"
   ],
   "guard_bank": "KC_Canonical_QuestionBank_v2_2026-08-07.json",
   "modules": [
@@ -48,7 +49,7 @@
           "id": "Q4",
           "section": "Baseline Training",
           "slide_refs": "9, 10",
-          "fingerprint": "4a93227f7d2f",
+          "fingerprint": "e6b6ab320151",
           "client_key": "C"
         },
         {
@@ -228,14 +229,14 @@
           "id": "Q1",
           "section": "DI, FAN & Amazon",
           "slide_refs": "5",
-          "fingerprint": "653dcd2748bc",
+          "fingerprint": "9d4498de34bb",
           "client_key": "B"
         },
         {
           "id": "Q2",
           "section": "Direct Import (DI)",
           "slide_refs": "6",
-          "fingerprint": "69a13a8854f3",
+          "fingerprint": "623bb5d10a2f",
           "client_key": "C"
         },
         {
@@ -249,14 +250,14 @@
           "id": "Q4",
           "section": "Reconciliation Template",
           "slide_refs": "6, 7",
-          "fingerprint": "3bec1d538b9e",
+          "fingerprint": "11c019c884ca",
           "client_key": "A"
         },
         {
           "id": "Q5",
           "section": "Direct Import (DI)",
           "slide_refs": "6",
-          "fingerprint": "de9a92ac87b3",
+          "fingerprint": "3f433ec2f806",
           "client_key": "A"
         },
         {
@@ -270,7 +271,7 @@
           "id": "Q7",
           "section": "Amazon",
           "slide_refs": "8",
-          "fingerprint": "759b4c446b02",
+          "fingerprint": "6e72ea1cf0c0",
           "client_key": "A"
         },
         {
@@ -284,7 +285,7 @@
           "id": "Q9",
           "section": "Direct Import (DI)",
           "slide_refs": "6",
-          "fingerprint": "363ca3375f33",
+          "fingerprint": "b70c44c1aa74",
           "client_key": "B"
         },
         {
@@ -316,16 +317,16 @@
         },
         {
           "id": "Q2",
-          "section": "UK Standard",
+          "section": "Reconciliation Standard",
           "slide_refs": "21, 30, 31",
-          "fingerprint": "6ff11bdc6b99",
+          "fingerprint": "e8c663ada127",
           "client_key": "B"
         },
         {
           "id": "Q3",
           "section": "Session Cascade",
           "slide_refs": "23, 63",
-          "fingerprint": "ec10d898f2b3",
+          "fingerprint": "6cb73a292f2c",
           "client_key": "C"
         },
         {
@@ -339,7 +340,7 @@
           "id": "Q5",
           "section": "Three References",
           "slide_refs": "18, 24",
-          "fingerprint": "9a51432317f4",
+          "fingerprint": "93fc98e2e9c3",
           "client_key": "A"
         },
         {
@@ -381,28 +382,28 @@
           "id": "Q11",
           "section": "Meeting Behavior",
           "slide_refs": "30",
-          "fingerprint": "aed0767fe3b6",
+          "fingerprint": "f20c7c90f86e",
           "client_key": "C"
         },
         {
           "id": "Q12",
-          "section": "Session 1 — Brand Captain",
+          "section": "Session 1 - Level 2.5 Base Trend",
           "slide_refs": "33, 35, 37",
-          "fingerprint": "6ede9586b39f",
+          "fingerprint": "02375d7bba7b",
           "client_key": "D"
         },
         {
           "id": "Q13",
           "section": "Session 2 — KAM",
           "slide_refs": "42",
-          "fingerprint": "a93ea2134bff",
+          "fingerprint": "cecc2733a77f",
           "client_key": "A"
         },
         {
           "id": "Q14",
           "section": "Session 3 — Marketing & DP",
           "slide_refs": "52",
-          "fingerprint": "1ce38cbaba94",
+          "fingerprint": "3dd51ee6e9f6",
           "client_key": "B"
         },
         {
@@ -443,7 +444,7 @@
           "id": "Q3",
           "section": "Template Routing",
           "slide_refs": "6",
-          "fingerprint": "0b2b63c76a14",
+          "fingerprint": "512f5ff2c2d9",
           "client_key": "D"
         },
         {
@@ -554,7 +555,7 @@
           "id": "Q7",
           "section": "SKU Types",
           "slide_refs": "15",
-          "fingerprint": "48135d47c4cf",
+          "fingerprint": "0f29f6e2d1e2",
           "client_key": "D"
         },
         {
@@ -596,28 +597,28 @@
           "id": "Q13",
           "section": "Reconciliation",
           "slide_refs": "32",
-          "fingerprint": "c2bb09fdb8d3",
+          "fingerprint": "ec40f096a918",
           "client_key": "D"
         },
         {
           "id": "Q14",
-          "section": "UK Pilot Roles",
+          "section": "Roles & Scope",
           "slide_refs": "33",
-          "fingerprint": "ee088a518d54",
+          "fingerprint": "fb1207ba6b0a",
           "client_key": "B"
         },
         {
           "id": "Q15",
           "section": "End-to-end Workflow",
           "slide_refs": "33",
-          "fingerprint": "d71d46b66fe7",
+          "fingerprint": "aca3448b9b8e",
           "client_key": "D"
         },
         {
           "id": "Q16",
           "section": "End-to-end Workflow",
           "slide_refs": "33",
-          "fingerprint": "7bfe19f29e32",
+          "fingerprint": "b6dbb8b66eed",
           "client_key": "A"
         }
       ]

@@ -1,12 +1,12 @@
 # App Inventory
 
 <!-- GENERATED FILE — do not edit by hand. Run: node tools/generate_inventory.js -->
-<!-- structural_sha: 1119817a440eae4d78100a69027ffd206008eadad4dc70437a0d54013f49fd29 -->
+<!-- structural_sha: 5640ab3c3d35b2a7f79edc61ece0add1ea136e1412b3ca28874e25dfe3fec4ee -->
 
-- Generated: **2026-08-17**
-- Commit at generation (HEAD): `de5204993f8831308ea3429d45b23deab64ebb21`
-- Guard bank: `KC_Canonical_QuestionBank_v5_2026-08-17.json`
-- Structural hash: `1119817a440eae4d78100a69027ffd206008eadad4dc70437a0d54013f49fd29` (the drift guard fails the build if this stops matching the repo)
+- Generated: **2026-08-18**
+- Commit at generation (HEAD): `42ef7da3af9630e37843b2f6862bc6aae88bb6dc`
+- Guard bank: `KC_Canonical_QuestionBank_v6_2026-08-17.json`
+- Structural hash: `5640ab3c3d35b2a7f79edc61ece0add1ea136e1412b3ca28874e25dfe3fec4ee` (the drift guard fails the build if this stops matching the repo)
 
 ## Modules
 
@@ -78,9 +78,9 @@
 - **C** By projecting the first month of actuals forward.
 - **D** By applying Daybreak's carry-forward model with extrapolated history.
 
-**Q7** · fingerprint `48135d47c4cf` · correct **D** · rationale no · slides 15
+**Q7** · fingerprint `0f29f6e2d1e2` · correct **D** · rationale no · slides 15
 
-> Why are UK Fan items handled without a statistical baseline?
+> Why are Fan items handled without a statistical baseline?
 
 - **A** Daybreak's licensing model prevents its use on Fan products.
 - **B** Fan volume is too small to justify the model's processing cost.
@@ -132,41 +132,41 @@
 - **C ✓** Only for events the statistical baseline cannot see — known commercial activity, structural changes, supply-related shifts, or committed plans.
 - **D** Only when the forecast is below the Financial Forecast target.
 
-**Q13** · fingerprint `c2bb09fdb8d3` · correct **D** · rationale no · slides 32
+**Q13** · fingerprint `ec40f096a918` · correct **D** · rationale no · slides 32
 
 > What is the purpose of the Joint Marketing & Demand Planning Reconciliation Session?
 
 - **A** To allow Marketing to override Sales' L1 enrichments in cases where Marketing has better visibility.
 - **B** To finalize the Daybreak baseline before it is loaded to Logility for the cycle.
-- **C** To replace the legacy Brand DMR meetings that exist today in North America.
+- **C** To replace the legacy Brand DMR meetings that some markets still run today.
 - **D ✓** To combine the bottom-up commercial view with top-down statistical and brand-strategic views, apply BU-level corrections, and prepare the proposal for Executive Sign-Off.
 
-**Q14** · fingerprint `ee088a518d54` · correct **B** · rationale no · slides 33
+**Q14** · fingerprint `fb1207ba6b0a` · correct **B** · rationale no · slides 33
 
-> In the UK pilot, which statement correctly describes the scope split between Key Account Managers (KAMs) and Brand Captains?
+> How is scope split between the Level 2.5 Base Trend and the Level 1 account work?
 
-- **A** Both roles can edit the baseline at any planning level; the most recent edit wins.
-- **B ✓** Brand Captains own SKU × BU-level (Level 2.5) Base Trend adjustments. KAMs capture account-specific enrichments and account-level deltas at L1; baseline adjustments by KAMs are exceptions, not the default.
-- **C** Only Demand Planning can adjust the baseline; both KAMs and Brand Captains submit requests for review.
-- **D** The KAM owns baseline adjustments at all levels; the Brand Captain reviews after the fact.
+- **A** Both levels can edit the baseline at any point in the cycle, and whichever edit was made most recently is the one that carries into the consensus.
+- **B ✓** Level 2.5 carries SKU x BU Base Trend adjustments. KAMs capture account enrichments and account-level deltas at Level 1, where baseline changes are the exception.
+- **C** Only Demand Planning may change the forecast at any level, so KAMs and brand teams raise requests and wait for them to be actioned on their behalf.
+- **D** The KAM owns baseline adjustments at every level of the hierarchy, and the Level 2.5 owner only reviews what was entered once the cycle has closed.
 
-**Q15** · fingerprint `d71d46b66fe7` · correct **D** · rationale no · slides 33
+**Q15** · fingerprint `aca3448b9b8e` · correct **D** · rationale no · slides 33
 
-> In the 2026 UK pilot, how does HERO present the starting forecast to Brand Captains at the beginning of each cycle?
+> How does HERO present the starting forecast at Level 2.5 at the beginning of each cycle?
 
-- **A** Empty — Brand Captains build the forecast from scratch each cycle.
-- **B** Pre-populated with the prior month's consensus forecast.
-- **C** Pre-populated with the Daybreak baseline only; Captains rebuild everything else manually.
-- **D ✓** Pre-populated with the deltas between the Daybreak baseline and the current resultant forecast. Captains capture only the changes they intend to move the resultant — no manual matching is required.
+- **A** Empty. The Level 2.5 view starts blank at every cycle open, so the whole forecast has to be built from scratch before any review can begin.
+- **B** Pre-populated with the prior month's consensus forecast, so the starting point is last cycle's agreed number rather than anything the model produced.
+- **C** Pre-populated with the Daybreak baseline only, so every commercial adjustment made in the prior cycle has to be found and rebuilt by hand.
+- **D ✓** Pre-populated with the deltas between the Daybreak baseline and the current resultant, so only intended changes are captured and no manual matching is needed.
 
-**Q16** · fingerprint `7bfe19f29e32` · correct **A** · rationale no · slides 33
+**Q16** · fingerprint `b6dbb8b66eed` · correct **A** · rationale no · slides 33
 
-> In the 2027 target operating model, how does the Brand Captain's role differ from the 2026 pilot?
+> In the target operating model, how does Level 2.5 work differ from the first year of deployment?
 
-- **A ✓** Brand Captains start from the Daybreak baseline directly. Corrections for commercial or supply events affecting the forecast are captured as Base Trend adjustments.
-- **B** Brand Captains are removed; cycles run fully automated.
-- **C** Brand Captains operate exclusively at Level 1 (customer level), with KAMs handling BU-level decisions.
-- **D** Brand Captains review a pre-populated forecast and confirm without modification.
+- **A ✓** Level 2.5 starts from the Daybreak baseline directly, and corrections for commercial or supply events are captured as Base Trend adjustments.
+- **B** Level 2.5 disappears altogether and the cycle runs fully automated, with no human adjustment at any level of the planning hierarchy.
+- **C** Level 2.5 work moves down to Level 1 (customer level), and the KAMs take over all of the BU-level decisions that used to sit above them.
+- **D** Level 2.5 becomes a review-only step, where the pre-populated forecast is confirmed exactly as presented and no changes of any kind are entered.
 
 ### mod2
 
@@ -200,13 +200,13 @@
 - **C ✓** Cleanse the stockout-affected months in historical data so Daybreak can rebuild an accurate baseline.
 - **D** Accept the Daybreak baseline — the model is reading the most recent year correctly.
 
-**Q4** · fingerprint `4a93227f7d2f` · correct **C** · rationale yes · slides 9, 10
+**Q4** · fingerprint `e6b6ab320151` · correct **C** · rationale yes · slides 9, 10
 
-> A Warm Start NPI with under 12 months of history has 16 weeks of actuals below the 2026 Resultant plan, and Daybreak has slashed the 2027 baseline by more than half. After reviewing together, you and the Brand Captain agree Daybreak's drop is too aggressive and the SKU can still rebound. What is the correct action?
+> ... After reviewing together, you and the brand team agree Daybreak's drop is too aggressive and the SKU can still rebound. What is the correct action?
 
 - **A** Accept the Daybreak 2027 baseline — 16 weeks of actuals is sufficient to confirm the structural decline.
 - **B** Apply negative sets in each under-performing month to align the forecast to Daybreak's corrected view.
-- **C ✓** Recalculate overall demand and apply an L2.5 Base Trend adjustment via the Brand Captain's reconciliation template.
+- **C ✓** Recalculate overall demand and apply an L2.5 Base Trend adjustment via the Level 2.5 reconciliation template.
 - **D** Submit a disaggregation request to DP/Genpact to redistribute the volume across a wider customer base.
 
 **Q5** · fingerprint `1ea3ef950650` · correct **D** · rationale yes · slides 11, 12, 13, 14
@@ -408,18 +408,18 @@
 - Page: https://enerbartoli.github.io/mod1-knowledge-check/mod4.html · JS: `mod4.js` · HTML: `mod4.html`
 - Questions: 10 · Pass threshold: 8 · Options: authoritative (bank is source of truth)
 
-**Q1** · fingerprint `653dcd2748bc` · correct **B** · rationale yes · slides 5
+**Q1** · fingerprint `9d4498de34bb` · correct **B** · rationale yes · slides 5
 
 > Why do DI, FAN, and Amazon need to be discussed as a separate group in MOD 4?
 
-- **A** They are the three customer segments that contribute the highest revenue in the UK market.
+- **A** They are the three customer segments that contribute the highest revenue in the market.
 - **B ✓** Their historical demand behaves erratically — discontinuous and opportunistic — so a history-based statistical model cannot predict it adequately, and each one needs a tailored handling approach.
-- **C** They are the three account groups that are out of scope for the UK pilot.
-- **D** They are the only customer groups that have a dedicated KAM assigned in the UK.
+- **C** They are the three account groups that are out of scope for the current deployment.
+- **D** They are the only customer groups with a dedicated Key Account Manager assigned to them.
 
-**Q2** · fingerprint `69a13a8854f3` · correct **C** · rationale yes · slides 6
+**Q2** · fingerprint `623bb5d10a2f` · correct **C** · rationale yes · slides 6
 
-> In the UK pilot, who owns the DI forecast number and how is it built?
+> In a market where DI is not forecast statistically, who owns the DI number and how is it built?
 
 - **A** Daybreak generates the baseline; the KAM reviews and adjusts using the standard enrichment flow.
 - **B** Demand Planning builds the DI number from statistical extrapolation; the KAM validates.
@@ -435,23 +435,23 @@
 - **C** Daybreak builds the baseline; the KAM enriches as needed.
 - **D** Marketing owns the number; KAMs are not involved.
 
-**Q4** · fingerprint `3bec1d538b9e` · correct **A** · rationale yes · slides 6, 7
+**Q4** · fingerprint `11c019c884ca` · correct **A** · rationale yes · slides 6, 7
 
-> In the UK pilot, DI and FAN are not forecast statistically, so Daybreak produces no baseline for them. In the US, DI is forecast statistically. Where does the full forecast volume land in the Reconciliation Template in each case?
+> Two markets treat Direct Import (DI) differently. One has agreed not to forecast it statistically, so Daybreak produces no baseline for it. The other forecasts it statistically. Where does the full forecast volume land in the Reconciliation Template in each case?
 
-- **A ✓** UK DI and FAN: the full volume as Base Trend at Level 1. US DI: adjustments layered on the statistical baseline.
-- **B** Both: the full volume as Base Trend at Level 1, since DI and FAN always sit outside the statistical model.
+- **A ✓** No baseline: the full volume as Base Trend at Level 1. With a baseline: adjustments layered on the statistical baseline.
+- **B** Both: the full volume as Base Trend at Level 1, since DI always sits outside the statistical model wherever it is planned.
 - **C** Both: adjustments layered on the resultant, since every segment carries a baseline once the cycle opens.
-- **D** UK DI and FAN: the full volume as Base Trend at Level 2.5. US DI: the full volume as Base Trend at Level 1.
+- **D** No baseline: the full volume as Base Trend at Level 2.5. With a baseline: the full volume as Base Trend at Level 1.
 
-**Q5** · fingerprint `de9a92ac87b3` · correct **A** · rationale yes · slides 6
+**Q5** · fingerprint `3f433ec2f806` · correct **A** · rationale yes · slides 6
 
 > Which statement correctly describes the Evergreen designation?
 
 - **A ✓** Sales Operations designates items as Evergreen; they then sit on a Daybreak baseline.
 - **B** Any item with 12 months of stable shipping history is automatically designated Evergreen by Demand Planning.
 - **C** The Key Account Manager nominates Evergreen items at cycle start, and Demand Planning confirms the list.
-- **D** Evergreen is a United Kingdom-only exception that does not apply in North America or in Europe.
+- **D** Evergreen is a single-market exception that does not apply anywhere else in the program.
 
 **Q6** · fingerprint `94ca080bd677` · correct **B** · rationale yes · slides 7
 
@@ -462,14 +462,14 @@
 - **C** FAN volume is too small to justify the model's run-time.
 - **D** FAN items are excluded by Daybreak's licensing terms.
 
-**Q7** · fingerprint `759b4c446b02` · correct **A** · rationale yes · slides 8
+**Q7** · fingerprint `6e72ea1cf0c0` · correct **A** · rationale yes · slides 8
 
-> How is Amazon treated in the UK pilot?
+> How is Amazon treated when a market first goes live on the process?
 
 - **A ✓** As a standard customer — Daybreak generates the brand-level baseline, statistical disaggregation assigns Amazon's share, and the Amazon KAM reviews and adjusts using the standard Enrichment and Base Trend tools.
 - **B** Bottom-up by KAM, with no baseline — the same as DI.
 - **C** Bottom-up by the regional category team — the same as FAN.
-- **D** Outside the pilot scope; Amazon joins after the July cycle.
+- **D** Outside scope at launch; Amazon joins once the first cycle has closed.
 
 **Q8** · fingerprint `746820920e1f` · correct **C** · rationale yes · slides 6, 7, 8
 
@@ -480,14 +480,14 @@
 - **C ✓** Demand Planning facilitates and challenges but does not own the volume — the KAM carries the build for DI and Amazon; the regional category team owns the volume for FAN.
 - **D** Demand Planning owns DI and FAN; the KAM owns Amazon.
 
-**Q9** · fingerprint `363ca3375f33` · correct **B** · rationale yes · slides 6
+**Q9** · fingerprint `b70c44c1aa74` · correct **B** · rationale yes · slides 6
 
 > A Key Account Manager (KAM) is reviewing an account in a segment the market has agreed not to forecast statistically, so its items are built bottom-up. One item has shipped a stable, repeating pattern for 18 months, and the KAM wants it to start from a Daybreak baseline instead. What should happen?
 
 - **A** The KAM flags it directly in HERO as Evergreen, and the Daybreak baseline applies from the next cycle onward.
 - **B ✓** Sales Operations owns the designation. Until the item is designated, it stays in the bottom-up flow.
 - **C** Demand Planning re-classifies the item as Carry-Forward and applies the standard Carry-Forward flow.
-- **D** The Brand Captain converts the item to Carry-Forward at Level 2.5 and locks in the new treatment.
+- **D** The item is converted to Carry-Forward at Level 2.5 and the new treatment is locked in there.
 
 **Q10** · fingerprint `94699684748b` · correct **D** · rationale yes · slides 7
 
@@ -512,23 +512,23 @@
 - **C** Reviews aggregate variance vs the Financial Forecast only.
 - **D** Confirms the Daybreak baseline before it is loaded to Logility.
 
-**Q2** · fingerprint `6ff11bdc6b99` · correct **B** · rationale yes · slides 21, 30, 31
+**Q2** · fingerprint `e8c663ada127` · correct **B** · rationale yes · slides 21, 30, 31
 
-> Which description matches the UK reconciliation standard for what happens in the room?
+> Which description matches the reconciliation standard for what happens in the room?
 
 - **A** Typing forecast changes into the template live so the room sees the impact in real time.
 - **B ✓** A structured challenge against three named references, focused on material exceptions, ending in decisions with named owners and due dates.
 - **C** A line-by-line review of every SKU in the portfolio to confirm the build.
 - **D** An open-ended discussion to surface concerns without committing to specific actions.
 
-**Q3** · fingerprint `ec10d898f2b3` · correct **C** · rationale yes · slides 23, 63
+**Q3** · fingerprint `6cb73a292f2c` · correct **C** · rationale yes · slides 23, 63
 
-> In what order do the four UK reconciliation sessions run, and who owns each?
+> In what order do the four reconciliation sessions run?
 
-- **A** Marketing+DP → Brand Captain → KAM → Market Leader.
-- **B** DP → Marketing → Brand Captain → Sign-Off.
-- **C ✓** Brand Captain (Baseline) → KAM (Commercial) → Marketing + DP → Market Leader (Sign-Off).
-- **D** KAM → Brand Captain → Market Leader → Marketing + DP.
+- **A** Joint top-down challenge → Level 2.5 Base Trend → Level 1 commercial → Sign-Off.
+- **B** Level 1 commercial → joint top-down challenge → Level 2.5 Base Trend → Sign-Off.
+- **C ✓** Level 2.5 Base Trend → Level 1 commercial → joint top-down challenge → Sign-Off.
+- **D** Level 1 commercial → Level 2.5 Base Trend → Sign-Off → joint top-down challenge.
 
 **Q4** · fingerprint `cfa397cd904a` · correct **D** · rationale yes · slides 23
 
@@ -539,14 +539,14 @@
 - **C** Sign-Off can begin once any two earlier sessions have closed.
 - **D ✓** If the prior session has not closed, the next session does not start.
 
-**Q5** · fingerprint `9a51432317f4` · correct **A** · rationale yes · slides 18, 24
+**Q5** · fingerprint `93fc98e2e9c3` · correct **A** · rationale yes · slides 18, 24
 
-> Why does the UK pilot use three references rather than formal guardrails?
+> Why do some markets reconcile against three references rather than formal guardrails?
 
-- **A ✓** The UK has not yet defined formal guardrail thresholds, so the team triangulates using AIM Shipment Revenue, prior-year actuals, and POS Glidepath instead.
-- **B** The three references are a UK-only experiment that permanently replaces guardrails.
-- **C** The three references and guardrails are the same thing, just renamed.
-- **D** Guardrails were removed from the program globally because they were too restrictive.
+- **A ✓** Formal guardrail thresholds are not defined yet in those markets, so the team triangulates using AIM Shipment Revenue, prior-year actuals and POS Glidepath.
+- **B** The three references are a temporary experiment that is intended to replace formal guardrail thresholds permanently, in every market.
+- **C** The three references and formal guardrails are the same mechanism under two different names, so a market only ever needs one of them.
+- **D** Formal guardrails were removed from the program globally because they were judged too restrictive to run a reconciliation against.
 
 **Q6** · fingerprint `0567bb16e0dc` · correct **B** · rationale yes · slides 24, 26
 
@@ -593,38 +593,38 @@
 - **C** The size of the movement and its timing.
 - **D** The next cycle's outlook for the brand.
 
-**Q11** · fingerprint `aed0767fe3b6` · correct **C** · rationale yes · slides 30
+**Q11** · fingerprint `f20c7c90f86e` · correct **C** · rationale yes · slides 30
 
-> Which of the eight meeting-behavior rules acts as the UK substitute for formal guardrails?
+> Which of the eight meeting-behavior rules acts as the substitute for formal guardrails?
 
 - **A** Come prepared, or don't comment.
 - **B** Challenge the number, not the person.
 - **C ✓** Cite a reference or move to R&O — do not opine.
 - **D** Material exceptions only — don't drift.
 
-**Q12** · fingerprint `6ede9586b39f` · correct **D** · rationale yes · slides 33, 35, 37
+**Q12** · fingerprint `02375d7bba7b` · correct **D** · rationale yes · slides 33, 35, 37
 
-> The Brand Captain in Session 1 finds that the current consensus for Brand A is +30 units/week above the Daybreak baseline at Level 2.5, driven by a confirmed listing expansion at FP-1 effective W26. What is the Captain's correct action?
+> In Session 1 you find that the current consensus for Brand A is +30 units/week above the Daybreak baseline at Level 2.5, driven by a confirmed listing expansion at FP-1 effective W26. What is the correct action?
 
 - **A** Wait for Session 2 and ask the KAM at FP-1 to capture it as an Enrichment.
 - **B** Override the Daybreak baseline directly by replacing the source data.
 - **C** Route the gap to R&O for next cycle.
 - **D ✓** Load the +30 units/week as a Base Trend Adjustment at L2.5 in HERO, document the driver and evidence, and lock the L3 baseline so Daybreak + Base Trend = consensus.
 
-**Q13** · fingerprint `a93ea2134bff` · correct **A** · rationale yes · slides 42
+**Q13** · fingerprint `cecc2733a77f` · correct **A** · rationale yes · slides 42
 
 > A KAM in Session 2 identifies that a brand at their Forecasting Partner has been gradually widening distribution for two cycles, with no specific account-level event. The shift looks structural. Which bucket does this belong in, and who acts?
 
-- **A ✓** Base Trend at L2.5 — the KAM flags it back to the Brand Captain, who owns it next cycle.
+- **A ✓** Base Trend at L2.5. The KAM flags it so it is picked up as a Level 2.5 Base Trend adjustment next cycle.
 - **B** Enrichment at L1 — the KAM captures it this cycle.
 - **C** R&O — log with options and resolve later.
 - **D** Both Enrichment and Base Trend — captured at both levels for traceability.
 
-**Q14** · fingerprint `1ce38cbaba94` · correct **B** · rationale yes · slides 52
+**Q14** · fingerprint `3dd51ee6e9f6` · correct **B** · rationale yes · slides 52
 
 > Marketing + DP in Session 3 want to apply an adjustment that lifts Brand B by +8,000 units in Q3 based on a confirmed campaign. Where does this adjustment land?
 
-- **A** At Level 1 directly, bypassing the Captain's L2.5 baseline.
+- **A** At Level 1 directly, bypassing the Level 2.5 baseline agreed in Session 1.
 - **B ✓** At Level 2.5 via the Enrichment Capture Template (ECT); the backend disaggregates to Level 1 across partners using baseline disaggregation rules.
 - **C** At Level 3 only, leaving partners untouched.
 - **D** At Level 1 by re-opening the KAM's enrichments from Session 2.
@@ -661,14 +661,14 @@
 - **C** HERO never writes UA1; it is maintained directly in Logility in every period.
 - **D** HERO writes UA1 only inside months 0 to 4, where the near-term number matters most.
 
-**Q3** · fingerprint `0b2b63c76a14` · correct **D** · rationale yes · slides 6
+**Q3** · fingerprint `512f5ff2c2d9` · correct **D** · rationale yes · slides 6
 
 > Demand Planning enters a Level 2.5 Base Trend Adjustment in the Reconciliation template. Where does it land in the Field Forecast?
 
 - **A** Nowhere. Demand Planning adjustments reach the Consensus only, never a Field Forecast array.
 - **B** In UA2, alongside the commercial promotion enrichments.
-- **C** It is held in HERO for attribution and is not exported until a Brand Captain confirms it.
-- **D ✓** In UA1, exactly as it would if a Brand Captain or a commercial lead had entered it.
+- **C** It is held in HERO for attribution and is not exported until a second reviewer confirms it.
+- **D ✓** In UA1, exactly as it would if any other role had entered it in that template.
 
 **Q4** · fingerprint `8a2cbcc79ac7` · correct **A** · rationale yes · slides 7
 
@@ -802,11 +802,11 @@ Sheet columns (from `writeHeaders`; moduleId + attemptNumber are appended by eac
 
 ## Submissions per module (snapshot, informational — not part of the structural hash)
 
-_As of 2026-08-17 — total 116._
+_As of 2026-08-18 — total 194._
 
 | Module | Submissions |
 |---|---|
-| mod1 | 51 |
+| mod1 | 129 |
 | mod2 | 21 |
 | mod3 | 1 |
 | mod4 | 24 |
