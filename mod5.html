@@ -251,7 +251,10 @@
           <div id="dash-mod-filters" style="display:flex;flex-wrap:wrap;gap:14px;margin-top:4px;"></div>
         </div>
         <div class="dash-top-right">
+          <div style="display:flex;gap:10px;align-items:center;">
+          <button id="btn-dash-export" class="btn btn-teal" style="padding:9px 16px;font-size:13px;">↓ Export to Excel</button>
           <button id="btn-dash-refresh" class="btn btn-ghost" style="padding:9px 16px;font-size:13px;">↻ Refresh data</button>
+        </div>
           <span id="dash-last-updated" class="muted" style="font-size:12px;"></span>
         </div>
       </div>
@@ -395,5 +398,7 @@
 <script src="modules.js"></script>
 <script src="dashboard-data.js"></script>
 <script src="mod5.js"></script>
+<script src="vendor/xlsx-js-style.bundle.js"></script>
+<script src="dashboard-export.js"></script>
 </body>
 </html>
