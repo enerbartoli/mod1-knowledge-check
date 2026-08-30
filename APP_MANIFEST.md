@@ -1,6 +1,6 @@
 # App Manifest
 
-_Generated 2026-08-18 by `tools/generate_manifest.js` from the actual repo files. Do not edit by hand — re-run the generator._
+_Generated 2026-08-30 by `tools/generate_manifest.js` from the actual repo files. Do not edit by hand — re-run the generator._
 
 Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 
@@ -48,12 +48,12 @@ Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 | Q1 | Choosing your template |  | `06e41cb3fe2e` | A |
 | Q2 | Choosing your template |  | `b666cbc1143a` | C |
 | Q3 | Dashboard or template |  | `df6119d35aca` | B |
-| Q4 | Dashboard or template |  | `a2b219a94918` | D |
+| Q4 | Dashboard or template |  | `ee49f9d846af` | D |
 | Q5 | Which surface takes what |  | `8387ec8a45f1` | C |
 | Q6 | Scope and shared work |  | `a70bd7982d92` | A |
 | Q7 | Clearing and reverting |  | `8471510e493b` | D |
-| Q8 | After you upload |  | `c285bbd77473` | B |
-| Q9 | After you upload |  | `56ef1ac1df6b` | C |
+| Q8 | After you upload |  | `af14b9a9ac85` | B |
+| Q9 | After you upload |  | `6096a5c013ed` | C |
 | Q10 | Starting a cycle |  | `2fc112156d09` | A |
 
 ### mod4 — MOD 4 Knowledge Check · Exceptions &amp; Customer Variations
@@ -109,7 +109,7 @@ Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 | Q3 | Template Routing | 6 | `512f5ff2c2d9` | D |
 | Q4 | Deleting Adjustments | 7 | `8a2cbcc79ac7` | A |
 | Q5 | Clearing Adjustments | 12 | `9843f1a8c418` | B |
-| Q6 | The Frozen Window | 8 | `b5a6eb550c49` | C |
+| Q6 | The Frozen Window | 8 | `b460d56a2e84` | C |
 | Q7 | Flooring & Zeros | 10, 13 | `54f8650ecd6d` | D |
 | Q8 | Scenario — Baseline Movement | 15 | `0fabbdd91bfa` | B |
 | Q9 | Scenario — Orphaned Adjustment | 16 | `41d5eadffe47` | C |
@@ -177,3 +177,4 @@ Endpoints: getData=yes · sendReminders=yes
 - `KC_Canonical_QuestionBank_v4_2026-08-07.json`
 - `KC_Canonical_QuestionBank_v5_2026-08-17.json`
 - `KC_Canonical_QuestionBank_v6_2026-08-17.json`
+- `KC_Canonical_QuestionBank_v7_2026-08-29.json`

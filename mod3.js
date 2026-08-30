@@ -68,7 +68,7 @@ const QUESTIONS = [
     text: 'You upload a valid workbook, then open the Power BI dashboard and the numbers do not match what you just entered. What is the most likely explanation?',
     options: {
       A: 'The upload was partially saved, so some rows landed and others were silently dropped.',
-      B: 'The dashboard reads Logility rather than HERO, so it only matches after the Friday export.',
+      B: 'The dashboard reads Logility rather than HERO, so it only matches after the weekly export.',
       C: 'Your entries were rejected. A successful upload always appears in the dashboard immediately.',
       D: 'Timing. The dashboard refreshes after backend processing, so it can lag your upload.'
     }
@@ -109,12 +109,12 @@ const QUESTIONS = [
   {
     id: 8,
     section: 'After you upload',
-    text: 'You upload a Level 2.5 adjustment. Twenty minutes later it is still not visible at Level 1 or in the dashboard. What do you do?',
+    text: 'You upload a Level 2.5 adjustment and the partner rows still show no change. What do you do?',
     options: {
-      A: 'Upload the workbook again, since a change that has not appeared did not register.',
-      B: 'Wait for the next fan-out run. Level 2.5 reaches Level 1 through that job, not on save.',
-      C: 'Re-enter the same adjustment at Level 1, so the number is right while 2.5 catches up.',
-      D: 'Raise it with the squad as a defect, since Level 2.5 and Level 1 should always agree instantly.'
+      A: 'Re-enter the same adjustment at Level 1, so the number is right while Level 2.5 catches up.',
+      B: 'Wait for the next scheduled fan-out run for your market, then check the read-only Level 2.5 column in a fresh Level 1 template.',
+      C: 'Upload the workbook again, since a change that has not appeared did not register.',
+      D: 'Raise it with the squad as a defect, since Level 2.5 and Level 1 should always agree as soon as you save.'
     }
   },
   {
@@ -123,8 +123,8 @@ const QUESTIONS = [
     text: 'You uploaded an approved change on a Tuesday. When does it reach Logility?',
     options: {
       A: 'On upload. HERO writes to Logility as soon as a workbook passes validation.',
-      B: 'After the next fan-out, which is the job that pushes HERO\'s output into Logility.',
-      C: 'On the weekly Friday export. Uploading holds the change in HERO until it runs.',
+      B: 'As soon as the fan-out completes, since that is the job that pushes HERO\'s output into Logility.',
+      C: 'On the weekly scheduled export for your market. Uploading holds the change in HERO until it runs.',
       D: 'Once the dashboard refresh completes, since publication follows the resolved surfaces.'
     }
   },

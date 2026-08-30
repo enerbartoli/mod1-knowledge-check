@@ -1,5 +1,5 @@
 {
-  "generated_on": "2026-08-18",
+  "generated_on": "2026-08-30",
   "generator": "tools/generate_manifest.js",
   "note": "Derived from actual repo files. Do not edit by hand — re-run the generator.",
   "pages_base_url": "https://enerbartoli.github.io/mod1-knowledge-check/",
@@ -9,7 +9,8 @@
     "KC_Canonical_QuestionBank_v3_2026-08-07.json",
     "KC_Canonical_QuestionBank_v4_2026-08-07.json",
     "KC_Canonical_QuestionBank_v5_2026-08-17.json",
-    "KC_Canonical_QuestionBank_v6_2026-08-17.json"
+    "KC_Canonical_QuestionBank_v6_2026-08-17.json",
+    "KC_Canonical_QuestionBank_v7_2026-08-29.json"
   ],
   "guard_bank": "KC_Canonical_QuestionBank_v2_2026-08-07.json",
   "modules": [
@@ -167,7 +168,7 @@
           "id": "Q4",
           "section": "Dashboard or template",
           "slide_refs": null,
-          "fingerprint": "a2b219a94918",
+          "fingerprint": "ee49f9d846af",
           "client_key": "D"
         },
         {
@@ -195,14 +196,14 @@
           "id": "Q8",
           "section": "After you upload",
           "slide_refs": null,
-          "fingerprint": "c285bbd77473",
+          "fingerprint": "af14b9a9ac85",
           "client_key": "B"
         },
         {
           "id": "Q9",
           "section": "After you upload",
           "slide_refs": null,
-          "fingerprint": "56ef1ac1df6b",
+          "fingerprint": "6096a5c013ed",
           "client_key": "C"
         },
         {
@@ -465,7 +466,7 @@
           "id": "Q6",
           "section": "The Frozen Window",
           "slide_refs": "8",
-          "fingerprint": "b5a6eb550c49",
+          "fingerprint": "b460d56a2e84",
           "client_key": "C"
         },
         {

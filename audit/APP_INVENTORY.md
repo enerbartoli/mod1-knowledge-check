@@ -1,12 +1,12 @@
 # App Inventory
 
 <!-- GENERATED FILE — do not edit by hand. Run: node tools/generate_inventory.js -->
-<!-- structural_sha: 6b9a39dca7a5911383ea18fa6d40eb64a0daaf44c2e94588fa568a46e2d6c985 -->
+<!-- structural_sha: ca5b09bf966f03f648c365bffff675808a2ad1cc9e68c49635514fea6e9f6d3a -->
 
-- Generated: **2026-08-18**
-- Commit at generation (HEAD): `1e999b0d8023056909de9dea3d807687b700685d`
-- Guard bank: `KC_Canonical_QuestionBank_v6_2026-08-17.json`
-- Structural hash: `6b9a39dca7a5911383ea18fa6d40eb64a0daaf44c2e94588fa568a46e2d6c985` (the drift guard fails the build if this stops matching the repo)
+- Generated: **2026-08-30**
+- Commit at generation (HEAD): `ab0bd239ceb579bed5bd3b74790f4c80c8021965`
+- Guard bank: `KC_Canonical_QuestionBank_v7_2026-08-29.json`
+- Structural hash: `ca5b09bf966f03f648c365bffff675808a2ad1cc9e68c49635514fea6e9f6d3a` (the drift guard fails the build if this stops matching the repo)
 
 ## Modules
 
@@ -340,12 +340,12 @@
 - **C** Both in the dashboard, since it holds the history and can write changes back to HERO.
 - **D** Analysis in the template and the change in the dashboard, which is where entries are committed.
 
-**Q4** · fingerprint `a2b219a94918` · correct **D** · rationale no · slides —
+**Q4** · fingerprint `ee49f9d846af` · correct **D** · rationale no · slides —
 
 > You upload a valid workbook, then open the Power BI dashboard and the numbers do not match what you just entered. What is the most likely explanation?
 
 - **A** The upload was partially saved, so some rows landed and others were silently dropped.
-- **B** The dashboard reads Logility rather than HERO, so it only matches after the Friday export.
+- **B** The dashboard reads Logility rather than HERO, so it only matches after the weekly export.
 - **C** Your entries were rejected. A successful upload always appears in the dashboard immediately.
 - **D ✓** Timing. The dashboard refreshes after backend processing, so it can lag your upload.
 
@@ -376,22 +376,22 @@
 - **C** Enrichment: enter a numeric zero. Base Trend Adjustment: set its Status to DECLINED.
 - **D ✓** Enrichment: set its Status to DECLINED. Base Trend Adjustment: enter a numeric zero.
 
-**Q8** · fingerprint `c285bbd77473` · correct **B** · rationale no · slides —
+**Q8** · fingerprint `af14b9a9ac85` · correct **B** · rationale no · slides —
 
-> You upload a Level 2.5 adjustment. Twenty minutes later it is still not visible at Level 1 or in the dashboard. What do you do?
+> You upload a Level 2.5 adjustment and the partner rows still show no change. What do you do?
 
-- **A** Upload the workbook again, since a change that has not appeared did not register.
-- **B ✓** Wait for the next fan-out run. Level 2.5 reaches Level 1 through that job, not on save.
-- **C** Re-enter the same adjustment at Level 1, so the number is right while 2.5 catches up.
-- **D** Raise it with the squad as a defect, since Level 2.5 and Level 1 should always agree instantly.
+- **A** Re-enter the same adjustment at Level 1, so the number is right while Level 2.5 catches up.
+- **B ✓** Wait for the next scheduled fan-out run for your market, then check the read-only Level 2.5 column in a fresh Level 1 template.
+- **C** Upload the workbook again, since a change that has not appeared did not register.
+- **D** Raise it with the squad as a defect, since Level 2.5 and Level 1 should always agree as soon as you save.
 
-**Q9** · fingerprint `56ef1ac1df6b` · correct **C** · rationale no · slides —
+**Q9** · fingerprint `6096a5c013ed` · correct **C** · rationale no · slides —
 
 > You uploaded an approved change on a Tuesday. When does it reach Logility?
 
 - **A** On upload. HERO writes to Logility as soon as a workbook passes validation.
-- **B** After the next fan-out, which is the job that pushes HERO's output into Logility.
-- **C ✓** On the weekly Friday export. Uploading holds the change in HERO until it runs.
+- **B** As soon as the fan-out completes, since that is the job that pushes HERO's output into Logility.
+- **C ✓** On the weekly scheduled export for your market. Uploading holds the change in HERO until it runs.
 - **D** Once the dashboard refresh completes, since publication follows the resolved surfaces.
 
 **Q10** · fingerprint `2fc112156d09` · correct **A** · rationale no · slides —
@@ -688,14 +688,14 @@
 - **C** Clear the cell so it is blank, which instructs HERO to remove the adjustment.
 - **D** Enter the same value with the opposite sign in the following week.
 
-**Q6** · fingerprint `b5a6eb550c49` · correct **C** · rationale yes · slides 8
+**Q6** · fingerprint `b460d56a2e84` · correct **C** · rationale yes · slides 8
 
 > A colleague changed UA1 directly in Logility inside the frozen window. What does HERO now know about that change?
 
 - **A** It is already in HERO. The frozen window exists precisely to keep UA1 aligned across the two systems.
 - **B** Nothing yet. It arrives the next time someone downloads a fresh template covering that scope.
 - **C ✓** Nothing, and no download or upload will bring it in. HERO does not read UA1 in any window.
-- **D** Nothing yet. HERO will overwrite the change on the next Friday export to Logility.
+- **D** Nothing yet. HERO will overwrite the change on the next weekly export to Logility.
 
 **Q7** · fingerprint `54f8650ecd6d` · correct **D** · rationale yes · slides 10, 13
 
@@ -802,13 +802,4 @@ Sheet columns (from `writeHeaders`; moduleId + attemptNumber are appended by eac
 
 ## Submissions per module (snapshot, informational — not part of the structural hash)
 
-_As of 2026-08-18 — total 194._
-
-| Module | Submissions |
-|---|---|
-| mod1 | 129 |
-| mod2 | 21 |
-| mod3 | 1 |
-| mod4 | 24 |
-| mod5 | 18 |
-| mod7 | 1 |
+_Live counts unavailable at generation time (offline or endpoint unreachable)._

@@ -101,7 +101,7 @@ const QUESTIONS = [
       A: 'It is already in HERO. The frozen window exists precisely to keep UA1 aligned across the two systems.',
       B: 'Nothing yet. It arrives the next time someone downloads a fresh template covering that scope.',
       C: 'Nothing, and no download or upload will bring it in. HERO does not read UA1 in any window.',
-      D: 'Nothing yet. HERO will overwrite the change on the next Friday export to Logility.'
+      D: 'Nothing yet. HERO will overwrite the change on the next weekly export to Logility.'
     },
     slideRefs: '8',
     rationale: 'Nothing. HERO suppresses UA1 in the frozen window so the edit is not overwritten, but it does not flow back into HERO, its templates, its dashboards, its attribution or its consensus logic. It appears inside HERO only when someone downloads and uploads a template covering that scope.',
