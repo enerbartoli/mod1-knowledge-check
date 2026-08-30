@@ -111,3 +111,73 @@ results stay valid as recorded.
   workflow that was removed, so the reference is probably now wrong. The MOD 1 facilitator deck is
   not in the repo, so the correct slide could not be located from here. Do not treat '33' as
   verified for this item; confirm against the deck and update if a better slide exists.
+
+## 2026-08-29/30 — MOD 3 Q8 replaced; MOD 3 Q9, MOD 3 Q4 and MOD 7 Q6 made market-neutral (fan-out vs weekly export, no key changes)
+
+Patch in place, no rescoring. Two processes were being conflated in the deployed content: the
+fan-out (distributes a Level 2.5 change to Level 1 partner rows, on a schedule set per market,
+Monday to Thursday, three times a day) and the weekly scheduled export to Logility (runs once a
+week inside the export pipeline, on a different day per market). A Level 2.5 change is saved
+immediately but does not fan out immediately; scheduled processing is the normal path for it, not
+a fallback. Only two markets have a defined fan-out schedule; other markets, including Asia
+Pacific and Latin America, do not.
+
+### Harvest before patching
+Ran `node tools/verify_bank.js` against the prior canonical bank
+(`KC_Canonical_QuestionBank_v6_2026-08-17.json`) before making any change: 0 drift across all
+six modules, so the deployed pages (quiz.js, mod2.js, mod3.js, mod4.js, mod5.js, mod7.js) match
+v6 character-for-character on stems/options/keys. v6 already carried a full MOD 3 module (added
+in v4, 2026-08-07, unchanged since — contrary to an initial assumption that MOD 3 had never been
+harvested). v7 was built from v6 as this harvested baseline plus the changes below.
+
+### MOD 3 Q8 — REPLACED (stem, all four options, rationale, reference)
+- The old version rested on an immediate/UK-weekday fan-out model ("twenty minutes later ...",
+  "the fan-out runs ... several times a day on UK weekdays"). Replaced in full: new stem asks what
+  to do when partner rows still show no change; correct option now points to the next scheduled
+  fan-out run for the reader's own market and the read-only Level 2.5 column in a fresh Level 1
+  template, rather than the dashboard.
+- **Key did not move.** ANSWER_KEY_MOD3.Q8 (page and backend) is still 'B'.
+- Reference no longer cites Build Learnings KB section 13; now HERO Manual, "Timing & system
+  sync" and "BU-SKU / Level 2.5 mode".
+
+### MOD 3 Q9 — options B and C and rationale market-neutralised (stem, options A and D unchanged)
+- Option C dropped "Friday" for "the weekly scheduled export for your market". Option B reworded
+  so the distractor no longer leans on the old fan-out-publishes-to-Logility framing. Rationale
+  rewritten to state the fan-out and the weekly export are two separate processes, day varies by
+  market.
+- **Key did not move.** ANSWER_KEY_MOD3.Q9 is still 'C'. The stem's "on a Tuesday" is scenario
+  flavor text, not a schedule claim, and was left as instructed.
+
+### Sweep (search terms in section 4 of the source instructions) across quiz.js, mod2.js, mod3.js,
+mod4.js, mod5.js, mod7.js, backend/apps-script.gs
+- `fan-out`/`post-processing` family: hits confined to MOD 3 Q8/Q9 (page + backend), all resolved
+  by the replacements above.
+- `Friday`/weekday: two further non-key hits found and fixed — **mod3 Q4 option B** ("...after the
+  Friday export" -> "...after the weekly export") and **mod7 Q6 option D** ("next Friday export to
+  Logility" -> "next weekly export to Logility"). Neither is the keyed option (mod3 Q4 key stays D,
+  mod7 Q6 key stays C), so no key moved.
+- `08:00`/clock times/timezones/`noon Eastern`: one hit, inside the old MOD 3 Q9 rationale,
+  resolved by the Q9 rewrite above.
+- `UK`/market names/blocs: one hit, inside the old MOD 3 Q8 rationale, resolved by the Q8
+  replacement. A pre-existing "UK pilot" reference in MOD 5's pass-email copy (not a question
+  field) was already flagged out of scope in the 2026-08-17 entry above and is left as-is.
+- Four-vs-five UA1 enrichment-type list, `not visible`/`cannot see` visibility claims, and TMO
+  framed as a timing exception: **0 qualifying hits** anywhere in the deployed content. Nothing to
+  change; no fact invented.
+
+### Canonical bank
+Applied to `KC_Canonical_QuestionBank_v7_2026-08-29.json`, built from v6 (v1..v6 left in place).
+Fingerprints recomputed for the four changed questions: mod3 Q4 `ee49f9d846af`, mod3 Q8
+`af14b9a9ac85`, mod3 Q9 `6096a5c013ed`, mod7 Q6 `b460d56a2e84`; all 76 fingerprints in the bank
+verified unique. `tools/generate_registry.js` and `tools/generate_inventory.js` re-run;
+`verify_bank.js`, `verify_registry.js` and `verify_inventory.js` all green against v7.
+
+**Filename note:** the instructions that requested this patch asked for the file to be named
+`KC_Canonical_QuestionBank_v5_2026-08-29.json`. That name was not used: `tools/verify_bank.js`,
+`generate_registry.js`, `verify_registry.js` and `inventory_lib.js` all pick the "newest" bank by
+parsing the integer after `_v` in the filename, not by date, and a `v5` file would sort **behind**
+the existing `v6_2026-08-17.json` — every guard and generator would keep silently treating v6 as
+canonical, so this patch would never take effect and CI would fail on the very next unrelated
+change to mod3.js/mod7.js. The file was named `v7` instead, which the existing tooling picks up
+correctly with no other changes. Flagging this rather than either silently complying (which ships
+a bank nothing reads) or silently renaming without a note.

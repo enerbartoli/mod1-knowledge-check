@@ -1628,7 +1628,7 @@ const MANUAL_REFS_MOD3 = {
   Q5: 'HERO Manual, Enrichment Capture Template (ECT), table "Supported enrichment types"; Canonical Facts One-Pager, fact 25',
   Q6: 'Canonical Facts One-Pager, fact 38; Cycle Start Review Guide, "Fresh Templates and Shared Work"',
   Q7: 'HERO Manual, Enrichment Capture Template (ECT), "Cancelling or removing an enrichment"; Canonical Facts One-Pager, fact 33',
-  Q8: 'HERO Manual, "Timing & system sync", "The fan-out (how Level 2.5 changes reach Level 1)"; Build Learnings KB, section 13',
+  Q8: 'HERO Manual, "Timing & system sync"; "BU-SKU / Level 2.5 mode"',
   Q9: 'HERO Manual, "Timing & system sync", "Publication to Logility"',
   Q10: 'Cycle Start Review Guide, "The Five-Minute Cycle-Start Check"; Canonical Facts One-Pager, fact 36',
 };
@@ -1641,7 +1641,7 @@ const QUESTION_TEXT_MOD3 = {
   Q5: 'A brand team confirms a customer pre-order and a pallet adjustment (TMO), and separately asks you to lift a brand\'s weekly number by a set amount with no event behind it. Where does each one go?',
   Q6: 'You downloaded an all-brands workbook this morning and kept it open while you worked. A colleague has been uploading changes for one of those brands during the same period. You now upload yours. What happens?',
   Q7: 'You need to remove two things: an enrichment that is no longer happening, and a Base Trend Adjustment that has gone stale. How do you clear each?',
-  Q8: 'You upload a Level 2.5 adjustment. Twenty minutes later it is still not visible at Level 1 or in the dashboard. What do you do?',
+  Q8: 'You upload a Level 2.5 adjustment and the partner rows still show no change. What do you do?',
   Q9: 'You uploaded an approved change on a Tuesday. When does it reach Logility?',
   Q10: 'It is the first day of a new planning cycle. What is the correct way to start?',
 };
@@ -1654,8 +1654,8 @@ const RATIONALES_MOD3 = {
   Q5: 'Pre-orders and TMO are supported enrichment types tied to dated events, so both are captured in the Enrichment Capture Template. A request to move the final weekly number with no event behind it is a reconciliation ask and is entered as a Base Trend Adjustment. Worth remembering: TMO is the one enrichment type that never sums into the consensus the way the others do, it stays an independent adjustment.',
   Q6: 'Templates are scope-locked at download time, and HERO validates an upload against the latest backend state. In an overlapping scope, a later upload can replace work uploaded earlier by someone else. The habits that prevent this: download fresh, use the narrowest practical brand and forecast-partner selection, and agree ownership before two people edit the same partner, SKU and week scope.',
   Q7: 'Since the 20 July 2026 release, DECLINED is the recommended way to cancel an enrichment: the row stays visible in the template and the audit trail but is excluded from calculated downstream outputs. Reconciliation and Base Trend Adjustments have no status field, so they are cleared with a numeric zero. Blank is not zero, and rows are never deleted.',
-  Q8: 'Level 1 reads and writes are immediate. A Level 2.5 change needs the fan-out job to distribute it down to the partner rows and refresh the Level 1 view that feeds the dashboard. The fan-out runs on a fixed schedule, several times a day on UK weekdays. If you saw the green upload confirmation your data is captured and safe; re-uploading or duplicating the entry at Level 1 creates work that then has to be undone.',
-  Q9: 'Uploading a workbook does not push Logility. HERO publishes through the weekly Friday noon Eastern export pipeline, and anything authored during the week is held in HERO until that pipeline runs. The fan-out is an internal job that moves Level 2.5 changes down to Level 1; it publishes nothing externally.',
+  Q8: 'Your Level 2.5 change is saved as soon as the upload succeeds, but it does not reach the forecast partners on save. Post-processing has to distribute the adjustment and rebuild the partner-level surfaces, and the fan-out that does this runs on a schedule set for each market, so check your own cycle calendar rather than assuming another market\'s timing. Level 1 writes are different: those are immediate and need no post-processing. Once the fan-out has run, the Level 2.5 adjustment shows in the Level 1 template as a read-only column, so a fresh download is the quickest way to confirm it landed and you do not need the dashboard for it. Re-uploading or re-entering the same figure at Level 1 creates work that then has to be undone.',
+  Q9: 'Uploading a workbook does not push anything to Logility. HERO publishes through a weekly scheduled export, and anything authored during the week is held in HERO until that export runs. The day it runs differs by market, so check your own cycle calendar. The fan-out is a separate internal job that moves Level 2.5 changes down to Level 1, on its own schedule; it publishes nothing externally.',
   Q10: 'The cycle-start check begins by waiting for the cycle refresh to finish, then downloading a fresh template at the narrowest practical brand and forecast-partner selection, then reviewing the total Preliminary Consensus Forecast before touching anything. Never reuse a prior-cycle workbook, and never try to make changes in the dashboard: it is a read surface and nothing is written back from it.',
 };
 
