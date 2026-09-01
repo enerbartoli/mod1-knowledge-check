@@ -360,22 +360,48 @@ async function submitQuiz() {
   submitBtn.innerHTML = '<span class="spinner"></span> Submitting…';
   hide($('submit-error'));
 
-  // The score is computed by the Apps Script and read back from its response. Content-Type
-  // text/plain keeps this a simple request, so there is no preflight. If the response cannot
-  // be read for any reason the submission has still been recorded, so we acknowledge it and
-  // send the participant to their email rather than showing a score we do not have.
+  // The score is computed by the Apps Script and read back from its response.
+  // Content-Type text/plain keeps this a simple request, so there is no preflight.
+  //
+  // A result is accepted ONLY when the server actually returns a score. Anything else is
+  // a submission that did not land: no sheet row, no email. The most likely such case is
+  // the window between this page going live and the Apps Script being redeployed with the
+  // speedN handlers — until then doPost falls through to the MOD 1 flow, which rejects a
+  // ten-answer payload and returns {error} rather than a score. Treating that as success
+  // would show a pass screen for a submission that was never recorded and, because
+  // goResults() clears the saved state, would throw the participant's answers away too.
   let result = null;
+  let failure = null;
   try {
-    const res = await fetch(APPS_SCRIPT_URL, {
+    const res  = await fetch(APPS_SCRIPT_URL, {
       method:  'POST',
       headers: { 'Content-Type': 'text/plain' },
       body:    JSON.stringify(payload)
     });
     const data = await res.json();
     if (data && typeof data.score === 'number') result = data;
-    else if (data && data.error) throw new Error(data.error);
+    else failure = (data && data.error) ? data.error : 'The scoring service did not return a result.';
   } catch (err) {
-    console.warn('Could not read the scored response:', err);
+    failure = err.message;
+  }
+
+  if (!result) {
+    // Stay on this screen, keep the saved state, and say so plainly. Nothing is cleared,
+    // so the answers survive a refresh and the participant can retry without redoing the
+    // quiz. Retrying after a successful-but-unreadable write would add a second attempt
+    // row, which is visible and harmless; a false pass or lost answers would not be.
+    console.warn('Submission was not recorded:', failure);
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit Answers';
+    const errEl = $('submit-error');
+    if (errEl) {
+      errEl.textContent = 'We could not record your answers just yet. Nothing has been lost — your answers are '
+        + 'saved on this device, so you can close this page and come back to it. Please try again in a few '
+        + 'minutes, and tell the Demand Planning team if it keeps happening.';
+      show(errEl);
+    }
+    saveState();
+    return;
   }
 
   try {
@@ -391,20 +417,8 @@ async function submitQuiz() {
 
 // ── Results ───────────────────────────────────────────────────────────────
 function renderResults(data) {
-  // data is null when the submission was sent but the scored response could not be read.
-  if (!data) {
-    $('result-score').textContent = '✓';
-    $('result-score').className   = 'score-number pass';
-    $('result-pct').textContent   = 'Recorded';
-    const b = $('result-badge');
-    b.textContent = 'SUBMITTED';
-    b.className   = 'pass-badge pass';
-    $('result-message').textContent =
-      'Your answers have been recorded. Your score and any questions to review are on their way to your email.';
-    $('missed-section').classList.add('hidden');
-    return;
-  }
-
+  // Only ever called with a server-scored result — submitQuiz() does not navigate here
+  // otherwise, so there is no "submitted, score unknown" state to render.
   const { score, total, percent, pass, failed_questions } = data;
   const pctDisplay = Math.round(percent);
 
@@ -658,14 +672,18 @@ function renderDash() {
   renderHistogram();
   renderHeatmap();
   renderTable();
-  renderPassRateByRole(dashFiltered);
-  renderFirstAttemptPassRate(dashFiltered);
-  renderAttemptsToPAss(dashFiltered);
+  // Main-programme panels see main-track rows only; the Speed section below sees
+  // Speed rows only. Neither track's figures can absorb the other's submissions.
+  const mainRows = HERO_TRACK.main(dashFiltered);
+  renderPassRateByRole(mainRows);
+  renderFirstAttemptPassRate(mainRows);
+  renderAttemptsToPAss(mainRows);
   renderPendingUsers();
+  if (window.HERO_SPEED_DASH) HERO_SPEED_DASH.render(dashFiltered);
 }
 
 function renderKPIs() {
-  const rows     = dashFiltered;
+  const rows     = HERO_TRACK.main(dashFiltered);
   const total    = rows.length;
   const passes   = rows.filter(r => r.status === 'Pass').length;
   const fails    = total - passes;
@@ -691,7 +709,7 @@ function renderKPIs() {
 function renderDonut() {
   const canvas = $('chart-donut');
   const ctx    = canvas.getContext('2d');
-  const rows   = dashFiltered;
+  const rows   = HERO_TRACK.main(dashFiltered);
   const passes = rows.filter(r => r.status === 'Pass').length;
   const fails  = rows.length - passes;
   const total  = rows.length || 1;
@@ -726,7 +744,7 @@ function renderDonut() {
 function renderHistogram() {
   const canvas = $('chart-hist');
   const ctx    = canvas.getContext('2d');
-  const rows   = dashFiltered;
+  const rows   = HERO_TRACK.main(dashFiltered);
 
   const modPassThreshold = Object.fromEntries((window.HERO_MODULES || []).map(function(m){ return [m.id, m.pass]; }));
   const passes = rows.filter(r => {
@@ -830,7 +848,7 @@ function renderHistogram() {
 }
 
 function renderHeatmap() {
-  const rows = dashFiltered;
+  const rows = HERO_TRACK.main(dashFiltered);
   if (!rows.length) { $('dash-heatmap').innerHTML = '<p class="muted" style="font-size:13px;">No data.</p>'; return; }
 
   const modIds = [...new Set(rows.map(r => r.module || 'mod1'))].sort();
@@ -897,7 +915,7 @@ function runLookup() {
 }
 
 function renderTable() {
-  const rows = dashFiltered;
+  const rows = HERO_TRACK.main(dashFiltered);
   $('dash-count').textContent = rows.length + ' record(s)';
 
   if (!rows.length) {
@@ -1165,7 +1183,9 @@ function closeDrillDown(event) {
 
 
 // ── Pending users ────────────────────────────────────────────────────────
-let pendingActiveModules = new Set((window.HERO_MODULES || []).map(function(m){ return m.id; }));
+// Main programme only — the reminder tool covers the seven-module programme, and
+// mixing Speed sessions in would change what its headline counts mean.
+let pendingActiveModules = new Set(HERO_TRACK.mainModules().map(function(m){ return m.id; }));
 let pendingViewType = 'never'; // 'never' | 'failed'
 
 function computePendingBuckets() {
@@ -1204,7 +1224,7 @@ function computePendingBuckets() {
 }
 
 function renderPendingUsers() {
-  const allMods   = (window.HERO_MODULES || []).map(function(m){ return m.id; });
+  const allMods   = HERO_TRACK.mainModules().map(function(m){ return m.id; });
   const modLabels = Object.fromEntries((window.HERO_MODULES || []).map(function(m){ return [m.id, m.short]; }));
 
   const { neverAttempted, failedOnly } = computePendingBuckets();
