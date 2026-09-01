@@ -4,6 +4,11 @@ name: verify-question-bank
 # stops matching the canonical question bank. Runs on every push and PR, so a
 # brand-new module is checked on its first commit — it is compared against the
 # absolute canonical bank, never against the previous state.
+#
+# The path filters must name every quiz page file, or a new module's first commit
+# skips CI entirely and the fail-closed design buys nothing. They cover both tracks:
+# quiz.js + mod*.js/mod*.html (main programme) and speed*.js/speed*.html (Speed
+# Training). Add the new pattern here whenever a track is added.
 
 on:
   push:
@@ -11,7 +16,10 @@ on:
     paths:
       - 'quiz.js'
       - 'mod*.js'
+      - 'speed*.js'
       - 'index.html'
+      - 'mod*.html'
+      - 'speed*.html'
       - 'modules.js'
       - 'dashboard-data.js'
       - 'backend/apps-script.gs'
@@ -23,7 +31,10 @@ on:
     paths:
       - 'quiz.js'
       - 'mod*.js'
+      - 'speed*.js'
       - 'index.html'
+      - 'mod*.html'
+      - 'speed*.html'
       - 'modules.js'
       - 'dashboard-data.js'
       - 'backend/apps-script.gs'
