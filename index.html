@@ -325,6 +325,14 @@
         <div id="dash-heatmap"></div>
       </div>
 
+      <!-- Speed Training track — rendered by dashboard-speed.js, kept separate from
+           the main-programme panels above so neither track's figures include the other -->
+      <div class="card" style="padding:20px 24px;border-left:3px solid var(--teal);">
+        <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--teal);margin-bottom:4px;">Speed Training</p>
+        <p class="muted" style="font-size:12px;margin-bottom:16px;">Four-session accelerated course. Separate from the seven-module main programme; none of the figures above include these submissions.</p>
+        <div id="dash-speed"></div>
+      </div>
+
       <!-- Email lookup -->
       <div class="card" style="padding:20px 24px;">
         <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gray-muted);margin-bottom:14px;">Look up participant</p>
@@ -398,6 +406,7 @@
 
 <script src="modules.js"></script>
 <script src="dashboard-data.js"></script>
+<script src="dashboard-speed.js"></script>
 <script src="quiz.js"></script>
 <script src="vendor/xlsx-js-style.bundle.js"></script>
 <script src="dashboard-export.js"></script>

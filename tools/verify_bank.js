@@ -40,10 +40,15 @@ function fingerprint(text, opts) {
   return crypto.createHash('sha1').update(norm(base)).digest('hex').slice(0, 12);
 }
 
-// Map module_id -> deployed page JS file. mod1 lives in quiz.js; others in <id>.js.
+// Map module_id -> deployed page JS file. mod1 lives in quiz.js; others in <id>.js
+// (modN.js for the main programme, speedN.js for the Speed Training track).
 function pageFileFor(moduleId) {
   return moduleId === 'mod1' ? 'quiz.js' : `${moduleId}.js`;
 }
+// Page files this guard knows how to find. A module whose file does not match one of
+// these is silently skipped by discoverPages(), which is how a new module could ship
+// with no guard coverage — so extend this when a new track is added.
+const PAGE_FILE_RE = /^(mod|speed)\d+\.js$/;
 
 // Extract a balanced [] or {} literal that follows `const <NAME>`.
 function extractLiteral(src, declName, open, close) {
@@ -81,7 +86,7 @@ function extractPage(file) {
 
 // Which quiz page files actually exist in the repo?
 function discoverPages() {
-  const files = fs.readdirSync(REPO).filter(f => /^mod\d+\.js$/.test(f) || f === 'quiz.js');
+  const files = fs.readdirSync(REPO).filter(f => PAGE_FILE_RE.test(f) || f === 'quiz.js');
   const map = {}; // module_id -> file
   for (const f of files) {
     const id = f === 'quiz.js' ? 'mod1' : f.replace(/\.js$/, '');

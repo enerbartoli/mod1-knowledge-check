@@ -641,14 +641,18 @@ function renderDash() {
   renderHistogram();
   renderHeatmap();
   renderTable();
-  renderPassRateByRole(dashFiltered);
-  renderFirstAttemptPassRate(dashFiltered);
-  renderAttemptsToPAss(dashFiltered);
+  // Main-programme panels see main-track rows only; the Speed section below sees
+  // Speed rows only. Neither track's figures can absorb the other's submissions.
+  const mainRows = HERO_TRACK.main(dashFiltered);
+  renderPassRateByRole(mainRows);
+  renderFirstAttemptPassRate(mainRows);
+  renderAttemptsToPAss(mainRows);
   renderPendingUsers();
+  if (window.HERO_SPEED_DASH) HERO_SPEED_DASH.render(dashFiltered);
 }
 
 function renderKPIs() {
-  const rows     = dashFiltered;
+  const rows     = HERO_TRACK.main(dashFiltered);
   const total    = rows.length;
   const passes   = rows.filter(r => r.status === 'Pass').length;
   const fails    = total - passes;
@@ -674,7 +678,7 @@ function renderKPIs() {
 function renderDonut() {
   const canvas = $('chart-donut');
   const ctx    = canvas.getContext('2d');
-  const rows   = dashFiltered;
+  const rows   = HERO_TRACK.main(dashFiltered);
   const passes = rows.filter(r => r.status === 'Pass').length;
   const fails  = rows.length - passes;
   const total  = rows.length || 1;
@@ -709,7 +713,7 @@ function renderDonut() {
 function renderHistogram() {
   const canvas = $('chart-hist');
   const ctx    = canvas.getContext('2d');
-  const rows   = dashFiltered;
+  const rows   = HERO_TRACK.main(dashFiltered);
 
   const modPassThreshold = Object.fromEntries((window.HERO_MODULES || []).map(function(m){ return [m.id, m.pass]; }));
   const passes = rows.filter(r => {
@@ -813,7 +817,7 @@ function renderHistogram() {
 }
 
 function renderHeatmap() {
-  const rows = dashFiltered;
+  const rows = HERO_TRACK.main(dashFiltered);
   if (!rows.length) { $('dash-heatmap').innerHTML = '<p class="muted" style="font-size:13px;">No data.</p>'; return; }
 
   const modIds = [...new Set(rows.map(r => r.module || 'mod1'))].sort();
@@ -880,7 +884,7 @@ function runLookup() {
 }
 
 function renderTable() {
-  const rows = dashFiltered;
+  const rows = HERO_TRACK.main(dashFiltered);
   $('dash-count').textContent = rows.length + ' record(s)';
 
   if (!rows.length) {
@@ -1148,7 +1152,9 @@ function closeDrillDown(event) {
 
 
 // ── Pending users ────────────────────────────────────────────────────────
-let pendingActiveModules = new Set((window.HERO_MODULES || []).map(function(m){ return m.id; }));
+// Main programme only — the reminder tool covers the seven-module programme, and
+// mixing Speed sessions in would change what its headline counts mean.
+let pendingActiveModules = new Set(HERO_TRACK.mainModules().map(function(m){ return m.id; }));
 let pendingViewType = 'never'; // 'never' | 'failed'
 
 function computePendingBuckets() {
@@ -1187,7 +1193,7 @@ function computePendingBuckets() {
 }
 
 function renderPendingUsers() {
-  const allMods   = (window.HERO_MODULES || []).map(function(m){ return m.id; });
+  const allMods   = HERO_TRACK.mainModules().map(function(m){ return m.id; });
   const modLabels = Object.fromEntries((window.HERO_MODULES || []).map(function(m){ return [m.id, m.short]; }));
 
   const { neverAttempted, failedOnly } = computePendingBuckets();

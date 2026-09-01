@@ -1,163 +1,137 @@
 'use strict';
 
-// ── Config ────────────────────────────────────────────────────────────────────
+// ── Config ───────────────────────────────────────────────────────────────────
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZLIenD2Ef1-B5BSzFDsrFDNezDM_jWuT9JrmYdQTv4wSzswFOxJgyp67Y6z24-r_mOw/exec';
 
 const PASS_THRESHOLD    = 8;  // ≥8/10 = pass
 const TOTAL_QUESTIONS   = 10;
-const LS_KEY            = 'mod4_quiz_state';
+const LS_KEY            = 'speed1_quiz_state';
 
-const ANSWER_KEY = {
-  Q1:'B', Q2:'C', Q3:'A', Q4:'A', Q5:'A',
-  Q6:'B', Q7:'A', Q8:'C', Q9:'B', Q10:'D'
-};
+// No answer key, no correct letters and no rationales live in this file. The quiz is
+// scored server-side in backend/apps-script.gs (ANSWER_KEY_SPEED1) and the score comes
+// back in the POST response, so nothing a participant can read reveals an answer.
 
-function scoreAnswers(answers) {
-  let score = 0;
-  const failedQNums = [];
-  for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
-    const key = 'Q' + i;
-    if ((answers[key] || '').toUpperCase() === ANSWER_KEY[key]) {
-      score++;
-    } else {
-      failedQNums.push(i);
-    }
-  }
-  const percent = Math.round((score / TOTAL_QUESTIONS) * 10000) / 100;
-  return { score, total: TOTAL_QUESTIONS, percent, pass: score >= PASS_THRESHOLD, failed_questions: failedQNums };
-}
-
-// ── Question Bank ─────────────────────────────────────────────────────────────
+// ── Question Bank ───────────────────────────────────────────────────────
 const QUESTIONS = [
   {
     id: 1,
-    text: 'Why do DI, FAN, and Amazon need to be discussed as a separate group in MOD 4?',
+    text: 'Which statement describes how the consensus forecast is built?',
     options: {
-      A: 'They are the three customer segments that contribute the highest revenue in the market.',
-      B: 'Their historical demand behaves erratically — discontinuous and opportunistic — so a history-based statistical model cannot predict it adequately, and each one needs a tailored handling approach.',
-      C: 'They are the three account groups that are out of scope for the current deployment.',
-      D: 'They are the only customer groups with a dedicated Key Account Manager assigned to them.'
+      A: 'The statistical baseline is replaced by the commercial view each cycle',
+      B: 'The baseline and the enrichment layer are added together',
+      C: 'Each team submits a forecast and the average of them is taken',
+      D: 'Marketing sets the total and Demand Planning splits it to accounts'
     },
-    slideRefs: '5',
-    rationale: 'The three are not grouped by revenue, scope, or coverage. They are grouped because their demand history is erratic, discontinuous, and opportunistic — DI is program-driven, FAN is event-driven, Amazon has highly irregular ordering rhythm — which is exactly what a history-based statistical baseline cannot project well.',
-    section: 'DI, FAN & Amazon'
+    slideRefs: 'Speed Training Session 1 · The equation',
+    section: 'The equation'
   },
   {
     id: 2,
-    text: 'In a market where DI is not forecast statistically, who owns the DI number and how is it built?',
+    text: 'Which of these does Hasbro Demand Planning own in the operating model?',
     options: {
-      A: 'Daybreak generates the baseline; the KAM reviews and adjusts using the standard enrichment flow.',
-      B: 'Demand Planning builds the DI number from statistical extrapolation; the KAM validates.',
-      C: 'The KAM owns the number and builds it partner-by-partner from account knowledge — committed programs, signed orders, customer plans.',
-      D: 'The regional category team owns it; the KAM validates timing only.'
+      A: 'Running the statistical engine that produces the baseline',
+      B: 'Building the launch curve for every new product',
+      C: 'Governance, planning parameters and final sign-off',
+      D: 'Entering commercial events for each account'
     },
-    slideRefs: '6',
-    rationale: 'Where DI sits outside the statistical model there is no Daybreak baseline. The KAM builds the forecast bottom-up by Forecasting Partner using account knowledge, meaning committed programs, signed orders and customer plans, not statistical extrapolation. DP facilitates but the account team carries the build.',
-    section: 'Direct Import (DI)'
+    slideRefs: 'Speed Training Session 1 · Who owns what',
+    section: 'Who owns what'
   },
   {
     id: 3,
-    text: 'For FAN items, which team builds the forecast volume, and what does the KAM do?',
+    text: 'A colleague says the new process will change their numbers for the next two months. What is the accurate response?',
     options: {
-      A: 'The regional category team allocates volumes per client based on the launch plan; the KAM validates timing and feasibility at their account but does not re-cut the volume.',
-      B: 'The KAM builds the forecast bottom-up partner-by-partner, the same way DI is built.',
-      C: 'Daybreak builds the baseline; the KAM enriches as needed.',
-      D: 'Marketing owns the number; KAMs are not involved.'
+      A: 'It will, because the statistical baseline replaces the current numbers from the first cycle onwards',
+      B: 'It will, but only for accounts that already sit in the Forecasting Range',
+      C: 'It will not, because the tool cannot write to the near horizon at all',
+      D: 'It will not; the near months are already committed'
     },
-    slideRefs: '7',
-    rationale: 'FAN volume sits with the team that owns the moment — the regional category team. KAMs validate timing and feasibility at their account but do not re-cut the FAN number.',
-    section: 'FAN Items'
+    slideRefs: 'Speed Training Session 1 · Two horizons',
+    section: 'Two horizons'
   },
   {
     id: 4,
-    text: 'Two markets treat Direct Import (DI) differently. One has agreed not to forecast it statistically, so Daybreak produces no baseline for it. The other forecasts it statistically. Where does the full forecast volume land in the Reconciliation Template in each case?',
+    text: 'An account is showing volume for an item it has never stocked. Where do you look first?',
     options: {
-      A: 'No baseline: the full volume as Base Trend at Level 1. With a baseline: adjustments layered on the statistical baseline.',
-      B: 'Both: the full volume as Base Trend at Level 1, since DI always sits outside the statistical model wherever it is planned.',
-      C: 'Both: adjustments layered on the resultant, since every segment carries a baseline once the cycle opens.',
-      D: 'No baseline: the full volume as Base Trend at Level 2.5. With a baseline: the full volume as Base Trend at Level 1.'
+      A: 'The Forecasting Range, which sets who is eligible for volume',
+      B: 'The enrichment rows loaded against that account this cycle',
+      C: 'The item\'s lifecycle status and whether it has graduated',
+      D: 'The base trend adjustment entered by the account owner last cycle'
     },
-    slideRefs: '6, 7',
-    rationale: 'What decides this is not the channel or the item class, it is whether the market agreed to forecast that segment statistically. Where there is no Daybreak baseline, the full volume enters as Base Trend at Level 1, and the Level 1 lock is essentially all Base Trend with no statistical signal to challenge against. Where there is a baseline, the segment behaves like any other: the resultant is the starting point and the team layers enrichments and Base Trend on top. The resultant itself is never overwritten in either case.',
-    section: 'Reconciliation Template'
+    slideRefs: 'Speed Training Session 1 · Eligibility',
+    section: 'Eligibility'
   },
   {
     id: 5,
-    text: 'Which statement correctly describes the Evergreen designation?',
+    text: 'What is a Level 2.5 Baseline Pre-Adjustment?',
     options: {
-      A: 'Sales Operations designates items as Evergreen; they then sit on a Daybreak baseline.',
-      B: 'Any item with 12 months of stable shipping history is automatically designated Evergreen by Demand Planning.',
-      C: 'The Key Account Manager nominates Evergreen items at cycle start, and Demand Planning confirms the list.',
-      D: 'Evergreen is a single-market exception that does not apply anywhere else in the program.'
+      A: 'An enrichment entered at account level and then rolled up to the item',
+      B: 'A change to the statistical model used for that item this cycle',
+      C: 'A correction to the item total, made before it is split to accounts',
+      D: 'A request asking the executive sign-off meeting to overrule the commercial number'
     },
-    slideRefs: '6',
-    rationale: 'Sales Operations owns the Evergreen designation. Not the Key Account Manager, not Demand Planning, not the brand team. Once an item is designated, it stops being built bottom-up and sits on a Daybreak baseline that the KAM enriches on top, like any Carry-Forward item. The designation is not automatic and it is not a market-specific quirk: what varies by market is which segments start outside the statistical model in the first place.',
-    section: 'Direct Import (DI)'
+    slideRefs: 'Speed Training Session 1 · Level 2.5 Baseline Pre-Adjustment',
+    section: 'Level 2.5 Baseline Pre-Adjustment'
   },
   {
     id: 6,
-    text: 'Why are FAN items deliberately handled outside the Daybreak baseline?',
+    text: 'You have lost distribution at one account and expect lower volume from now on. How is that recorded?',
     options: {
-      A: 'FAN items have insufficient shipment history for the statistical engine to process them.',
-      B: 'FAN demand is tied to one-off cultural moments (franchise releases, film tie-ins, time-limited campaigns) with no reliable repeat pattern — keeping them out of the baseline protects the statistical engine for standard CF items.',
-      C: 'FAN volume is too small to justify the model\'s run-time.',
-      D: 'FAN items are excluded by Daybreak\'s licensing terms.'
+      A: 'As an enrichment, dated to each of the weeks the lost distribution affects',
+      B: 'As a note to Demand Planning, with nothing entered in the system',
+      C: 'As a change to the baseline itself, made by the account owner',
+      D: 'As a base trend adjustment, since the level itself has shifted'
     },
-    slideRefs: '7',
-    rationale: 'FAN history contains one-off spikes (franchise releases, film tie-ins, time-limited campaigns) that would create false signals downstream and pollute the baseline for standard CF items. The exception is deliberate.',
-    section: 'FAN Items'
+    slideRefs: 'Speed Training Session 1 · Enrichment or base trend',
+    section: 'Enrichment or base trend'
   },
   {
     id: 7,
-    text: 'How is Amazon treated when a market first goes live on the process?',
+    text: 'During the commercial alignment session Demand Planning challenges a number and the commercial team stands behind it. What happens?',
     options: {
-      A: 'As a standard customer — Daybreak generates the brand-level baseline, statistical disaggregation assigns Amazon\'s share, and the Amazon KAM reviews and adjusts using the standard Enrichment and Base Trend tools.',
-      B: 'Bottom-up by KAM, with no baseline — the same as DI.',
-      C: 'Bottom-up by the regional category team — the same as FAN.',
-      D: 'Outside scope at launch; Amazon joins once the first cycle has closed.'
+      A: 'Demand Planning applies its own number, since it owns the forecast',
+      B: 'The number carries forward as the commercial team stated it',
+      C: 'The item is removed from the cycle until the two sides agree',
+      D: 'The disagreement is recorded and the baseline is used instead'
     },
-    slideRefs: '8',
-    rationale: 'At launch, Amazon is deliberately treated as a standard customer so the team learns the standard flow first. Daybreak generates the baseline; statistical disaggregation assigns Amazon\'s share; the Amazon KAM reviews and adjusts.',
-    section: 'Amazon'
+    slideRefs: 'Speed Training Session 1 · Ownership at commercial alignment',
+    section: 'Ownership at commercial alignment'
   },
   {
     id: 8,
-    text: 'Across DI, FAN, and Amazon, what is Demand Planning\'s role?',
+    text: 'A supply constraint has eased and you can now serve more volume inside the frozen period. What does the policy allow?',
     options: {
-      A: 'Demand Planning owns the forecast number for all three patterns end-to-end.',
-      B: 'Demand Planning is not involved; the KAM or the category team owns the volume on its own.',
-      C: 'Demand Planning facilitates and challenges but does not own the volume — the KAM carries the build for DI and Amazon; the regional category team owns the volume for FAN.',
-      D: 'Demand Planning owns DI and FAN; the KAM owns Amazon.'
+      A: 'Nothing; the period is locked and cannot be changed for any reason',
+      B: 'Any change, as long as the market total for the month does not move',
+      C: 'A documented change where there is a genuine supply reason',
+      D: 'A change only if the executive sign-off meeting is reconvened'
     },
-    slideRefs: '6, 7, 8',
-    rationale: 'In all three models DP plays the same role, facilitate and challenge. DP does not carry the build. DI is built bottom-up by the KAM partner-by-partner. FAN volume is owned by the regional category team. Amazon, under the launch treatment, is owned by the Amazon KAM in the standard Session 2 flow.',
-    section: 'Demand Planning Role'
+    slideRefs: 'Speed Training Session 1 · The frozen period',
+    section: 'The frozen period'
   },
   {
     id: 9,
-    text: 'A Key Account Manager (KAM) is reviewing an account in a segment the market has agreed not to forecast statistically, so its items are built bottom-up. One item has shipped a stable, repeating pattern for 18 months, and the KAM wants it to start from a Daybreak baseline instead. What should happen?',
+    text: 'You think the eligibility setup for one of your accounts is wrong. What do you do?',
     options: {
-      A: 'The KAM flags it directly in HERO as Evergreen, and the Daybreak baseline applies from the next cycle onward.',
-      B: 'Sales Operations owns the designation. Until the item is designated, it stays in the bottom-up flow.',
-      C: 'Demand Planning re-classifies the item as Carry-Forward and applies the standard Carry-Forward flow.',
-      D: 'The item is converted to Carry-Forward at Level 2.5 and the new treatment is locked in there.'
+      A: 'Correct the setup yourself before the cycle closes',
+      B: 'Enter an enrichment large enough to cancel the unwanted volume',
+      C: 'Contact the system vendor directly and ask them to change the record for you',
+      D: 'Raise it; eligibility is master data and you do not change it'
     },
-    slideRefs: '6',
-    rationale: 'Evergreen designation is owned by Sales Operations, not by the KAM, Demand Planning, or the brand team. Until Sales Operations designates the item Evergreen, it stays in the bottom-up flow.',
-    section: 'Direct Import (DI)'
+    slideRefs: 'Speed Training Session 1 · Where a question goes',
+    section: 'Where a question goes'
   },
   {
     id: 10,
-    text: 'A KAM at FP-2 receives a FAN allocation from the regional category team for a franchise release in week 30. The KAM believes the allocation is too high for their account and wants to adjust it down. What is the correct action?',
+    text: 'You agree a promotion in March that will run in October. When should it be captured?',
     options: {
-      A: 'Re-cut the FAN volume to match the KAM\'s account view and submit the revised number.',
-      B: 'Drop the FAN volume to zero for the account and capture the rest as Enrichment.',
-      C: 'Push the allocation back to Demand Planning and ask DP to reset the baseline.',
-      D: 'Validate timing and feasibility at the account, raise the magnitude concern back to the regional category team (the volume owner), and do not unilaterally re-cut the FAN number.'
+      A: 'In the cycle that opens closest to October, so the dates are certain',
+      B: 'Now, and confirmed or adjusted in each cycle until it runs',
+      C: 'Only after the funding for it has been formally approved',
+      D: 'At the start of the next planning year, with all other events'
     },
-    slideRefs: '7',
-    rationale: 'For FAN, the regional category team owns the number. KAMs validate timing and feasibility but do not re-cut. Magnitude concerns route back to the volume owner, not to DP or the baseline.',
-    section: 'FAN Items'
+    slideRefs: 'Speed Training Session 1 · Capture is continuous',
+    section: 'Capture is continuous'
   }
 ];
 
@@ -168,10 +142,11 @@ const ROLES = [
   'Finance',
   'Supply Chain',
   'Brand Captain',
+  'Change Agent / Pilot POC',
   'Other'
 ];
 
-// ── State ──────────────────────────────────────────────────────────────────────
+// ── State ───────────────────────────────────────────────────────────────────
 let state = {
   screen: 'welcome',
   questionIndex: 0,
@@ -181,7 +156,7 @@ let state = {
   submitError: null
 };
 
-// ── Persistence ────────────────────────────────────────────────────────────────
+// ── Persistence ────────────────────────────────────────────────────────────
 function saveState() {
   try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (_) {}
 }
@@ -199,7 +174,7 @@ function clearState() {
   try { localStorage.removeItem(LS_KEY); } catch (_) {}
 }
 
-// ── DOM helpers ────────────────────────────────────────────────────────────────
+// ── DOM helpers ───────────────────────────────────────────────────────────
 const $ = id => document.getElementById(id);
 const show = el => el && el.classList.remove('hidden');
 const hide = el => el && el.classList.add('hidden');
@@ -211,7 +186,7 @@ function setScreen(name) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ── Navigation ─────────────────────────────────────────────────────────────────
+// ── Navigation ─────────────────────────────────────────────────────────────
 function goWelcome() { state.screen = 'welcome'; setScreen('welcome'); }
 function goIdentity() { state.screen = 'identity'; setScreen('identity'); saveState(); }
 function goQuestion(index) {
@@ -230,7 +205,7 @@ function goResults(results) {
   clearState();
 }
 
-// ── Welcome ────────────────────────────────────────────────────────────────────
+// ── Welcome ───────────────────────────────────────────────────────────────
 function initWelcome() {
   $('btn-start').addEventListener('click', () => {
     const sel = $('module-select');
@@ -248,7 +223,7 @@ function initWelcome() {
   });
 }
 
-// ── Identity ───────────────────────────────────────────────────────────────────
+// ── Identity ────────────────────────────────────────────────────────────
 function initIdentity() {
   const grid = $('role-grid');
   ROLES.forEach(role => {
@@ -298,7 +273,7 @@ function submitIdentity() {
   goQuestion(0);
 }
 
-// ── Question ───────────────────────────────────────────────────────────────────
+// ── Question ─────────────────────────────────────────────────────────────
 function renderQuestion(index) {
   const q   = QUESTIONS[index];
   const num = index + 1;
@@ -356,7 +331,7 @@ function initQuestion() {
   });
 }
 
-// ── Confirm ────────────────────────────────────────────────────────────────────
+// ── Confirm ───────────────────────────────────────────────────────────────
 function renderConfirm() {
   const answered = Object.keys(state.answers).length;
   $('confirm-answered').textContent = `${answered} of ${TOTAL_QUESTIONS} questions answered`;
@@ -367,7 +342,7 @@ function initConfirm() {
   $('btn-go-back').addEventListener('click', () => goQuestion(TOTAL_QUESTIONS - 1));
 }
 
-// ── Submit ─────────────────────────────────────────────────────────────────────
+// ── Submit ─────────────────────────────────────────────────────────────
 async function submitQuiz() {
   const payload = {
     name:      state.userData.name,
@@ -375,7 +350,7 @@ async function submitQuiz() {
     role:      state.userData.role,
     roleOther: state.userData.roleOther,
     answers:   state.answers,
-    module:    'mod4',
+    module:    'speed1',
     userAgent: navigator.userAgent,
     quizUrl:   window.location.href
   };
@@ -385,14 +360,49 @@ async function submitQuiz() {
   submitBtn.innerHTML = '<span class="spinner"></span> Submitting…';
   hide($('submit-error'));
 
-  const result = scoreAnswers(state.answers);
+  // The score is computed by the Apps Script and read back from its response.
+  // Content-Type text/plain keeps this a simple request, so there is no preflight.
+  //
+  // A result is accepted ONLY when the server actually returns a score. Anything else is
+  // a submission that did not land: no sheet row, no email. The most likely such case is
+  // the window between this page going live and the Apps Script being redeployed with the
+  // speedN handlers — until then doPost falls through to the MOD 1 flow, which rejects a
+  // ten-answer payload and returns {error} rather than a score. Treating that as success
+  // would show a pass screen for a submission that was never recorded and, because
+  // goResults() clears the saved state, would throw the participant's answers away too.
+  let result = null;
+  let failure = null;
+  try {
+    const res  = await fetch(APPS_SCRIPT_URL, {
+      method:  'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body:    JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (data && typeof data.score === 'number') result = data;
+    else failure = (data && data.error) ? data.error : 'The scoring service did not return a result.';
+  } catch (err) {
+    failure = err.message;
+  }
 
-  fetch(APPS_SCRIPT_URL, {
-    method:  'POST',
-    mode:    'no-cors',
-    headers: { 'Content-Type': 'text/plain' },
-    body:    JSON.stringify(payload)
-  }).catch(() => {});
+  if (!result) {
+    // Stay on this screen, keep the saved state, and say so plainly. Nothing is cleared,
+    // so the answers survive a refresh and the participant can retry without redoing the
+    // quiz. Retrying after a successful-but-unreadable write would add a second attempt
+    // row, which is visible and harmless; a false pass or lost answers would not be.
+    console.warn('Submission was not recorded:', failure);
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit Answers';
+    const errEl = $('submit-error');
+    if (errEl) {
+      errEl.textContent = 'We could not record your answers just yet. Nothing has been lost — your answers are '
+        + 'saved on this device, so you can close this page and come back to it. Please try again in a few '
+        + 'minutes, and tell the Demand Planning team if it keeps happening.';
+      show(errEl);
+    }
+    saveState();
+    return;
+  }
 
   try {
     goResults(result);
@@ -405,8 +415,10 @@ async function submitQuiz() {
   }
 }
 
-// ── Results ────────────────────────────────────────────────────────────────────
+// ── Results ───────────────────────────────────────────────────────────────
 function renderResults(data) {
+  // Only ever called with a server-scored result — submitQuiz() does not navigate here
+  // otherwise, so there is no "submitted, score unknown" state to render.
   const { score, total, percent, pass, failed_questions } = data;
   const pctDisplay = Math.round(percent);
 
@@ -454,7 +466,7 @@ function retakeQuiz() {
   goWelcome();
 }
 
-// ── Resume ─────────────────────────────────────────────────────────────────────
+// ── Resume ───────────────────────────────────────────────────────────────
 function checkResume(saved) {
   if (!saved) return false;
   const banner = $('resume-banner');
@@ -483,14 +495,14 @@ function restoreIdentityFields() {
   if (state.userData.roleOther) $('input-role-other').value = state.userData.roleOther;
 }
 
-// ── Util ───────────────────────────────────────────────────────────────────────
+// ── Util ───────────────────────────────────────────────────────────────────
 function escHtml(str) {
   return String(str)
     .replace(/&/g, '&amp;').replace(/</g, '&lt;')
     .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-// ── Boot ───────────────────────────────────────────────────────────────────────
+// ── Boot ───────────────────────────────────────────────────────────────────
 function init() {
   initWelcome();
   initIdentity();
@@ -505,9 +517,9 @@ function init() {
 }
 document.addEventListener('DOMContentLoaded', init);
 
-// ════════════════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════──
 // DASHBOARD
-// ════════════════════════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════──
 
 const DASH_HASH   = '3112727bdedc9e678230b70a47eb12222f8e6da33f24a9c5539f50cf4c84359c';
 const DASH_LS_KEY = 'mod1_dash_unlocked'; // shared session key — same password across all modules
@@ -734,7 +746,6 @@ function renderHistogram() {
   const ctx    = canvas.getContext('2d');
   const rows   = HERO_TRACK.main(dashFiltered);
 
-  // Buckets adapted for multi-module view — uses each row's actual score vs its module's pass threshold
   const modPassThreshold = Object.fromEntries((window.HERO_MODULES || []).map(function(m){ return [m.id, m.pass]; }));
   const passes = rows.filter(r => {
     const thr = modPassThreshold[r.module || 'mod1'] || 13;
@@ -742,7 +753,6 @@ function renderHistogram() {
   }).length;
   const fails = rows.length - passes;
 
-  // Simple pass/fail bar chart when mixing modules (scores aren't comparable across modules)
   const W = canvas.width, H = canvas.height;
   ctx.clearRect(0, 0, W, H);
 
@@ -750,10 +760,8 @@ function renderHistogram() {
 
   const modIds = [...new Set(rows.map(r => r.module || 'mod1'))];
   if (modIds.length === 1) {
-    // Single-module view: draw score distribution
     const mod = modIds[0];
     const thr = modPassThreshold[mod] || 13;
-    const maxQ = mod === 'mod4' ? 10 : 15;
     let buckets;
     if (mod === 'mod4') {
       buckets = [
@@ -803,7 +811,6 @@ function renderHistogram() {
       ctx.fillText(b.label, x + (barW - gap) / 2, H - padB + 14);
     });
 
-    // Pass threshold line
     const thresholdBucketIdx = buckets.findIndex(b => b.min >= thr);
     if (thresholdBucketIdx > 0) {
       const padL2 = 24, padT2 = 10, chartH2 = H - padT2 - 32;
@@ -815,7 +822,6 @@ function renderHistogram() {
       ctx.setLineDash([]);
     }
   } else {
-    // Multi-module: simple pass/fail bar
     const total = rows.length || 1;
     const padL = 40, padR = 40, padT = 20, padB = 32;
     const chartW = W - padL - padR, chartH = H - padT - padB;
@@ -948,7 +954,7 @@ function renderTable() {
     </table>`;
 }
 
-// ── Module filter helpers ──────────────────────────────────────────────────────
+// ── Module filter helpers ─────────────────────────────────────────────────────
 function filterByModules(rows, mods) {
   if (!mods || !mods.size) return rows;
   return rows.filter(r => mods.has(r.module || 'mod1'));
@@ -963,7 +969,7 @@ function updateLastUpdatedLabel() {
 
 function refreshDash() { showDashContent(); }
 
-// ── Pass rate by role — any attempt ───────────────────────────────────────────
+// ── Pass rate by role — any attempt ────────────────────────────────────────
 function renderPassRateByRole(rows) {
   const el = $('dash-role-pass');
   if (!el) return;
@@ -992,7 +998,7 @@ function renderPassRateByRole(rows) {
   ]);
 }
 
-// ── Pass rate by role — first attempt ─────────────────────────────────────────
+// ── Pass rate by role — first attempt ────────────────────────────────────
 function renderFirstAttemptPassRate(rows) {
   const el = $('dash-role-first');
   if (!el) return;
@@ -1045,7 +1051,7 @@ function renderRoleBars(entries) {
   }).join('');
 }
 
-// ── Attempts to pass ───────────────────────────────────────────────────────────
+// ── Attempts to pass ──────────────────────────────────────────────────
 function renderAttemptsToPAss(rows) {
   const canvas = $('chart-attempts');
   if (!canvas) return;
@@ -1115,9 +1121,9 @@ function renderAttemptsToPAss(rows) {
   ctx.fillText('Attempts to pass', W / 2, H - 2);
 }
 
-// ── Question drill-down modal ──────────────────────────────────────────────────
+// ── Question drill-down modal ───────────────────────────────────────────
 function showDrillDown(qNum, moduleId) {
-  moduleId = moduleId || 'mod4';
+  moduleId = moduleId || 'speed1';
   const modInfo = DASH_MODULE_REGISTRY[moduleId];
   if (!modInfo) return;
   const q = modInfo.questions.find(x => x.id === qNum);
@@ -1176,7 +1182,7 @@ function closeDrillDown(event) {
 }
 
 
-// ── Pending users ──────────────────────────────────────────────────────────────
+// ── Pending users ────────────────────────────────────────────────────────
 // Main programme only — the reminder tool covers the seven-module programme, and
 // mixing Speed sessions in would change what its headline counts mean.
 let pendingActiveModules = new Set(HERO_TRACK.mainModules().map(function(m){ return m.id; }));

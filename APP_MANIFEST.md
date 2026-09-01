@@ -1,6 +1,6 @@
 # App Manifest
 
-_Generated 2026-08-30 by `tools/generate_manifest.js` from the actual repo files. Do not edit by hand — re-run the generator._
+_Generated 2026-09-01 by `tools/generate_manifest.js` from the actual repo files. Do not edit by hand — re-run the generator._
 
 Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 
@@ -8,12 +8,40 @@ Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 
 | Module | Page | JS | Questions | Pass | Posts as | Client key in JS |
 |---|---|---|---|---|---|---|
+| mod1 | index.html | quiz.js | 16 | 13 | — | yes |
 | mod2 | mod2.html | mod2.js | 15 | 12 | mod2 | yes |
 | mod3 | mod3.html | mod3.js | 10 | 8 | mod3 | yes |
 | mod4 | mod4.html | mod4.js | 10 | 8 | mod4 | yes |
 | mod5 | mod5.html | mod5.js | 15 | 12 | mod5 | yes |
 | mod7 | mod7.html | mod7.js | 10 | 8 | mod7 | yes |
-| mod1 | index.html | quiz.js | 16 | 13 | — | yes |
+| speed1 | speed1.html | speed1.js | 10 | 8 | speed1 | no |
+| speed2 | speed2.html | speed2.js | 10 | 8 | speed2 | no |
+| speed3 | speed3.html | speed3.js | 10 | 8 | speed3 | no |
+| speed4 | speed4.html | speed4.js | 10 | 8 | speed4 | no |
+
+### mod1 — MOD 1 Knowledge Check · Forecast Enrichment
+
+- JS: `quiz.js` · HTML: `index.html` · localStorage key: `mod1_quiz_state`
+- Questions: 16 · Pass threshold: 13
+
+| Q | section | slides | fingerprint | client key |
+|---|---|---|---|---|
+| Q1 | Why we're changing | 2, 4 | `a9a0e9ef03b2` | A |
+| Q2 | End-to-end picture | 4, 5 | `fa4f2acfa21b` | B |
+| Q3 | Statistical Baseline 101 | 8, 10 | `ecbfa380891e` | C |
+| Q4 | Statistical Baseline 101 | 11 | `ab90665dc027` | A |
+| Q5 | SKU Types | 12, 13 | `821b4b89f4ec` | C |
+| Q6 | SKU Types | 14 | `b6f763ba8472` | A |
+| Q7 | SKU Types | 15 | `0f29f6e2d1e2` | D |
+| Q8 | Disaggregation | 10, 16 | `eb3d0dbb5382` | C |
+| Q9 | Disaggregation | 16 | `92c19184df0c` | D |
+| Q10 | Disaggregation | 17, 19, 20, 21 | `cc2951a54c4e` | B |
+| Q11 | Disaggregation | 22 | `20c4ee1210c1` | B |
+| Q12 | Enrichment Principles | 25 | `86bd56294ba5` | C |
+| Q13 | Reconciliation | 32 | `ec40f096a918` | D |
+| Q14 | Roles & Scope | 33 | `fb1207ba6b0a` | B |
+| Q15 | End-to-end Workflow | 33 | `23479eba6c1a` | D |
+| Q16 | End-to-end Workflow | 33 | `b6dbb8b66eed` | A |
 
 ### mod2 — MOD 2 Knowledge Check · Enrichment Practice
 
@@ -115,29 +143,77 @@ Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 | Q9 | Scenario — Orphaned Adjustment | 16 | `41d5eadffe47` | C |
 | Q10 | Scenario — Systemic Movement | 14, 18 | `98346dc19031` | A |
 
-### mod1 — MOD 1 Knowledge Check · Forecast Enrichment
+### speed1 — Speed Training Session 1 Knowledge Check — Introduction to the Enrichment Process
 
-- JS: `quiz.js` · HTML: `index.html` · localStorage key: `mod1_quiz_state`
-- Questions: 16 · Pass threshold: 13
+- JS: `speed1.js` · HTML: `speed1.html` · localStorage key: `speed1_quiz_state`
+- Questions: 10 · Pass threshold: 8
 
 | Q | section | slides | fingerprint | client key |
 |---|---|---|---|---|
-| Q1 | Why we're changing | 2, 4 | `a9a0e9ef03b2` | A |
-| Q2 | End-to-end picture | 4, 5 | `fa4f2acfa21b` | B |
-| Q3 | Statistical Baseline 101 | 8, 10 | `ecbfa380891e` | C |
-| Q4 | Statistical Baseline 101 | 11 | `ab90665dc027` | A |
-| Q5 | SKU Types | 12, 13 | `821b4b89f4ec` | C |
-| Q6 | SKU Types | 14 | `b6f763ba8472` | A |
-| Q7 | SKU Types | 15 | `0f29f6e2d1e2` | D |
-| Q8 | Disaggregation | 10, 16 | `eb3d0dbb5382` | C |
-| Q9 | Disaggregation | 16 | `92c19184df0c` | D |
-| Q10 | Disaggregation | 17, 19, 20, 21 | `cc2951a54c4e` | B |
-| Q11 | Disaggregation | 22 | `20c4ee1210c1` | B |
-| Q12 | Enrichment Principles | 25 | `86bd56294ba5` | C |
-| Q13 | Reconciliation | 32 | `ec40f096a918` | D |
-| Q14 | Roles & Scope | 33 | `fb1207ba6b0a` | B |
-| Q15 | End-to-end Workflow | 33 | `23479eba6c1a` | D |
-| Q16 | End-to-end Workflow | 33 | `b6dbb8b66eed` | A |
+| Q1 | The equation | Speed Training Session 1 · The equation | `6de58865e99b` |  |
+| Q2 | Who owns what | Speed Training Session 1 · Who owns what | `74db9c1882c5` |  |
+| Q3 | Two horizons | Speed Training Session 1 · Two horizons | `db6cd594c046` |  |
+| Q4 | Eligibility | Speed Training Session 1 · Eligibility | `78b81e9d0689` |  |
+| Q5 | Level 2.5 Baseline Pre-Adjustment | Speed Training Session 1 · Level 2.5 Baseline Pre-Adjustment | `94fcf8caabc2` |  |
+| Q6 | Enrichment or base trend | Speed Training Session 1 · Enrichment or base trend | `4826aafc8e50` |  |
+| Q7 | Ownership at commercial alignment | Speed Training Session 1 · Ownership at commercial alignment | `27d5150bebb9` |  |
+| Q8 | The frozen period | Speed Training Session 1 · The frozen period | `efe5dbe382ca` |  |
+| Q9 | Where a question goes | Speed Training Session 1 · Where a question goes | `ee6406410283` |  |
+| Q10 | Capture is continuous | Speed Training Session 1 · Capture is continuous | `cf3ada4da72a` |  |
+
+### speed2 — Speed Training Session 2 Knowledge Check — Where the Number Comes From
+
+- JS: `speed2.js` · HTML: `speed2.html` · localStorage key: `speed2_quiz_state`
+- Questions: 10 · Pass threshold: 8
+
+| Q | section | slides | fingerprint | client key |
+|---|---|---|---|---|
+| Q1 | Where the baseline is produced | Speed Training Session 2 · Where the baseline is produced | `adb7309889bb` |  |
+| Q2 | What feeds the baseline | Speed Training Session 2 · What feeds the baseline | `615fbd326606` |  |
+| Q3 | Baseline versus disaggregation | Speed Training Session 2 · Baseline versus disaggregation | `5894014fa79c` |  |
+| Q4 | Carry-forward versus new item split | Speed Training Session 2 · Carry-forward versus new item split | `f63663112094` |  |
+| Q5 | The Forecasting Range | Speed Training Session 2 · The Forecasting Range | `5fa85ae03b15` |  |
+| Q6 | Baseline, enrichment or base trend | Speed Training Session 2 · Baseline, enrichment or base trend | `fbdfb97faf6b` |  |
+| Q7 | The level hierarchy | Speed Training Session 2 · The level hierarchy | `fc1d7d33b48b` |  |
+| Q8 | Judging statistical fit | Speed Training Session 2 · Judging statistical fit | `b2339cb522c5` |  |
+| Q9 | Who owns what | Speed Training Session 2 · Who owns what | `50a8b7ee1ff7` |  |
+| Q10 | Repeatable versus one-off volume | Speed Training Session 2 · Repeatable versus one-off volume | `fbe4a9d76cf6` |  |
+
+### speed3 — Speed Training Session 3 Knowledge Check — The Tool, End to End
+
+- JS: `speed3.js` · HTML: `speed3.html` · localStorage key: `speed3_quiz_state`
+- Questions: 10 · Pass threshold: 8
+
+| Q | section | slides | fingerprint | client key |
+|---|---|---|---|---|
+| Q1 | Workbook anatomy | Speed Training Session 3 · Workbook anatomy | `5d069c935f2a` |  |
+| Q2 | Enrichment field rules | Speed Training Session 3 · Enrichment field rules | `fd3ef8973e3a` |  |
+| Q3 | Promotion discount field | Speed Training Session 3 · Promotion discount field | `df561f8dd70e` |  |
+| Q4 | Reconciliation template | Speed Training Session 3 · Reconciliation template | `3769742d9f33` |  |
+| Q5 | Validation recovery | Speed Training Session 3 · Validation recovery | `2dc5d1d97ec7` |  |
+| Q6 | Download discipline | Speed Training Session 3 · Download discipline | `fe83262c1d0d` |  |
+| Q7 | Cancelling an enrichment | Speed Training Session 3 · Cancelling an enrichment | `12754dc87f2b` |  |
+| Q8 | Master data dependency | Speed Training Session 3 · Master data dependency | `a11f51da59c5` |  |
+| Q9 | Row-level rules | Speed Training Session 3 · Row-level rules | `b6bef103ae93` |  |
+| Q10 | Adjustments are deltas | Speed Training Session 3 · Adjustments are deltas | `0483d041b348` |  |
+
+### speed4 — Speed Training Session 4 Knowledge Check — How Your Market Works
+
+- JS: `speed4.js` · HTML: `speed4.html` · localStorage key: `speed4_quiz_state`
+- Questions: 10 · Pass threshold: 8
+
+| Q | section | slides | fingerprint | client key |
+|---|---|---|---|---|
+| Q1 | Scope is a market decision | Speed Training Session 4 · Scope is a market decision | `696bf73dd7fe` |  |
+| Q2 | Markets differ by design | Speed Training Session 4 · Markets differ by design | `f58d30927105` |  |
+| Q3 | Repeating versus one-shot volume | Speed Training Session 4 · Repeating versus one-shot volume | `907e8b636c71` |  |
+| Q4 | Evergreen designation | Speed Training Session 4 · Evergreen designation | `3358b8cdf6c8` |  |
+| Q5 | FAN ownership | Speed Training Session 4 · FAN ownership | `96538fcc4458` |  |
+| Q6 | Accounts inside the domestic channel | Speed Training Session 4 · Accounts inside the domestic channel | `21ff88e8c978` |  |
+| Q7 | Forecasting Range consequences | Speed Training Session 4 · Forecasting Range consequences | `a14a92ebb7da` |  |
+| Q8 | Enrichment types vary by market | Speed Training Session 4 · Enrichment types vary by market | `03329dff025d` |  |
+| Q9 | Escalation | Speed Training Session 4 · Escalation | `0ba85ddeaf0c` |  |
+| Q10 | Challenging a split with evidence | Speed Training Session 4 · Challenging a split with evidence | `58cfbf7c0cf0` |  |
 
 ## Backend (backend/apps-script.gs)
 
@@ -148,9 +224,13 @@ Routing (`doPost`):
 - `mod5` → `handleMod5Post`
 - `mod7` → `handleMod7Post`
 - `mod3` → `handleMod3Post`
+- `speed1` → `handleSpeed1Post`
+- `speed2` → `handleSpeed2Post`
+- `speed3` → `handleSpeed3Post`
+- `speed4` → `handleSpeed4Post`
 - `mod1` → inline flow in `doPost` (no dedicated handler)
 
-Per-module handlers found: handleMod2Post, handleMod4Post, handleMod5Post, handleMod7Post, handleMod3Post
+Per-module handlers found: handleMod2Post, handleMod4Post, handleMod5Post, handleMod7Post, handleMod3Post, handleSpeed1Post, handleSpeed2Post, handleSpeed3Post, handleSpeed4Post
 
 Thresholds/constants:
 
@@ -164,6 +244,14 @@ Thresholds/constants:
 - `PASS_THRESHOLD_MOD7` = 8
 - `TOTAL_QUESTIONS_MOD3` = 10
 - `PASS_THRESHOLD_MOD3` = 8
+- `TOTAL_QUESTIONS_SPEED1` = 10
+- `PASS_THRESHOLD_SPEED1` = 8
+- `TOTAL_QUESTIONS_SPEED2` = 10
+- `PASS_THRESHOLD_SPEED2` = 8
+- `TOTAL_QUESTIONS_SPEED3` = 10
+- `PASS_THRESHOLD_SPEED3` = 8
+- `TOTAL_QUESTIONS_SPEED4` = 10
+- `PASS_THRESHOLD_SPEED4` = 8
 
 Endpoints: getData=yes · sendReminders=yes
 
@@ -178,3 +266,4 @@ Endpoints: getData=yes · sendReminders=yes
 - `KC_Canonical_QuestionBank_v5_2026-08-17.json`
 - `KC_Canonical_QuestionBank_v6_2026-08-17.json`
 - `KC_Canonical_QuestionBank_v7_2026-08-29.json`
+- `KC_Canonical_QuestionBank_v8_2026-09-01.json`

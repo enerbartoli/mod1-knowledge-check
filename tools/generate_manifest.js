@@ -46,9 +46,12 @@ function grabConst(src, name) {
 }
 
 // discover quiz pages
-const jsFiles = fs.readdirSync(REPO).filter(f => /^mod\d+\.js$/.test(f) || f === 'quiz.js');
+// modN.js = main programme, speedN.js = Speed Training track, quiz.js = mod1.
+const jsFiles = fs.readdirSync(REPO).filter(f => /^(mod|speed)\d+\.js$/.test(f) || f === 'quiz.js');
+// Track order first (main programme, then Speed Training), then position within it.
+const fileRank = f => (/^speed/.test(f) ? 100 : 0) + parseInt((f.match(/(\d+)/) || [0, 0])[1], 10);
 const modules = [];
-for (const f of jsFiles.sort()) {
+for (const f of jsFiles.sort((a, b) => fileRank(a) - fileRank(b))) {
   const id = f === 'quiz.js' ? 'mod1' : f.replace(/\.js$/, '');
   const src = read(f);
   const qLit = extractLiteral(src, 'QUESTIONS', '[', ']');
@@ -89,8 +92,8 @@ if (exists('backend/apps-script.gs')) {
   backend.file = 'backend/apps-script.gs';
   backend.routes = [...gs.matchAll(/moduleId\s*===\s*'([^']+)'\s*\)\s*\{\s*return\s+(\w+)/g)]
     .map(m => ({ module: m[1], handler: m[2] }));
-  backend.handlers = [...gs.matchAll(/function\s+(handleMod\d+Post)\s*\(/g)].map(m => m[1]);
-  for (const m of gs.matchAll(/const\s+(PASS_THRESHOLD_MOD\d+|TOTAL_QUESTIONS_MOD\d+)\s*=\s*(\d+)/g)) {
+  backend.handlers = [...gs.matchAll(/function\s+(handle(?:Mod|Speed)\d+Post)\s*\(/g)].map(m => m[1]);
+  for (const m of gs.matchAll(/const\s+((?:PASS_THRESHOLD|TOTAL_QUESTIONS)_(?:MOD|SPEED)\d+)\s*=\s*(\d+)/g)) {
     backend.thresholds[m[1]] = Number(m[2]);
   }
   backend.reminder_endpoint = /action === 'sendReminders'/.test(gs);

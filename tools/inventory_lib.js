@@ -53,7 +53,8 @@ function loadBankFlags() {
 
 function extractModules() {
   const { bankFile, flags } = loadBankFlags();
-  const jsFiles = fs.readdirSync(REPO).filter(f => /^mod\d+\.js$/.test(f) || f === 'quiz.js');
+  // modN.js = main programme, speedN.js = Speed Training track, quiz.js = mod1.
+  const jsFiles = fs.readdirSync(REPO).filter(f => /^(mod|speed)\d+\.js$/.test(f) || f === 'quiz.js');
   const modules = [];
   for (const f of jsFiles) {
     const id = f === 'quiz.js' ? 'mod1' : f.replace(/\.js$/, '');
@@ -85,14 +86,16 @@ function extractModules() {
       })
     });
   }
-  modules.sort((a, b) => a.module_id.localeCompare(b.module_id));
+  // Track order first (main programme, then Speed Training), then position within it.
+  const rank = id => (/^speed/.test(id) ? 100 : 0) + parseInt((id.match(/(\d+)/) || [0, 0])[1], 10);
+  modules.sort((a, b) => rank(a.module_id) - rank(b.module_id));
   return { modules, bankFile };
 }
 
 function extractBackend() {
   if (!exists('backend/apps-script.gs')) return null;
   const gs = read('backend/apps-script.gs');
-  const handlers = [...gs.matchAll(/function\s+(handleMod\d+Post)\s*\(/g)].map(m => m[1]).sort();
+  const handlers = [...gs.matchAll(/function\s+(handle(?:Mod|Speed)\d+Post)\s*\(/g)].map(m => m[1]).sort();
   const routes = [...gs.matchAll(/moduleId\s*===\s*'([^']+)'\s*\)\s*\{\s*return\s+(\w+)/g)]
     .map(m => ({ module: m[1], handler: m[2] }));
   const sheetName = (grabConst(gs, 'SHEET_NAME') || '').replace(/['"]/g, '') || null;
@@ -104,7 +107,7 @@ function extractBackend() {
   columns.push('Failed Questions', 'Email Sent?', 'User-Agent');
   columns.push('(moduleId — appended, no header)', '(attemptNumber — appended, no header)');
   // email template functions per module
-  const emailFns = [...gs.matchAll(/function\s+(emailShell_mod\d+|sendPassEmail_mod\d+|sendFailEmail_mod\d+|sendNotificationEmail_mod\d+|sendEmails)\s*\(/g)]
+  const emailFns = [...gs.matchAll(/function\s+((?:emailShell|sendPassEmail|sendFailEmail|sendNotificationEmail)_(?:mod|speed)\d+|sendEmails)\s*\(/g)]
     .map(m => m[1]).sort();
   return { handlers, routes, sheet_name: sheetName, quiz_closed: quizClosed, columns, email_templates: emailFns };
 }

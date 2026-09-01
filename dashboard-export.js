@@ -2,7 +2,8 @@
 /*
  * dashboard-export.js — shared across all module pages.
  * Builds a styled, multi-sheet .xlsx from the dashboard's current filtered view
- * (dashFiltered: date range + module + role filters already applied) and triggers
+ * (dashFiltered: date range + module + role filters already applied, then narrowed to
+ * the main-programme track) and triggers
  * a download. Depends on vendor/xlsx-js-style.bundle.js (global XLSX) and on the
  * dashboard globals defined by the per-page module script: dashFiltered, dashRows,
  * and DASH_MODULE_REGISTRY (from dashboard-data.js). All output text is English.
@@ -334,6 +335,11 @@
     if (typeof XLSX === 'undefined') { alert('Excel library not loaded.'); return; }
     var rows = (typeof dashFiltered !== 'undefined' && dashFiltered && dashFiltered.length) ? dashFiltered
              : (typeof dashRows !== 'undefined' && dashRows) ? dashRows : [];
+    // Main programme only, matching the on-screen panels. Speed Training is reported
+    // as aggregates in its own dashboard section and is deliberately not exported per
+    // participant, so this workbook keeps the same meaning it had before that track
+    // existed.
+    if (window.HERO_TRACK) rows = HERO_TRACK.main(rows);
     if (!rows.length) { alert('No submissions in the current view. Load the dashboard and adjust the filters first.'); return; }
     var fd = currentFilterDesc(rows);
 
