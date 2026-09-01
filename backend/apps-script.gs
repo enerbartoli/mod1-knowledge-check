@@ -177,6 +177,10 @@ function doPost(e) {
     if (moduleId === 'mod5') { return handleMod5Post(payload); }
     if (moduleId === 'mod7') { return handleMod7Post(payload); }
     if (moduleId === 'mod3') { return handleMod3Post(payload); }
+    if (moduleId === 'speed1') { return handleSpeed1Post(payload); }
+    if (moduleId === 'speed2') { return handleSpeed2Post(payload); }
+    if (moduleId === 'speed3') { return handleSpeed3Post(payload); }
+    if (moduleId === 'speed4') { return handleSpeed4Post(payload); }
 
     // 3. Validate required fields
     var validationError = validatePayload(payload);
@@ -2080,4 +2084,1200 @@ function sendReminderSummaryToRene(sent, failed) {
     subject: '[HERO Dashboard] Reminder summary — ' + sent.length + ' email(s) sent on ' + dateStr,
     htmlBody: body
   });
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Speed Training Session 1 — Introduction to the Enrichment Process (additive)
+// Speed Training is a separate track from the seven-module main programme. The
+// email copy here is deliberately market-neutral: these banks name no account and
+// encode no single market's answer, so nothing market-specific is carried over
+// from the main-track templates.
+// ══════════════════════════════════════════════════════════════════════════════
+
+const ANSWER_KEY_SPEED1 = {
+  Q1:'B', Q2:'C', Q3:'D', Q4:'A', Q5:'C',
+  Q6:'D', Q7:'B', Q8:'C', Q9:'D', Q10:'B'
+};
+const TOTAL_QUESTIONS_SPEED1 = 10;
+const PASS_THRESHOLD_SPEED1  = 8;
+const QUIZ_URL_SPEED1        = 'https://enerbartoli.github.io/mod1-knowledge-check/speed1.html';
+
+// slide_refs on this track holds a deck SECTION name, not a slide number
+// (ref_type "deck_section" in the canonical bank).
+const SLIDE_REFS_SPEED1 = {
+  Q1: 'Speed Training Session 1 · The equation',
+  Q2: 'Speed Training Session 1 · Who owns what',
+  Q3: 'Speed Training Session 1 · Two horizons',
+  Q4: 'Speed Training Session 1 · Eligibility',
+  Q5: 'Speed Training Session 1 · Level 2.5 Baseline Pre-Adjustment',
+  Q6: 'Speed Training Session 1 · Enrichment or base trend',
+  Q7: 'Speed Training Session 1 · Ownership at commercial alignment',
+  Q8: 'Speed Training Session 1 · The frozen period',
+  Q9: 'Speed Training Session 1 · Where a question goes',
+  Q10: 'Speed Training Session 1 · Capture is continuous'
+};
+
+const QUESTION_TEXT_SPEED1 = {
+  Q1: 'Which statement describes how the consensus forecast is built?',
+  Q2: 'Which of these does Hasbro Demand Planning own in the operating model?',
+  Q3: 'A colleague says the new process will change their numbers for the next two months. What is the accurate response?',
+  Q4: 'An account is showing volume for an item it has never stocked. Where do you look first?',
+  Q5: 'What is a Level 2.5 Baseline Pre-Adjustment?',
+  Q6: 'You have lost distribution at one account and expect lower volume from now on. How is that recorded?',
+  Q7: 'During the commercial alignment session Demand Planning challenges a number and the commercial team stands behind it. What happens?',
+  Q8: 'A supply constraint has eased and you can now serve more volume inside the frozen period. What does the policy allow?',
+  Q9: 'You think the eligibility setup for one of your accounts is wrong. What do you do?',
+  Q10: 'You agree a promotion in March that will run in October. When should it be captured?'
+};
+
+const RATIONALES_SPEED1 = {
+  Q1: 'Baseline plus enrichment equals the consensus forecast. The two layers are stored separately so the value each one added can be measured afterwards.',
+  Q2: 'An external partner produces the statistical baseline and another runs the operations. Governance, the parameters and the sign-off stay with Hasbro Demand Planning.',
+  Q3: 'The current year is the anchor. Lead times mean the near horizon is already committed, so this year builds the discipline and the trail. The statistical baseline does the work from next year, on dates each market sets.',
+  Q4: 'Eligibility decides which account and period combinations receive statistical volume at all. Unexpected volume in a first cycle is almost always a setup question rather than a forecast question.',
+  Q5: 'It is a correction to the total for an item at business-unit level, above the accounts, made before the split happens. The sequencing is the point: account teams then receive a number that already makes sense at the top.',
+  Q6: 'An enrichment carries a dated event that will not repeat. An ongoing shift in the underlying level is a base trend adjustment.',
+  Q7: 'Demand Planning challenges the assumptions with evidence. It does not overrule the number at that point. The disagreement, if it survives, is argued again in the joint reconciliation.',
+  Q8: 'Frozen does not mean locked. It stops demand being raised where supply cannot serve it. A documented change with a real supply reason is exactly what it allows.',
+  Q9: 'Eligibility is master data. You raise it through your Demand Planning team or the programme. Covering it with an enrichment hides the problem instead of fixing it.',
+  Q10: 'Capture is open all year and is not a cycle task. Recording the event when you know about it turns each cycle into a confirmation rather than an act of memory.'
+};
+
+function handleSpeed1Post(payload) {
+  try {
+    var validationError = validatePayload_speed1(payload);
+    if (validationError) return buildResponse({ error: validationError }, 400);
+
+    var scoreResult = scoreSubmission_speed1(payload.answers);
+    var sheetUrl    = appendToSheet_speed1(payload, scoreResult);
+    sendEmails_speed1(payload, scoreResult, sheetUrl);
+
+    return buildResponse({
+      score:            scoreResult.score,
+      total:            TOTAL_QUESTIONS_SPEED1,
+      percent:          scoreResult.percent,
+      pass:             scoreResult.pass,
+      failed_questions: scoreResult.failedQNums
+    });
+  } catch (err) {
+    Logger.log('handleSpeed1Post error: ' + err.message + '\n' + err.stack);
+    return buildResponse({ error: 'Server error. Please try again.' }, 500);
+  }
+}
+
+function validatePayload_speed1(p) {
+  if (!p.name || String(p.name).trim().length < 2) return 'Name is required.';
+  var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!p.email || !emailRe.test(String(p.email).trim())) return 'Valid email is required.';
+  if (!p.role) return 'Role is required.';
+  if (!p.answers || typeof p.answers !== 'object') return 'Answers are required.';
+  for (var i = 1; i <= TOTAL_QUESTIONS_SPEED1; i++) {
+    var key = 'Q' + i;
+    var val = p.answers[key];
+    if (!val || !['A','B','C','D'].includes(String(val).toUpperCase())) {
+      return 'Answer for ' + key + ' is missing or invalid.';
+    }
+  }
+  return null;
+}
+
+function scoreSubmission_speed1(answers) {
+  var score = 0;
+  var results = {};
+  var failedQNums = [];
+  for (var i = 1; i <= TOTAL_QUESTIONS_SPEED1; i++) {
+    var key     = 'Q' + i;
+    var given   = String(answers[key] || '').toUpperCase();
+    var correct = ANSWER_KEY_SPEED1[key];
+    var isCorrect = given === correct;
+    results[key] = { given: given, correct: isCorrect };
+    if (isCorrect) { score++; } else { failedQNums.push(i); }
+  }
+  var percent = Math.round((score / TOTAL_QUESTIONS_SPEED1) * 10000) / 100;
+  return { score: score, percent: percent, pass: score >= PASS_THRESHOLD_SPEED1, results: results, failedQNums: failedQNums };
+}
+
+function appendToSheet_speed1(payload, scoreResult) {
+  var ss    = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(SHEET_NAME);
+  if (!sheet) { sheet = ss.insertSheet(SHEET_NAME); writeHeaders(sheet); }
+  if (sheet.getLastRow() === 0) writeHeaders(sheet);
+
+  var moduleId      = 'speed1';
+  var attemptNumber = computeAttemptNumber(String(payload.email).trim().toLowerCase(), moduleId, sheet);
+
+  var now = new Date();
+  var row = [
+    now, payload.name.trim(), payload.email.trim().toLowerCase(), payload.role,
+    payload.roleOther || '', scoreResult.score, scoreResult.percent,
+    scoreResult.pass ? 'Pass' : 'Fail'
+  ];
+
+  // Q1–Q10 answer + correct pairs
+  for (var i = 1; i <= TOTAL_QUESTIONS_SPEED1; i++) {
+    var key = 'Q' + i;
+    var r   = scoreResult.results[key];
+    row.push(r.given);
+    row.push(r.correct);
+  }
+  // Q11–Q16 placeholders blank — preserves column alignment (6 blank pairs)
+  for (var j = 0; j < 6; j++) {
+    row.push('');
+    row.push('');
+  }
+
+  row.push(scoreResult.failedQNums.join(', '));
+  row.push(true);
+  row.push((payload.userAgent || '').slice(0, 200));
+  row.push(moduleId);
+  row.push(attemptNumber);
+
+  sheet.appendRow(row);
+  return ss.getUrl();
+}
+
+function sendEmails_speed1(payload, scoreResult, sheetUrl) {
+  var name  = payload.name.trim();
+  var email = payload.email.trim().toLowerCase();
+  try {
+    if (scoreResult.pass) {
+      sendPassEmail_speed1(email, name, scoreResult.score, TOTAL_QUESTIONS_SPEED1, scoreResult.percent);
+    } else {
+      sendFailEmail_speed1(email, name, scoreResult.score, TOTAL_QUESTIONS_SPEED1, scoreResult.percent, scoreResult.failedQNums);
+    }
+    sendNotificationEmail_speed1(payload, scoreResult, sheetUrl);
+    return true;
+  } catch (err) {
+    Logger.log('Speed Training Session 1 email error: ' + err.message);
+    return false;
+  }
+}
+
+function emailShell_speed1(contentHtml) {
+  return '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#f0f4f8;font-family:Arial,sans-serif;">' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f4f8;padding:32px 0;">' +
+    '<tr><td align="center">' +
+    '<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">' +
+    '<tr><td style="background:#0d1b2e;padding:28px 40px;text-align:center;">' +
+    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Forecast Enrichment Programme · Speed Training</p>' +
+    '<p style="margin:8px 0 0;color:#ffffff;font-size:20px;font-weight:700;">Session 1 Knowledge Check</p>' +
+    '</td></tr>' +
+    '<tr><td style="padding:40px;">' + contentHtml + '</td></tr>' +
+    '<tr><td style="background:#f8f9fa;padding:20px 40px;border-top:1px solid #e9ecef;text-align:center;">' +
+    '<p style="margin:0;color:#6c757d;font-size:12px;">Rene Bartoli · Demand Planning · Forecast Enrichment Program</p>' +
+    '</td></tr>' +
+    '</table></td></tr></table></body></html>';
+}
+
+function sendPassEmail_speed1(toEmail, name, score, total, pct) {
+  var subject = '✓ Speed Training Session 1 Knowledge Check — Passed';
+  var content =
+    '<div style="text-align:center;margin-bottom:32px;">' +
+    '<div style="display:inline-block;background:#d4edda;border-radius:50%;width:72px;height:72px;line-height:72px;font-size:36px;">✓</div>' +
+    '<h2 style="margin:16px 0 4px;color:#0d1b2e;font-size:24px;">Well done, ' + name + '!</h2>' +
+    '<p style="margin:0;color:#6c757d;font-size:15px;">You\'ve passed the Speed Training Session 1 knowledge check</p>' +
+    '</div>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f9fa;border-radius:8px;margin-bottom:28px;">' +
+    '<tr>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">' + score + '/' + total + '</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Score</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">' + Math.round(pct) + '%</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Accuracy</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">PASS</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Status</p>' +
+    '</td>' +
+    '</tr></table>' +
+    '<p style="color:#495057;font-size:15px;line-height:1.6;">You\'ve met the <strong>80% threshold</strong> for Speed Training Session 1 — Introduction to the Enrichment Process.</p>' +
+    '<div style="background:#e8f8f5;border-left:4px solid #00c9a7;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
+    '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">What\'s next</p>' +
+    '<p style="margin:6px 0 0;color:#495057;font-size:14px;">Carry this into the next session of the course, and apply it to your own scope as your market runs its cycle.</p>' +
+    '</div>' +
+    '<p style="color:#6c757d;font-size:14px;line-height:1.6;">If you have questions about the Session 1 material, revisit the Speed Training deck or reach out to your Demand Planning team.</p>';
+  MailApp.sendEmail({ to: toEmail, subject: subject, htmlBody: emailShell_speed1(content) });
+}
+
+function sendFailEmail_speed1(toEmail, name, score, total, pct, failedQNums) {
+  var subject = 'Speed Training Session 1 Knowledge Check — Please review and retry';
+
+  var missedRows = failedQNums.map(function(num) {
+    var key        = 'Q' + num;
+    var qText      = QUESTION_TEXT_SPEED1[key] || '';
+    var refs       = SLIDE_REFS_SPEED1[key] || '';
+    var rationale  = RATIONALES_SPEED1[key] || '';
+    return '<tr style="border-bottom:1px solid #e9ecef;">' +
+      '<td style="padding:12px 8px;color:#0d1b2e;font-weight:700;font-size:13px;white-space:nowrap;">Q' + num + '</td>' +
+      '<td style="padding:12px 8px;font-size:13px;line-height:1.5;">' +
+        '<div style="color:#495057;">' + qText + '</div>' +
+        '<div style="color:#6c757d;font-style:italic;margin-top:6px;font-size:12px;">' + rationale + '</div>' +
+      '</td>' +
+      '<td style="padding:12px 8px;color:#00c9a7;font-size:13px;">' + refs + '</td>' +
+      '</tr>';
+  }).join('');
+
+  var content =
+    '<div style="text-align:center;margin-bottom:32px;">' +
+    '<div style="display:inline-block;background:#fff3cd;border-radius:50%;width:72px;height:72px;line-height:72px;font-size:36px;">📋</div>' +
+    '<h2 style="margin:16px 0 4px;color:#0d1b2e;font-size:24px;">Hi ' + name + '</h2>' +
+    '<p style="margin:0;color:#6c757d;font-size:15px;">A little more review needed</p>' +
+    '</div>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f9fa;border-radius:8px;margin-bottom:28px;">' +
+    '<tr>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#ffd60a;">' + score + '/' + total + '</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Score</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#ffd60a;">' + Math.round(pct) + '%</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Accuracy</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#dc3545;">RETRY</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Status</p>' +
+    '</td>' +
+    '</tr></table>' +
+    '<p style="color:#495057;font-size:15px;line-height:1.6;">No worries — the goal is for everyone to land Speed Training Session 1 before applying it in their own market.</p>' +
+    '<h3 style="color:#0d1b2e;font-size:16px;font-weight:700;margin:24px 0 12px;">Questions to Review to Better Your Understanding</h3>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e9ecef;border-radius:8px;overflow:hidden;margin:20px 0;">' +
+    '<tr style="background:#0d1b2e;">' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">#</th>' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Question &amp; Rationale</th>' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Review</th>' +
+    '</tr>' +
+    missedRows +
+    '</table>' +
+    '<div style="background:#fff3cd;border-left:4px solid #ffd60a;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
+    '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">Note</p>' +
+    '<p style="margin:6px 0 0;color:#495057;font-size:14px;">I\'m deliberately not sharing the correct answers here — go back to the material and find them yourself. That\'s where the learning sticks.</p>' +
+    '</div>' +
+    '<div style="text-align:center;margin-top:28px;">' +
+    '<a href="' + QUIZ_URL_SPEED1 + '" style="display:inline-block;background:#ffd60a;color:#0d1b2e;font-weight:700;font-size:15px;padding:14px 32px;border-radius:8px;text-decoration:none;">Retake the Quiz →</a>' +
+    '</div>';
+
+  MailApp.sendEmail({ to: toEmail, subject: subject, htmlBody: emailShell_speed1(content) });
+}
+
+function sendNotificationEmail_speed1(payload, scoreResult, sheetUrl) {
+  var name        = payload.name.trim();
+  var email       = payload.email.trim().toLowerCase();
+  var role        = payload.role + (payload.roleOther ? ' (' + payload.roleOther + ')' : '');
+  var score       = scoreResult.score;
+  var total       = TOTAL_QUESTIONS_SPEED1;
+  var pct         = scoreResult.percent;
+  var status      = scoreResult.pass ? 'PASS' : 'FAIL';
+  var failedCount = scoreResult.failedQNums.length;
+  var failedList  = failedCount > 0
+    ? '  (' + scoreResult.failedQNums.map(function(n) { return 'Q' + n; }).join(', ') + ')'
+    : '';
+
+  var subject = '[Speed Training Session 1 Quiz] ' + name + ' — ' + score + '/' + total + ' — ' + status;
+  var body =
+    name + ' (' + email + ', ' + role + ') just submitted the Speed Training Session 1 Knowledge Check.\n\n' +
+    'Score: ' + score + ' / ' + total + ' (' + pct + '%)\n' +
+    'Status: ' + status + '\n' +
+    'Questions failed: ' + failedCount + ' of ' + total + failedList + '\n\n' +
+    'Full row written to the Sheet:\n' + sheetUrl;
+
+  MailApp.sendEmail({ to: RENE_EMAIL, cc: RENE_COPY_EMAIL, subject: subject, body: body });
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Speed Training Session 2 — Where the Number Comes From (additive)
+// Speed Training is a separate track from the seven-module main programme. The
+// email copy here is deliberately market-neutral: these banks name no account and
+// encode no single market's answer, so nothing market-specific is carried over
+// from the main-track templates.
+// ══════════════════════════════════════════════════════════════════════════════
+
+const ANSWER_KEY_SPEED2 = {
+  Q1:'C', Q2:'B', Q3:'D', Q4:'A', Q5:'B',
+  Q6:'D', Q7:'C', Q8:'A', Q9:'B', Q10:'C'
+};
+const TOTAL_QUESTIONS_SPEED2 = 10;
+const PASS_THRESHOLD_SPEED2  = 8;
+const QUIZ_URL_SPEED2        = 'https://enerbartoli.github.io/mod1-knowledge-check/speed2.html';
+
+// slide_refs on this track holds a deck SECTION name, not a slide number
+// (ref_type "deck_section" in the canonical bank).
+const SLIDE_REFS_SPEED2 = {
+  Q1: 'Speed Training Session 2 · Where the baseline is produced',
+  Q2: 'Speed Training Session 2 · What feeds the baseline',
+  Q3: 'Speed Training Session 2 · Baseline versus disaggregation',
+  Q4: 'Speed Training Session 2 · Carry-forward versus new item split',
+  Q5: 'Speed Training Session 2 · The Forecasting Range',
+  Q6: 'Speed Training Session 2 · Baseline, enrichment or base trend',
+  Q7: 'Speed Training Session 2 · The level hierarchy',
+  Q8: 'Speed Training Session 2 · Judging statistical fit',
+  Q9: 'Speed Training Session 2 · Who owns what',
+  Q10: 'Speed Training Session 2 · Repeatable versus one-off volume'
+};
+
+const QUESTION_TEXT_SPEED2 = {
+  Q1: 'At what level does the statistical engine produce the baseline?',
+  Q2: 'Why does the model use adjusted demand rather than shipments alone?',
+  Q3: 'The total for one item looks right, but the split across your accounts does not. What does that point to?',
+  Q4: 'A carry-forward item and a brand-new item both need splitting across accounts. What is different about the new item?',
+  Q5: 'An account that does not stock an item is showing volume for it. What do you look at first?',
+  Q6: 'You expect a one-off volume increase for a specific promotion in a specific week. Where does it belong?',
+  Q7: 'In a review someone says “let’s fix this at 2.5”. What are they proposing?',
+  Q8: 'Your portfolio turns over almost completely each year and demand follows entertainment releases rather than repeatable seasons. What does that suggest about a statistical baseline?',
+  Q9: 'The baseline for one item looks clearly wrong. What is the right first move?',
+  Q10: 'An account places a single large opportunity buy that will not repeat. If it is left untouched in the item\'s history, what is the risk?'
+};
+
+const RATIONALES_SPEED2 = {
+  Q1: 'The engine produces one number per parent SKU, business unit and channel. Customer-level numbers appear later, when that number is disaggregated.',
+  Q2: 'Without that correction the model would read a stock shortage as weak demand, and forecast the shortage forward.',
+  Q3: 'The statistical engine never produces a customer number. If the total is sound and the mix is not, the issue sits in the disaggregation.',
+  Q4: 'A carry-forward item has its own recent shipment history to split by. A new item has none, so the split is borrowed from comparable history and planned volumes.',
+  Q5: 'The Forecasting Range decides eligibility. It is the most common source of unexpected volume in an early cycle.',
+  Q6: 'A dated, non-repeating commercial event is what an enrichment is for. Base trend adjustments carry ongoing shifts rather than single events.',
+  Q7: 'Level 2.5 sits between the item total and the individual accounts. You set the number there and the system works back to the account lines.',
+  Q8: 'A statistical model needs a pattern to find. Where the portfolio turns over every year and demand is event driven, there is no pattern to learn.',
+  Q9: 'Governance sits with Demand Planning. Covering a wrong baseline with an enrichment hides the problem instead of fixing it.',
+  Q10: 'The model learns from what it sees. A one-off left in the history looks like a repeatable pattern and gets projected forward.'
+};
+
+function handleSpeed2Post(payload) {
+  try {
+    var validationError = validatePayload_speed2(payload);
+    if (validationError) return buildResponse({ error: validationError }, 400);
+
+    var scoreResult = scoreSubmission_speed2(payload.answers);
+    var sheetUrl    = appendToSheet_speed2(payload, scoreResult);
+    sendEmails_speed2(payload, scoreResult, sheetUrl);
+
+    return buildResponse({
+      score:            scoreResult.score,
+      total:            TOTAL_QUESTIONS_SPEED2,
+      percent:          scoreResult.percent,
+      pass:             scoreResult.pass,
+      failed_questions: scoreResult.failedQNums
+    });
+  } catch (err) {
+    Logger.log('handleSpeed2Post error: ' + err.message + '\n' + err.stack);
+    return buildResponse({ error: 'Server error. Please try again.' }, 500);
+  }
+}
+
+function validatePayload_speed2(p) {
+  if (!p.name || String(p.name).trim().length < 2) return 'Name is required.';
+  var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!p.email || !emailRe.test(String(p.email).trim())) return 'Valid email is required.';
+  if (!p.role) return 'Role is required.';
+  if (!p.answers || typeof p.answers !== 'object') return 'Answers are required.';
+  for (var i = 1; i <= TOTAL_QUESTIONS_SPEED2; i++) {
+    var key = 'Q' + i;
+    var val = p.answers[key];
+    if (!val || !['A','B','C','D'].includes(String(val).toUpperCase())) {
+      return 'Answer for ' + key + ' is missing or invalid.';
+    }
+  }
+  return null;
+}
+
+function scoreSubmission_speed2(answers) {
+  var score = 0;
+  var results = {};
+  var failedQNums = [];
+  for (var i = 1; i <= TOTAL_QUESTIONS_SPEED2; i++) {
+    var key     = 'Q' + i;
+    var given   = String(answers[key] || '').toUpperCase();
+    var correct = ANSWER_KEY_SPEED2[key];
+    var isCorrect = given === correct;
+    results[key] = { given: given, correct: isCorrect };
+    if (isCorrect) { score++; } else { failedQNums.push(i); }
+  }
+  var percent = Math.round((score / TOTAL_QUESTIONS_SPEED2) * 10000) / 100;
+  return { score: score, percent: percent, pass: score >= PASS_THRESHOLD_SPEED2, results: results, failedQNums: failedQNums };
+}
+
+function appendToSheet_speed2(payload, scoreResult) {
+  var ss    = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(SHEET_NAME);
+  if (!sheet) { sheet = ss.insertSheet(SHEET_NAME); writeHeaders(sheet); }
+  if (sheet.getLastRow() === 0) writeHeaders(sheet);
+
+  var moduleId      = 'speed2';
+  var attemptNumber = computeAttemptNumber(String(payload.email).trim().toLowerCase(), moduleId, sheet);
+
+  var now = new Date();
+  var row = [
+    now, payload.name.trim(), payload.email.trim().toLowerCase(), payload.role,
+    payload.roleOther || '', scoreResult.score, scoreResult.percent,
+    scoreResult.pass ? 'Pass' : 'Fail'
+  ];
+
+  // Q1–Q10 answer + correct pairs
+  for (var i = 1; i <= TOTAL_QUESTIONS_SPEED2; i++) {
+    var key = 'Q' + i;
+    var r   = scoreResult.results[key];
+    row.push(r.given);
+    row.push(r.correct);
+  }
+  // Q11–Q16 placeholders blank — preserves column alignment (6 blank pairs)
+  for (var j = 0; j < 6; j++) {
+    row.push('');
+    row.push('');
+  }
+
+  row.push(scoreResult.failedQNums.join(', '));
+  row.push(true);
+  row.push((payload.userAgent || '').slice(0, 200));
+  row.push(moduleId);
+  row.push(attemptNumber);
+
+  sheet.appendRow(row);
+  return ss.getUrl();
+}
+
+function sendEmails_speed2(payload, scoreResult, sheetUrl) {
+  var name  = payload.name.trim();
+  var email = payload.email.trim().toLowerCase();
+  try {
+    if (scoreResult.pass) {
+      sendPassEmail_speed2(email, name, scoreResult.score, TOTAL_QUESTIONS_SPEED2, scoreResult.percent);
+    } else {
+      sendFailEmail_speed2(email, name, scoreResult.score, TOTAL_QUESTIONS_SPEED2, scoreResult.percent, scoreResult.failedQNums);
+    }
+    sendNotificationEmail_speed2(payload, scoreResult, sheetUrl);
+    return true;
+  } catch (err) {
+    Logger.log('Speed Training Session 2 email error: ' + err.message);
+    return false;
+  }
+}
+
+function emailShell_speed2(contentHtml) {
+  return '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#f0f4f8;font-family:Arial,sans-serif;">' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f4f8;padding:32px 0;">' +
+    '<tr><td align="center">' +
+    '<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">' +
+    '<tr><td style="background:#0d1b2e;padding:28px 40px;text-align:center;">' +
+    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Forecast Enrichment Programme · Speed Training</p>' +
+    '<p style="margin:8px 0 0;color:#ffffff;font-size:20px;font-weight:700;">Session 2 Knowledge Check</p>' +
+    '</td></tr>' +
+    '<tr><td style="padding:40px;">' + contentHtml + '</td></tr>' +
+    '<tr><td style="background:#f8f9fa;padding:20px 40px;border-top:1px solid #e9ecef;text-align:center;">' +
+    '<p style="margin:0;color:#6c757d;font-size:12px;">Rene Bartoli · Demand Planning · Forecast Enrichment Program</p>' +
+    '</td></tr>' +
+    '</table></td></tr></table></body></html>';
+}
+
+function sendPassEmail_speed2(toEmail, name, score, total, pct) {
+  var subject = '✓ Speed Training Session 2 Knowledge Check — Passed';
+  var content =
+    '<div style="text-align:center;margin-bottom:32px;">' +
+    '<div style="display:inline-block;background:#d4edda;border-radius:50%;width:72px;height:72px;line-height:72px;font-size:36px;">✓</div>' +
+    '<h2 style="margin:16px 0 4px;color:#0d1b2e;font-size:24px;">Well done, ' + name + '!</h2>' +
+    '<p style="margin:0;color:#6c757d;font-size:15px;">You\'ve passed the Speed Training Session 2 knowledge check</p>' +
+    '</div>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f9fa;border-radius:8px;margin-bottom:28px;">' +
+    '<tr>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">' + score + '/' + total + '</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Score</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">' + Math.round(pct) + '%</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Accuracy</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">PASS</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Status</p>' +
+    '</td>' +
+    '</tr></table>' +
+    '<p style="color:#495057;font-size:15px;line-height:1.6;">You\'ve met the <strong>80% threshold</strong> for Speed Training Session 2 — Where the Number Comes From.</p>' +
+    '<div style="background:#e8f8f5;border-left:4px solid #00c9a7;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
+    '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">What\'s next</p>' +
+    '<p style="margin:6px 0 0;color:#495057;font-size:14px;">Carry this into the next session of the course, and apply it to your own scope as your market runs its cycle.</p>' +
+    '</div>' +
+    '<p style="color:#6c757d;font-size:14px;line-height:1.6;">If you have questions about the Session 2 material, revisit the Speed Training deck or reach out to your Demand Planning team.</p>';
+  MailApp.sendEmail({ to: toEmail, subject: subject, htmlBody: emailShell_speed2(content) });
+}
+
+function sendFailEmail_speed2(toEmail, name, score, total, pct, failedQNums) {
+  var subject = 'Speed Training Session 2 Knowledge Check — Please review and retry';
+
+  var missedRows = failedQNums.map(function(num) {
+    var key        = 'Q' + num;
+    var qText      = QUESTION_TEXT_SPEED2[key] || '';
+    var refs       = SLIDE_REFS_SPEED2[key] || '';
+    var rationale  = RATIONALES_SPEED2[key] || '';
+    return '<tr style="border-bottom:1px solid #e9ecef;">' +
+      '<td style="padding:12px 8px;color:#0d1b2e;font-weight:700;font-size:13px;white-space:nowrap;">Q' + num + '</td>' +
+      '<td style="padding:12px 8px;font-size:13px;line-height:1.5;">' +
+        '<div style="color:#495057;">' + qText + '</div>' +
+        '<div style="color:#6c757d;font-style:italic;margin-top:6px;font-size:12px;">' + rationale + '</div>' +
+      '</td>' +
+      '<td style="padding:12px 8px;color:#00c9a7;font-size:13px;">' + refs + '</td>' +
+      '</tr>';
+  }).join('');
+
+  var content =
+    '<div style="text-align:center;margin-bottom:32px;">' +
+    '<div style="display:inline-block;background:#fff3cd;border-radius:50%;width:72px;height:72px;line-height:72px;font-size:36px;">📋</div>' +
+    '<h2 style="margin:16px 0 4px;color:#0d1b2e;font-size:24px;">Hi ' + name + '</h2>' +
+    '<p style="margin:0;color:#6c757d;font-size:15px;">A little more review needed</p>' +
+    '</div>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f9fa;border-radius:8px;margin-bottom:28px;">' +
+    '<tr>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#ffd60a;">' + score + '/' + total + '</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Score</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#ffd60a;">' + Math.round(pct) + '%</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Accuracy</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#dc3545;">RETRY</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Status</p>' +
+    '</td>' +
+    '</tr></table>' +
+    '<p style="color:#495057;font-size:15px;line-height:1.6;">No worries — the goal is for everyone to land Speed Training Session 2 before applying it in their own market.</p>' +
+    '<h3 style="color:#0d1b2e;font-size:16px;font-weight:700;margin:24px 0 12px;">Questions to Review to Better Your Understanding</h3>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e9ecef;border-radius:8px;overflow:hidden;margin:20px 0;">' +
+    '<tr style="background:#0d1b2e;">' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">#</th>' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Question &amp; Rationale</th>' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Review</th>' +
+    '</tr>' +
+    missedRows +
+    '</table>' +
+    '<div style="background:#fff3cd;border-left:4px solid #ffd60a;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
+    '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">Note</p>' +
+    '<p style="margin:6px 0 0;color:#495057;font-size:14px;">I\'m deliberately not sharing the correct answers here — go back to the material and find them yourself. That\'s where the learning sticks.</p>' +
+    '</div>' +
+    '<div style="text-align:center;margin-top:28px;">' +
+    '<a href="' + QUIZ_URL_SPEED2 + '" style="display:inline-block;background:#ffd60a;color:#0d1b2e;font-weight:700;font-size:15px;padding:14px 32px;border-radius:8px;text-decoration:none;">Retake the Quiz →</a>' +
+    '</div>';
+
+  MailApp.sendEmail({ to: toEmail, subject: subject, htmlBody: emailShell_speed2(content) });
+}
+
+function sendNotificationEmail_speed2(payload, scoreResult, sheetUrl) {
+  var name        = payload.name.trim();
+  var email       = payload.email.trim().toLowerCase();
+  var role        = payload.role + (payload.roleOther ? ' (' + payload.roleOther + ')' : '');
+  var score       = scoreResult.score;
+  var total       = TOTAL_QUESTIONS_SPEED2;
+  var pct         = scoreResult.percent;
+  var status      = scoreResult.pass ? 'PASS' : 'FAIL';
+  var failedCount = scoreResult.failedQNums.length;
+  var failedList  = failedCount > 0
+    ? '  (' + scoreResult.failedQNums.map(function(n) { return 'Q' + n; }).join(', ') + ')'
+    : '';
+
+  var subject = '[Speed Training Session 2 Quiz] ' + name + ' — ' + score + '/' + total + ' — ' + status;
+  var body =
+    name + ' (' + email + ', ' + role + ') just submitted the Speed Training Session 2 Knowledge Check.\n\n' +
+    'Score: ' + score + ' / ' + total + ' (' + pct + '%)\n' +
+    'Status: ' + status + '\n' +
+    'Questions failed: ' + failedCount + ' of ' + total + failedList + '\n\n' +
+    'Full row written to the Sheet:\n' + sheetUrl;
+
+  MailApp.sendEmail({ to: RENE_EMAIL, cc: RENE_COPY_EMAIL, subject: subject, body: body });
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Speed Training Session 3 — The Tool, End to End (additive)
+// Speed Training is a separate track from the seven-module main programme. The
+// email copy here is deliberately market-neutral: these banks name no account and
+// encode no single market's answer, so nothing market-specific is carried over
+// from the main-track templates.
+// ══════════════════════════════════════════════════════════════════════════════
+
+const ANSWER_KEY_SPEED3 = {
+  Q1:'B', Q2:'D', Q3:'A', Q4:'C', Q5:'B',
+  Q6:'D', Q7:'C', Q8:'A', Q9:'B', Q10:'D'
+};
+const TOTAL_QUESTIONS_SPEED3 = 10;
+const PASS_THRESHOLD_SPEED3  = 8;
+const QUIZ_URL_SPEED3        = 'https://enerbartoli.github.io/mod1-knowledge-check/speed3.html';
+
+// slide_refs on this track holds a deck SECTION name, not a slide number
+// (ref_type "deck_section" in the canonical bank).
+const SLIDE_REFS_SPEED3 = {
+  Q1: 'Speed Training Session 3 · Workbook anatomy',
+  Q2: 'Speed Training Session 3 · Enrichment field rules',
+  Q3: 'Speed Training Session 3 · Promotion discount field',
+  Q4: 'Speed Training Session 3 · Reconciliation template',
+  Q5: 'Speed Training Session 3 · Validation recovery',
+  Q6: 'Speed Training Session 3 · Download discipline',
+  Q7: 'Speed Training Session 3 · Cancelling an enrichment',
+  Q8: 'Speed Training Session 3 · Master data dependency',
+  Q9: 'Speed Training Session 3 · Row-level rules',
+  Q10: 'Speed Training Session 3 · Adjustments are deltas'
+};
+
+const QUESTION_TEXT_SPEED3 = {
+  Q1: 'A dated commercial event, such as a promotion running in specific weeks, is captured where?',
+  Q2: 'You can express the expected lift either as a percentage or as units. What should you do?',
+  Q3: 'A promotion is agreed with an account. What does the promotion discount field capture?',
+  Q4: 'In the reconciliation template, which weekly columns can you edit?',
+  Q5: 'Your upload is rejected and the tool returns an annotated copy of your workbook listing the errors. What do you do next?',
+  Q6: 'A colleague keeps last cycle\'s workbook on their desktop and reuses it to save time. What is the problem with that?',
+  Q7: 'An enrichment you submitted last week is no longer going ahead. How do you take it out of the forecast?',
+  Q8: 'A new item you need is missing from the SKU dropdown. What is the most likely reason?',
+  Q9: 'You need to record both a version change and a channel shift for the same item. How should that be entered?',
+  Q10: 'You entered an adjustment last cycle and did not touch it. This cycle the weekly total for that item has changed. What is the most likely explanation?'
+};
+
+const RATIONALES_SPEED3 = {
+  Q1: 'The enrichments tab carries dated commercial events. The reconciliation tab carries changes to the final weekly number.',
+  Q2: 'Exactly one of the two must be filled. Filling both is among the most common reasons an upload is rejected.',
+  Q3: 'The field carries the funded percentage only. A consumer-facing figure can be added once the funded figure is consistent, and the gap between the two will show what the retailer funds and whether the discount reaches the shopper in full.',
+  Q4: 'Baseline, sales enrichment and marketing and demand planning columns are shown for context and are read-only. Base trend adjustment is the editable family.',
+  Q5: 'The returned file is a diagnostic copy, not a submission. Fix the errors in your own workbook and upload that. Nothing loaded from the rejected attempt, so nothing is half-saved.',
+  Q6: 'A workbook is a point-in-time extract. Anything a colleague changed after you downloaded is missing from your copy, and uploading a stale file can undo their work.',
+  Q7: 'Deleting a row does nothing, because the record already exists. Declining it keeps the audit trail intact and takes the volume out of the calculated result.',
+  Q8: 'The tool only offers items that already exist downstream. When an item is missing, the fix is master data, not the template.',
+  Q9: 'A row can carry a version change or a channel shift, not both. Splitting them across rows keeps the intent readable in the audit trail.',
+  Q10: 'An adjustment is a delta. When the baseline underneath it moves, the resulting total moves with it, so read the full number rather than only your own line.'
+};
+
+function handleSpeed3Post(payload) {
+  try {
+    var validationError = validatePayload_speed3(payload);
+    if (validationError) return buildResponse({ error: validationError }, 400);
+
+    var scoreResult = scoreSubmission_speed3(payload.answers);
+    var sheetUrl    = appendToSheet_speed3(payload, scoreResult);
+    sendEmails_speed3(payload, scoreResult, sheetUrl);
+
+    return buildResponse({
+      score:            scoreResult.score,
+      total:            TOTAL_QUESTIONS_SPEED3,
+      percent:          scoreResult.percent,
+      pass:             scoreResult.pass,
+      failed_questions: scoreResult.failedQNums
+    });
+  } catch (err) {
+    Logger.log('handleSpeed3Post error: ' + err.message + '\n' + err.stack);
+    return buildResponse({ error: 'Server error. Please try again.' }, 500);
+  }
+}
+
+function validatePayload_speed3(p) {
+  if (!p.name || String(p.name).trim().length < 2) return 'Name is required.';
+  var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!p.email || !emailRe.test(String(p.email).trim())) return 'Valid email is required.';
+  if (!p.role) return 'Role is required.';
+  if (!p.answers || typeof p.answers !== 'object') return 'Answers are required.';
+  for (var i = 1; i <= TOTAL_QUESTIONS_SPEED3; i++) {
+    var key = 'Q' + i;
+    var val = p.answers[key];
+    if (!val || !['A','B','C','D'].includes(String(val).toUpperCase())) {
+      return 'Answer for ' + key + ' is missing or invalid.';
+    }
+  }
+  return null;
+}
+
+function scoreSubmission_speed3(answers) {
+  var score = 0;
+  var results = {};
+  var failedQNums = [];
+  for (var i = 1; i <= TOTAL_QUESTIONS_SPEED3; i++) {
+    var key     = 'Q' + i;
+    var given   = String(answers[key] || '').toUpperCase();
+    var correct = ANSWER_KEY_SPEED3[key];
+    var isCorrect = given === correct;
+    results[key] = { given: given, correct: isCorrect };
+    if (isCorrect) { score++; } else { failedQNums.push(i); }
+  }
+  var percent = Math.round((score / TOTAL_QUESTIONS_SPEED3) * 10000) / 100;
+  return { score: score, percent: percent, pass: score >= PASS_THRESHOLD_SPEED3, results: results, failedQNums: failedQNums };
+}
+
+function appendToSheet_speed3(payload, scoreResult) {
+  var ss    = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(SHEET_NAME);
+  if (!sheet) { sheet = ss.insertSheet(SHEET_NAME); writeHeaders(sheet); }
+  if (sheet.getLastRow() === 0) writeHeaders(sheet);
+
+  var moduleId      = 'speed3';
+  var attemptNumber = computeAttemptNumber(String(payload.email).trim().toLowerCase(), moduleId, sheet);
+
+  var now = new Date();
+  var row = [
+    now, payload.name.trim(), payload.email.trim().toLowerCase(), payload.role,
+    payload.roleOther || '', scoreResult.score, scoreResult.percent,
+    scoreResult.pass ? 'Pass' : 'Fail'
+  ];
+
+  // Q1–Q10 answer + correct pairs
+  for (var i = 1; i <= TOTAL_QUESTIONS_SPEED3; i++) {
+    var key = 'Q' + i;
+    var r   = scoreResult.results[key];
+    row.push(r.given);
+    row.push(r.correct);
+  }
+  // Q11–Q16 placeholders blank — preserves column alignment (6 blank pairs)
+  for (var j = 0; j < 6; j++) {
+    row.push('');
+    row.push('');
+  }
+
+  row.push(scoreResult.failedQNums.join(', '));
+  row.push(true);
+  row.push((payload.userAgent || '').slice(0, 200));
+  row.push(moduleId);
+  row.push(attemptNumber);
+
+  sheet.appendRow(row);
+  return ss.getUrl();
+}
+
+function sendEmails_speed3(payload, scoreResult, sheetUrl) {
+  var name  = payload.name.trim();
+  var email = payload.email.trim().toLowerCase();
+  try {
+    if (scoreResult.pass) {
+      sendPassEmail_speed3(email, name, scoreResult.score, TOTAL_QUESTIONS_SPEED3, scoreResult.percent);
+    } else {
+      sendFailEmail_speed3(email, name, scoreResult.score, TOTAL_QUESTIONS_SPEED3, scoreResult.percent, scoreResult.failedQNums);
+    }
+    sendNotificationEmail_speed3(payload, scoreResult, sheetUrl);
+    return true;
+  } catch (err) {
+    Logger.log('Speed Training Session 3 email error: ' + err.message);
+    return false;
+  }
+}
+
+function emailShell_speed3(contentHtml) {
+  return '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#f0f4f8;font-family:Arial,sans-serif;">' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f4f8;padding:32px 0;">' +
+    '<tr><td align="center">' +
+    '<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">' +
+    '<tr><td style="background:#0d1b2e;padding:28px 40px;text-align:center;">' +
+    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Forecast Enrichment Programme · Speed Training</p>' +
+    '<p style="margin:8px 0 0;color:#ffffff;font-size:20px;font-weight:700;">Session 3 Knowledge Check</p>' +
+    '</td></tr>' +
+    '<tr><td style="padding:40px;">' + contentHtml + '</td></tr>' +
+    '<tr><td style="background:#f8f9fa;padding:20px 40px;border-top:1px solid #e9ecef;text-align:center;">' +
+    '<p style="margin:0;color:#6c757d;font-size:12px;">Rene Bartoli · Demand Planning · Forecast Enrichment Program</p>' +
+    '</td></tr>' +
+    '</table></td></tr></table></body></html>';
+}
+
+function sendPassEmail_speed3(toEmail, name, score, total, pct) {
+  var subject = '✓ Speed Training Session 3 Knowledge Check — Passed';
+  var content =
+    '<div style="text-align:center;margin-bottom:32px;">' +
+    '<div style="display:inline-block;background:#d4edda;border-radius:50%;width:72px;height:72px;line-height:72px;font-size:36px;">✓</div>' +
+    '<h2 style="margin:16px 0 4px;color:#0d1b2e;font-size:24px;">Well done, ' + name + '!</h2>' +
+    '<p style="margin:0;color:#6c757d;font-size:15px;">You\'ve passed the Speed Training Session 3 knowledge check</p>' +
+    '</div>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f9fa;border-radius:8px;margin-bottom:28px;">' +
+    '<tr>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">' + score + '/' + total + '</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Score</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">' + Math.round(pct) + '%</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Accuracy</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">PASS</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Status</p>' +
+    '</td>' +
+    '</tr></table>' +
+    '<p style="color:#495057;font-size:15px;line-height:1.6;">You\'ve met the <strong>80% threshold</strong> for Speed Training Session 3 — The Tool, End to End.</p>' +
+    '<div style="background:#e8f8f5;border-left:4px solid #00c9a7;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
+    '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">What\'s next</p>' +
+    '<p style="margin:6px 0 0;color:#495057;font-size:14px;">Carry this into the next session of the course, and apply it to your own scope as your market runs its cycle.</p>' +
+    '</div>' +
+    '<p style="color:#6c757d;font-size:14px;line-height:1.6;">If you have questions about the Session 3 material, revisit the Speed Training deck or reach out to your Demand Planning team.</p>';
+  MailApp.sendEmail({ to: toEmail, subject: subject, htmlBody: emailShell_speed3(content) });
+}
+
+function sendFailEmail_speed3(toEmail, name, score, total, pct, failedQNums) {
+  var subject = 'Speed Training Session 3 Knowledge Check — Please review and retry';
+
+  var missedRows = failedQNums.map(function(num) {
+    var key        = 'Q' + num;
+    var qText      = QUESTION_TEXT_SPEED3[key] || '';
+    var refs       = SLIDE_REFS_SPEED3[key] || '';
+    var rationale  = RATIONALES_SPEED3[key] || '';
+    return '<tr style="border-bottom:1px solid #e9ecef;">' +
+      '<td style="padding:12px 8px;color:#0d1b2e;font-weight:700;font-size:13px;white-space:nowrap;">Q' + num + '</td>' +
+      '<td style="padding:12px 8px;font-size:13px;line-height:1.5;">' +
+        '<div style="color:#495057;">' + qText + '</div>' +
+        '<div style="color:#6c757d;font-style:italic;margin-top:6px;font-size:12px;">' + rationale + '</div>' +
+      '</td>' +
+      '<td style="padding:12px 8px;color:#00c9a7;font-size:13px;">' + refs + '</td>' +
+      '</tr>';
+  }).join('');
+
+  var content =
+    '<div style="text-align:center;margin-bottom:32px;">' +
+    '<div style="display:inline-block;background:#fff3cd;border-radius:50%;width:72px;height:72px;line-height:72px;font-size:36px;">📋</div>' +
+    '<h2 style="margin:16px 0 4px;color:#0d1b2e;font-size:24px;">Hi ' + name + '</h2>' +
+    '<p style="margin:0;color:#6c757d;font-size:15px;">A little more review needed</p>' +
+    '</div>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f9fa;border-radius:8px;margin-bottom:28px;">' +
+    '<tr>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#ffd60a;">' + score + '/' + total + '</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Score</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#ffd60a;">' + Math.round(pct) + '%</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Accuracy</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#dc3545;">RETRY</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Status</p>' +
+    '</td>' +
+    '</tr></table>' +
+    '<p style="color:#495057;font-size:15px;line-height:1.6;">No worries — the goal is for everyone to land Speed Training Session 3 before applying it in their own market.</p>' +
+    '<h3 style="color:#0d1b2e;font-size:16px;font-weight:700;margin:24px 0 12px;">Questions to Review to Better Your Understanding</h3>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e9ecef;border-radius:8px;overflow:hidden;margin:20px 0;">' +
+    '<tr style="background:#0d1b2e;">' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">#</th>' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Question &amp; Rationale</th>' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Review</th>' +
+    '</tr>' +
+    missedRows +
+    '</table>' +
+    '<div style="background:#fff3cd;border-left:4px solid #ffd60a;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
+    '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">Note</p>' +
+    '<p style="margin:6px 0 0;color:#495057;font-size:14px;">I\'m deliberately not sharing the correct answers here — go back to the material and find them yourself. That\'s where the learning sticks.</p>' +
+    '</div>' +
+    '<div style="text-align:center;margin-top:28px;">' +
+    '<a href="' + QUIZ_URL_SPEED3 + '" style="display:inline-block;background:#ffd60a;color:#0d1b2e;font-weight:700;font-size:15px;padding:14px 32px;border-radius:8px;text-decoration:none;">Retake the Quiz →</a>' +
+    '</div>';
+
+  MailApp.sendEmail({ to: toEmail, subject: subject, htmlBody: emailShell_speed3(content) });
+}
+
+function sendNotificationEmail_speed3(payload, scoreResult, sheetUrl) {
+  var name        = payload.name.trim();
+  var email       = payload.email.trim().toLowerCase();
+  var role        = payload.role + (payload.roleOther ? ' (' + payload.roleOther + ')' : '');
+  var score       = scoreResult.score;
+  var total       = TOTAL_QUESTIONS_SPEED3;
+  var pct         = scoreResult.percent;
+  var status      = scoreResult.pass ? 'PASS' : 'FAIL';
+  var failedCount = scoreResult.failedQNums.length;
+  var failedList  = failedCount > 0
+    ? '  (' + scoreResult.failedQNums.map(function(n) { return 'Q' + n; }).join(', ') + ')'
+    : '';
+
+  var subject = '[Speed Training Session 3 Quiz] ' + name + ' — ' + score + '/' + total + ' — ' + status;
+  var body =
+    name + ' (' + email + ', ' + role + ') just submitted the Speed Training Session 3 Knowledge Check.\n\n' +
+    'Score: ' + score + ' / ' + total + ' (' + pct + '%)\n' +
+    'Status: ' + status + '\n' +
+    'Questions failed: ' + failedCount + ' of ' + total + failedList + '\n\n' +
+    'Full row written to the Sheet:\n' + sheetUrl;
+
+  MailApp.sendEmail({ to: RENE_EMAIL, cc: RENE_COPY_EMAIL, subject: subject, body: body });
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Speed Training Session 4 — How Your Market Works (additive)
+// Speed Training is a separate track from the seven-module main programme. The
+// email copy here is deliberately market-neutral: these banks name no account and
+// encode no single market's answer, so nothing market-specific is carried over
+// from the main-track templates.
+// ══════════════════════════════════════════════════════════════════════════════
+
+const ANSWER_KEY_SPEED4 = {
+  Q1:'C', Q2:'A', Q3:'D', Q4:'B', Q5:'C',
+  Q6:'A', Q7:'D', Q8:'B', Q9:'C', Q10:'A'
+};
+const TOTAL_QUESTIONS_SPEED4 = 10;
+const PASS_THRESHOLD_SPEED4  = 8;
+const QUIZ_URL_SPEED4        = 'https://enerbartoli.github.io/mod1-knowledge-check/speed4.html';
+
+// slide_refs on this track holds a deck SECTION name, not a slide number
+// (ref_type "deck_section" in the canonical bank).
+const SLIDE_REFS_SPEED4 = {
+  Q1: 'Speed Training Session 4 · Scope is a market decision',
+  Q2: 'Speed Training Session 4 · Markets differ by design',
+  Q3: 'Speed Training Session 4 · Repeating versus one-shot volume',
+  Q4: 'Speed Training Session 4 · Evergreen designation',
+  Q5: 'Speed Training Session 4 · FAN ownership',
+  Q6: 'Speed Training Session 4 · Accounts inside the domestic channel',
+  Q7: 'Speed Training Session 4 · Forecasting Range consequences',
+  Q8: 'Speed Training Session 4 · Enrichment types vary by market',
+  Q9: 'Speed Training Session 4 · Escalation',
+  Q10: 'Speed Training Session 4 · Challenging a split with evidence'
+};
+
+const QUESTION_TEXT_SPEED4 = {
+  Q1: 'When you want to know whether a segment carries a statistical baseline, what is the question to ask?',
+  Q2: 'Direct Import carries a statistical baseline in one market and is built bottom-up in another. What does that tell you?',
+  Q3: 'A Direct Import book contains both stable volume that repeats every year and one-shot opportunity buys. How should the two be handled?',
+  Q4: 'Where does the Evergreen designation stand today?',
+  Q5: 'Who owns the volume for a FAN item, and what is the market team\'s job?',
+  Q6: 'A direct-to-consumer account sits inside the domestic channel. What follows from that?',
+  Q7: 'A team suggests removing one of their accounts from the Forecasting Range because they would rather forecast it themselves. What happens to that account\'s volume?',
+  Q8: 'A colleague in another market tells you they use a particular enrichment type all the time. What should you assume about your own market?',
+  Q9: 'You are unsure whether an event you are looking at should be entered as an enrichment or as a base trend adjustment. Who should you ask first?',
+  Q10: 'You believe the split your account receives is too high. What do you bring to the conversation?'
+};
+
+const RATIONALES_SPEED4 = {
+  Q1: 'Statistical coverage is a market decision rather than a property of the item. The same segment can be handled differently in two markets, on purpose.',
+  Q2: 'The design allows markets to differ on which segments are forecast statistically. A difference between two markets is a decision, not a defect.',
+  Q3: 'One-shot volume left in history teaches the model a pattern that does not exist, and that error carries into future baselines.',
+  Q4: 'The designation is where the design is heading rather than something available today, and when it arrives the nomination will be owned by Sales Operations.',
+  Q5: 'FAN volume comes from a central process with regional coordination. The market validates timing and feasibility rather than rebuilding the number.',
+  Q6: 'An account inside the domestic channel is treated like any other account, which means the baseline is split down to it in the normal way.',
+  Q7: 'The range decides who is eligible, not how much volume exists in total. Removing an account redistributes its share rather than removing it.',
+  Q8: 'Which types are actually used varies by market. A type that is common in one market can be dormant in another, so check the local position.',
+  Q9: 'Classification questions sit with the trained colleague on your team. The programme handles questions that change a rule, and the build team handles tool faults.',
+  Q10: 'A split is challenged with evidence about the account, not with a new total. Bring what the account sells and how far the split sits from it.'
+};
+
+function handleSpeed4Post(payload) {
+  try {
+    var validationError = validatePayload_speed4(payload);
+    if (validationError) return buildResponse({ error: validationError }, 400);
+
+    var scoreResult = scoreSubmission_speed4(payload.answers);
+    var sheetUrl    = appendToSheet_speed4(payload, scoreResult);
+    sendEmails_speed4(payload, scoreResult, sheetUrl);
+
+    return buildResponse({
+      score:            scoreResult.score,
+      total:            TOTAL_QUESTIONS_SPEED4,
+      percent:          scoreResult.percent,
+      pass:             scoreResult.pass,
+      failed_questions: scoreResult.failedQNums
+    });
+  } catch (err) {
+    Logger.log('handleSpeed4Post error: ' + err.message + '\n' + err.stack);
+    return buildResponse({ error: 'Server error. Please try again.' }, 500);
+  }
+}
+
+function validatePayload_speed4(p) {
+  if (!p.name || String(p.name).trim().length < 2) return 'Name is required.';
+  var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!p.email || !emailRe.test(String(p.email).trim())) return 'Valid email is required.';
+  if (!p.role) return 'Role is required.';
+  if (!p.answers || typeof p.answers !== 'object') return 'Answers are required.';
+  for (var i = 1; i <= TOTAL_QUESTIONS_SPEED4; i++) {
+    var key = 'Q' + i;
+    var val = p.answers[key];
+    if (!val || !['A','B','C','D'].includes(String(val).toUpperCase())) {
+      return 'Answer for ' + key + ' is missing or invalid.';
+    }
+  }
+  return null;
+}
+
+function scoreSubmission_speed4(answers) {
+  var score = 0;
+  var results = {};
+  var failedQNums = [];
+  for (var i = 1; i <= TOTAL_QUESTIONS_SPEED4; i++) {
+    var key     = 'Q' + i;
+    var given   = String(answers[key] || '').toUpperCase();
+    var correct = ANSWER_KEY_SPEED4[key];
+    var isCorrect = given === correct;
+    results[key] = { given: given, correct: isCorrect };
+    if (isCorrect) { score++; } else { failedQNums.push(i); }
+  }
+  var percent = Math.round((score / TOTAL_QUESTIONS_SPEED4) * 10000) / 100;
+  return { score: score, percent: percent, pass: score >= PASS_THRESHOLD_SPEED4, results: results, failedQNums: failedQNums };
+}
+
+function appendToSheet_speed4(payload, scoreResult) {
+  var ss    = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(SHEET_NAME);
+  if (!sheet) { sheet = ss.insertSheet(SHEET_NAME); writeHeaders(sheet); }
+  if (sheet.getLastRow() === 0) writeHeaders(sheet);
+
+  var moduleId      = 'speed4';
+  var attemptNumber = computeAttemptNumber(String(payload.email).trim().toLowerCase(), moduleId, sheet);
+
+  var now = new Date();
+  var row = [
+    now, payload.name.trim(), payload.email.trim().toLowerCase(), payload.role,
+    payload.roleOther || '', scoreResult.score, scoreResult.percent,
+    scoreResult.pass ? 'Pass' : 'Fail'
+  ];
+
+  // Q1–Q10 answer + correct pairs
+  for (var i = 1; i <= TOTAL_QUESTIONS_SPEED4; i++) {
+    var key = 'Q' + i;
+    var r   = scoreResult.results[key];
+    row.push(r.given);
+    row.push(r.correct);
+  }
+  // Q11–Q16 placeholders blank — preserves column alignment (6 blank pairs)
+  for (var j = 0; j < 6; j++) {
+    row.push('');
+    row.push('');
+  }
+
+  row.push(scoreResult.failedQNums.join(', '));
+  row.push(true);
+  row.push((payload.userAgent || '').slice(0, 200));
+  row.push(moduleId);
+  row.push(attemptNumber);
+
+  sheet.appendRow(row);
+  return ss.getUrl();
+}
+
+function sendEmails_speed4(payload, scoreResult, sheetUrl) {
+  var name  = payload.name.trim();
+  var email = payload.email.trim().toLowerCase();
+  try {
+    if (scoreResult.pass) {
+      sendPassEmail_speed4(email, name, scoreResult.score, TOTAL_QUESTIONS_SPEED4, scoreResult.percent);
+    } else {
+      sendFailEmail_speed4(email, name, scoreResult.score, TOTAL_QUESTIONS_SPEED4, scoreResult.percent, scoreResult.failedQNums);
+    }
+    sendNotificationEmail_speed4(payload, scoreResult, sheetUrl);
+    return true;
+  } catch (err) {
+    Logger.log('Speed Training Session 4 email error: ' + err.message);
+    return false;
+  }
+}
+
+function emailShell_speed4(contentHtml) {
+  return '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#f0f4f8;font-family:Arial,sans-serif;">' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f4f8;padding:32px 0;">' +
+    '<tr><td align="center">' +
+    '<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">' +
+    '<tr><td style="background:#0d1b2e;padding:28px 40px;text-align:center;">' +
+    '<p style="margin:0;color:#00c9a7;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Forecast Enrichment Programme · Speed Training</p>' +
+    '<p style="margin:8px 0 0;color:#ffffff;font-size:20px;font-weight:700;">Session 4 Knowledge Check</p>' +
+    '</td></tr>' +
+    '<tr><td style="padding:40px;">' + contentHtml + '</td></tr>' +
+    '<tr><td style="background:#f8f9fa;padding:20px 40px;border-top:1px solid #e9ecef;text-align:center;">' +
+    '<p style="margin:0;color:#6c757d;font-size:12px;">Rene Bartoli · Demand Planning · Forecast Enrichment Program</p>' +
+    '</td></tr>' +
+    '</table></td></tr></table></body></html>';
+}
+
+function sendPassEmail_speed4(toEmail, name, score, total, pct) {
+  var subject = '✓ Speed Training Session 4 Knowledge Check — Passed';
+  var content =
+    '<div style="text-align:center;margin-bottom:32px;">' +
+    '<div style="display:inline-block;background:#d4edda;border-radius:50%;width:72px;height:72px;line-height:72px;font-size:36px;">✓</div>' +
+    '<h2 style="margin:16px 0 4px;color:#0d1b2e;font-size:24px;">Well done, ' + name + '!</h2>' +
+    '<p style="margin:0;color:#6c757d;font-size:15px;">You\'ve passed the Speed Training Session 4 knowledge check</p>' +
+    '</div>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f9fa;border-radius:8px;margin-bottom:28px;">' +
+    '<tr>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">' + score + '/' + total + '</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Score</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">' + Math.round(pct) + '%</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Accuracy</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#00c9a7;">PASS</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Status</p>' +
+    '</td>' +
+    '</tr></table>' +
+    '<p style="color:#495057;font-size:15px;line-height:1.6;">You\'ve met the <strong>80% threshold</strong> for Speed Training Session 4 — How Your Market Works.</p>' +
+    '<div style="background:#e8f8f5;border-left:4px solid #00c9a7;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
+    '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">What\'s next</p>' +
+    '<p style="margin:6px 0 0;color:#495057;font-size:14px;">Carry this into the next session of the course, and apply it to your own scope as your market runs its cycle.</p>' +
+    '</div>' +
+    '<p style="color:#6c757d;font-size:14px;line-height:1.6;">If you have questions about the Session 4 material, revisit the Speed Training deck or reach out to your Demand Planning team.</p>';
+  MailApp.sendEmail({ to: toEmail, subject: subject, htmlBody: emailShell_speed4(content) });
+}
+
+function sendFailEmail_speed4(toEmail, name, score, total, pct, failedQNums) {
+  var subject = 'Speed Training Session 4 Knowledge Check — Please review and retry';
+
+  var missedRows = failedQNums.map(function(num) {
+    var key        = 'Q' + num;
+    var qText      = QUESTION_TEXT_SPEED4[key] || '';
+    var refs       = SLIDE_REFS_SPEED4[key] || '';
+    var rationale  = RATIONALES_SPEED4[key] || '';
+    return '<tr style="border-bottom:1px solid #e9ecef;">' +
+      '<td style="padding:12px 8px;color:#0d1b2e;font-weight:700;font-size:13px;white-space:nowrap;">Q' + num + '</td>' +
+      '<td style="padding:12px 8px;font-size:13px;line-height:1.5;">' +
+        '<div style="color:#495057;">' + qText + '</div>' +
+        '<div style="color:#6c757d;font-style:italic;margin-top:6px;font-size:12px;">' + rationale + '</div>' +
+      '</td>' +
+      '<td style="padding:12px 8px;color:#00c9a7;font-size:13px;">' + refs + '</td>' +
+      '</tr>';
+  }).join('');
+
+  var content =
+    '<div style="text-align:center;margin-bottom:32px;">' +
+    '<div style="display:inline-block;background:#fff3cd;border-radius:50%;width:72px;height:72px;line-height:72px;font-size:36px;">📋</div>' +
+    '<h2 style="margin:16px 0 4px;color:#0d1b2e;font-size:24px;">Hi ' + name + '</h2>' +
+    '<p style="margin:0;color:#6c757d;font-size:15px;">A little more review needed</p>' +
+    '</div>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f8f9fa;border-radius:8px;margin-bottom:28px;">' +
+    '<tr>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#ffd60a;">' + score + '/' + total + '</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Score</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;border-right:1px solid #e9ecef;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#ffd60a;">' + Math.round(pct) + '%</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Accuracy</p>' +
+    '</td>' +
+    '<td style="padding:20px;text-align:center;">' +
+    '<p style="margin:0;font-size:32px;font-weight:700;color:#dc3545;">RETRY</p>' +
+    '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Status</p>' +
+    '</td>' +
+    '</tr></table>' +
+    '<p style="color:#495057;font-size:15px;line-height:1.6;">No worries — the goal is for everyone to land Speed Training Session 4 before applying it in their own market.</p>' +
+    '<h3 style="color:#0d1b2e;font-size:16px;font-weight:700;margin:24px 0 12px;">Questions to Review to Better Your Understanding</h3>' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e9ecef;border-radius:8px;overflow:hidden;margin:20px 0;">' +
+    '<tr style="background:#0d1b2e;">' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">#</th>' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Question &amp; Rationale</th>' +
+    '<th style="padding:10px 8px;color:#00c9a7;font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;">Review</th>' +
+    '</tr>' +
+    missedRows +
+    '</table>' +
+    '<div style="background:#fff3cd;border-left:4px solid #ffd60a;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
+    '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">Note</p>' +
+    '<p style="margin:6px 0 0;color:#495057;font-size:14px;">I\'m deliberately not sharing the correct answers here — go back to the material and find them yourself. That\'s where the learning sticks.</p>' +
+    '</div>' +
+    '<div style="text-align:center;margin-top:28px;">' +
+    '<a href="' + QUIZ_URL_SPEED4 + '" style="display:inline-block;background:#ffd60a;color:#0d1b2e;font-weight:700;font-size:15px;padding:14px 32px;border-radius:8px;text-decoration:none;">Retake the Quiz →</a>' +
+    '</div>';
+
+  MailApp.sendEmail({ to: toEmail, subject: subject, htmlBody: emailShell_speed4(content) });
+}
+
+function sendNotificationEmail_speed4(payload, scoreResult, sheetUrl) {
+  var name        = payload.name.trim();
+  var email       = payload.email.trim().toLowerCase();
+  var role        = payload.role + (payload.roleOther ? ' (' + payload.roleOther + ')' : '');
+  var score       = scoreResult.score;
+  var total       = TOTAL_QUESTIONS_SPEED4;
+  var pct         = scoreResult.percent;
+  var status      = scoreResult.pass ? 'PASS' : 'FAIL';
+  var failedCount = scoreResult.failedQNums.length;
+  var failedList  = failedCount > 0
+    ? '  (' + scoreResult.failedQNums.map(function(n) { return 'Q' + n; }).join(', ') + ')'
+    : '';
+
+  var subject = '[Speed Training Session 4 Quiz] ' + name + ' — ' + score + '/' + total + ' — ' + status;
+  var body =
+    name + ' (' + email + ', ' + role + ') just submitted the Speed Training Session 4 Knowledge Check.\n\n' +
+    'Score: ' + score + ' / ' + total + ' (' + pct + '%)\n' +
+    'Status: ' + status + '\n' +
+    'Questions failed: ' + failedCount + ' of ' + total + failedList + '\n\n' +
+    'Full row written to the Sheet:\n' + sheetUrl;
+
+  MailApp.sendEmail({ to: RENE_EMAIL, cc: RENE_COPY_EMAIL, subject: subject, body: body });
 }
