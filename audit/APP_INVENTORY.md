@@ -1,12 +1,12 @@
 # App Inventory
 
 <!-- GENERATED FILE — do not edit by hand. Run: node tools/generate_inventory.js -->
-<!-- structural_sha: ca5b09bf966f03f648c365bffff675808a2ad1cc9e68c49635514fea6e9f6d3a -->
+<!-- structural_sha: 1f1242f68f55f8021209c6ffcff55ef65060a9e2083a1a22e0b9915c39b31d27 -->
 
-- Generated: **2026-08-30**
-- Commit at generation (HEAD): `ab0bd239ceb579bed5bd3b74790f4c80c8021965`
-- Guard bank: `KC_Canonical_QuestionBank_v7_2026-08-29.json`
-- Structural hash: `ca5b09bf966f03f648c365bffff675808a2ad1cc9e68c49635514fea6e9f6d3a` (the drift guard fails the build if this stops matching the repo)
+- Generated: **2026-09-01**
+- Commit at generation (HEAD): `ec4944eef4d7749b1b384e9b90da21642fe55014`
+- Guard bank: `KC_Canonical_QuestionBank_v8_2026-09-01.json`
+- Structural hash: `1f1242f68f55f8021209c6ffcff55ef65060a9e2083a1a22e0b9915c39b31d27` (the drift guard fails the build if this stops matching the repo)
 
 ## Modules
 
@@ -18,6 +18,10 @@
 | mod4 | https://enerbartoli.github.io/mod1-knowledge-check/mod4.html | mod4.js | 10 | 8 | authoritative |
 | mod5 | https://enerbartoli.github.io/mod1-knowledge-check/mod5.html | mod5.js | 15 | 12 | authoritative |
 | mod7 | https://enerbartoli.github.io/mod1-knowledge-check/mod7.html | mod7.js | 10 | 8 | authoritative |
+| speed1 | https://enerbartoli.github.io/mod1-knowledge-check/speed1.html | speed1.js | 10 | 8 | authoritative |
+| speed2 | https://enerbartoli.github.io/mod1-knowledge-check/speed2.html | speed2.js | 10 | 8 | authoritative |
+| speed3 | https://enerbartoli.github.io/mod1-knowledge-check/speed3.html | speed3.js | 10 | 8 | authoritative |
+| speed4 | https://enerbartoli.github.io/mod1-knowledge-check/speed4.html | speed4.js | 10 | 8 | authoritative |
 
 ### mod1
 
@@ -733,6 +737,386 @@
 - **C** Compare against the workbook you saved last cycle to work out which values are wrong.
 - **D** Correct the largest movements now and leave the smaller ones for the squad to investigate.
 
+### speed1
+
+- Page: https://enerbartoli.github.io/mod1-knowledge-check/speed1.html · JS: `speed1.js` · HTML: `speed1.html`
+- Questions: 10 · Pass threshold: 8 · Options: authoritative (bank is source of truth)
+
+**Q1** · fingerprint `6de58865e99b` · correct **?** · rationale no · slides Speed Training Session 1 · The equation
+
+> Which statement describes how the consensus forecast is built?
+
+- **A** The statistical baseline is replaced by the commercial view each cycle
+- **B** The baseline and the enrichment layer are added together
+- **C** Each team submits a forecast and the average of them is taken
+- **D** Marketing sets the total and Demand Planning splits it to accounts
+
+**Q2** · fingerprint `74db9c1882c5` · correct **?** · rationale no · slides Speed Training Session 1 · Who owns what
+
+> Which of these does Hasbro Demand Planning own in the operating model?
+
+- **A** Running the statistical engine that produces the baseline
+- **B** Building the launch curve for every new product
+- **C** Governance, planning parameters and final sign-off
+- **D** Entering commercial events for each account
+
+**Q3** · fingerprint `db6cd594c046` · correct **?** · rationale no · slides Speed Training Session 1 · Two horizons
+
+> A colleague says the new process will change their numbers for the next two months. What is the accurate response?
+
+- **A** It will, because the statistical baseline replaces the current numbers from the first cycle onwards
+- **B** It will, but only for accounts that already sit in the Forecasting Range
+- **C** It will not, because the tool cannot write to the near horizon at all
+- **D** It will not; the near months are already committed
+
+**Q4** · fingerprint `78b81e9d0689` · correct **?** · rationale no · slides Speed Training Session 1 · Eligibility
+
+> An account is showing volume for an item it has never stocked. Where do you look first?
+
+- **A** The Forecasting Range, which sets who is eligible for volume
+- **B** The enrichment rows loaded against that account this cycle
+- **C** The item's lifecycle status and whether it has graduated
+- **D** The base trend adjustment entered by the account owner last cycle
+
+**Q5** · fingerprint `94fcf8caabc2` · correct **?** · rationale no · slides Speed Training Session 1 · Level 2.5 Baseline Pre-Adjustment
+
+> What is a Level 2.5 Baseline Pre-Adjustment?
+
+- **A** An enrichment entered at account level and then rolled up to the item
+- **B** A change to the statistical model used for that item this cycle
+- **C** A correction to the item total, made before it is split to accounts
+- **D** A request asking the executive sign-off meeting to overrule the commercial number
+
+**Q6** · fingerprint `4826aafc8e50` · correct **?** · rationale no · slides Speed Training Session 1 · Enrichment or base trend
+
+> You have lost distribution at one account and expect lower volume from now on. How is that recorded?
+
+- **A** As an enrichment, dated to each of the weeks the lost distribution affects
+- **B** As a note to Demand Planning, with nothing entered in the system
+- **C** As a change to the baseline itself, made by the account owner
+- **D** As a base trend adjustment, since the level itself has shifted
+
+**Q7** · fingerprint `27d5150bebb9` · correct **?** · rationale no · slides Speed Training Session 1 · Ownership at commercial alignment
+
+> During the commercial alignment session Demand Planning challenges a number and the commercial team stands behind it. What happens?
+
+- **A** Demand Planning applies its own number, since it owns the forecast
+- **B** The number carries forward as the commercial team stated it
+- **C** The item is removed from the cycle until the two sides agree
+- **D** The disagreement is recorded and the baseline is used instead
+
+**Q8** · fingerprint `efe5dbe382ca` · correct **?** · rationale no · slides Speed Training Session 1 · The frozen period
+
+> A supply constraint has eased and you can now serve more volume inside the frozen period. What does the policy allow?
+
+- **A** Nothing; the period is locked and cannot be changed for any reason
+- **B** Any change, as long as the market total for the month does not move
+- **C** A documented change where there is a genuine supply reason
+- **D** A change only if the executive sign-off meeting is reconvened
+
+**Q9** · fingerprint `ee6406410283` · correct **?** · rationale no · slides Speed Training Session 1 · Where a question goes
+
+> You think the eligibility setup for one of your accounts is wrong. What do you do?
+
+- **A** Correct the setup yourself before the cycle closes
+- **B** Enter an enrichment large enough to cancel the unwanted volume
+- **C** Contact the system vendor directly and ask them to change the record for you
+- **D** Raise it; eligibility is master data and you do not change it
+
+**Q10** · fingerprint `cf3ada4da72a` · correct **?** · rationale no · slides Speed Training Session 1 · Capture is continuous
+
+> You agree a promotion in March that will run in October. When should it be captured?
+
+- **A** In the cycle that opens closest to October, so the dates are certain
+- **B** Now, and confirmed or adjusted in each cycle until it runs
+- **C** Only after the funding for it has been formally approved
+- **D** At the start of the next planning year, with all other events
+
+### speed2
+
+- Page: https://enerbartoli.github.io/mod1-knowledge-check/speed2.html · JS: `speed2.js` · HTML: `speed2.html`
+- Questions: 10 · Pass threshold: 8 · Options: authoritative (bank is source of truth)
+
+**Q1** · fingerprint `adb7309889bb` · correct **?** · rationale no · slides Speed Training Session 2 · Where the baseline is produced
+
+> At what level does the statistical engine produce the baseline?
+
+- **A** At Level 1, for each planning SKU and forecast partner pair
+- **B** At Level 5, as a single total number for the whole market
+- **C** At Level 3, for each parent SKU, business unit and channel
+- **D** At Level 2, for each customer across the full brand
+
+**Q2** · fingerprint `615fbd326606` · correct **?** · rationale no · slides Speed Training Session 2 · What feeds the baseline
+
+> Why does the model use adjusted demand rather than shipments alone?
+
+- **A** It converts units into revenue so higher value items carry more weight
+- **B** It corrects for periods when supply, not demand, limited what shipped
+- **C** It removes promotional volume so the model only learns base demand
+- **D** It smooths the series by averaging the last twelve months of shipments
+
+**Q3** · fingerprint `5894014fa79c` · correct **?** · rationale no · slides Speed Training Session 2 · Baseline versus disaggregation
+
+> The total for one item looks right, but the split across your accounts does not. What does that point to?
+
+- **A** The engine produced the customer number directly, so the baseline is wrong
+- **B** The baseline did not run, so the system fell back to an equal split
+- **C** An enrichment at Level 1 changed the total and distorted the split
+- **D** The total is right; the split came from disaggregation and needs review
+
+**Q4** · fingerprint `f63663112094` · correct **?** · rationale no · slides Speed Training Session 2 · Carry-forward versus new item split
+
+> A carry-forward item and a brand-new item both need splitting across accounts. What is different about the new item?
+
+- **A** The carry-forward item uses its own history; the new item borrows a mix
+- **B** Both borrow the mix from the brand, because item history is rarely reliable
+- **C** New items are not split until they have a full year of their own history
+- **D** Carry-forward items are split by hand and new items are split by the system
+
+**Q5** · fingerprint `5fa85ae03b15` · correct **?** · rationale no · slides Speed Training Session 2 · The Forecasting Range
+
+> An account that does not stock an item is showing volume for it. What do you look at first?
+
+- **A** The enrichment records loaded against that account this cycle
+- **B** The Forecasting Range, which sets which accounts get volume
+- **C** The base trend adjustment columns for that account and item
+- **D** The item's lifecycle status and whether master data is complete
+
+**Q6** · fingerprint `fbdfb97faf6b` · correct **?** · rationale no · slides Speed Training Session 2 · Baseline, enrichment or base trend
+
+> You expect a one-off volume increase for a specific promotion in a specific week. Where does it belong?
+
+- **A** As a change to the baseline itself, made at Level 3
+- **B** As a note to Demand Planning, with nothing entered in the system
+- **C** As a base trend adjustment spread across the affected weeks
+- **D** As an enrichment, dated to the weeks the event affects
+
+**Q7** · fingerprint `fc1d7d33b48b` · correct **?** · rationale no · slides Speed Training Session 2 · The level hierarchy
+
+> In a review someone says “let’s fix this at 2.5”. What are they proposing?
+
+- **A** Editing each account line one by one until the total reaches the target
+- **B** Changing the statistical model that produced this item's baseline number
+- **C** Setting the number at business unit and item level, above the accounts
+- **D** Escalating the item to the executive sign-off meeting for a decision
+
+**Q8** · fingerprint `b2339cb522c5` · correct **?** · rationale no · slides Speed Training Session 2 · Judging statistical fit
+
+> Your portfolio turns over almost completely each year and demand follows entertainment releases rather than repeatable seasons. What does that suggest about a statistical baseline?
+
+- **A** Little repeatable history exists to learn from, so bottom-up fits better
+- **B** It will work well, because the engine tests many models and picks the best
+- **C** It will work once the items have sixteen weeks of actual sales behind them
+- **D** It should be built statistically and then corrected each month by hand
+
+**Q9** · fingerprint `50a8b7ee1ff7` · correct **?** · rationale no · slides Speed Training Session 2 · Who owns what
+
+> The baseline for one item looks clearly wrong. What is the right first move?
+
+- **A** Change the number at account level, since the total will correct itself
+- **B** Flag it to Demand Planning, who route it to the model owners
+- **C** Contact the modelling vendor directly to ask why that model was chosen
+- **D** Enter a negative enrichment large enough to cancel the wrong volume
+
+**Q10** · fingerprint `fbe4a9d76cf6` · correct **?** · rationale no · slides Speed Training Session 2 · Repeatable versus one-off volume
+
+> An account places a single large opportunity buy that will not repeat. If it is left untouched in the item's history, what is the risk?
+
+- **A** The volume is counted twice, once in history and once in the forecast
+- **B** The account loses eligibility for volume in the Forecasting Range
+- **C** The model reads it as normal and carries it into future periods
+- **D** The item's lifecycle status switches automatically to a new-product path
+
+### speed3
+
+- Page: https://enerbartoli.github.io/mod1-knowledge-check/speed3.html · JS: `speed3.js` · HTML: `speed3.html`
+- Questions: 10 · Pass threshold: 8 · Options: authoritative (bank is source of truth)
+
+**Q1** · fingerprint `5d069c935f2a` · correct **?** · rationale no · slides Speed Training Session 3 · Workbook anatomy
+
+> A dated commercial event, such as a promotion running in specific weeks, is captured where?
+
+- **A** In the reconciliation tab, as a change to the weekly numbers
+- **B** In the enrichments tab, as a dated row for that event
+- **C** In the summary tab, so the total updates automatically
+- **D** In the instructions tab, as a note for Demand Planning
+
+**Q2** · fingerprint `fd3ef8973e3a` · correct **?** · rationale no · slides Speed Training Session 3 · Enrichment field rules
+
+> You can express the expected lift either as a percentage or as units. What should you do?
+
+- **A** Enter both, so the system can check one against the other
+- **B** Enter neither, and describe the size of the change in the notes
+- **C** Enter the units first, then the percentage, on two separate rows
+- **D** Enter one of them, whichever you can support with evidence
+
+**Q3** · fingerprint `df561f8dd70e` · correct **?** · rationale no · slides Speed Training Session 3 · Promotion discount field
+
+> A promotion is agreed with an account. What does the promotion discount field capture?
+
+- **A** The percentage Hasbro funds
+- **B** The percentage the shopper sees at shelf
+- **C** The difference between the two percentages
+- **D** The percentage the retailer funds from its own margin
+
+**Q4** · fingerprint `3769742d9f33` · correct **?** · rationale no · slides Speed Training Session 3 · Reconciliation template
+
+> In the reconciliation template, which weekly columns can you edit?
+
+- **A** The baseline columns, when the baseline looks wrong
+- **B** The sales enrichment columns, to correct someone's entry
+- **C** The base trend adjustment columns
+- **D** Every weekly column, as long as the total still balances
+
+**Q5** · fingerprint `2dc5d1d97ec7` · correct **?** · rationale no · slides Speed Training Session 3 · Validation recovery
+
+> Your upload is rejected and the tool returns an annotated copy of your workbook listing the errors. What do you do next?
+
+- **A** Upload the returned file again, since it now contains the errors
+- **B** Correct your own file and upload that one
+- **C** Start a new workbook from scratch and re-enter everything
+- **D** Send the returned file to the build team and wait for a response
+
+**Q6** · fingerprint `fe83262c1d0d` · correct **?** · rationale no · slides Speed Training Session 3 · Download discipline
+
+> A colleague keeps last cycle's workbook on their desktop and reuses it to save time. What is the problem with that?
+
+- **A** Nothing, as long as you have not changed the file since downloading it
+- **B** The file expires after seven days and simply will not open
+- **C** Your rows will load, but they will be dated to last month
+- **D** It is a snapshot, so uploading it can overwrite newer work
+
+**Q7** · fingerprint `12754dc87f2b` · correct **?** · rationale no · slides Speed Training Session 3 · Cancelling an enrichment
+
+> An enrichment you submitted last week is no longer going ahead. How do you take it out of the forecast?
+
+- **A** Delete the row and upload the workbook again
+- **B** Set the value to zero and leave the row in place
+- **C** Set the status to declined and leave the row in place
+- **D** Ask the build team to remove it from the database directly
+
+**Q8** · fingerprint `a11f51da59c5` · correct **?** · rationale no · slides Speed Training Session 3 · Master data dependency
+
+> A new item you need is missing from the SKU dropdown. What is the most likely reason?
+
+- **A** It is not yet set up downstream, so it cannot be entered
+- **B** The dropdown only lists items with an existing baseline number
+- **C** Your scope was too narrow, so widen it and download again
+- **D** The item belongs to another business unit and is filtered out
+
+**Q9** · fingerprint `b6bef103ae93` · correct **?** · rationale no · slides Speed Training Session 3 · Row-level rules
+
+> You need to record both a version change and a channel shift for the same item. How should that be entered?
+
+- **A** Both are allowed on one row, as long as the weeks do not overlap
+- **B** Only one of the two can be used per row
+- **C** Neither belongs in this template; both are handled by Demand Planning
+- **D** Both are allowed, but the channel shift must be entered first
+
+**Q10** · fingerprint `0483d041b348` · correct **?** · rationale no · slides Speed Training Session 3 · Adjustments are deltas
+
+> You entered an adjustment last cycle and did not touch it. This cycle the weekly total for that item has changed. What is the most likely explanation?
+
+- **A** Your adjustment was wrong from the start and should be removed
+- **B** Someone overwrote your entry, so enter it again this cycle
+- **C** The upload failed quietly and needs to be repeated today
+- **D** The baseline moved underneath it, so check the full total
+
+### speed4
+
+- Page: https://enerbartoli.github.io/mod1-knowledge-check/speed4.html · JS: `speed4.js` · HTML: `speed4.html`
+- Questions: 10 · Pass threshold: 8 · Options: authoritative (bank is source of truth)
+
+**Q1** · fingerprint `696bf73dd7fe` · correct **?** · rationale no · slides Speed Training Session 4 · Scope is a market decision
+
+> When you want to know whether a segment carries a statistical baseline, what is the question to ask?
+
+- **A** Whether the item is Direct Import or domestic
+- **B** Whether the item has been selling for more than a year
+- **C** Whether this market agreed to forecast that segment statistically
+- **D** Whether the account is large enough to justify a statistical model
+
+**Q2** · fingerprint `f58d30927105` · correct **?** · rationale no · slides Speed Training Session 4 · Markets differ by design
+
+> Direct Import carries a statistical baseline in one market and is built bottom-up in another. What does that tell you?
+
+- **A** Both are correct, because each market decided its own scope
+- **B** One of the two is running an unapproved local process
+- **C** The design has not yet been standardised and will converge
+- **D** The difference comes from the two markets using different systems
+
+**Q3** · fingerprint `907e8b636c71` · correct **?** · rationale no · slides Speed Training Session 4 · Repeating versus one-shot volume
+
+> A Direct Import book contains both stable volume that repeats every year and one-shot opportunity buys. How should the two be handled?
+
+- **A** Both should be built bottom-up, with no statistical baseline at all
+- **B** Both should carry a baseline, since both represent genuine demand
+- **C** One-shot volume should be added to history so the model can learn it
+- **D** Stable repeating volume can sit in the baseline; one-shot should not
+
+**Q4** · fingerprint `3358b8cdf6c8` · correct **?** · rationale no · slides Speed Training Session 4 · Evergreen designation
+
+> Where does the Evergreen designation stand today?
+
+- **A** Any account owner can nominate an item at the start of a cycle
+- **B** It is a future direction; nomination sits with Sales Operations
+- **C** Demand Planning nominates items once they show two stable years
+- **D** Nomination is automatic once an item passes a volume threshold
+
+**Q5** · fingerprint `96538fcc4458` · correct **?** · rationale no · slides Speed Training Session 4 · FAN ownership
+
+> Who owns the volume for a FAN item, and what is the market team's job?
+
+- **A** Demand Planning builds it from the item's shipment history
+- **B** Each account owner builds their own number independently
+- **C** The regional category team owns it; the market checks timing
+- **D** The statistical engine builds it once the season is confirmed
+
+**Q6** · fingerprint `21ff88e8c978` · correct **?** · rationale no · slides Speed Training Session 4 · Accounts inside the domestic channel
+
+> A direct-to-consumer account sits inside the domestic channel. What follows from that?
+
+- **A** It already receives a share of the baseline, like other accounts
+- **B** It sits outside the statistical process and gets no baseline volume
+- **C** It needs a separate setup in the tool before it can be forecast
+- **D** Its volume is loaded centrally and does not appear at account level
+
+**Q7** · fingerprint `a14a92ebb7da` · correct **?** · rationale no · slides Speed Training Session 4 · Forecasting Range consequences
+
+> A team suggests removing one of their accounts from the Forecasting Range because they would rather forecast it themselves. What happens to that account's volume?
+
+- **A** The volume disappears from the market total
+- **B** The account keeps its volume but stops receiving updates
+- **C** The item is treated as a new product for that account
+- **D** The volume moves onto the remaining accounts
+
+**Q8** · fingerprint `03329dff025d` · correct **?** · rationale no · slides Speed Training Session 4 · Enrichment types vary by market
+
+> A colleague in another market tells you they use a particular enrichment type all the time. What should you assume about your own market?
+
+- **A** It is not available in your market and cannot be enabled
+- **B** It may be live but unused here; confirm before you rely on it
+- **C** It has been retired globally and replaced by base trend adjustments
+- **D** It works the same everywhere, so you can use it without checking
+
+**Q9** · fingerprint `0ba85ddeaf0c` · correct **?** · rationale no · slides Speed Training Session 4 · Escalation
+
+> You are unsure whether an event you are looking at should be entered as an enrichment or as a base trend adjustment. Who should you ask first?
+
+- **A** The programme, because anything involving an enrichment type escalates
+- **B** Nobody; make your best guess and note it for the next cycle
+- **C** Your trained peer, who handles classification questions
+- **D** The build team, because this is a question about how the tool behaves
+
+**Q10** · fingerprint `58cfbf7c0cf0` · correct **?** · rationale no · slides Speed Training Session 4 · Challenging a split with evidence
+
+> You believe the split your account receives is too high. What do you bring to the conversation?
+
+- **A** Evidence of what the account actually sells, and the size of the gap
+- **B** A revised total for the market and a request to load it centrally
+- **C** A request to remove the account from the statistical process entirely
+- **D** A list of every item where the split has moved since the last cycle
+
 ## Backend
 
 - File: `backend/apps-script.gs`
@@ -746,11 +1130,15 @@ Routing (`doPost`):
 - `mod5` → `handleMod5Post`
 - `mod7` → `handleMod7Post`
 - `mod3` → `handleMod3Post`
+- `speed1` → `handleSpeed1Post`
+- `speed2` → `handleSpeed2Post`
+- `speed3` → `handleSpeed3Post`
+- `speed4` → `handleSpeed4Post`
 - `mod1` → inline flow in `doPost` (no dedicated handler)
 
-Handlers: `handleMod2Post`, `handleMod3Post`, `handleMod4Post`, `handleMod5Post`, `handleMod7Post`
+Handlers: `handleMod2Post`, `handleMod3Post`, `handleMod4Post`, `handleMod5Post`, `handleMod7Post`, `handleSpeed1Post`, `handleSpeed2Post`, `handleSpeed3Post`, `handleSpeed4Post`
 
-Email template functions: `emailShell_mod2`, `emailShell_mod3`, `emailShell_mod4`, `emailShell_mod5`, `emailShell_mod7`, `sendEmails`, `sendFailEmail_mod2`, `sendFailEmail_mod3`, `sendFailEmail_mod4`, `sendFailEmail_mod5`, `sendFailEmail_mod7`, `sendNotificationEmail_mod2`, `sendNotificationEmail_mod3`, `sendNotificationEmail_mod4`, `sendNotificationEmail_mod5`, `sendNotificationEmail_mod7`, `sendPassEmail_mod2`, `sendPassEmail_mod3`, `sendPassEmail_mod4`, `sendPassEmail_mod5`, `sendPassEmail_mod7`
+Email template functions: `emailShell_mod2`, `emailShell_mod3`, `emailShell_mod4`, `emailShell_mod5`, `emailShell_mod7`, `emailShell_speed1`, `emailShell_speed2`, `emailShell_speed3`, `emailShell_speed4`, `sendEmails`, `sendFailEmail_mod2`, `sendFailEmail_mod3`, `sendFailEmail_mod4`, `sendFailEmail_mod5`, `sendFailEmail_mod7`, `sendFailEmail_speed1`, `sendFailEmail_speed2`, `sendFailEmail_speed3`, `sendFailEmail_speed4`, `sendNotificationEmail_mod2`, `sendNotificationEmail_mod3`, `sendNotificationEmail_mod4`, `sendNotificationEmail_mod5`, `sendNotificationEmail_mod7`, `sendNotificationEmail_speed1`, `sendNotificationEmail_speed2`, `sendNotificationEmail_speed3`, `sendNotificationEmail_speed4`, `sendPassEmail_mod2`, `sendPassEmail_mod3`, `sendPassEmail_mod4`, `sendPassEmail_mod5`, `sendPassEmail_mod7`, `sendPassEmail_speed1`, `sendPassEmail_speed2`, `sendPassEmail_speed3`, `sendPassEmail_speed4`
 
 Sheet columns (from `writeHeaders`; moduleId + attemptNumber are appended by each handler without headers):
 

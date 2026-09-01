@@ -1,5 +1,5 @@
 {
-  "generated_on": "2026-08-30",
+  "generated_on": "2026-09-01",
   "generator": "tools/generate_manifest.js",
   "note": "Derived from actual repo files. Do not edit by hand — re-run the generator.",
   "pages_base_url": "https://enerbartoli.github.io/mod1-knowledge-check/",
@@ -10,10 +10,136 @@
     "KC_Canonical_QuestionBank_v4_2026-08-07.json",
     "KC_Canonical_QuestionBank_v5_2026-08-17.json",
     "KC_Canonical_QuestionBank_v6_2026-08-17.json",
-    "KC_Canonical_QuestionBank_v7_2026-08-29.json"
+    "KC_Canonical_QuestionBank_v7_2026-08-29.json",
+    "KC_Canonical_QuestionBank_v8_2026-09-01.json"
   ],
   "guard_bank": "KC_Canonical_QuestionBank_v2_2026-08-07.json",
   "modules": [
+    {
+      "module_id": "mod1",
+      "js_file": "quiz.js",
+      "html_file": "index.html",
+      "title": "MOD 1 Knowledge Check · Forecast Enrichment",
+      "pass_threshold": 13,
+      "total_questions": 16,
+      "ls_key": "mod1_quiz_state",
+      "posts_module": null,
+      "client_answer_key_present": true,
+      "questions": [
+        {
+          "id": "Q1",
+          "section": "Why we're changing",
+          "slide_refs": "2, 4",
+          "fingerprint": "a9a0e9ef03b2",
+          "client_key": "A"
+        },
+        {
+          "id": "Q2",
+          "section": "End-to-end picture",
+          "slide_refs": "4, 5",
+          "fingerprint": "fa4f2acfa21b",
+          "client_key": "B"
+        },
+        {
+          "id": "Q3",
+          "section": "Statistical Baseline 101",
+          "slide_refs": "8, 10",
+          "fingerprint": "ecbfa380891e",
+          "client_key": "C"
+        },
+        {
+          "id": "Q4",
+          "section": "Statistical Baseline 101",
+          "slide_refs": "11",
+          "fingerprint": "ab90665dc027",
+          "client_key": "A"
+        },
+        {
+          "id": "Q5",
+          "section": "SKU Types",
+          "slide_refs": "12, 13",
+          "fingerprint": "821b4b89f4ec",
+          "client_key": "C"
+        },
+        {
+          "id": "Q6",
+          "section": "SKU Types",
+          "slide_refs": "14",
+          "fingerprint": "b6f763ba8472",
+          "client_key": "A"
+        },
+        {
+          "id": "Q7",
+          "section": "SKU Types",
+          "slide_refs": "15",
+          "fingerprint": "0f29f6e2d1e2",
+          "client_key": "D"
+        },
+        {
+          "id": "Q8",
+          "section": "Disaggregation",
+          "slide_refs": "10, 16",
+          "fingerprint": "eb3d0dbb5382",
+          "client_key": "C"
+        },
+        {
+          "id": "Q9",
+          "section": "Disaggregation",
+          "slide_refs": "16",
+          "fingerprint": "92c19184df0c",
+          "client_key": "D"
+        },
+        {
+          "id": "Q10",
+          "section": "Disaggregation",
+          "slide_refs": "17, 19, 20, 21",
+          "fingerprint": "cc2951a54c4e",
+          "client_key": "B"
+        },
+        {
+          "id": "Q11",
+          "section": "Disaggregation",
+          "slide_refs": "22",
+          "fingerprint": "20c4ee1210c1",
+          "client_key": "B"
+        },
+        {
+          "id": "Q12",
+          "section": "Enrichment Principles",
+          "slide_refs": "25",
+          "fingerprint": "86bd56294ba5",
+          "client_key": "C"
+        },
+        {
+          "id": "Q13",
+          "section": "Reconciliation",
+          "slide_refs": "32",
+          "fingerprint": "ec40f096a918",
+          "client_key": "D"
+        },
+        {
+          "id": "Q14",
+          "section": "Roles & Scope",
+          "slide_refs": "33",
+          "fingerprint": "fb1207ba6b0a",
+          "client_key": "B"
+        },
+        {
+          "id": "Q15",
+          "section": "End-to-end Workflow",
+          "slide_refs": "33",
+          "fingerprint": "23479eba6c1a",
+          "client_key": "D"
+        },
+        {
+          "id": "Q16",
+          "section": "End-to-end Workflow",
+          "slide_refs": "33",
+          "fingerprint": "b6dbb8b66eed",
+          "client_key": "A"
+        }
+      ]
+    },
     {
       "module_id": "mod2",
       "js_file": "mod2.js",
@@ -500,127 +626,334 @@
       ]
     },
     {
-      "module_id": "mod1",
-      "js_file": "quiz.js",
-      "html_file": "index.html",
-      "title": "MOD 1 Knowledge Check · Forecast Enrichment",
-      "pass_threshold": 13,
-      "total_questions": 16,
-      "ls_key": "mod1_quiz_state",
-      "posts_module": null,
-      "client_answer_key_present": true,
+      "module_id": "speed1",
+      "js_file": "speed1.js",
+      "html_file": "speed1.html",
+      "title": "Speed Training Session 1 Knowledge Check — Introduction to the Enrichment Process",
+      "pass_threshold": 8,
+      "total_questions": 10,
+      "ls_key": "speed1_quiz_state",
+      "posts_module": "speed1",
+      "client_answer_key_present": false,
       "questions": [
         {
           "id": "Q1",
-          "section": "Why we're changing",
-          "slide_refs": "2, 4",
-          "fingerprint": "a9a0e9ef03b2",
-          "client_key": "A"
+          "section": "The equation",
+          "slide_refs": "Speed Training Session 1 · The equation",
+          "fingerprint": "6de58865e99b",
+          "client_key": null
         },
         {
           "id": "Q2",
-          "section": "End-to-end picture",
-          "slide_refs": "4, 5",
-          "fingerprint": "fa4f2acfa21b",
-          "client_key": "B"
+          "section": "Who owns what",
+          "slide_refs": "Speed Training Session 1 · Who owns what",
+          "fingerprint": "74db9c1882c5",
+          "client_key": null
         },
         {
           "id": "Q3",
-          "section": "Statistical Baseline 101",
-          "slide_refs": "8, 10",
-          "fingerprint": "ecbfa380891e",
-          "client_key": "C"
+          "section": "Two horizons",
+          "slide_refs": "Speed Training Session 1 · Two horizons",
+          "fingerprint": "db6cd594c046",
+          "client_key": null
         },
         {
           "id": "Q4",
-          "section": "Statistical Baseline 101",
-          "slide_refs": "11",
-          "fingerprint": "ab90665dc027",
-          "client_key": "A"
+          "section": "Eligibility",
+          "slide_refs": "Speed Training Session 1 · Eligibility",
+          "fingerprint": "78b81e9d0689",
+          "client_key": null
         },
         {
           "id": "Q5",
-          "section": "SKU Types",
-          "slide_refs": "12, 13",
-          "fingerprint": "821b4b89f4ec",
-          "client_key": "C"
+          "section": "Level 2.5 Baseline Pre-Adjustment",
+          "slide_refs": "Speed Training Session 1 · Level 2.5 Baseline Pre-Adjustment",
+          "fingerprint": "94fcf8caabc2",
+          "client_key": null
         },
         {
           "id": "Q6",
-          "section": "SKU Types",
-          "slide_refs": "14",
-          "fingerprint": "b6f763ba8472",
-          "client_key": "A"
+          "section": "Enrichment or base trend",
+          "slide_refs": "Speed Training Session 1 · Enrichment or base trend",
+          "fingerprint": "4826aafc8e50",
+          "client_key": null
         },
         {
           "id": "Q7",
-          "section": "SKU Types",
-          "slide_refs": "15",
-          "fingerprint": "0f29f6e2d1e2",
-          "client_key": "D"
+          "section": "Ownership at commercial alignment",
+          "slide_refs": "Speed Training Session 1 · Ownership at commercial alignment",
+          "fingerprint": "27d5150bebb9",
+          "client_key": null
         },
         {
           "id": "Q8",
-          "section": "Disaggregation",
-          "slide_refs": "10, 16",
-          "fingerprint": "eb3d0dbb5382",
-          "client_key": "C"
+          "section": "The frozen period",
+          "slide_refs": "Speed Training Session 1 · The frozen period",
+          "fingerprint": "efe5dbe382ca",
+          "client_key": null
         },
         {
           "id": "Q9",
-          "section": "Disaggregation",
-          "slide_refs": "16",
-          "fingerprint": "92c19184df0c",
-          "client_key": "D"
+          "section": "Where a question goes",
+          "slide_refs": "Speed Training Session 1 · Where a question goes",
+          "fingerprint": "ee6406410283",
+          "client_key": null
         },
         {
           "id": "Q10",
-          "section": "Disaggregation",
-          "slide_refs": "17, 19, 20, 21",
-          "fingerprint": "cc2951a54c4e",
-          "client_key": "B"
+          "section": "Capture is continuous",
+          "slide_refs": "Speed Training Session 1 · Capture is continuous",
+          "fingerprint": "cf3ada4da72a",
+          "client_key": null
+        }
+      ]
+    },
+    {
+      "module_id": "speed2",
+      "js_file": "speed2.js",
+      "html_file": "speed2.html",
+      "title": "Speed Training Session 2 Knowledge Check — Where the Number Comes From",
+      "pass_threshold": 8,
+      "total_questions": 10,
+      "ls_key": "speed2_quiz_state",
+      "posts_module": "speed2",
+      "client_answer_key_present": false,
+      "questions": [
+        {
+          "id": "Q1",
+          "section": "Where the baseline is produced",
+          "slide_refs": "Speed Training Session 2 · Where the baseline is produced",
+          "fingerprint": "adb7309889bb",
+          "client_key": null
         },
         {
-          "id": "Q11",
-          "section": "Disaggregation",
-          "slide_refs": "22",
-          "fingerprint": "20c4ee1210c1",
-          "client_key": "B"
+          "id": "Q2",
+          "section": "What feeds the baseline",
+          "slide_refs": "Speed Training Session 2 · What feeds the baseline",
+          "fingerprint": "615fbd326606",
+          "client_key": null
         },
         {
-          "id": "Q12",
-          "section": "Enrichment Principles",
-          "slide_refs": "25",
-          "fingerprint": "86bd56294ba5",
-          "client_key": "C"
+          "id": "Q3",
+          "section": "Baseline versus disaggregation",
+          "slide_refs": "Speed Training Session 2 · Baseline versus disaggregation",
+          "fingerprint": "5894014fa79c",
+          "client_key": null
         },
         {
-          "id": "Q13",
-          "section": "Reconciliation",
-          "slide_refs": "32",
-          "fingerprint": "ec40f096a918",
-          "client_key": "D"
+          "id": "Q4",
+          "section": "Carry-forward versus new item split",
+          "slide_refs": "Speed Training Session 2 · Carry-forward versus new item split",
+          "fingerprint": "f63663112094",
+          "client_key": null
         },
         {
-          "id": "Q14",
-          "section": "Roles & Scope",
-          "slide_refs": "33",
-          "fingerprint": "fb1207ba6b0a",
-          "client_key": "B"
+          "id": "Q5",
+          "section": "The Forecasting Range",
+          "slide_refs": "Speed Training Session 2 · The Forecasting Range",
+          "fingerprint": "5fa85ae03b15",
+          "client_key": null
         },
         {
-          "id": "Q15",
-          "section": "End-to-end Workflow",
-          "slide_refs": "33",
-          "fingerprint": "23479eba6c1a",
-          "client_key": "D"
+          "id": "Q6",
+          "section": "Baseline, enrichment or base trend",
+          "slide_refs": "Speed Training Session 2 · Baseline, enrichment or base trend",
+          "fingerprint": "fbdfb97faf6b",
+          "client_key": null
         },
         {
-          "id": "Q16",
-          "section": "End-to-end Workflow",
-          "slide_refs": "33",
-          "fingerprint": "b6dbb8b66eed",
-          "client_key": "A"
+          "id": "Q7",
+          "section": "The level hierarchy",
+          "slide_refs": "Speed Training Session 2 · The level hierarchy",
+          "fingerprint": "fc1d7d33b48b",
+          "client_key": null
+        },
+        {
+          "id": "Q8",
+          "section": "Judging statistical fit",
+          "slide_refs": "Speed Training Session 2 · Judging statistical fit",
+          "fingerprint": "b2339cb522c5",
+          "client_key": null
+        },
+        {
+          "id": "Q9",
+          "section": "Who owns what",
+          "slide_refs": "Speed Training Session 2 · Who owns what",
+          "fingerprint": "50a8b7ee1ff7",
+          "client_key": null
+        },
+        {
+          "id": "Q10",
+          "section": "Repeatable versus one-off volume",
+          "slide_refs": "Speed Training Session 2 · Repeatable versus one-off volume",
+          "fingerprint": "fbe4a9d76cf6",
+          "client_key": null
+        }
+      ]
+    },
+    {
+      "module_id": "speed3",
+      "js_file": "speed3.js",
+      "html_file": "speed3.html",
+      "title": "Speed Training Session 3 Knowledge Check — The Tool, End to End",
+      "pass_threshold": 8,
+      "total_questions": 10,
+      "ls_key": "speed3_quiz_state",
+      "posts_module": "speed3",
+      "client_answer_key_present": false,
+      "questions": [
+        {
+          "id": "Q1",
+          "section": "Workbook anatomy",
+          "slide_refs": "Speed Training Session 3 · Workbook anatomy",
+          "fingerprint": "5d069c935f2a",
+          "client_key": null
+        },
+        {
+          "id": "Q2",
+          "section": "Enrichment field rules",
+          "slide_refs": "Speed Training Session 3 · Enrichment field rules",
+          "fingerprint": "fd3ef8973e3a",
+          "client_key": null
+        },
+        {
+          "id": "Q3",
+          "section": "Promotion discount field",
+          "slide_refs": "Speed Training Session 3 · Promotion discount field",
+          "fingerprint": "df561f8dd70e",
+          "client_key": null
+        },
+        {
+          "id": "Q4",
+          "section": "Reconciliation template",
+          "slide_refs": "Speed Training Session 3 · Reconciliation template",
+          "fingerprint": "3769742d9f33",
+          "client_key": null
+        },
+        {
+          "id": "Q5",
+          "section": "Validation recovery",
+          "slide_refs": "Speed Training Session 3 · Validation recovery",
+          "fingerprint": "2dc5d1d97ec7",
+          "client_key": null
+        },
+        {
+          "id": "Q6",
+          "section": "Download discipline",
+          "slide_refs": "Speed Training Session 3 · Download discipline",
+          "fingerprint": "fe83262c1d0d",
+          "client_key": null
+        },
+        {
+          "id": "Q7",
+          "section": "Cancelling an enrichment",
+          "slide_refs": "Speed Training Session 3 · Cancelling an enrichment",
+          "fingerprint": "12754dc87f2b",
+          "client_key": null
+        },
+        {
+          "id": "Q8",
+          "section": "Master data dependency",
+          "slide_refs": "Speed Training Session 3 · Master data dependency",
+          "fingerprint": "a11f51da59c5",
+          "client_key": null
+        },
+        {
+          "id": "Q9",
+          "section": "Row-level rules",
+          "slide_refs": "Speed Training Session 3 · Row-level rules",
+          "fingerprint": "b6bef103ae93",
+          "client_key": null
+        },
+        {
+          "id": "Q10",
+          "section": "Adjustments are deltas",
+          "slide_refs": "Speed Training Session 3 · Adjustments are deltas",
+          "fingerprint": "0483d041b348",
+          "client_key": null
+        }
+      ]
+    },
+    {
+      "module_id": "speed4",
+      "js_file": "speed4.js",
+      "html_file": "speed4.html",
+      "title": "Speed Training Session 4 Knowledge Check — How Your Market Works",
+      "pass_threshold": 8,
+      "total_questions": 10,
+      "ls_key": "speed4_quiz_state",
+      "posts_module": "speed4",
+      "client_answer_key_present": false,
+      "questions": [
+        {
+          "id": "Q1",
+          "section": "Scope is a market decision",
+          "slide_refs": "Speed Training Session 4 · Scope is a market decision",
+          "fingerprint": "696bf73dd7fe",
+          "client_key": null
+        },
+        {
+          "id": "Q2",
+          "section": "Markets differ by design",
+          "slide_refs": "Speed Training Session 4 · Markets differ by design",
+          "fingerprint": "f58d30927105",
+          "client_key": null
+        },
+        {
+          "id": "Q3",
+          "section": "Repeating versus one-shot volume",
+          "slide_refs": "Speed Training Session 4 · Repeating versus one-shot volume",
+          "fingerprint": "907e8b636c71",
+          "client_key": null
+        },
+        {
+          "id": "Q4",
+          "section": "Evergreen designation",
+          "slide_refs": "Speed Training Session 4 · Evergreen designation",
+          "fingerprint": "3358b8cdf6c8",
+          "client_key": null
+        },
+        {
+          "id": "Q5",
+          "section": "FAN ownership",
+          "slide_refs": "Speed Training Session 4 · FAN ownership",
+          "fingerprint": "96538fcc4458",
+          "client_key": null
+        },
+        {
+          "id": "Q6",
+          "section": "Accounts inside the domestic channel",
+          "slide_refs": "Speed Training Session 4 · Accounts inside the domestic channel",
+          "fingerprint": "21ff88e8c978",
+          "client_key": null
+        },
+        {
+          "id": "Q7",
+          "section": "Forecasting Range consequences",
+          "slide_refs": "Speed Training Session 4 · Forecasting Range consequences",
+          "fingerprint": "a14a92ebb7da",
+          "client_key": null
+        },
+        {
+          "id": "Q8",
+          "section": "Enrichment types vary by market",
+          "slide_refs": "Speed Training Session 4 · Enrichment types vary by market",
+          "fingerprint": "03329dff025d",
+          "client_key": null
+        },
+        {
+          "id": "Q9",
+          "section": "Escalation",
+          "slide_refs": "Speed Training Session 4 · Escalation",
+          "fingerprint": "0ba85ddeaf0c",
+          "client_key": null
+        },
+        {
+          "id": "Q10",
+          "section": "Challenging a split with evidence",
+          "slide_refs": "Speed Training Session 4 · Challenging a split with evidence",
+          "fingerprint": "58cfbf7c0cf0",
+          "client_key": null
         }
       ]
     }
@@ -647,6 +980,22 @@
       {
         "module": "mod3",
         "handler": "handleMod3Post"
+      },
+      {
+        "module": "speed1",
+        "handler": "handleSpeed1Post"
+      },
+      {
+        "module": "speed2",
+        "handler": "handleSpeed2Post"
+      },
+      {
+        "module": "speed3",
+        "handler": "handleSpeed3Post"
+      },
+      {
+        "module": "speed4",
+        "handler": "handleSpeed4Post"
       }
     ],
     "handlers": [
@@ -654,7 +1003,11 @@
       "handleMod4Post",
       "handleMod5Post",
       "handleMod7Post",
-      "handleMod3Post"
+      "handleMod3Post",
+      "handleSpeed1Post",
+      "handleSpeed2Post",
+      "handleSpeed3Post",
+      "handleSpeed4Post"
     ],
     "thresholds": {
       "TOTAL_QUESTIONS_MOD2": 15,
@@ -666,7 +1019,15 @@
       "TOTAL_QUESTIONS_MOD7": 10,
       "PASS_THRESHOLD_MOD7": 8,
       "TOTAL_QUESTIONS_MOD3": 10,
-      "PASS_THRESHOLD_MOD3": 8
+      "PASS_THRESHOLD_MOD3": 8,
+      "TOTAL_QUESTIONS_SPEED1": 10,
+      "PASS_THRESHOLD_SPEED1": 8,
+      "TOTAL_QUESTIONS_SPEED2": 10,
+      "PASS_THRESHOLD_SPEED2": 8,
+      "TOTAL_QUESTIONS_SPEED3": 10,
+      "PASS_THRESHOLD_SPEED3": 8,
+      "TOTAL_QUESTIONS_SPEED4": 10,
+      "PASS_THRESHOLD_SPEED4": 8
     },
     "reminder_endpoint": true,
     "getData_endpoint": true
