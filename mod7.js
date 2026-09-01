@@ -1181,7 +1181,12 @@ function computePendingBuckets() {
   const attemptedMap = {};
   const infoMap      = {};
 
-  dashAllRows.forEach(r => {
+  // Main-programme rows only. Reading the unfiltered set would enrol anyone who sat a
+  // Speed session into this panel, so somebody whose only submission is a Speed check
+  // would be counted as "never taken the test" for all seven main modules — and would
+  // be sent reminder emails for them. Scoping here restores exactly the behaviour this
+  // panel had before the Speed track existed.
+  HERO_TRACK.main(dashAllRows).forEach(r => {
     const mod = r.module || 'mod1';
     const em  = (r.email || '').toLowerCase().trim();
     if (!infoMap[em])      infoMap[em]      = { name: r.name, email: em, passed: new Set() };
