@@ -6,6 +6,11 @@
  *   - modules.js (window.HERO_MODULES) — drives the nav menu and dashboard filters
  *   - dashboard-data.js (DASH_MODULE_REGISTRY) — drives dashboard drill-down
  *   - every quiz page — must render the menu/filters dynamically (no hardcoded module lists)
+ *   - the pass threshold and question count, which are necessarily written down three
+ *     times: in the bank, in the page JS, and in backend/apps-script.gs (Apps Script
+ *     cannot read the bank). They are checked against each other here so that changing
+ *     one and forgetting another fails the build instead of shipping a quiz that scores
+ *     against one mark and tells the participant another.
  *
  * Criterion, same as the fingerprint guard: a module that exists in the bank must appear
  * everywhere. Fails closed. Fix by re-running: node tools/generate_registry.js
@@ -72,7 +77,40 @@ if (!exists('dashboard-data.js')) {
   });
 }
 
-// 3) pages render menu + filters dynamically (no hardcoded module lists)
+// 3) pass threshold + question count agree across bank, page JS and backend
+const gs = exists('backend/apps-script.gs') ? read('backend/apps-script.gs') : null;
+function grabConst(src, name) {
+  const m = src.match(new RegExp('const\\s+' + name + '\\s*=\\s*([^;\\n]+)'));
+  return m ? Number(m[1].trim()) : null;
+}
+bank.modules.forEach(m => {
+  const jsFile = m.module_id === 'mod1' ? 'quiz.js' : `${m.module_id}.js`;
+  if (exists(jsFile)) {
+    const src = read(jsFile);
+    const pageTotal = grabConst(src, 'TOTAL_QUESTIONS');
+    const pagePass  = grabConst(src, 'PASS_THRESHOLD');
+    if (pageTotal !== m.total_questions)
+      fail.push(`${jsFile}: TOTAL_QUESTIONS ${pageTotal} != bank total_questions ${m.total_questions}`);
+    if (pagePass !== m.pass_threshold)
+      fail.push(`${jsFile}: PASS_THRESHOLD ${pagePass} != bank pass_threshold ${m.pass_threshold}`);
+  }
+  if (gs) {
+    // mod1's constants carry no suffix; every other module suffixes with its id.
+    const sfx = m.module_id === 'mod1' ? '' : '_' + m.module_id.toUpperCase();
+    const beTotal = grabConst(gs, 'TOTAL_QUESTIONS' + sfx);
+    const bePass  = grabConst(gs, 'PASS_THRESHOLD' + sfx);
+    if (beTotal === null || bePass === null) {
+      fail.push(`backend/apps-script.gs: no TOTAL_QUESTIONS${sfx} / PASS_THRESHOLD${sfx} for ${m.module_id}`);
+    } else {
+      if (beTotal !== m.total_questions)
+        fail.push(`backend/apps-script.gs: TOTAL_QUESTIONS${sfx} ${beTotal} != bank ${m.total_questions} (${m.module_id})`);
+      if (bePass !== m.pass_threshold)
+        fail.push(`backend/apps-script.gs: PASS_THRESHOLD${sfx} ${bePass} != bank ${m.pass_threshold} (${m.module_id})`);
+    }
+  }
+});
+
+// 4) pages render menu + filters dynamically (no hardcoded module lists)
 const pages = ['index.html'].concat(bank.modules.filter(m => m.module_id !== 'mod1').map(m => `${m.module_id}.html`));
 pages.forEach(p => {
   if (!exists(p)) { fail.push(`page ${p} missing`); return; }
@@ -90,5 +128,5 @@ if (fail.length) {
   console.error('\nThe module set has drifted from ' + bankFile + '. Re-run: node tools/generate_registry.js (and rebuild pages if needed).');
   process.exit(1);
 }
-console.log('registry guard OK — nav menu + dashboard filters + drill-down all match ' + bankFile + ' (' + bankIds.join(', ') + ').');
+console.log('registry guard OK — nav menu + dashboard filters + drill-down + pass thresholds all match ' + bankFile + ' (' + bankIds.join(', ') + ').');
 process.exit(0);

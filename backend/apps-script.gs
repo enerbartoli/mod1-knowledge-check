@@ -2099,8 +2099,14 @@ const ANSWER_KEY_SPEED1 = {
   Q6:'D', Q7:'B', Q8:'C', Q9:'D', Q10:'B'
 };
 const TOTAL_QUESTIONS_SPEED1 = 10;
-const PASS_THRESHOLD_SPEED1  = 8;
+const PASS_THRESHOLD_SPEED1  = 7;
 const QUIZ_URL_SPEED1        = 'https://enerbartoli.github.io/mod1-knowledge-check/speed1.html';
+
+// Pass mark as a percentage, derived so the email wording can never disagree with
+// the threshold that actually decides the result.
+function passPct_speed1() {
+  return Math.round((PASS_THRESHOLD_SPEED1 / TOTAL_QUESTIONS_SPEED1) * 100);
+}
 
 // slide_refs on this track holds a deck SECTION name, not a slide number
 // (ref_type "deck_section" in the canonical bank).
@@ -2292,7 +2298,7 @@ function sendPassEmail_speed1(toEmail, name, score, total, pct) {
     '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Status</p>' +
     '</td>' +
     '</tr></table>' +
-    '<p style="color:#495057;font-size:15px;line-height:1.6;">You\'ve met the <strong>80% threshold</strong> for Speed Training Session 1 — Introduction to the Enrichment Process.</p>' +
+    '<p style="color:#495057;font-size:15px;line-height:1.6;">You\'ve met the <strong>' + passPct_speed1() + '% threshold</strong> for Speed Training Session 1 — Introduction to the Enrichment Process.</p>' +
     '<div style="background:#e8f8f5;border-left:4px solid #00c9a7;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
     '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">What\'s next</p>' +
     '<p style="margin:6px 0 0;color:#495057;font-size:14px;">Carry this into the next session of the course, and apply it to your own scope as your market runs its cycle.</p>' +
@@ -2398,8 +2404,14 @@ const ANSWER_KEY_SPEED2 = {
   Q6:'D', Q7:'C', Q8:'A', Q9:'B', Q10:'C'
 };
 const TOTAL_QUESTIONS_SPEED2 = 10;
-const PASS_THRESHOLD_SPEED2  = 8;
+const PASS_THRESHOLD_SPEED2  = 7;
 const QUIZ_URL_SPEED2        = 'https://enerbartoli.github.io/mod1-knowledge-check/speed2.html';
+
+// Pass mark as a percentage, derived so the email wording can never disagree with
+// the threshold that actually decides the result.
+function passPct_speed2() {
+  return Math.round((PASS_THRESHOLD_SPEED2 / TOTAL_QUESTIONS_SPEED2) * 100);
+}
 
 // slide_refs on this track holds a deck SECTION name, not a slide number
 // (ref_type "deck_section" in the canonical bank).
@@ -2591,7 +2603,7 @@ function sendPassEmail_speed2(toEmail, name, score, total, pct) {
     '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Status</p>' +
     '</td>' +
     '</tr></table>' +
-    '<p style="color:#495057;font-size:15px;line-height:1.6;">You\'ve met the <strong>80% threshold</strong> for Speed Training Session 2 — Where the Number Comes From.</p>' +
+    '<p style="color:#495057;font-size:15px;line-height:1.6;">You\'ve met the <strong>' + passPct_speed2() + '% threshold</strong> for Speed Training Session 2 — Where the Number Comes From.</p>' +
     '<div style="background:#e8f8f5;border-left:4px solid #00c9a7;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
     '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">What\'s next</p>' +
     '<p style="margin:6px 0 0;color:#495057;font-size:14px;">Carry this into the next session of the course, and apply it to your own scope as your market runs its cycle.</p>' +
@@ -2697,8 +2709,14 @@ const ANSWER_KEY_SPEED3 = {
   Q6:'D', Q7:'C', Q8:'A', Q9:'B', Q10:'D'
 };
 const TOTAL_QUESTIONS_SPEED3 = 10;
-const PASS_THRESHOLD_SPEED3  = 8;
+const PASS_THRESHOLD_SPEED3  = 7;
 const QUIZ_URL_SPEED3        = 'https://enerbartoli.github.io/mod1-knowledge-check/speed3.html';
+
+// Pass mark as a percentage, derived so the email wording can never disagree with
+// the threshold that actually decides the result.
+function passPct_speed3() {
+  return Math.round((PASS_THRESHOLD_SPEED3 / TOTAL_QUESTIONS_SPEED3) * 100);
+}
 
 // slide_refs on this track holds a deck SECTION name, not a slide number
 // (ref_type "deck_section" in the canonical bank).
@@ -2890,7 +2908,7 @@ function sendPassEmail_speed3(toEmail, name, score, total, pct) {
     '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Status</p>' +
     '</td>' +
     '</tr></table>' +
-    '<p style="color:#495057;font-size:15px;line-height:1.6;">You\'ve met the <strong>80% threshold</strong> for Speed Training Session 3 — The Tool, End to End.</p>' +
+    '<p style="color:#495057;font-size:15px;line-height:1.6;">You\'ve met the <strong>' + passPct_speed3() + '% threshold</strong> for Speed Training Session 3 — The Tool, End to End.</p>' +
     '<div style="background:#e8f8f5;border-left:4px solid #00c9a7;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
     '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">What\'s next</p>' +
     '<p style="margin:6px 0 0;color:#495057;font-size:14px;">Carry this into the next session of the course, and apply it to your own scope as your market runs its cycle.</p>' +
@@ -2996,8 +3014,14 @@ const ANSWER_KEY_SPEED4 = {
   Q6:'A', Q7:'D', Q8:'B', Q9:'C', Q10:'A'
 };
 const TOTAL_QUESTIONS_SPEED4 = 10;
-const PASS_THRESHOLD_SPEED4  = 8;
+const PASS_THRESHOLD_SPEED4  = 7;
 const QUIZ_URL_SPEED4        = 'https://enerbartoli.github.io/mod1-knowledge-check/speed4.html';
+
+// Pass mark as a percentage, derived so the email wording can never disagree with
+// the threshold that actually decides the result.
+function passPct_speed4() {
+  return Math.round((PASS_THRESHOLD_SPEED4 / TOTAL_QUESTIONS_SPEED4) * 100);
+}
 
 // slide_refs on this track holds a deck SECTION name, not a slide number
 // (ref_type "deck_section" in the canonical bank).
@@ -3189,7 +3213,7 @@ function sendPassEmail_speed4(toEmail, name, score, total, pct) {
     '<p style="margin:4px 0 0;font-size:12px;color:#6c757d;text-transform:uppercase;letter-spacing:1px;">Status</p>' +
     '</td>' +
     '</tr></table>' +
-    '<p style="color:#495057;font-size:15px;line-height:1.6;">You\'ve met the <strong>80% threshold</strong> for Speed Training Session 4 — How Your Market Works.</p>' +
+    '<p style="color:#495057;font-size:15px;line-height:1.6;">You\'ve met the <strong>' + passPct_speed4() + '% threshold</strong> for Speed Training Session 4 — How Your Market Works.</p>' +
     '<div style="background:#e8f8f5;border-left:4px solid #00c9a7;border-radius:4px;padding:16px 20px;margin:24px 0;">' +
     '<p style="margin:0;color:#0d1b2e;font-size:14px;font-weight:700;">What\'s next</p>' +
     '<p style="margin:6px 0 0;color:#495057;font-size:14px;">Carry this into the next session of the course, and apply it to your own scope as your market runs its cycle.</p>' +

@@ -3,8 +3,13 @@
 // ── Config ───────────────────────────────────────────────────────────────────
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZLIenD2Ef1-B5BSzFDsrFDNezDM_jWuT9JrmYdQTv4wSzswFOxJgyp67Y6z24-r_mOw/exec';
 
-const PASS_THRESHOLD    = 8;  // ≥8/10 = pass
-const TOTAL_QUESTIONS   = 10;
+const PASS_THRESHOLD    = 7;  // 70% — kept as a literal so the repo's guards and
+const TOTAL_QUESTIONS   = 10; // generators can read it; verify_registry.js fails the
+                             // build if either disagrees with the canonical bank or
+                             // with the backend, so the three can never drift apart.
+// Every percentage shown to a participant is derived from the two values above rather
+// than written out, so the wording cannot contradict the number that decides the result.
+const PASS_PERCENT      = Math.round((PASS_THRESHOLD / TOTAL_QUESTIONS) * 100);
 const LS_KEY            = 'speed3_quiz_state';
 
 // No answer key, no correct letters and no rationales live in this file. The quiz is
@@ -206,7 +211,17 @@ function goResults(results) {
 }
 
 // ── Welcome ───────────────────────────────────────────────────────────────
+// The pass mark shown on the welcome screen comes from the same constants the scoring
+// uses, so the page can never advertise a threshold the quiz does not apply.
+function renderPassMark() {
+  const tile = $('pass-pct-tile');
+  if (tile) tile.textContent = PASS_PERCENT + '%';
+  const copy = $('pass-mark-copy');
+  if (copy) copy.textContent = `Pass mark: ${PASS_THRESHOLD} of ${TOTAL_QUESTIONS}.`;
+}
+
 function initWelcome() {
+  renderPassMark();
   $('btn-start').addEventListener('click', () => {
     const sel = $('module-select');
     if (!sel || !sel.value) {
@@ -431,8 +446,8 @@ function renderResults(data) {
   badge.className   = `pass-badge ${pass ? 'pass' : 'fail'}`;
 
   $('result-message').textContent = pass
-    ? 'Great work — you\'ve met the 80% threshold. Check your email for your confirmation.'
-    : 'You\'re below the 80% threshold. Check your email for the questions to review, then retake when ready.';
+    ? `Great work — you've met the ${PASS_PERCENT}% threshold. Check your email for your confirmation.`
+    : `You're below the ${PASS_PERCENT}% threshold. Check your email for the questions to review, then retake when ready.`;
 
   const missedSection = $('missed-section');
   if (failed_questions && failed_questions.length > 0 && !pass) {

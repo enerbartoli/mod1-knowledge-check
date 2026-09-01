@@ -11,7 +11,8 @@
     "KC_Canonical_QuestionBank_v5_2026-08-17.json",
     "KC_Canonical_QuestionBank_v6_2026-08-17.json",
     "KC_Canonical_QuestionBank_v7_2026-08-29.json",
-    "KC_Canonical_QuestionBank_v8_2026-09-01.json"
+    "KC_Canonical_QuestionBank_v8_2026-09-01.json",
+    "KC_Canonical_QuestionBank_v9_2026-09-01.json"
   ],
   "guard_bank": "KC_Canonical_QuestionBank_v2_2026-08-07.json",
   "modules": [
@@ -630,7 +631,7 @@
       "js_file": "speed1.js",
       "html_file": "speed1.html",
       "title": "Speed Training Session 1 Knowledge Check — Introduction to the Enrichment Process",
-      "pass_threshold": 8,
+      "pass_threshold": 7,
       "total_questions": 10,
       "ls_key": "speed1_quiz_state",
       "posts_module": "speed1",
@@ -713,7 +714,7 @@
       "js_file": "speed2.js",
       "html_file": "speed2.html",
       "title": "Speed Training Session 2 Knowledge Check — Where the Number Comes From",
-      "pass_threshold": 8,
+      "pass_threshold": 7,
       "total_questions": 10,
       "ls_key": "speed2_quiz_state",
       "posts_module": "speed2",
@@ -796,7 +797,7 @@
       "js_file": "speed3.js",
       "html_file": "speed3.html",
       "title": "Speed Training Session 3 Knowledge Check — The Tool, End to End",
-      "pass_threshold": 8,
+      "pass_threshold": 7,
       "total_questions": 10,
       "ls_key": "speed3_quiz_state",
       "posts_module": "speed3",
@@ -879,7 +880,7 @@
       "js_file": "speed4.js",
       "html_file": "speed4.html",
       "title": "Speed Training Session 4 Knowledge Check — How Your Market Works",
-      "pass_threshold": 8,
+      "pass_threshold": 7,
       "total_questions": 10,
       "ls_key": "speed4_quiz_state",
       "posts_module": "speed4",
@@ -1021,13 +1022,13 @@
       "TOTAL_QUESTIONS_MOD3": 10,
       "PASS_THRESHOLD_MOD3": 8,
       "TOTAL_QUESTIONS_SPEED1": 10,
-      "PASS_THRESHOLD_SPEED1": 8,
+      "PASS_THRESHOLD_SPEED1": 7,
       "TOTAL_QUESTIONS_SPEED2": 10,
-      "PASS_THRESHOLD_SPEED2": 8,
+      "PASS_THRESHOLD_SPEED2": 7,
       "TOTAL_QUESTIONS_SPEED3": 10,
-      "PASS_THRESHOLD_SPEED3": 8,
+      "PASS_THRESHOLD_SPEED3": 7,
       "TOTAL_QUESTIONS_SPEED4": 10,
-      "PASS_THRESHOLD_SPEED4": 8
+      "PASS_THRESHOLD_SPEED4": 7
     },
     "reminder_endpoint": true,
     "getData_endpoint": true

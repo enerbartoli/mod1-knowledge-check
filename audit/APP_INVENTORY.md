@@ -1,12 +1,12 @@
 # App Inventory
 
 <!-- GENERATED FILE — do not edit by hand. Run: node tools/generate_inventory.js -->
-<!-- structural_sha: 1f1242f68f55f8021209c6ffcff55ef65060a9e2083a1a22e0b9915c39b31d27 -->
+<!-- structural_sha: 135c587da47b9fab06549743f89ad3ea329e5dbc5022aae023a9966fb1d770e9 -->
 
 - Generated: **2026-09-01**
-- Commit at generation (HEAD): `d46a3c9b8d3a0fc0367652994499799b3fbdfd77`
-- Guard bank: `KC_Canonical_QuestionBank_v8_2026-09-01.json`
-- Structural hash: `1f1242f68f55f8021209c6ffcff55ef65060a9e2083a1a22e0b9915c39b31d27` (the drift guard fails the build if this stops matching the repo)
+- Commit at generation (HEAD): `c4e98c7ebeb9580491f917bcc502c9e1641a20f1`
+- Guard bank: `KC_Canonical_QuestionBank_v9_2026-09-01.json`
+- Structural hash: `135c587da47b9fab06549743f89ad3ea329e5dbc5022aae023a9966fb1d770e9` (the drift guard fails the build if this stops matching the repo)
 
 ## Modules
 
@@ -18,10 +18,10 @@
 | mod4 | https://enerbartoli.github.io/mod1-knowledge-check/mod4.html | mod4.js | 10 | 8 | authoritative |
 | mod5 | https://enerbartoli.github.io/mod1-knowledge-check/mod5.html | mod5.js | 15 | 12 | authoritative |
 | mod7 | https://enerbartoli.github.io/mod1-knowledge-check/mod7.html | mod7.js | 10 | 8 | authoritative |
-| speed1 | https://enerbartoli.github.io/mod1-knowledge-check/speed1.html | speed1.js | 10 | 8 | authoritative |
-| speed2 | https://enerbartoli.github.io/mod1-knowledge-check/speed2.html | speed2.js | 10 | 8 | authoritative |
-| speed3 | https://enerbartoli.github.io/mod1-knowledge-check/speed3.html | speed3.js | 10 | 8 | authoritative |
-| speed4 | https://enerbartoli.github.io/mod1-knowledge-check/speed4.html | speed4.js | 10 | 8 | authoritative |
+| speed1 | https://enerbartoli.github.io/mod1-knowledge-check/speed1.html | speed1.js | 10 | 7 | authoritative |
+| speed2 | https://enerbartoli.github.io/mod1-knowledge-check/speed2.html | speed2.js | 10 | 7 | authoritative |
+| speed3 | https://enerbartoli.github.io/mod1-knowledge-check/speed3.html | speed3.js | 10 | 7 | authoritative |
+| speed4 | https://enerbartoli.github.io/mod1-knowledge-check/speed4.html | speed4.js | 10 | 7 | authoritative |
 
 ### mod1
 
@@ -740,7 +740,7 @@
 ### speed1
 
 - Page: https://enerbartoli.github.io/mod1-knowledge-check/speed1.html · JS: `speed1.js` · HTML: `speed1.html`
-- Questions: 10 · Pass threshold: 8 · Options: authoritative (bank is source of truth)
+- Questions: 10 · Pass threshold: 7 · Options: authoritative (bank is source of truth)
 
 **Q1** · fingerprint `6de58865e99b` · correct **?** · rationale no · slides Speed Training Session 1 · The equation
 
@@ -835,7 +835,7 @@
 ### speed2
 
 - Page: https://enerbartoli.github.io/mod1-knowledge-check/speed2.html · JS: `speed2.js` · HTML: `speed2.html`
-- Questions: 10 · Pass threshold: 8 · Options: authoritative (bank is source of truth)
+- Questions: 10 · Pass threshold: 7 · Options: authoritative (bank is source of truth)
 
 **Q1** · fingerprint `adb7309889bb` · correct **?** · rationale no · slides Speed Training Session 2 · Where the baseline is produced
 
@@ -930,7 +930,7 @@
 ### speed3
 
 - Page: https://enerbartoli.github.io/mod1-knowledge-check/speed3.html · JS: `speed3.js` · HTML: `speed3.html`
-- Questions: 10 · Pass threshold: 8 · Options: authoritative (bank is source of truth)
+- Questions: 10 · Pass threshold: 7 · Options: authoritative (bank is source of truth)
 
 **Q1** · fingerprint `5d069c935f2a` · correct **?** · rationale no · slides Speed Training Session 3 · Workbook anatomy
 
@@ -1025,7 +1025,7 @@
 ### speed4
 
 - Page: https://enerbartoli.github.io/mod1-knowledge-check/speed4.html · JS: `speed4.js` · HTML: `speed4.html`
-- Questions: 10 · Pass threshold: 8 · Options: authoritative (bank is source of truth)
+- Questions: 10 · Pass threshold: 7 · Options: authoritative (bank is source of truth)
 
 **Q1** · fingerprint `696bf73dd7fe` · correct **?** · rationale no · slides Speed Training Session 4 · Scope is a market decision
 

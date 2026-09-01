@@ -14,10 +14,10 @@ Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 | mod4 | mod4.html | mod4.js | 10 | 8 | mod4 | yes |
 | mod5 | mod5.html | mod5.js | 15 | 12 | mod5 | yes |
 | mod7 | mod7.html | mod7.js | 10 | 8 | mod7 | yes |
-| speed1 | speed1.html | speed1.js | 10 | 8 | speed1 | no |
-| speed2 | speed2.html | speed2.js | 10 | 8 | speed2 | no |
-| speed3 | speed3.html | speed3.js | 10 | 8 | speed3 | no |
-| speed4 | speed4.html | speed4.js | 10 | 8 | speed4 | no |
+| speed1 | speed1.html | speed1.js | 10 | 7 | speed1 | no |
+| speed2 | speed2.html | speed2.js | 10 | 7 | speed2 | no |
+| speed3 | speed3.html | speed3.js | 10 | 7 | speed3 | no |
+| speed4 | speed4.html | speed4.js | 10 | 7 | speed4 | no |
 
 ### mod1 — MOD 1 Knowledge Check · Forecast Enrichment
 
@@ -146,7 +146,7 @@ Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 ### speed1 — Speed Training Session 1 Knowledge Check — Introduction to the Enrichment Process
 
 - JS: `speed1.js` · HTML: `speed1.html` · localStorage key: `speed1_quiz_state`
-- Questions: 10 · Pass threshold: 8
+- Questions: 10 · Pass threshold: 7
 
 | Q | section | slides | fingerprint | client key |
 |---|---|---|---|---|
@@ -164,7 +164,7 @@ Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 ### speed2 — Speed Training Session 2 Knowledge Check — Where the Number Comes From
 
 - JS: `speed2.js` · HTML: `speed2.html` · localStorage key: `speed2_quiz_state`
-- Questions: 10 · Pass threshold: 8
+- Questions: 10 · Pass threshold: 7
 
 | Q | section | slides | fingerprint | client key |
 |---|---|---|---|---|
@@ -182,7 +182,7 @@ Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 ### speed3 — Speed Training Session 3 Knowledge Check — The Tool, End to End
 
 - JS: `speed3.js` · HTML: `speed3.html` · localStorage key: `speed3_quiz_state`
-- Questions: 10 · Pass threshold: 8
+- Questions: 10 · Pass threshold: 7
 
 | Q | section | slides | fingerprint | client key |
 |---|---|---|---|---|
@@ -200,7 +200,7 @@ Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 ### speed4 — Speed Training Session 4 Knowledge Check — How Your Market Works
 
 - JS: `speed4.js` · HTML: `speed4.html` · localStorage key: `speed4_quiz_state`
-- Questions: 10 · Pass threshold: 8
+- Questions: 10 · Pass threshold: 7
 
 | Q | section | slides | fingerprint | client key |
 |---|---|---|---|---|
@@ -245,13 +245,13 @@ Thresholds/constants:
 - `TOTAL_QUESTIONS_MOD3` = 10
 - `PASS_THRESHOLD_MOD3` = 8
 - `TOTAL_QUESTIONS_SPEED1` = 10
-- `PASS_THRESHOLD_SPEED1` = 8
+- `PASS_THRESHOLD_SPEED1` = 7
 - `TOTAL_QUESTIONS_SPEED2` = 10
-- `PASS_THRESHOLD_SPEED2` = 8
+- `PASS_THRESHOLD_SPEED2` = 7
 - `TOTAL_QUESTIONS_SPEED3` = 10
-- `PASS_THRESHOLD_SPEED3` = 8
+- `PASS_THRESHOLD_SPEED3` = 7
 - `TOTAL_QUESTIONS_SPEED4` = 10
-- `PASS_THRESHOLD_SPEED4` = 8
+- `PASS_THRESHOLD_SPEED4` = 7
 
 Endpoints: getData=yes · sendReminders=yes
 
@@ -267,3 +267,4 @@ Endpoints: getData=yes · sendReminders=yes
 - `KC_Canonical_QuestionBank_v6_2026-08-17.json`
 - `KC_Canonical_QuestionBank_v7_2026-08-29.json`
 - `KC_Canonical_QuestionBank_v8_2026-09-01.json`
+- `KC_Canonical_QuestionBank_v9_2026-09-01.json`
