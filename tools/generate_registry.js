@@ -8,6 +8,9 @@
  *                        plus self-init wiring that fills the nav <select id="module-select">
  *                        and the dashboard filter host <div id="dash-mod-filters"> on every page.
  *   - dashboard-data.js: DASH_MODULE_REGISTRY (label, totalQ, answerKey, questions) for drill-down.
+ *                        Questions carry revisedOn when the bank records that their text
+ *                        changed on a date, so per-question analytics can keep attempts
+ *                        from before and after a recalibration apart.
  *
  * Two tracks share the registry. The main programme numbers its modules 1..7 ("MOD 3"); the
  * Speed Training track numbers its sessions 1..4 within its own track. Reusing 1..4 for both
@@ -155,7 +158,10 @@ modules.forEach((m, mi) => {
     const num = parseInt(q.id.replace('Q', ''), 10);
     const opts = LET.map(k => `${k}:'${jsstr(q.options[k])}'`).join(', ');
     const section = sections[num] || '';
-    parts.push(`      { id:${num}, text:'${jsstr(q.text)}', options:{ ${opts} }, slideRefs:'${jsstr(q.slide_refs || '')}', section:'${jsstr(section)}' },`);
+    // revisedOn marks a question whose fingerprint moved on that date: attempts recorded
+    // before it answered different text and must not be averaged with attempts after.
+    const revised = q.revised_on ? `, revisedOn:'${jsstr(q.revised_on)}'` : '';
+    parts.push(`      { id:${num}, text:'${jsstr(q.text)}', options:{ ${opts} }, slideRefs:'${jsstr(q.slide_refs || '')}', section:'${jsstr(section)}'${revised} },`);
   });
   parts.push('    ]');
   parts.push('  }' + (mi < modules.length - 1 ? ',' : ''));

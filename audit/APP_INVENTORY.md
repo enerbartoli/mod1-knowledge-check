@@ -1,12 +1,12 @@
 # App Inventory
 
 <!-- GENERATED FILE — do not edit by hand. Run: node tools/generate_inventory.js -->
-<!-- structural_sha: 135c587da47b9fab06549743f89ad3ea329e5dbc5022aae023a9966fb1d770e9 -->
+<!-- structural_sha: 41ffe37cbeb97bf1b6c6961fa436b53c423422ddaa5e80cb95f1ea10521d9bfb -->
 
-- Generated: **2026-09-01**
-- Commit at generation (HEAD): `c4e98c7ebeb9580491f917bcc502c9e1641a20f1`
-- Guard bank: `KC_Canonical_QuestionBank_v9_2026-09-01.json`
-- Structural hash: `135c587da47b9fab06549743f89ad3ea329e5dbc5022aae023a9966fb1d770e9` (the drift guard fails the build if this stops matching the repo)
+- Generated: **2026-09-02**
+- Commit at generation (HEAD): `14b14c76901009292612a3d348ee97508ca705d8`
+- Guard bank: `KC_Canonical_QuestionBank_v10_2026-09-02.json`
+- Structural hash: `41ffe37cbeb97bf1b6c6961fa436b53c423422ddaa5e80cb95f1ea10521d9bfb` (the drift guard fails the build if this stops matching the repo)
 
 ## Modules
 
@@ -751,52 +751,52 @@
 - **C** Each team submits a forecast and the average of them is taken
 - **D** Marketing sets the total and Demand Planning splits it to accounts
 
-**Q2** · fingerprint `74db9c1882c5` · correct **?** · rationale no · slides Speed Training Session 1 · Who owns what
+**Q2** · fingerprint `a1e869a17449` · correct **?** · rationale no · slides Speed Training Session 1 · Who owns what
 
 > Which of these does Hasbro Demand Planning own in the operating model?
 
 - **A** Running the statistical engine that produces the baseline
 - **B** Building the launch curve for every new product
 - **C** Governance, planning parameters and final sign-off
-- **D** Entering commercial events for each account
+- **D** Entering the commercial events for each account
 
-**Q3** · fingerprint `db6cd594c046` · correct **?** · rationale no · slides Speed Training Session 1 · Two horizons
+**Q3** · fingerprint `43d80ba8fc05` · correct **?** · rationale no · slides Speed Training Session 1 · Two horizons
 
 > A colleague says the new process will change their numbers for the next two months. What is the accurate response?
 
 - **A** It will, because the statistical baseline replaces the current numbers from the first cycle onwards
-- **B** It will, but only for accounts that already sit in the Forecasting Range
+- **B** It will, but only for the accounts that are already in the new process
 - **C** It will not, because the tool cannot write to the near horizon at all
 - **D** It will not; the near months are already committed
 
-**Q4** · fingerprint `78b81e9d0689` · correct **?** · rationale no · slides Speed Training Session 1 · Eligibility
+**Q4** · fingerprint `6099f8825801` · correct **?** · rationale no · slides Speed Training Session 1 · Why the process is changing
 
-> An account is showing volume for an item it has never stocked. Where do you look first?
+> Which of these is one of the problems the new process is built to solve?
 
-- **A** The Forecasting Range, which sets who is eligible for volume
-- **B** The enrichment rows loaded against that account this cycle
-- **C** The item's lifecycle status and whether it has graduated
-- **D** The base trend adjustment entered by the account owner last cycle
+- **A** Several teams keeping their own version of the number
+- **B** Too few people involved in agreeing the monthly forecast
+- **C** The absence of any statistical forecasting in the business
+- **D** Demand Planning holding too little authority over commercial teams
 
-**Q5** · fingerprint `94fcf8caabc2` · correct **?** · rationale no · slides Speed Training Session 1 · Level 2.5 Baseline Pre-Adjustment
+**Q5** · fingerprint `31f512030f06` · correct **?** · rationale no · slides Speed Training Session 1 · Where the numbers come from
 
-> What is a Level 2.5 Baseline Pre-Adjustment?
+> The statistical engine produces a number at one level only. What follows for the numbers you see at account level?
 
-- **A** An enrichment entered at account level and then rolled up to the item
-- **B** A change to the statistical model used for that item this cycle
-- **C** A correction to the item total, made before it is split to accounts
-- **D** A request asking the executive sign-off meeting to overrule the commercial number
+- **A** They were forecast directly by the engine for that account
+- **B** They are set by hand by Demand Planning each cycle
+- **C** They were derived from a number produced higher up
+- **D** They come from a separate statistical model per account
 
-**Q6** · fingerprint `4826aafc8e50` · correct **?** · rationale no · slides Speed Training Session 1 · Enrichment or base trend
+**Q6** · fingerprint `0c7d1509e43f` · correct **?** · rationale no · slides Speed Training Session 1 · The cycle
 
-> You have lost distribution at one account and expect lower volume from now on. How is that recorded?
+> When is the statistical baseline generated during the monthly cycle?
 
-- **A** As an enrichment, dated to each of the weeks the lost distribution affects
-- **B** As a note to Demand Planning, with nothing entered in the system
-- **C** As a change to the baseline itself, made by the account owner
-- **D** As a base trend adjustment, since the level itself has shifted
+- **A** Continuously, so it updates while the commercial teams work
+- **B** Twice: once at the start and again before executive sign-off
+- **C** At the end, once every adjustment has been entered and agreed
+- **D** Once at the start, and then it is frozen for the cycle
 
-**Q7** · fingerprint `27d5150bebb9` · correct **?** · rationale no · slides Speed Training Session 1 · Ownership at commercial alignment
+**Q7** · fingerprint `27d5150bebb9` · correct **?** · rationale no · slides Speed Training Session 1 · Who owns the number
 
 > During the commercial alignment session Demand Planning challenges a number and the commercial team stands behind it. What happens?
 
@@ -814,18 +814,18 @@
 - **C** A documented change where there is a genuine supply reason
 - **D** A change only if the executive sign-off meeting is reconvened
 
-**Q9** · fingerprint `ee6406410283` · correct **?** · rationale no · slides Speed Training Session 1 · Where a question goes
+**Q9** · fingerprint `d6cea25e9837` · correct **?** · rationale no · slides Speed Training Session 1 · Where a question goes
 
-> You think the eligibility setup for one of your accounts is wrong. What do you do?
+> A number for one of your items looks wrong and you want to understand why the model produced it. Who do you go to first?
 
-- **A** Correct the setup yourself before the cycle closes
-- **B** Enter an enrichment large enough to cancel the unwanted volume
-- **C** Contact the system vendor directly and ask them to change the record for you
-- **D** Raise it; eligibility is master data and you do not change it
+- **A** The programme team, because anything about the model is a rule change
+- **B** The vendor that runs the statistical engine, since they built the model
+- **C** Nobody; note it and wait until the cycle closes
+- **D** Your Demand Planning team, who route it from there
 
-**Q10** · fingerprint `cf3ada4da72a` · correct **?** · rationale no · slides Speed Training Session 1 · Capture is continuous
+**Q10** · fingerprint `410b5b56e5e3` · correct **?** · rationale no · slides Speed Training Session 1 · Capture is continuous
 
-> You agree a promotion in March that will run in October. When should it be captured?
+> You agree a commercial event in March that will run in October. When should it be captured?
 
 - **A** In the cycle that opens closest to October, so the dates are certain
 - **B** Now, and confirmed or adjusted in each cycle until it runs

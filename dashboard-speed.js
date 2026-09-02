@@ -68,6 +68,15 @@
     if (r >= 0.4) return 'var(--yellow)';
     return 'var(--coral)';
   }
+  // Rows are timestamped; a revision date is a plain YYYY-MM-DD. Compare from the start of
+  // that day in UTC. An attempt sat on the revision day itself, before the new text went
+  // live, would land on the "after" side — the only ambiguity this scheme has, and it is
+  // bounded to a single day.
+  function onOrAfter(timestamp, isoDate) {
+    var t = new Date(timestamp).getTime();
+    var c = new Date(isoDate + 'T00:00:00Z').getTime();
+    return isFinite(t) && isFinite(c) && t >= c;
+  }
   function failedNums(r, totalQ) {
     return String((r && r.failed) || '').split(',').map(function (s) {
       return parseInt(String(s).trim(), 10);
@@ -92,17 +101,35 @@
       });
 
       // Correct rate per question, from the failed-question numbers the backend wrote.
+      //
+      // A stored row records only which question NUMBERS were failed — no fingerprint and
+      // no bank version — so a question whose text has since been rewritten would silently
+      // average two different questions together under the same number. Where the bank says
+      // a question was revised on a date, its figures are therefore computed from attempts
+      // recorded on or after that date only. Questions that were not revised keep their full
+      // history, because they are still the same question.
       var perQuestion = [];
       for (var q = 1; q <= totalQ; q++) perQuestion.push({ q: q, wrong: 0 });
-      mine.forEach(function (r) {
-        failedNums(r, totalQ).forEach(function (n) { perQuestion[n - 1].wrong++; });
-      });
+      var qMeta = {};
+      if (reg && reg.questions) reg.questions.forEach(function (x) { qMeta[x.id] = x; });
+
       perQuestion.forEach(function (p) {
-        p.attempts = mine.length;
-        p.correct  = mine.length - p.wrong;
-        p.correctRate = rate(p.correct, mine.length);
-        p.wrongRate   = rate(p.wrong, mine.length);
-        p.text = reg && reg.questions ? (reg.questions.filter(function (x) { return x.id === p.q; })[0] || {}).text || '' : '';
+        var meta = qMeta[p.q] || {};
+        p.text = meta.text || '';
+        p.revisedOn = meta.revisedOn || null;
+        // Rows this question's figures may be computed from.
+        var pool = p.revisedOn
+          ? mine.filter(function (r) { return onOrAfter(r.timestamp, p.revisedOn); })
+          : mine;
+        p.excluded = mine.length - pool.length;
+        p.wrong = 0;
+        pool.forEach(function (r) {
+          if (failedNums(r, totalQ).indexOf(p.q) !== -1) p.wrong++;
+        });
+        p.attempts    = pool.length;
+        p.correct     = pool.length - p.wrong;
+        p.correctRate = rate(p.correct, pool.length);
+        p.wrongRate   = rate(p.wrong, pool.length);
       });
 
       return {
@@ -123,6 +150,8 @@
         perQuestion: perQuestion,
         // The three questions the room gets wrong most often. Ties break on the lower
         // question number so the order is stable between renders.
+        // Ranked on each question's own eligible pool, so a rewritten question is judged on
+        // the attempts that actually saw its current text.
         worst: perQuestion.slice()
           .filter(function (p) { return p.wrong > 0; })
           .sort(function (a, b) { return (b.wrong - a.wrong) || (a.q - b.q); })
@@ -206,12 +235,28 @@
     var perQ = s.perQuestion.map(function (p) {
       var c = rateColor(p.correctRate);
       var w = p.correctRate === null ? 0 : Math.round(p.correctRate * 100);
-      return '<div class="heatmap-row" title="' + esc('Q' + p.q + ' — ' + pct(p.correctRate) + ' correct of ' + p.attempts + ' attempt(s)') + '">' +
-        '<span class="heatmap-label">Q' + p.q + '</span>' +
+      var tip = 'Q' + p.q + ' — ' + pct(p.correctRate) + ' correct of ' + p.attempts + ' attempt(s)'
+        + (p.revisedOn ? '; rewritten ' + p.revisedOn + ', ' + p.excluded + ' earlier attempt(s) excluded' : '');
+      return '<div class="heatmap-row" title="' + esc(tip) + '">' +
+        '<span class="heatmap-label">Q' + p.q +
+          (p.revisedOn ? '<span style="color:var(--yellow);" title="rewritten">*</span>' : '') + '</span>' +
         '<div class="heatmap-bar-track"><div class="heatmap-bar-fill" style="width:' + w + '%;background:' + c + ';"></div></div>' +
         '<span class="heatmap-pct" style="color:' + c + ';">' + pct(p.correctRate) + '</span>' +
         '</div>';
     }).join('');
+
+    // Say plainly that two clusters are being kept apart, rather than letting a reader
+    // assume every bar covers the same set of attempts.
+    var revised = s.perQuestion.filter(function (p) { return p.revisedOn && p.excluded > 0; });
+    if (revised.length) {
+      perQ += '<p class="muted" style="font-size:11px;margin:10px 0 0;line-height:1.5;">' +
+        '<span style="color:var(--yellow);">*</span> rewritten on ' + esc(revised[0].revisedOn) + '. ' +
+        'These ' + revised.length + ' question(s) are scored on the ' +
+        revised[0].attempts + ' attempt(s) since that date; ' + revised[0].excluded +
+        ' earlier attempt(s) answered different text and are left out of these bars. ' +
+        'Attempts, pass rate and average score above cover every attempt — the answer key did not change.' +
+        '</p>';
+    }
 
     var worst = s.worst.length
       ? s.worst.map(function (p, i) {

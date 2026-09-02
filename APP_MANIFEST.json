@@ -1,9 +1,10 @@
 {
-  "generated_on": "2026-09-01",
+  "generated_on": "2026-09-02",
   "generator": "tools/generate_manifest.js",
   "note": "Derived from actual repo files. Do not edit by hand — re-run the generator.",
   "pages_base_url": "https://enerbartoli.github.io/mod1-knowledge-check/",
   "canonical_banks": [
+    "KC_Canonical_QuestionBank_v10_2026-09-02.json",
     "KC_Canonical_QuestionBank_v1_2026-08-06.json",
     "KC_Canonical_QuestionBank_v2_2026-08-07.json",
     "KC_Canonical_QuestionBank_v3_2026-08-07.json",
@@ -648,41 +649,41 @@
           "id": "Q2",
           "section": "Who owns what",
           "slide_refs": "Speed Training Session 1 · Who owns what",
-          "fingerprint": "74db9c1882c5",
+          "fingerprint": "a1e869a17449",
           "client_key": null
         },
         {
           "id": "Q3",
           "section": "Two horizons",
           "slide_refs": "Speed Training Session 1 · Two horizons",
-          "fingerprint": "db6cd594c046",
+          "fingerprint": "43d80ba8fc05",
           "client_key": null
         },
         {
           "id": "Q4",
-          "section": "Eligibility",
-          "slide_refs": "Speed Training Session 1 · Eligibility",
-          "fingerprint": "78b81e9d0689",
+          "section": "Why the process is changing",
+          "slide_refs": "Speed Training Session 1 · Why the process is changing",
+          "fingerprint": "6099f8825801",
           "client_key": null
         },
         {
           "id": "Q5",
-          "section": "Level 2.5 Baseline Pre-Adjustment",
-          "slide_refs": "Speed Training Session 1 · Level 2.5 Baseline Pre-Adjustment",
-          "fingerprint": "94fcf8caabc2",
+          "section": "Where the numbers come from",
+          "slide_refs": "Speed Training Session 1 · Where the numbers come from",
+          "fingerprint": "31f512030f06",
           "client_key": null
         },
         {
           "id": "Q6",
-          "section": "Enrichment or base trend",
-          "slide_refs": "Speed Training Session 1 · Enrichment or base trend",
-          "fingerprint": "4826aafc8e50",
+          "section": "The cycle",
+          "slide_refs": "Speed Training Session 1 · The cycle",
+          "fingerprint": "0c7d1509e43f",
           "client_key": null
         },
         {
           "id": "Q7",
-          "section": "Ownership at commercial alignment",
-          "slide_refs": "Speed Training Session 1 · Ownership at commercial alignment",
+          "section": "Who owns the number",
+          "slide_refs": "Speed Training Session 1 · Who owns the number",
           "fingerprint": "27d5150bebb9",
           "client_key": null
         },
@@ -697,14 +698,14 @@
           "id": "Q9",
           "section": "Where a question goes",
           "slide_refs": "Speed Training Session 1 · Where a question goes",
-          "fingerprint": "ee6406410283",
+          "fingerprint": "d6cea25e9837",
           "client_key": null
         },
         {
           "id": "Q10",
           "section": "Capture is continuous",
           "slide_refs": "Speed Training Session 1 · Capture is continuous",
-          "fingerprint": "cf3ada4da72a",
+          "fingerprint": "410b5b56e5e3",
           "client_key": null
         }
       ]

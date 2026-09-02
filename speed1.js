@@ -37,7 +37,7 @@ const QUESTIONS = [
       A: 'Running the statistical engine that produces the baseline',
       B: 'Building the launch curve for every new product',
       C: 'Governance, planning parameters and final sign-off',
-      D: 'Entering commercial events for each account'
+      D: 'Entering the commercial events for each account'
     },
     slideRefs: 'Speed Training Session 1 · Who owns what',
     section: 'Who owns what'
@@ -47,7 +47,7 @@ const QUESTIONS = [
     text: 'A colleague says the new process will change their numbers for the next two months. What is the accurate response?',
     options: {
       A: 'It will, because the statistical baseline replaces the current numbers from the first cycle onwards',
-      B: 'It will, but only for accounts that already sit in the Forecasting Range',
+      B: 'It will, but only for the accounts that are already in the new process',
       C: 'It will not, because the tool cannot write to the near horizon at all',
       D: 'It will not; the near months are already committed'
     },
@@ -56,39 +56,39 @@ const QUESTIONS = [
   },
   {
     id: 4,
-    text: 'An account is showing volume for an item it has never stocked. Where do you look first?',
+    text: 'Which of these is one of the problems the new process is built to solve?',
     options: {
-      A: 'The Forecasting Range, which sets who is eligible for volume',
-      B: 'The enrichment rows loaded against that account this cycle',
-      C: 'The item\'s lifecycle status and whether it has graduated',
-      D: 'The base trend adjustment entered by the account owner last cycle'
+      A: 'Several teams keeping their own version of the number',
+      B: 'Too few people involved in agreeing the monthly forecast',
+      C: 'The absence of any statistical forecasting in the business',
+      D: 'Demand Planning holding too little authority over commercial teams'
     },
-    slideRefs: 'Speed Training Session 1 · Eligibility',
-    section: 'Eligibility'
+    slideRefs: 'Speed Training Session 1 · Why the process is changing',
+    section: 'Why the process is changing'
   },
   {
     id: 5,
-    text: 'What is a Level 2.5 Baseline Pre-Adjustment?',
+    text: 'The statistical engine produces a number at one level only. What follows for the numbers you see at account level?',
     options: {
-      A: 'An enrichment entered at account level and then rolled up to the item',
-      B: 'A change to the statistical model used for that item this cycle',
-      C: 'A correction to the item total, made before it is split to accounts',
-      D: 'A request asking the executive sign-off meeting to overrule the commercial number'
+      A: 'They were forecast directly by the engine for that account',
+      B: 'They are set by hand by Demand Planning each cycle',
+      C: 'They were derived from a number produced higher up',
+      D: 'They come from a separate statistical model per account'
     },
-    slideRefs: 'Speed Training Session 1 · Level 2.5 Baseline Pre-Adjustment',
-    section: 'Level 2.5 Baseline Pre-Adjustment'
+    slideRefs: 'Speed Training Session 1 · Where the numbers come from',
+    section: 'Where the numbers come from'
   },
   {
     id: 6,
-    text: 'You have lost distribution at one account and expect lower volume from now on. How is that recorded?',
+    text: 'When is the statistical baseline generated during the monthly cycle?',
     options: {
-      A: 'As an enrichment, dated to each of the weeks the lost distribution affects',
-      B: 'As a note to Demand Planning, with nothing entered in the system',
-      C: 'As a change to the baseline itself, made by the account owner',
-      D: 'As a base trend adjustment, since the level itself has shifted'
+      A: 'Continuously, so it updates while the commercial teams work',
+      B: 'Twice: once at the start and again before executive sign-off',
+      C: 'At the end, once every adjustment has been entered and agreed',
+      D: 'Once at the start, and then it is frozen for the cycle'
     },
-    slideRefs: 'Speed Training Session 1 · Enrichment or base trend',
-    section: 'Enrichment or base trend'
+    slideRefs: 'Speed Training Session 1 · The cycle',
+    section: 'The cycle'
   },
   {
     id: 7,
@@ -99,8 +99,8 @@ const QUESTIONS = [
       C: 'The item is removed from the cycle until the two sides agree',
       D: 'The disagreement is recorded and the baseline is used instead'
     },
-    slideRefs: 'Speed Training Session 1 · Ownership at commercial alignment',
-    section: 'Ownership at commercial alignment'
+    slideRefs: 'Speed Training Session 1 · Who owns the number',
+    section: 'Who owns the number'
   },
   {
     id: 8,
@@ -116,19 +116,19 @@ const QUESTIONS = [
   },
   {
     id: 9,
-    text: 'You think the eligibility setup for one of your accounts is wrong. What do you do?',
+    text: 'A number for one of your items looks wrong and you want to understand why the model produced it. Who do you go to first?',
     options: {
-      A: 'Correct the setup yourself before the cycle closes',
-      B: 'Enter an enrichment large enough to cancel the unwanted volume',
-      C: 'Contact the system vendor directly and ask them to change the record for you',
-      D: 'Raise it; eligibility is master data and you do not change it'
+      A: 'The programme team, because anything about the model is a rule change',
+      B: 'The vendor that runs the statistical engine, since they built the model',
+      C: 'Nobody; note it and wait until the cycle closes',
+      D: 'Your Demand Planning team, who route it from there'
     },
     slideRefs: 'Speed Training Session 1 · Where a question goes',
     section: 'Where a question goes'
   },
   {
     id: 10,
-    text: 'You agree a promotion in March that will run in October. When should it be captured?',
+    text: 'You agree a commercial event in March that will run in October. When should it be captured?',
     options: {
       A: 'In the cycle that opens closest to October, so the dates are certain',
       B: 'Now, and confirmed or adjusted in each cycle until it runs',

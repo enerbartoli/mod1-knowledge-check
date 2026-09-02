@@ -2114,10 +2114,10 @@ const SLIDE_REFS_SPEED1 = {
   Q1: 'Speed Training Session 1 · The equation',
   Q2: 'Speed Training Session 1 · Who owns what',
   Q3: 'Speed Training Session 1 · Two horizons',
-  Q4: 'Speed Training Session 1 · Eligibility',
-  Q5: 'Speed Training Session 1 · Level 2.5 Baseline Pre-Adjustment',
-  Q6: 'Speed Training Session 1 · Enrichment or base trend',
-  Q7: 'Speed Training Session 1 · Ownership at commercial alignment',
+  Q4: 'Speed Training Session 1 · Why the process is changing',
+  Q5: 'Speed Training Session 1 · Where the numbers come from',
+  Q6: 'Speed Training Session 1 · The cycle',
+  Q7: 'Speed Training Session 1 · Who owns the number',
   Q8: 'Speed Training Session 1 · The frozen period',
   Q9: 'Speed Training Session 1 · Where a question goes',
   Q10: 'Speed Training Session 1 · Capture is continuous'
@@ -2127,25 +2127,25 @@ const QUESTION_TEXT_SPEED1 = {
   Q1: 'Which statement describes how the consensus forecast is built?',
   Q2: 'Which of these does Hasbro Demand Planning own in the operating model?',
   Q3: 'A colleague says the new process will change their numbers for the next two months. What is the accurate response?',
-  Q4: 'An account is showing volume for an item it has never stocked. Where do you look first?',
-  Q5: 'What is a Level 2.5 Baseline Pre-Adjustment?',
-  Q6: 'You have lost distribution at one account and expect lower volume from now on. How is that recorded?',
+  Q4: 'Which of these is one of the problems the new process is built to solve?',
+  Q5: 'The statistical engine produces a number at one level only. What follows for the numbers you see at account level?',
+  Q6: 'When is the statistical baseline generated during the monthly cycle?',
   Q7: 'During the commercial alignment session Demand Planning challenges a number and the commercial team stands behind it. What happens?',
   Q8: 'A supply constraint has eased and you can now serve more volume inside the frozen period. What does the policy allow?',
-  Q9: 'You think the eligibility setup for one of your accounts is wrong. What do you do?',
-  Q10: 'You agree a promotion in March that will run in October. When should it be captured?'
+  Q9: 'A number for one of your items looks wrong and you want to understand why the model produced it. Who do you go to first?',
+  Q10: 'You agree a commercial event in March that will run in October. When should it be captured?'
 };
 
 const RATIONALES_SPEED1 = {
-  Q1: 'Baseline plus enrichment equals the consensus forecast. The two layers are stored separately so the value each one added can be measured afterwards.',
+  Q1: 'Baseline plus enrichment equals the consensus forecast. The two layers are kept separate so the value each one added can be measured afterwards.',
   Q2: 'An external partner produces the statistical baseline and another runs the operations. Governance, the parameters and the sign-off stay with Hasbro Demand Planning.',
   Q3: 'The current year is the anchor. Lead times mean the near horizon is already committed, so this year builds the discipline and the trail. The statistical baseline does the work from next year, on dates each market sets.',
-  Q4: 'Eligibility decides which account and period combinations receive statistical volume at all. Unexpected volume in a first cycle is almost always a setup question rather than a forecast question.',
-  Q5: 'It is a correction to the total for an item at business-unit level, above the accounts, made before the split happens. The sequencing is the point: account teams then receive a number that already makes sense at the top.',
-  Q6: 'An enrichment carries a dated event that will not repeat. An ongoing shift in the underlying level is a base trend adjustment.',
-  Q7: 'Demand Planning challenges the assumptions with evidence. It does not overrule the number at that point. The disagreement, if it survives, is argued again in the joint reconciliation.',
+  Q4: 'The starting problem is overlapping forecasts with no single source of truth. The cycle was spent reconciling versions of the number rather than discussing demand.',
+  Q5: 'The engine produces one number per item, business unit and channel. Everything below that level is arithmetic performed on that number, so an account-level number was always derived rather than forecast directly.',
+  Q6: 'The engine runs once, at the start of the cycle. Once the baseline is generated it is frozen, so nobody is working against a number that moves underneath them.',
+  Q7: 'Demand Planning challenges the assumptions with evidence. It does not overrule the number at that point. If the disagreement survives, it is argued again in the joint reconciliation.',
   Q8: 'Frozen does not mean locked. It stops demand being raised where supply cannot serve it. A documented change with a real supply reason is exactly what it allows.',
-  Q9: 'Eligibility is master data. You raise it through your Demand Planning team or the programme. Covering it with an enrichment hides the problem instead of fixing it.',
+  Q9: 'Demand Planning owns governance and is the first call for anything about the number itself. Going straight to a vendor skips the people who can actually answer, and produces answers nobody else in the programme can see.',
   Q10: 'Capture is open all year and is not a cycle task. Recording the event when you know about it turns each cycle into a confirmation rather than an act of memory.'
 };
 

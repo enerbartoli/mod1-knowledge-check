@@ -1,0 +1,2024 @@
+{
+  "schema_version": 1.9,
+  "generated_on": "2026-09-02",
+  "purpose": "Canonical source of truth for the HERO knowledge-check question bank. The deployed app must match this file exactly, character for character, for every field marked authoritative.",
+  "authority": [
+    "text, options, correct, rationale and slide_refs in this file OUTRANK whatever is currently deployed.",
+    "Exception: modules or questions with \"options\": null are NOT authoritative on options. Those must be harvested FROM the deployed app INTO this file, never the other way round."
+  ],
+  "modules": [
+    {
+      "module_id": "mod1",
+      "title": "MOD 1 Knowledge Check",
+      "total_questions": 16,
+      "pass_threshold": 13,
+      "quiz_url": "https://enerbartoli.github.io/mod1-knowledge-check/",
+      "source_files": [
+        "HERO PROJECT/04_outputs/MOD1_KnowledgeCheck/MOD1_Quiz_AppsScript_Backend.txt",
+        "HERO PROJECT/04_outputs/MOD1_KnowledgeCheck/MOD1_KnowledgeCheck_Questions_v5_FINAL.md"
+      ],
+      "questions": [
+        {
+          "id": "Q1",
+          "text": "Why is Hasbro implementing the new Forecast Enrichment process now?",
+          "options": {
+            "A": "To address chronic gaps in forecast traceability, manual workload, and the ability to measure the value of commercial intelligence.",
+            "B": "To replace Logility with Daybreak as the planning system.",
+            "C": "To bring the forecast closer to the Financial Forecast target each cycle, so the two numbers stop diverging.",
+            "D": "To move the planning cycle from a monthly rhythm to a weekly one, so the forecast refreshes more often."
+          },
+          "correct": "A",
+          "rationale": null,
+          "slide_refs": "2, 4",
+          "fingerprint": "a9a0e9ef03b2",
+          "options_authoritative": true,
+          "change_note": "2026-08-17: Q1 options C and D and Q2 options A and D replaced. Distractors implying headcount reduction, team consolidation, or commercial input becoming unnecessary were removed for change-management reasons. Stem, correct letter and correct option text unchanged."
+        },
+        {
+          "id": "Q2",
+          "text": "Which statement best describes the role of the Daybreak statistical baseline in the new process?",
+          "options": {
+            "A": "Daybreak produces the finished forecast for the cycle, and the enrichment steps that follow exist for reporting and audit purposes only.",
+            "B": "Daybreak models baseline demand behavior; commercial input must be added through enrichments to capture what the historical data cannot see.",
+            "C": "Sales, Marketing, and Demand Planning each maintain independent baselines that are reconciled at year-end.",
+            "D": "The baseline sets the volume for the cycle, and enrichments are used only to redistribute that volume across customers and weeks."
+          },
+          "correct": "B",
+          "rationale": null,
+          "slide_refs": "4, 5",
+          "fingerprint": "fa4f2acfa21b",
+          "options_authoritative": true,
+          "change_note": "2026-08-17: Q1 options C and D and Q2 options A and D replaced. Distractors implying headcount reduction, team consolidation, or commercial input becoming unnecessary were removed for change-management reasons. Stem, correct letter and correct option text unchanged."
+        },
+        {
+          "id": "Q3",
+          "text": "Which statement is correct about the Daybreak statistical baseline?",
+          "options": {
+            "A": "It is built by Sales each cycle based on customer commitments.",
+            "B": "It is set to the prior year's volume adjusted by a fixed growth factor.",
+            "C": "It uses Hasbro's real historical shipment data and item attributes — through machine learning — to predict future demand patterns.",
+            "D": "It is identical to the Financial Forecast and updated on the same cadence."
+          },
+          "correct": "C",
+          "rationale": null,
+          "slide_refs": "8, 10",
+          "fingerprint": "ecbfa380891e",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q4",
+          "text": "Which statement correctly describes the three-party operating model that produces the baseline?",
+          "options": {
+            "A": "Daybreak provides the machine-learning engine; Genpact executes the operational tasks; Hasbro Demand Planning owns governance and sign-off.",
+            "B": "Genpact provides the engine; Daybreak validates the outputs; Hasbro Demand Planning sets the parameters.",
+            "C": "Hasbro Demand Planning generates the baseline; Genpact provides the model design; Daybreak hosts the data.",
+            "D": "All three parties contribute equally to model generation, validation, and sign-off."
+          },
+          "correct": "A",
+          "rationale": null,
+          "slide_refs": "11",
+          "fingerprint": "ab90665dc027",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q5",
+          "text": "Which SKUs are treated using Daybreak's standard machine-learning forecasting approach?",
+          "options": {
+            "A": "All active SKUs in the portfolio, including new product introductions.",
+            "B": "Pure NPI items in their first 12 months of life.",
+            "C": "Carry-Forward items with at least 52 weeks of historical shipment data.",
+            "D": "Fan items, regardless of how much history they have."
+          },
+          "correct": "C",
+          "rationale": null,
+          "slide_refs": "12, 13",
+          "fingerprint": "821b4b89f4ec",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q6",
+          "text": "How is an NPI's forecast generated during its cold-start phase (0–16 weeks of history)?",
+          "options": {
+            "A": "By shaping the Brand Plan annual volume with attribute-based shape and level models (category, launch timing, price tier).",
+            "B": "By copying the predecessor product's historical pattern.",
+            "C": "By projecting the first month of actuals forward.",
+            "D": "By applying Daybreak's carry-forward model with extrapolated history."
+          },
+          "correct": "A",
+          "rationale": null,
+          "slide_refs": "14",
+          "fingerprint": "b6f763ba8472",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q7",
+          "text": "Why are Fan items handled without a statistical baseline?",
+          "options": {
+            "A": "Daybreak's licensing model prevents its use on Fan products.",
+            "B": "Fan volume is too small to justify the model's processing cost.",
+            "C": "Fan items are forecasted in a separate system maintained by Marketing.",
+            "D": "Fan demand is driven by entertainment events with no recurring pattern; historical data cannot meaningfully predict future demand. Marketing and Commercial build the forecast directly."
+          },
+          "correct": "D",
+          "rationale": null,
+          "slide_refs": "15",
+          "fingerprint": "0f29f6e2d1e2",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q8",
+          "text": "At which planning level is the Daybreak statistical baseline generated?",
+          "options": {
+            "A": "Planning Level 1 — Customer × Planning SKU × Channel.",
+            "B": "Planning Level 2 — Planning SKU × Customer.",
+            "C": "Planning Level 3 — Parent SKU × Business Unit × Channel.",
+            "D": "Planning Level 5 — Brand × Business Unit."
+          },
+          "correct": "C",
+          "rationale": null,
+          "slide_refs": "10, 16",
+          "fingerprint": "eb3d0dbb5382",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q9",
+          "text": "What is the purpose of forecast disaggregation in the new process?",
+          "options": {
+            "A": "To convert weekly forecasts into monthly buckets for financial reporting.",
+            "B": "To translate the Consensus Forecast into the Financial Forecast for the budget cycle.",
+            "C": "To split the forecast between Domestic and Direct Import channels.",
+            "D": "To break the L3 statistical baseline down to the Customer × Planning SKU × Channel level (L1), so that Sales can review and enrich the forecast at the level where commercial decisions are made."
+          },
+          "correct": "D",
+          "rationale": null,
+          "slide_refs": "16",
+          "fingerprint": "92c19184df0c",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q10",
+          "text": "How does the disaggregation method differ between a Carry-Forward item and an NPI item?",
+          "options": {
+            "A": "Both methods are identical — only the source system differs.",
+            "B": "Carry-Forward uses the SKU's own statistical proportionality based on its history; NPI uses brand-level historical customer mix combined with P2M volume splits, because the NPI has no shipment history of its own.",
+            "C": "Carry-Forward is disaggregated manually; NPI is disaggregated automatically.",
+            "D": "Carry-Forward is disaggregated only at L1; NPI only at L3."
+          },
+          "correct": "B",
+          "rationale": null,
+          "slide_refs": "17, 19, 20, 21",
+          "fingerprint": "cc2951a54c4e",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q11",
+          "text": "What is the purpose of the Forecasting Range?",
+          "options": {
+            "A": "It controls when Daybreak runs the statistical model for each cycle.",
+            "B": "It defines, per customer × SKU, the period during which the customer should receive baseline disaggregation. Outside that period, the customer is excluded from the disaggregation logic.",
+            "C": "It sets the look-back window used by the Logility Moving Average Model.",
+            "D": "It determines the timing of the Joint Marketing & Demand Planning Reconciliation Session."
+          },
+          "correct": "B",
+          "rationale": null,
+          "slide_refs": "22",
+          "fingerprint": "20c4ee1210c1",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q12",
+          "text": "Which statement best describes when an enrichment should be applied to the baseline?",
+          "options": {
+            "A": "On every SKU in the portfolio, each cycle, to confirm review.",
+            "B": "Only when Marketing or Demand Planning requests an adjustment.",
+            "C": "Only for events the statistical baseline cannot see — known commercial activity, structural changes, supply-related shifts, or committed plans.",
+            "D": "Only when the forecast is below the Financial Forecast target."
+          },
+          "correct": "C",
+          "rationale": null,
+          "slide_refs": "25",
+          "fingerprint": "86bd56294ba5",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q13",
+          "text": "What is the purpose of the Joint Marketing & Demand Planning Reconciliation Session?",
+          "options": {
+            "A": "To allow Marketing to override Sales' L1 enrichments in cases where Marketing has better visibility.",
+            "B": "To finalize the Daybreak baseline before it is loaded to Logility for the cycle.",
+            "C": "To replace the legacy Brand DMR meetings that some markets still run today.",
+            "D": "To combine the bottom-up commercial view with top-down statistical and brand-strategic views, apply BU-level corrections, and prepare the proposal for Executive Sign-Off."
+          },
+          "correct": "D",
+          "rationale": null,
+          "slide_refs": "32",
+          "fingerprint": "ec40f096a918",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q14",
+          "text": "How is scope split between the Level 2.5 Base Trend and the Level 1 account work?",
+          "options": {
+            "A": "Both levels can edit the baseline at any point in the cycle, and whichever edit was made most recently is the one that carries into the consensus.",
+            "B": "Level 2.5 carries SKU x BU Base Trend adjustments. KAMs capture account enrichments and account-level deltas at Level 1, where baseline changes are the exception.",
+            "C": "Only Demand Planning may change the forecast at any level, so KAMs and brand teams raise requests and wait for them to be actioned on their behalf.",
+            "D": "The KAM owns baseline adjustments at every level of the hierarchy, and the Level 2.5 owner only reviews what was entered once the cycle has closed."
+          },
+          "correct": "B",
+          "rationale": null,
+          "slide_refs": "33",
+          "fingerprint": "fb1207ba6b0a",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q15",
+          "text": "You enter an adjustment in HERO. What happens to the Daybreak baseline underneath it?",
+          "options": {
+            "A": "It is replaced by your adjusted number, so next cycle starts from what you entered instead of the model.",
+            "B": "It is held in a separate file that someone merges by hand before the forecast publishes.",
+            "C": "It is averaged with your adjustment, so the number that publishes lands between the two.",
+            "D": "It stays untouched. Your adjustment sits on top of it as a separate, traceable layer."
+          },
+          "correct": "D",
+          "rationale": null,
+          "slide_refs": "33",
+          "fingerprint": "23479eba6c1a",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q16",
+          "text": "In the target operating model, how does Level 2.5 work differ from the first year of deployment?",
+          "options": {
+            "A": "Level 2.5 starts from the Daybreak baseline directly, and corrections for commercial or supply events are captured as Base Trend adjustments.",
+            "B": "Level 2.5 disappears altogether and the cycle runs fully automated, with no human adjustment at any level of the planning hierarchy.",
+            "C": "Level 2.5 work moves down to Level 1 (customer level), and the KAMs take over all of the BU-level decisions that used to sit above them.",
+            "D": "Level 2.5 becomes a review-only step, where the pre-populated forecast is confirmed exactly as presented and no changes of any kind are entered."
+          },
+          "correct": "A",
+          "rationale": null,
+          "slide_refs": "33",
+          "fingerprint": "b6dbb8b66eed",
+          "options_authoritative": true
+        }
+      ],
+      "options_authoritative": true,
+      "nav_label": "MOD 1 — Baseline & Workflow"
+    },
+    {
+      "module_id": "mod2",
+      "title": "MOD 2 — Enrichment Practice",
+      "total_questions": 15,
+      "pass_threshold": 12,
+      "quiz_url": "https://enerbartoli.github.io/mod1-knowledge-check/mod2.html",
+      "source_files": [
+        "HERO PROJECT/04_outputs/MOD1_KnowledgeCheck/MOD1_Quiz_AppsScript_Backend.txt"
+      ],
+      "questions": [
+        {
+          "id": "Q1",
+          "text": "A carry-forward item shows two consecutive years of stable seasonal demand, with no confirmed commercial event, no supply issue, and no distribution change in scope. The Daybreak baseline and the Resultant Forecast track the same seasonal shape at L3. What is the correct action?",
+          "options": {
+            "A": "Accept the L3 baseline — no enrichment required.",
+            "B": "Apply a positive base trend adjustment to lock the seasonal pattern into next year.",
+            "C": "Override the Daybreak baseline with the Sales Forecast.",
+            "D": "Submit a disaggregation adjustment request to DP/Genpact."
+          },
+          "correct": "A",
+          "rationale": "Two consecutive years of clean history that converge with the baseline mean the model is fit-for-purpose at L3 — adding an enrichment without a missing event would introduce noise without adding value.",
+          "slide_refs": "4, 5, 6",
+          "fingerprint": "7467435b3505",
+          "options_authoritative": true,
+          "harvested_from": "deployed mod2.html",
+          "harvested_on": "2026-08-07"
+        },
+        {
+          "id": "Q2",
+          "text": "You are reviewing a scenario where the total demand at L3 looks correct against history, but the customer-level split at L2 routes most of the volume to inactive partners. Where does the issue live?",
+          "options": {
+            "A": "In the L3 baseline — apply a base trend correction.",
+            "B": "In the L2 disaggregation — fix the customer mix without changing L3.",
+            "C": "In the Daybreak engine — escalate to Genpact for a model rerun.",
+            "D": "In both layers — apply offsetting enrichments at L3 and L1."
+          },
+          "correct": "B",
+          "rationale": "When L3 totals are right but the customer mix is wrong, the issue lives in the L2 disaggregation logic — adding an enrichment at L3 would inflate the total instead of fixing the split.",
+          "slide_refs": "4",
+          "fingerprint": "4286d1584150",
+          "options_authoritative": true,
+          "harvested_from": "deployed mod2.html",
+          "harvested_on": "2026-08-07"
+        },
+        {
+          "id": "Q3",
+          "text": "An item shipped near zero for several months in 2025 because of a confirmed stockout. The Daybreak baseline now projects 2026 demand at a fraction of the pre-stockout run-rate, because the model learned the suppression as true decline. What is the correct action?",
+          "options": {
+            "A": "Apply a positive promo enrichment to lift demand back to historical levels.",
+            "B": "Override the Daybreak baseline with the Sales Forecast each cycle going forward.",
+            "C": "Cleanse the stockout-affected months in historical data so Daybreak can rebuild an accurate baseline.",
+            "D": "Accept the Daybreak baseline — the model is reading the most recent year correctly."
+          },
+          "correct": "C",
+          "rationale": "Stockout-suppressed history is contaminated input, not a true demand signal, so cleansing the affected months at source rebuilds the baseline durably and avoids re-doing the same correction every cycle.",
+          "slide_refs": "7, 8",
+          "fingerprint": "c7242ed59ef4",
+          "options_authoritative": true,
+          "harvested_from": "deployed mod2.html",
+          "harvested_on": "2026-08-07"
+        },
+        {
+          "id": "Q4",
+          "text": "... After reviewing together, you and the brand team agree Daybreak's drop is too aggressive and the SKU can still rebound. What is the correct action?",
+          "options": {
+            "A": "Accept the Daybreak 2027 baseline — 16 weeks of actuals is sufficient to confirm the structural decline.",
+            "B": "Apply negative sets in each under-performing month to align the forecast to Daybreak's corrected view.",
+            "C": "Recalculate overall demand and apply an L2.5 Base Trend adjustment via the Level 2.5 reconciliation template.",
+            "D": "Submit a disaggregation request to DP/Genpact to redistribute the volume across a wider customer base."
+          },
+          "correct": "C",
+          "rationale": "When the team has assessed that Daybreak's reduction is too aggressive, because there is not enough history for a structural reset, the correct path is to recalculate demand with commercial knowledge and lock the agreed view via an L2.5 Base Trend adjustment using the Level 2.5 reconciliation template.",
+          "slide_refs": "9, 10",
+          "fingerprint": "e6b6ab320151",
+          "options_authoritative": true,
+          "harvested_from": "deployed mod2.html",
+          "harvested_on": "2026-08-07",
+          "text_harvested_from": "deployed mod2.html"
+        },
+        {
+          "id": "Q5",
+          "text": "A carry-forward item is exclusive to a single retailer — that retailer absorbs ~100% of actuals across the past two years. The Current Resultant disaggregation routes a large share to other customers with no recent history, while the Moving Average method routes ~100% to the exclusive partner. What is the correct action?",
+          "options": {
+            "A": "Keep the Current disaggregation; the model will self-correct over time.",
+            "B": "Apply a negative base trend to remove the non-active customers.",
+            "C": "Submit a disaggregation request to DP/Genpact to rebuild the customer hierarchy.",
+            "D": "Switch the L2 disaggregation method from Current to Moving Average."
+          },
+          "correct": "D",
+          "rationale": "For an exclusive item, Moving Average over recent actuals captures the real customer mix while Current Resultant fragments to inactive partners — switching the disaggregation method is the direct fix, no L3 enrichment needed.",
+          "slide_refs": "11, 12, 13, 14",
+          "fingerprint": "1ea3ef950650",
+          "options_authoritative": true,
+          "harvested_from": "deployed mod2.html",
+          "harvested_on": "2026-08-07"
+        },
+        {
+          "id": "Q6",
+          "text": "Which statement correctly describes the difference between a Set and a Base Trend enrichment?",
+          "options": {
+            "A": "A Set is positive only; a Base Trend can be positive or negative.",
+            "B": "A set cleanses out of the historical shipments after the period passes; base trend adjustment are never used to clean the history therefore its impact remains.",
+            "C": "A Set is owned by Sales; a Base Trend is owned by Demand Planning.",
+            "D": "A Set applies to NPI items only; a Base Trend applies to carry-forward items only."
+          },
+          "correct": "B",
+          "rationale": "Sets are for one-time events because they cleanse out of history after they ship; Base Trend is for structural changes that should repeat because it permanently enters the baseline.",
+          "slide_refs": "24",
+          "fingerprint": "ba6c9acfed3e",
+          "options_authoritative": true,
+          "harvested_from": "deployed mod2.html",
+          "harvested_on": "2026-08-07"
+        },
+        {
+          "id": "Q7",
+          "text": "A customer pulls confirmed annual demand into a specific order window (ladder), with offsetting reductions in the months from which demand is being moved. The full-year total does not change. Which enrichment approach is correct?",
+          "options": {
+            "A": "A Demand Phase Shift pair: positive rows in the order window, negative rows where the demand comes from.",
+            "B": "A Set pair: positive Sets in the order window, negative Sets on the weeks the demand is taken from.",
+            "C": "A single Base Trend Adjustment in the order window, sized to the volume the customer is pulling forward.",
+            "D": "No enrichment. The full-year total is unchanged, so the forecast already reflects the customer's plan."
+          },
+          "correct": "A",
+          "rationale": "A ladder moves existing demand between weeks and creates none, which is what Demand Phase Shift is for, authored as a positive and negative pair. This was ratified on 16 July 2026 and it explicitly rules out SET and base trend for a timing move. SET is reserved for a true set build, and only a set build that also pulls demand forward carries a SET on both legs. A base trend would push the timing shift permanently into next year's baseline, and doing nothing leaves the forecast on the old phasing even though the annual total is right.",
+          "slide_refs": "35",
+          "fingerprint": "e9e7b593c6c1",
+          "options_authoritative": true,
+          "harvested_from": "deployed mod2.html",
+          "harvested_on": "2026-08-07",
+          "text_harvested_from": "deployed mod2.html",
+          "superseded_on": "2026-08-07"
+        },
+        {
+          "id": "Q8",
+          "text": "A customer is adding new stores to its distribution. The initial pipeline fill ships in one window (F1), and ongoing replenishment continues in those new stores afterwards. Which enrichment approach is correct?",
+          "options": {
+            "A": "Single base trend from F1 onward — covers both the fill and ongoing replenishment.",
+            "B": "Single set in F1 — covers the fill; the model will pick up the new run-rate from actuals.",
+            "C": "Set in F1 for the new-store fill + base trend from F2 onward for ongoing replenishment.",
+            "D": "Two sets — one in F1 for the fill, one in F2 onward for replenishment."
+          },
+          "correct": "C",
+          "rationale": "The new-store fill is one-time (Set, cleanses out) and the higher run-rate is structural (Base Trend, enters baseline) — using a single enrichment type for both would either contaminate next year's baseline or leave the ongoing lift uncaptured.",
+          "slide_refs": "29",
+          "fingerprint": "fe7fde40959e",
+          "options_authoritative": true,
+          "harvested_from": "deployed mod2.html",
+          "harvested_on": "2026-08-07"
+        },
+        {
+          "id": "Q9",
+          "text": "An established carry-forward item has a future confirmed retail promotion that is not already reflected in baseline behavior. The promo will generate incremental units in a specific ship window. Which enrichment is correct?",
+          "options": {
+            "A": "Promo enrichment for the confirmed incremental units in the relevant ship week(s).",
+            "B": "Positive base trend for the promo lift, to persist into future cycles.",
+            "C": "Set enrichment for the entire month containing the promo.",
+            "D": "No enrichment — the baseline will capture the lift once actuals come in."
+          },
+          "correct": "A",
+          "rationale": "A confirmed, incremental, time-bounded promo is exactly what the promo enrichment type was built for — base trend would inflate next year's baseline, and a set would over-capture by extending beyond the promo window.",
+          "slide_refs": "26",
+          "fingerprint": "dd0ae51a0602",
+          "options_authoritative": true,
+          "harvested_from": "deployed mod2.html",
+          "harvested_on": "2026-08-07"
+        },
+        {
+          "id": "Q10",
+          "text": "A customer has provided a specific pre-order quantity and timing for a new item with no comparable history. What is the correct way to capture it?",
+          "options": {
+            "A": "Pre-order enrichment for the confirmed quantity and timing only.",
+            "B": "Pre-order enrichment for the confirmed quantity, plus an additional run-rate estimate for the rest of the year.",
+            "C": "Set enrichment for the pre-order, then convert to base trend once actuals start coming in.",
+            "D": "No enrichment — the NPI baseline will absorb the pre-order."
+          },
+          "correct": "A",
+          "rationale": "Pre-orders are entered at confirmed quantity only — adding speculative volume beyond the commitment undermines the rationale for using the enrichment type in the first place.",
+          "slide_refs": "37",
+          "fingerprint": "e4141bf0b48a",
+          "options_authoritative": true,
+          "harvested_from": "deployed mod2.html",
+          "harvested_on": "2026-08-07"
+        },
+        {
+          "id": "Q11",
+          "text": "An NPI's stat baseline already includes the channel-fill volume in its launch shape, but the team needs the fill visible as a discrete set for allocation traceability. What is the correct approach in F1?",
+          "options": {
+            "A": "Add a positive set for the channel-fill on top of the existing baseline.",
+            "B": "Apply a positive base trend in F1 to make the channel-fill visible.",
+            "C": "Submit a disaggregation request to split the channel-fill into a separate baseline component.",
+            "D": "To reflect a negative base trend enrichment in correspondent period to offset the channel-fill already inside the baseline, plus a positive set enrichment of equal magnitude in the same month."
+          },
+          "correct": "D",
+          "rationale": "The launch baseline already carries the fill, so the negative Base Trend removes the excess the model encoded and the positive SET restores the agreed fill on the same weeks. The launch-week total is unchanged and the fill is visible as a discrete line for allocation. What stops the model replicating the fill next year is the SET: cleansing runs in the opposite direction, so cleansed history is shipments minus the SET, which leaves replenishment. Two offsetting SETs would hold the total just as well but would net to zero in cleansing and the model would relearn the fill.",
+          "slide_refs": "34",
+          "fingerprint": "bb0ce7e89031",
+          "options_authoritative": true,
+          "harvested_from": "deployed mod2.html",
+          "harvested_on": "2026-08-07"
+        },
+        {
+          "id": "Q12",
+          "text": "Last year a deal spike inflated demand for a specific period, and the promotion is not repeating this year. The baseline is now projecting the spike forward as if it were normal seasonality. What is the correct action?",
+          "options": {
+            "A": "Apply a positive promo enrichment to confirm the new run-rate.",
+            "B": "Submit a disaggregation adjustment to redistribute the spike across customers.",
+            "C": "Apply a negative base trend to remove the phantom spike from the projection.",
+            "D": "Let the baseline run — actuals will pull it back to normal within two cycles."
+          },
+          "correct": "C",
+          "rationale": "A non-repeating historical spike that the model is echoing forward needs to be removed structurally — negative base trend corrects it now, and flagging the period for historical cleansing prevents the same correction from being needed next cycle.",
+          "slide_refs": "39",
+          "fingerprint": "eb7cf03b088e",
+          "options_authoritative": true,
+          "harvested_from": "deployed mod2.html",
+          "harvested_on": "2026-08-07"
+        },
+        {
+          "id": "Q13",
+          "text": "A specific customer has discontinued an item that remains active at other customers. The baseline is still allocating volume to the dropped customer based on past proportions. What is the correct action?",
+          "options": {
+            "A": "Apply a negative base trend and update the forecasting range to stop allocating to that customer.",
+            "B": "Wait — the model will reduce the customer's share once actuals show zero.",
+            "C": "Submit a disaggregation request to remove the customer from the L2 split.",
+            "D": "Apply a one-time negative set for the year, then let the baseline rebuild."
+          },
+          "correct": "A",
+          "rationale": "A customer exit is a structural change — base trend removes the phantom volume while the forecasting-range update prevents the model from continuing to route demand to a customer that no longer takes the item.",
+          "slide_refs": "44",
+          "fingerprint": "6738b295e2a7",
+          "options_authoritative": true,
+          "harvested_from": "deployed mod2.html",
+          "harvested_on": "2026-08-07"
+        },
+        {
+          "id": "Q14",
+          "text": "A customer is changing its buying route from Domestic to Direct Import. Total demand is unchanged — only the channel is moving. The volume in scope currently sits in the baseline. What is the correct approach?",
+          "options": {
+            "A": "Create a positive enrichment on DI and an offsetting negative enrichment on DOM.",
+            "B": "Submit a disaggregation request to reroute the volume between channels.",
+            "C": "Apply a base trend on DI to grow the channel; let DOM decay through actuals.",
+            "D": "Use the channel-shift functionality on the baseline to move volume from DOM to DI."
+          },
+          "correct": "D",
+          "rationale": "Channel shift is a routing change, not new demand — the channel-shift functionality moves baseline volume cleanly between channels, while creating offsetting enrichments would distort total demand.",
+          "slide_refs": "51",
+          "fingerprint": "7958d48e0d39",
+          "options_authoritative": true,
+          "harvested_from": "deployed mod2.html",
+          "harvested_on": "2026-08-07"
+        },
+        {
+          "id": "Q15",
+          "text": "At the BU/brand level the L3 total is accurate against history, but the L2 customer split allocates too much volume to a customer with declining actuals. What is the correct path?",
+          "options": {
+            "A": "Apply a negative enrichment on the over-allocated customer to bring the split back in line.",
+            "B": "Submit a disaggregation adjustment request to DP/Genpact; do not enter an enrichment.",
+            "C": "Apply offsetting enrichments — negative on the over-allocated customer, positive on the under-allocated one.",
+            "D": "Switch the L2 disaggregation method from Moving Average back to Current Resultant."
+          },
+          "correct": "B",
+          "rationale": "When L3 is right, no enrichment is needed — enriching at L1 to fix an L2 split would inflate L3 total demand, so the correct path is a disaggregation adjustment routed through DP/Genpact.",
+          "slide_refs": "54",
+          "fingerprint": "abdb8ec969f2",
+          "options_authoritative": true,
+          "harvested_from": "deployed mod2.html",
+          "harvested_on": "2026-08-07"
+        }
+      ],
+      "options_authoritative": true,
+      "nav_label": "MOD 2 — Enrichment Practice"
+    },
+    {
+      "module_id": "mod4",
+      "title": "MOD 4 — Exceptions & Customer Variations (DI · FAN · Amazon)",
+      "total_questions": 10,
+      "pass_threshold": 8,
+      "quiz_url": "https://enerbartoli.github.io/mod1-knowledge-check/mod4.html",
+      "source_files": [
+        "HERO PROJECT/04_outputs/MOD4_MOD5_KnowledgeCheck/MOD4_KnowledgeCheck_Questions_v1_2026-05-31.md",
+        "HERO PROJECT/04_outputs/MOD4_MOD5_KnowledgeCheck/MOD4_MOD5_ClaudeCode_PastePrompt_v1_2026-05-31.md"
+      ],
+      "questions": [
+        {
+          "id": "Q1",
+          "text": "Why do DI, FAN, and Amazon need to be discussed as a separate group in MOD 4?",
+          "options": {
+            "A": "They are the three customer segments that contribute the highest revenue in the market.",
+            "B": "Their historical demand behaves erratically — discontinuous and opportunistic — so a history-based statistical model cannot predict it adequately, and each one needs a tailored handling approach.",
+            "C": "They are the three account groups that are out of scope for the current deployment.",
+            "D": "They are the only customer groups with a dedicated Key Account Manager assigned to them."
+          },
+          "correct": "B",
+          "rationale": "The three are not grouped by revenue, scope, or coverage. They are grouped because their demand history is erratic, discontinuous, and opportunistic — DI is program-driven, FAN is event-driven, Amazon has highly irregular ordering rhythm — which is exactly what a history-based statistical baseline cannot project well.",
+          "slide_refs": "5",
+          "fingerprint": "9d4498de34bb",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q2",
+          "text": "In a market where DI is not forecast statistically, who owns the DI number and how is it built?",
+          "options": {
+            "A": "Daybreak generates the baseline; the KAM reviews and adjusts using the standard enrichment flow.",
+            "B": "Demand Planning builds the DI number from statistical extrapolation; the KAM validates.",
+            "C": "The KAM owns the number and builds it partner-by-partner from account knowledge — committed programs, signed orders, customer plans.",
+            "D": "The regional category team owns it; the KAM validates timing only."
+          },
+          "correct": "C",
+          "rationale": "Where DI sits outside the statistical model there is no Daybreak baseline. The KAM builds the forecast bottom-up by Forecasting Partner using account knowledge, meaning committed programs, signed orders and customer plans, not statistical extrapolation. DP facilitates but the account team carries the build.",
+          "slide_refs": "6",
+          "fingerprint": "623bb5d10a2f",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q3",
+          "text": "For FAN items, which team builds the forecast volume, and what does the KAM do?",
+          "options": {
+            "A": "The regional category team allocates volumes per client based on the launch plan; the KAM validates timing and feasibility at their account but does not re-cut the volume.",
+            "B": "The KAM builds the forecast bottom-up partner-by-partner, the same way DI is built.",
+            "C": "Daybreak builds the baseline; the KAM enriches as needed.",
+            "D": "Marketing owns the number; KAMs are not involved."
+          },
+          "correct": "A",
+          "rationale": "FAN volume sits with the team that owns the moment — the regional category team. KAMs validate timing and feasibility at their account but do not re-cut the FAN number.",
+          "slide_refs": "7",
+          "fingerprint": "ac10c9dad916",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q4",
+          "text": "Two markets treat Direct Import (DI) differently. One has agreed not to forecast it statistically, so Daybreak produces no baseline for it. The other forecasts it statistically. Where does the full forecast volume land in the Reconciliation Template in each case?",
+          "options": {
+            "A": "No baseline: the full volume as Base Trend at Level 1. With a baseline: adjustments layered on the statistical baseline.",
+            "B": "Both: the full volume as Base Trend at Level 1, since DI always sits outside the statistical model wherever it is planned.",
+            "C": "Both: adjustments layered on the resultant, since every segment carries a baseline once the cycle opens.",
+            "D": "No baseline: the full volume as Base Trend at Level 2.5. With a baseline: the full volume as Base Trend at Level 1."
+          },
+          "correct": "A",
+          "rationale": "What decides this is not the channel or the item class, it is whether the market agreed to forecast that segment statistically. Where there is no Daybreak baseline, the full volume enters as Base Trend at Level 1, and the Level 1 lock is essentially all Base Trend with no statistical signal to challenge against. Where there is a baseline, the segment behaves like any other: the resultant is the starting point and the team layers enrichments and Base Trend on top. The resultant itself is never overwritten in either case.",
+          "slide_refs": "6, 7",
+          "fingerprint": "11c019c884ca",
+          "options_authoritative": true,
+          "superseded_on": "2026-08-07"
+        },
+        {
+          "id": "Q5",
+          "text": "Which statement correctly describes the Evergreen designation?",
+          "options": {
+            "A": "Sales Operations designates items as Evergreen; they then sit on a Daybreak baseline.",
+            "B": "Any item with 12 months of stable shipping history is automatically designated Evergreen by Demand Planning.",
+            "C": "The Key Account Manager nominates Evergreen items at cycle start, and Demand Planning confirms the list.",
+            "D": "Evergreen is a single-market exception that does not apply anywhere else in the program."
+          },
+          "correct": "A",
+          "rationale": "Sales Operations owns the Evergreen designation. Not the Key Account Manager, not Demand Planning, not the brand team. Once an item is designated, it stops being built bottom-up and sits on a Daybreak baseline that the KAM enriches on top, like any Carry-Forward item. The designation is not automatic and it is not a market-specific quirk: what varies by market is which segments start outside the statistical model in the first place.",
+          "slide_refs": "6",
+          "fingerprint": "3f433ec2f806",
+          "options_authoritative": true,
+          "superseded_on": "2026-08-07"
+        },
+        {
+          "id": "Q6",
+          "text": "Why are FAN items deliberately handled outside the Daybreak baseline?",
+          "options": {
+            "A": "FAN items have insufficient shipment history for the statistical engine to process them.",
+            "B": "FAN demand is tied to one-off cultural moments (franchise releases, film tie-ins, time-limited campaigns) with no reliable repeat pattern — keeping them out of the baseline protects the statistical engine for standard CF items.",
+            "C": "FAN volume is too small to justify the model's run-time.",
+            "D": "FAN items are excluded by Daybreak's licensing terms."
+          },
+          "correct": "B",
+          "rationale": "FAN history contains one-off spikes (franchise releases, film tie-ins, time-limited campaigns) that would create false signals downstream and pollute the baseline for standard CF items. The exception is deliberate.",
+          "slide_refs": "7",
+          "fingerprint": "94ca080bd677",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q7",
+          "text": "How is Amazon treated when a market first goes live on the process?",
+          "options": {
+            "A": "As a standard customer — Daybreak generates the brand-level baseline, statistical disaggregation assigns Amazon's share, and the Amazon KAM reviews and adjusts using the standard Enrichment and Base Trend tools.",
+            "B": "Bottom-up by KAM, with no baseline — the same as DI.",
+            "C": "Bottom-up by the regional category team — the same as FAN.",
+            "D": "Outside scope at launch; Amazon joins once the first cycle has closed."
+          },
+          "correct": "A",
+          "rationale": "At launch, Amazon is deliberately treated as a standard customer so the team learns the standard flow first. Daybreak generates the baseline; statistical disaggregation assigns Amazon's share; the Amazon KAM reviews and adjusts.",
+          "slide_refs": "8",
+          "fingerprint": "6e72ea1cf0c0",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q8",
+          "text": "Across DI, FAN, and Amazon, what is Demand Planning's role?",
+          "options": {
+            "A": "Demand Planning owns the forecast number for all three patterns end-to-end.",
+            "B": "Demand Planning is not involved; the KAM or the category team owns the volume on its own.",
+            "C": "Demand Planning facilitates and challenges but does not own the volume — the KAM carries the build for DI and Amazon; the regional category team owns the volume for FAN.",
+            "D": "Demand Planning owns DI and FAN; the KAM owns Amazon."
+          },
+          "correct": "C",
+          "rationale": "In all three models DP plays the same role, facilitate and challenge. DP does not carry the build. DI is built bottom-up by the KAM partner-by-partner. FAN volume is owned by the regional category team. Amazon, under the launch treatment, is owned by the Amazon KAM in the standard Session 2 flow.",
+          "slide_refs": "6, 7, 8",
+          "fingerprint": "746820920e1f",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q9",
+          "text": "A Key Account Manager (KAM) is reviewing an account in a segment the market has agreed not to forecast statistically, so its items are built bottom-up. One item has shipped a stable, repeating pattern for 18 months, and the KAM wants it to start from a Daybreak baseline instead. What should happen?",
+          "options": {
+            "A": "The KAM flags it directly in HERO as Evergreen, and the Daybreak baseline applies from the next cycle onward.",
+            "B": "Sales Operations owns the designation. Until the item is designated, it stays in the bottom-up flow.",
+            "C": "Demand Planning re-classifies the item as Carry-Forward and applies the standard Carry-Forward flow.",
+            "D": "The item is converted to Carry-Forward at Level 2.5 and the new treatment is locked in there."
+          },
+          "correct": "B",
+          "rationale": "Evergreen designation is owned by Sales Operations, not by the KAM, Demand Planning, or the brand team. Until Sales Operations designates the item Evergreen, it stays in the bottom-up flow.",
+          "slide_refs": "6",
+          "fingerprint": "b70c44c1aa74",
+          "options_authoritative": true,
+          "superseded_on": "2026-08-07"
+        },
+        {
+          "id": "Q10",
+          "text": "A KAM at FP-2 receives a FAN allocation from the regional category team for a franchise release in week 30. The KAM believes the allocation is too high for their account and wants to adjust it down. What is the correct action?",
+          "options": {
+            "A": "Re-cut the FAN volume to match the KAM's account view and submit the revised number.",
+            "B": "Drop the FAN volume to zero for the account and capture the rest as Enrichment.",
+            "C": "Push the allocation back to Demand Planning and ask DP to reset the baseline.",
+            "D": "Validate timing and feasibility at the account, raise the magnitude concern back to the regional category team (the volume owner), and do not unilaterally re-cut the FAN number."
+          },
+          "correct": "D",
+          "rationale": "For FAN, the regional category team owns the number. KAMs validate timing and feasibility but do not re-cut. Magnitude concerns route back to the volume owner, not to DP or the baseline.",
+          "slide_refs": "7",
+          "fingerprint": "94699684748b",
+          "options_authoritative": true
+        }
+      ],
+      "options_authoritative": true,
+      "nav_label": "MOD 4 — Exceptions & Customer Variations"
+    },
+    {
+      "module_id": "mod5",
+      "title": "MOD 5 Knowledge Check — Reconciliation & Decision Narrative",
+      "total_questions": 15,
+      "pass_threshold": 12,
+      "quiz_url": "https://enerbartoli.github.io/mod1-knowledge-check/mod5.html",
+      "source_files": [
+        "HERO PROJECT/04_outputs/MOD4_MOD5_KnowledgeCheck/MOD5_KnowledgeCheck_Questions_v1_2026-05-31.md",
+        "HERO PROJECT/04_outputs/MOD4_MOD5_KnowledgeCheck/MOD4_MOD5_ClaudeCode_PastePrompt_v1_2026-05-31.md"
+      ],
+      "questions": [
+        {
+          "id": "Q1",
+          "text": "Reconciliation, as defined in MOD 5, is the meeting where the team:",
+          "options": {
+            "A": "Tells the story of the number, challenges whether it is believable, decides what moves forward, and creates accountability for the forecast.",
+            "B": "Builds the next month's forecast line by line from scratch.",
+            "C": "Reviews aggregate variance vs the Financial Forecast only.",
+            "D": "Confirms the Daybreak baseline before it is loaded to Logility."
+          },
+          "correct": "A",
+          "rationale": "The training mantra defines reconciliation as TELL → CHALLENGE → DECIDE → SIGN OFF. It is a decision meeting, not a build session and not a confirmation step.",
+          "slide_refs": "20",
+          "fingerprint": "c0fd38e8e3ae",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q2",
+          "text": "Which description matches the reconciliation standard for what happens in the room?",
+          "options": {
+            "A": "Typing forecast changes into the template live so the room sees the impact in real time.",
+            "B": "A structured challenge against three named references, focused on material exceptions, ending in decisions with named owners and due dates.",
+            "C": "A line-by-line review of every SKU in the portfolio to confirm the build.",
+            "D": "An open-ended discussion to surface concerns without committing to specific actions."
+          },
+          "correct": "B",
+          "rationale": "Reconciliation is structured challenge against the three references, exception-based, decision-focused with named owners and due dates. No live forecast entry, no line-by-line rebuild, no open-ended debate.",
+          "slide_refs": "21, 30, 31",
+          "fingerprint": "e8c663ada127",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q3",
+          "text": "In what order do the four reconciliation sessions run?",
+          "options": {
+            "A": "Joint top-down challenge → Level 2.5 Base Trend → Level 1 commercial → Sign-Off.",
+            "B": "Level 1 commercial → joint top-down challenge → Level 2.5 Base Trend → Sign-Off.",
+            "C": "Level 2.5 Base Trend → Level 1 commercial → joint top-down challenge → Sign-Off.",
+            "D": "Level 1 commercial → Level 2.5 Base Trend → Sign-Off → joint top-down challenge."
+          },
+          "correct": "C",
+          "rationale": "The cascade is fixed: Level 2.5 Base Trend first, then the Level 1 commercial session, then the joint top-down challenge, then Sign-Off. Each session opens only once the previous one has closed.",
+          "slide_refs": "23, 63",
+          "fingerprint": "6cb73a292f2c",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q4",
+          "text": "What is the rule about starting one session before the previous one finishes?",
+          "options": {
+            "A": "Sessions can run in parallel as long as each owner is in the room.",
+            "B": "Marketing + DP can start before KAM finishes, because Marketing operates top-down.",
+            "C": "Sign-Off can begin once any two earlier sessions have closed.",
+            "D": "If the prior session has not closed, the next session does not start."
+          },
+          "correct": "D",
+          "rationale": "Strict sequencing: the handoff between sessions is a hard gate. If Level 2.5 has not closed, the Level 1 commercial session does not start; if Level 1 is not confirmed, the joint top-down session does not start, and so on.",
+          "slide_refs": "23",
+          "fingerprint": "cfa397cd904a",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q5",
+          "text": "Why do some markets reconcile against three references rather than formal guardrails?",
+          "options": {
+            "A": "Formal guardrail thresholds are not defined yet in those markets, so the team triangulates using AIM Shipment Revenue, prior-year actuals and POS Glidepath.",
+            "B": "The three references are a temporary experiment that is intended to replace formal guardrail thresholds permanently, in every market.",
+            "C": "The three references and formal guardrails are the same mechanism under two different names, so a market only ever needs one of them.",
+            "D": "Formal guardrails were removed from the program globally because they were judged too restrictive to run a reconciliation against."
+          },
+          "correct": "A",
+          "rationale": "Where formal guardrail thresholds exist, teams reconcile against them. Where they have not been defined yet, the team triangulates using AIM at BU/Brand, historical actuals at Brand x Forecasting Partner, and POS Glidepath at SKU. The three references stand in for guardrails, they do not replace them.",
+          "slide_refs": "18, 24",
+          "fingerprint": "93fc98e2e9c3",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q6",
+          "text": "Which reference answers the question \"Is the brand at this partner congruent with what we actually ship?\"",
+          "options": {
+            "A": "AIM Shipment Revenue Forecast at BU / Brand.",
+            "B": "Historical actuals at Brand × Forecasting Partner.",
+            "C": "POS Glidepath at SKU.",
+            "D": "The Financial Forecast."
+          },
+          "correct": "B",
+          "rationale": "Each reference has a grain and a question. Historical actuals at Brand × Forecasting Partner is the reference for brand-at-partner congruence. AIM answers totals at BU/Brand; POS answers SKU-level consumer signal.",
+          "slide_refs": "24, 26",
+          "fingerprint": "0567bb16e0dc",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q7",
+          "text": "Which statement correctly describes the AIM Shipment Revenue Forecast?",
+          "options": {
+            "A": "AIM is updated weekly and refreshed in real time.",
+            "B": "AIM is a fully enriched forecast that already includes promos, listings, and supply events.",
+            "C": "AIM is a naive statistical baseline with statistical bounds; actuals fall within those bounds roughly 8 out of 10 times when there is no exceptional stimulus.",
+            "D": "AIM replaces the Consensus Forecast once a quarter has closed."
+          },
+          "correct": "C",
+          "rationale": "AIM does not bake in past or future stimuli — its objectivity is its strength and its weakness. Statistical bounds hold ~8 out of 10 times when there is no exceptional stimulus. Refresh is monthly, not real-time.",
+          "slide_refs": "25",
+          "fingerprint": "6cbf13c25e7a",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q8",
+          "text": "On the POS Pace Chart, the projected red dashed line sits below the green target line for an SKU. What should the KAM do?",
+          "options": {
+            "A": "Reduce the SKU's Sales Forecast by the gap percentage immediately during the session.",
+            "B": "Escalate to leadership before doing anything else.",
+            "C": "Ignore the gap — the Pace Chart is for Marketing, not for KAMs.",
+            "D": "Read the gap as a miss-risk signal: open the SKU for review, look for a named driver (promo, OOS, channel shift, listing), and decide whether to enrich at L1 or route to R&O."
+          },
+          "correct": "D",
+          "rationale": "\"The tool flags where to look, not what to do. A 5% gap is a signal, not an order.\" The KAM looks for a named driver and routes via Enrichment or R&O.",
+          "slide_refs": "27",
+          "fingerprint": "cdc60f8795ea",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q9",
+          "text": "What is the correct drill order when reconciling movements?",
+          "options": {
+            "A": "BU / Brand total first (AIM and historical totals); drill to Brand × Forecasting Partner only when the total flags; drill to SKU vs POS Glidepath only when Brand × Partner flags.",
+            "B": "SKU level first, then Brand × Partner, then BU / Brand total.",
+            "C": "Brand × Partner first, then SKU, then BU / Brand total.",
+            "D": "All three levels reviewed in parallel, then converged."
+          },
+          "correct": "A",
+          "rationale": "Drill is permission-based. Start at the total and drill only when the level above tells you to. Drilling to SKU first creates noise without context.",
+          "slide_refs": "28",
+          "fingerprint": "b494e669633d",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q10",
+          "text": "In the 7-part decision narrative, what does the final beat capture?",
+          "options": {
+            "A": "The driver and the evidence.",
+            "B": "The decision and a named owner with a due date — never \"the team.\"",
+            "C": "The size of the movement and its timing.",
+            "D": "The next cycle's outlook for the brand."
+          },
+          "correct": "B",
+          "rationale": "Step 7 is \"Who owns next?\" — a named person and a date. If a row leaves the room without an owner and a due date, it is not a decision; it is a parking-lot item.",
+          "slide_refs": "29, 31",
+          "fingerprint": "3b61b2ffeec0",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q11",
+          "text": "Which of the eight meeting-behavior rules acts as the substitute for formal guardrails?",
+          "options": {
+            "A": "Come prepared, or don't comment.",
+            "B": "Challenge the number, not the person.",
+            "C": "Cite a reference or move to R&O — do not opine.",
+            "D": "Material exceptions only — don't drift."
+          },
+          "correct": "C",
+          "rationale": "Rule 5 (Cite a reference or move to R&O) is the explicit substitute for guardrails: every challenge must cite one of the three references, otherwise the item is routed to R&O.",
+          "slide_refs": "30",
+          "fingerprint": "f20c7c90f86e",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q12",
+          "text": "In Session 1 you find that the current consensus for Brand A is +30 units/week above the Daybreak baseline at Level 2.5, driven by a confirmed listing expansion at FP-1 effective W26. What is the correct action?",
+          "options": {
+            "A": "Wait for Session 2 and ask the KAM at FP-1 to capture it as an Enrichment.",
+            "B": "Override the Daybreak baseline directly by replacing the source data.",
+            "C": "Route the gap to R&O for next cycle.",
+            "D": "Load the +30 units/week as a Base Trend Adjustment at L2.5 in HERO, document the driver and evidence, and lock the L3 baseline so Daybreak + Base Trend = consensus."
+          },
+          "correct": "D",
+          "rationale": "Session 1 is ANCHOR → RECONCILE → NEUTRALIZE → DISAGGREGATE. Deltas vs consensus are neutralized as Base Trend Adjustments at L2.5. With a named driver and evidence, the item is not waiting on the KAM and not an R&O.",
+          "slide_refs": "33, 35, 37",
+          "fingerprint": "02375d7bba7b",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q13",
+          "text": "A KAM in Session 2 identifies that a brand at their Forecasting Partner has been gradually widening distribution for two cycles, with no specific account-level event. The shift looks structural. Which bucket does this belong in, and who acts?",
+          "options": {
+            "A": "Base Trend at L2.5. The KAM flags it so it is picked up as a Level 2.5 Base Trend adjustment next cycle.",
+            "B": "Enrichment at L1 — the KAM captures it this cycle.",
+            "C": "R&O — log with options and resolve later.",
+            "D": "Both Enrichment and Base Trend — captured at both levels for traceability."
+          },
+          "correct": "A",
+          "rationale": "Structural brand-level shifts belong in Base Trend at L2.5 and are actioned next cycle. A specific account-level event would be an Enrichment, captured by the KAM this cycle. Two-bucket entries get rejected.",
+          "slide_refs": "42",
+          "fingerprint": "cecc2733a77f",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q14",
+          "text": "Marketing + DP in Session 3 want to apply an adjustment that lifts Brand B by +8,000 units in Q3 based on a confirmed campaign. Where does this adjustment land?",
+          "options": {
+            "A": "At Level 1 directly, bypassing the Level 2.5 baseline agreed in Session 1.",
+            "B": "At Level 2.5 via the Enrichment Capture Template (ECT); the backend disaggregates to Level 1 across partners using baseline disaggregation rules.",
+            "C": "At Level 3 only, leaving partners untouched.",
+            "D": "At Level 1 by re-opening the KAM's enrichments from Session 2."
+          },
+          "correct": "B",
+          "rationale": "Marketing / DP enrichments enter at L2.5 via the Enrichment Capture Template (ECT) and disaggregate to L1 across partners using baseline disaggregation rules. Session 3 does not re-open the Base Trend agreed in Session 1 or the L1 enrichments captured in Session 2. If either needs to move, the item routes back to the session that owns it.",
+          "slide_refs": "52",
+          "fingerprint": "3dd51ee6e9f6",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q15",
+          "text": "At Executive Sign-Off, how many key movements are presented and how long does each get?",
+          "options": {
+            "A": "Eight to ten movements, ten minutes each.",
+            "B": "Every movement larger than 1% of BU, no time limit.",
+            "C": "Three to five material movements, told in the 7-part narrative, five minutes each.",
+            "D": "The full Sales Forecast, line by line."
+          },
+          "correct": "C",
+          "rationale": "3–5 material movements, told in 7 parts, 5 minutes per movement. If a movement does not fit in 5 minutes, it is not ready for sign-off and goes back to Session 3.",
+          "slide_refs": "54, 59",
+          "fingerprint": "cbb3d5103b78",
+          "options_authoritative": true
+        }
+      ],
+      "options_authoritative": true,
+      "nav_label": "MOD 5 — Reconciliation & Decision Narrative"
+    },
+    {
+      "module_id": "mod7",
+      "title": "MOD 7 — HERO Data Flow & Cycle Start",
+      "total_questions": 10,
+      "pass_threshold": 8,
+      "quiz_url": "https://enerbartoli.github.io/mod1-knowledge-check/mod7.html",
+      "source_files": [
+        "HERO PROJECT/04_outputs/MOD7_KnowledgeCheck/MOD7_ClaudeCode_PastePrompt_v1_2026-08-06.md"
+      ],
+      "questions": [
+        {
+          "id": "Q1",
+          "text": "Which forecast array does HERO read from Logility?",
+          "options": {
+            "A": "UA1, so the template always reflects the latest Sales Forecast in Logility.",
+            "B": "UA1 through UA6, refreshed each time a template is downloaded.",
+            "C": "The Resultant only. Every other array in a template comes from HERO's own database.",
+            "D": "ADS3, because it is the Consensus Forecast that Logility calculates."
+          },
+          "correct": "C",
+          "rationale": "Only the Resultant, the statistical proposal loaded by Genpact, travels from Logility into HERO. Every other array you see in a template is served from HERO's own database. HERO reads the Resultant and never writes it, which is what protects the Genpact proposal from being overwritten.",
+          "slide_refs": "4, 5",
+          "fingerprint": "997631355fa7",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q2",
+          "text": "Which statement describes how HERO treats UA1 across the planning horizon?",
+          "options": {
+            "A": "HERO writes UA1 across the full horizon, the same as every other array it manages.",
+            "B": "HERO writes UA1 from month +5 onward and suppresses it inside the rolling months 0 to 4.",
+            "C": "HERO never writes UA1; it is maintained directly in Logility in every period.",
+            "D": "HERO writes UA1 only inside months 0 to 4, where the near-term number matters most."
+          },
+          "correct": "B",
+          "rationale": "UA1 is the one array with a window restriction. HERO writes it from month +5 onward and suppresses it from its exports inside the rolling months 0 to 4. That is deliberate: it is the only array and the only period where HERO and Logility are meant to differ, which gives the commercial team room for Non-Forecast-Related work without touching the Consensus.",
+          "slide_refs": "7",
+          "fingerprint": "aa6c374ead7b",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q3",
+          "text": "Demand Planning enters a Level 2.5 Base Trend Adjustment in the Reconciliation template. Where does it land in the Field Forecast?",
+          "options": {
+            "A": "Nowhere. Demand Planning adjustments reach the Consensus only, never a Field Forecast array.",
+            "B": "In UA2, alongside the commercial promotion enrichments.",
+            "C": "It is held in HERO for attribution and is not exported until a second reviewer confirms it.",
+            "D": "In UA1, exactly as it would if any other role had entered it in that template."
+          },
+          "correct": "D",
+          "rationale": "What routes the value is the template, not the author. A Level 2.5 Base Trend Adjustment entered in the Reconciliation template lands in UA1 regardless of who entered it. The Marketing and Demand Planning exclusion from the Field Forecast applies only to enrichments captured in the Enrichment Capture template.",
+          "slide_refs": "6",
+          "fingerprint": "512f5ff2c2d9",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q4",
+          "text": "You delete a Base Trend Adjustment in HERO. What actually becomes zero?",
+          "options": {
+            "A": "The delta that the adjustment represented. UA1 and the Consensus lose its effect, but neither becomes zero.",
+            "B": "UA1 for the affected weeks, which is published to Logility as an explicit zero.",
+            "C": "Both UA1 and the Consensus value for the affected weeks.",
+            "D": "Nothing at all. Deletions are recorded for audit and take effect at the next cycle."
+          },
+          "correct": "A",
+          "rationale": "Removing a change never sends a zero to the array. It zeroes the delta that the change represented, so UA1 and the Consensus simply lose that delta's effect. Neither becomes zero. And on UA1 the removal only takes effect while the affected weeks are still outside the frozen window.",
+          "slide_refs": "7",
+          "fingerprint": "8a2cbcc79ac7",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q5",
+          "text": "You have confirmed that a Base Trend Adjustment is stale and needs to go. How do you clear it?",
+          "options": {
+            "A": "Delete the row from the workbook before uploading.",
+            "B": "Enter a numeric zero in the cell.",
+            "C": "Clear the cell so it is blank, which instructs HERO to remove the adjustment.",
+            "D": "Enter the same value with the opposite sign in the following week."
+          },
+          "correct": "B",
+          "rationale": "Enter a numeric zero. Leaving the cell blank is not a reliable instruction to clear an existing adjustment: the adjustment stays in place and you walk away believing you cleared something you did not. For enrichments there is a second valid route, setting the status to DECLINED, but reconciliation adjustments have no status field.",
+          "slide_refs": "12",
+          "fingerprint": "9843f1a8c418",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q6",
+          "text": "A colleague changed UA1 directly in Logility inside the frozen window. What does HERO now know about that change?",
+          "options": {
+            "A": "It is already in HERO. The frozen window exists precisely to keep UA1 aligned across the two systems.",
+            "B": "Nothing yet. It arrives the next time someone downloads a fresh template covering that scope.",
+            "C": "Nothing, and no download or upload will bring it in. HERO does not read UA1 in any window.",
+            "D": "Nothing yet. HERO will overwrite the change on the next weekly export to Logility."
+          },
+          "correct": "C",
+          "rationale": "Nothing, and nothing will change that on its own. HERO suppresses UA1 in the frozen window so the edit is not overwritten, but HERO does not read UA1 in any window, so no download, upload or refresh will bring it in. It exists in HERO only if someone deliberately makes the equivalent change inside HERO. The only array HERO reads from Logility is the Resultant.",
+          "slide_refs": "8",
+          "change_note": "CORRECTED 2026-08-06. The deployed page showed a truncated option C that reversed the meaning ('Nothing, until someone downloads and uploads a template covering that scope'), leaving the question with no correct answer. Options rewritten to restore the correct answer and to remove the length tell. Answer key stays C. 2026-08-30: option D made market-neutral (dropped \"Friday\"); key (C) and all other options unchanged.",
+          "fingerprint": "b460d56a2e84",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q7",
+          "text": "A line publishes as zero in Logility. What does that tell you about the HERO inputs behind it?",
+          "options": {
+            "A": "The inputs are clean, since Logility would reject anything invalid.",
+            "B": "The enrichments were excluded from the Consensus export.",
+            "C": "The baseline for that line was removed at source.",
+            "D": "Nothing reassuring. Logility floors the published totals, so a negative raw HERO total can publish as zero."
+          },
+          "correct": "D",
+          "rationale": "Nothing reassuring. Logility floors the published totals on both sides, so a negative raw HERO total can publish as zero. A negative sitting underneath positive components never surfaces downstream, nothing errors and nothing is rejected. Review the total Preliminary Consensus Forecast in HERO instead.",
+          "slide_refs": "10, 13",
+          "fingerprint": "54f8650ecd6d",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q8",
+          "text": "Last cycle: baseline 1,000 with an L1 Base Trend Adjustment of −200, giving 800. This cycle the baseline is 900, the −200 is still there, and the preliminary forecast reads 700. The commercial reason for the −200 still applies. What do you do?",
+          "options": {
+            "A": "Change the adjustment to −100 so the total returns to the 800 agreed last cycle.",
+            "B": "Confirm why the baseline moved, keep the −200, and accept 700.",
+            "C": "Clear the adjustment and re-enter it once the baseline movement has been explained.",
+            "D": "Raise it with the squad, because a baseline that moves between cycles is a defect."
+          },
+          "correct": "B",
+          "rationale": "Confirm why the source baseline moved, then keep the adjustment and accept 700. Changing the adjustment to force the total back to 800 makes it stop representing its commercial reason and start representing \"whatever gets me to last month's number\". A baseline movement is a prompt to investigate, not evidence of an error.",
+          "slide_refs": "15",
+          "fingerprint": "0fabbdd91bfa",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q9",
+          "text": "A material shows baseline 0 this cycle with a Level 2.5 Base Trend Adjustment of −24,258 still authored against it, so the preliminary forecast reads −24,258. You have confirmed with the source owner that the baseline was removed on purpose and the adjustment existed only to offset that old baseline. What do you do?",
+          "options": {
+            "A": "Leave it. Logility floors the total to zero, so the published number is already correct.",
+            "B": "Enter +24,258 in the same weeks so the two adjustments net to zero.",
+            "C": "Replace the adjustment with a numeric zero in a fresh template.",
+            "D": "Wait for the next cycle, when HERO will clear the adjustment automatically once the baseline stays at zero."
+          },
+          "correct": "C",
+          "rationale": "Once the removal is confirmed and the adjustment existed only to offset that baseline, clear it with a numeric zero in a fresh template. Adding a positive adjustment to cancel the negative leaves two adjustments where there should be none and destroys the traceability. If the baseline should still have been there, the case goes to the squad instead.",
+          "slide_refs": "16",
+          "fingerprint": "41d5eadffe47",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q10",
+          "text": "You download a fresh template at cycle start and find that baseline and previous-cycle values have moved across many SKUs, several partners and more than one brand, with no business event behind it. What is the correct first action?",
+          "options": {
+            "A": "Stop, capture examples, and escalate with the evidence before making corrections.",
+            "B": "Restore the previous cycle's totals with Base Trend Adjustments so the forecast stays stable, then report it.",
+            "C": "Compare against the workbook you saved last cycle to work out which values are wrong.",
+            "D": "Correct the largest movements now and leave the smaller ones for the squad to investigate."
+          },
+          "correct": "A",
+          "rationale": "Stop, capture examples and escalate with the evidence. One odd row is a question you can work through; the same unexpected pattern across many items, partners or brands is a systemic signal. Broad compensating adjustments during an open investigation restore the number you expected and make it impossible to tell later which changes were genuine decisions.",
+          "slide_refs": "14, 18",
+          "fingerprint": "98346dc19031",
+          "options_authoritative": true
+        }
+      ],
+      "options_authoritative": true,
+      "nav_label": "MOD 7 — HERO Data Flow & Cycle Start"
+    },
+    {
+      "module_id": "mod3",
+      "title": "MOD 3 — HERO in Practice: which surface, and why",
+      "total_questions": 10,
+      "pass_threshold": 8,
+      "quiz_url": "https://enerbartoli.github.io/mod1-knowledge-check/mod3.html",
+      "ref_type": "manual_section",
+      "source_files": [
+        "HERO PROJECT/04_outputs/MOD3_KnowledgeCheck/MOD3_KnowledgeCheck_Questions_v1_2026-08-07.md",
+        "HERO PROJECT/04_outputs/MOD3_KnowledgeCheck/MOD3_ClaudeCode_PastePrompt_v1_2026-08-07.md"
+      ],
+      "questions": [
+        {
+          "id": "Q1",
+          "text": "You have two workbooks available: the Enrichment Capture Template (ECT) and the Forecast Reconciliation Template (FRT). Which rule of thumb tells you which one to use?",
+          "options": {
+            "A": "Use the ECT for dated business events. Use the FRT to change the final number for given weeks.",
+            "B": "Use the ECT for Level 1 work and the FRT for Level 2.5 work, whatever the change is.",
+            "C": "Use the ECT for increases and the FRT for decreases, since only the FRT accepts negatives.",
+            "D": "Use whichever you already have open, since both write to the same place and HERO reconciles them."
+          },
+          "correct": "A",
+          "rationale": "The pocket rule is enrichments for dated business events, reconciliation when the ask is effectively \"change the final number for these weeks\". The level you work at is a separate choice: both templates exist at more than one level, and both accept positive and negative values.",
+          "slide_refs": "HERO Manual, Enrichment Capture Template (ECT), callout \"Enrichments vs reconciliation\"; Forecast Reconciliation Template (FRT), \"When to use it\"",
+          "fingerprint": "06e41cb3fe2e",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q2",
+          "text": "You are entering a retail promotion in the Enrichment Capture Template. How do you populate the Expected Shipment Lift?",
+          "options": {
+            "A": "In percent and in units, so HERO can cross-check the two figures.",
+            "B": "In units only. The percent field is a display convenience and is ignored.",
+            "C": "In percent or in units, one of the two, never both and never neither.",
+            "D": "In whichever field you prefer, leaving both blank if the volume is not yet known."
+          },
+          "correct": "C",
+          "rationale": "Validation rejects the row if both lift fields are populated or if neither is. Enter one lift mode per row. A retail promotion also requires the Retail Promotion Mechanism field: each enrichment type carries its own extra required field on top of the common ones.",
+          "slide_refs": "HERO Manual, \"Validation & error catalogue\", error catalogue table; \"Field-by-field reference\", enrichment template fields",
+          "fingerprint": "b666cbc1143a",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q3",
+          "text": "A Key Account Manager wants to compare this cycle against the last three, look for patterns across brands, and then make a change. Where does each part of that belong?",
+          "options": {
+            "A": "Both in the template, since it already carries previous-cycle columns and avoids switching tools.",
+            "B": "Analysis in the dashboard, the change in the template. The template is an execution interface.",
+            "C": "Both in the dashboard, since it holds the history and can write changes back to HERO.",
+            "D": "Analysis in the template and the change in the dashboard, which is where entries are committed."
+          },
+          "correct": "B",
+          "rationale": "The reconciliation template was deliberately built as an execution interface, not an analysis tool. Analysis lives in the dashboard. This is an anti-scope-creep principle taken from a prior tool that collapsed under its own weight within a week of launch. The dashboard is a read surface: nothing is written back from it, and changes only enter HERO through a template upload.",
+          "slide_refs": "Build Learnings KB, section 13, \"Mechanics - applies at every level\"; HERO Manual, \"Reference views & dashboards\"",
+          "fingerprint": "df6119d35aca",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q4",
+          "text": "You upload a valid workbook, then open the Power BI dashboard and the numbers do not match what you just entered. What is the most likely explanation?",
+          "options": {
+            "A": "The upload was partially saved, so some rows landed and others were silently dropped.",
+            "B": "The dashboard reads Logility rather than HERO, so it only matches after the weekly export.",
+            "C": "Your entries were rejected. A successful upload always appears in the dashboard immediately.",
+            "D": "Timing. The dashboard refreshes after backend processing, so it can lag your upload."
+          },
+          "correct": "D",
+          "rationale": "A reported mismatch between the dashboard and a fresh template of the same scope is almost always a timing mismatch, not a data mismatch. The workbook shows authored intent immediately; the dashboard matches only after the backend processing run and the refresh, which currently runs every 90 minutes. Rejected uploads are never partially saved: HERO returns an annotated workbook instead.",
+          "slide_refs": "Canonical Facts One-Pager, \"Calendar, timing and access\"; HERO Manual, \"Reference views & dashboards\", callout \"Timing\"; \"End-to-end user workflow\"",
+          "fingerprint": "ee49f9d846af",
+          "options_authoritative": true,
+          "change_note": "2026-08-30: option B made market-neutral (dropped \"Friday\"); key (D) and all other options unchanged."
+        },
+        {
+          "id": "Q5",
+          "text": "A brand team confirms a customer pre-order and a pallet adjustment (TMO), and separately asks you to lift a brand's weekly number by a set amount with no event behind it. Where does each one go?",
+          "options": {
+            "A": "All three in the Enrichment Capture Template, since all three change the forecast.",
+            "B": "All three through reconciliation, since all three end up in the same final number.",
+            "C": "Pre-order and TMO in the Enrichment Capture Template; the brand lift in reconciliation.",
+            "D": "Pre-order in the Enrichment Capture Template; TMO and the brand lift through reconciliation."
+          },
+          "correct": "C",
+          "rationale": "Pre-orders and TMO are supported enrichment types tied to dated events, so both are captured in the Enrichment Capture Template. A request to move the final weekly number with no event behind it is a reconciliation ask and is entered as a Base Trend Adjustment. Worth remembering: TMO is the one enrichment type that never sums into the consensus the way the others do, it stays an independent adjustment.",
+          "slide_refs": "HERO Manual, Enrichment Capture Template (ECT), table \"Supported enrichment types\"; Canonical Facts One-Pager, fact 25",
+          "fingerprint": "8387ec8a45f1",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q6",
+          "text": "You downloaded an all-brands workbook this morning and kept it open while you worked. A colleague has been uploading changes for one of those brands during the same period. You now upload yours. What happens?",
+          "options": {
+            "A": "Your upload can replace your colleague's work, because your scope overlaps theirs.",
+            "B": "HERO merges both, keeping your colleague's rows for their brand and yours for the rest.",
+            "C": "HERO rejects your upload, because another user has already written into that scope today.",
+            "D": "Nothing is lost. Your workbook only carries the rows you actually edited before uploading."
+          },
+          "correct": "A",
+          "rationale": "Templates are scope-locked at download time, and HERO validates an upload against the latest backend state. In an overlapping scope, a later upload can replace work uploaded earlier by someone else. The habits that prevent this: download fresh, use the narrowest practical brand and forecast-partner selection, and agree ownership before two people edit the same partner, SKU and week scope.",
+          "slide_refs": "Canonical Facts One-Pager, fact 38; Cycle Start Review Guide, \"Fresh Templates and Shared Work\"",
+          "fingerprint": "a70bd7982d92",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q7",
+          "text": "You need to remove two things: an enrichment that is no longer happening, and a Base Trend Adjustment that has gone stale. How do you clear each?",
+          "options": {
+            "A": "Both: delete the row from the workbook before uploading, so nothing stale is carried up.",
+            "B": "Both: clear the cell so it is blank, which tells HERO to remove the existing entry.",
+            "C": "Enrichment: enter a numeric zero. Base Trend Adjustment: set its Status to DECLINED.",
+            "D": "Enrichment: set its Status to DECLINED. Base Trend Adjustment: enter a numeric zero."
+          },
+          "correct": "D",
+          "rationale": "Since the 20 July 2026 release, DECLINED is the recommended way to cancel an enrichment: the row stays visible in the template and the audit trail but is excluded from calculated downstream outputs. Reconciliation and Base Trend Adjustments have no status field, so they are cleared with a numeric zero. Blank is not zero, and rows are never deleted.",
+          "slide_refs": "HERO Manual, Enrichment Capture Template (ECT), \"Cancelling or removing an enrichment\"; Canonical Facts One-Pager, fact 33",
+          "fingerprint": "8471510e493b",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q8",
+          "text": "You upload a Level 2.5 adjustment and the partner rows still show no change. What do you do?",
+          "options": {
+            "A": "Re-enter the same adjustment at Level 1, so the number is right while Level 2.5 catches up.",
+            "B": "Wait for the next scheduled fan-out run for your market, then check the read-only Level 2.5 column in a fresh Level 1 template.",
+            "C": "Upload the workbook again, since a change that has not appeared did not register.",
+            "D": "Raise it with the squad as a defect, since Level 2.5 and Level 1 should always agree as soon as you save."
+          },
+          "correct": "B",
+          "rationale": "Your Level 2.5 change is saved as soon as the upload succeeds, but it does not reach the forecast partners on save. Post-processing has to distribute the adjustment and rebuild the partner-level surfaces, and the fan-out that does this runs on a schedule set for each market, so check your own cycle calendar rather than assuming another market's timing. Level 1 writes are different: those are immediate and need no post-processing. Once the fan-out has run, the Level 2.5 adjustment shows in the Level 1 template as a read-only column, so a fresh download is the quickest way to confirm it landed and you do not need the dashboard for it. Re-uploading or re-entering the same figure at Level 1 creates work that then has to be undone.",
+          "slide_refs": "HERO Manual, \"Timing & system sync\"; \"BU-SKU / Level 2.5 mode\"",
+          "fingerprint": "af14b9a9ac85",
+          "options_authoritative": true,
+          "change_note": "2026-08-30: Q8 replaced in full (stem, all four options, rationale, reference). Prior version rested on the old immediate/UK-weekday fan-out model. Key unchanged (B). Reference no longer cites Build Learnings KB section 13."
+        },
+        {
+          "id": "Q9",
+          "text": "You uploaded an approved change on a Tuesday. When does it reach Logility?",
+          "options": {
+            "A": "On upload. HERO writes to Logility as soon as a workbook passes validation.",
+            "B": "As soon as the fan-out completes, since that is the job that pushes HERO's output into Logility.",
+            "C": "On the weekly scheduled export for your market. Uploading holds the change in HERO until it runs.",
+            "D": "Once the dashboard refresh completes, since publication follows the resolved surfaces."
+          },
+          "correct": "C",
+          "rationale": "Uploading a workbook does not push anything to Logility. HERO publishes through a weekly scheduled export, and anything authored during the week is held in HERO until that export runs. The day it runs differs by market, so check your own cycle calendar. The fan-out is a separate internal job that moves Level 2.5 changes down to Level 1, on its own schedule; it publishes nothing externally.",
+          "slide_refs": "HERO Manual, \"Timing & system sync\", \"Publication to Logility\"",
+          "fingerprint": "6096a5c013ed",
+          "options_authoritative": true,
+          "change_note": "2026-08-30: options B and C and the rationale made market-neutral (no named weekday, no fan-out/export conflation). Stem, options A and D, key (C) unchanged."
+        },
+        {
+          "id": "Q10",
+          "text": "It is the first day of a new planning cycle. What is the correct way to start?",
+          "options": {
+            "A": "Wait for the cycle refresh, download fresh at the narrowest scope, review the total.",
+            "B": "Download fresh as soon as the portal opens and start correcting the adjustments that look odd.",
+            "C": "Open last cycle's workbook, compare it against the portal, and edit whichever values disagree.",
+            "D": "Wait for the cycle refresh, then check the dashboard and apply your changes there directly."
+          },
+          "correct": "A",
+          "rationale": "The cycle-start check begins by waiting for the cycle refresh to finish, then downloading a fresh template at the narrowest practical brand and forecast-partner selection, then reviewing the total Preliminary Consensus Forecast before touching anything. Never reuse a prior-cycle workbook, and never try to make changes in the dashboard: it is a read surface and nothing is written back from it.",
+          "slide_refs": "Cycle Start Review Guide, \"The Five-Minute Cycle-Start Check\"; Canonical Facts One-Pager, fact 36",
+          "fingerprint": "2fc112156d09",
+          "options_authoritative": true
+        }
+      ],
+      "options_authoritative": true,
+      "nav_label": "MOD 3 — HERO in Practice"
+    },
+    {
+      "module_id": "speed1",
+      "title": "SESSION 1 — Introduction to the Enrichment Process",
+      "track": "speed",
+      "track_position": 1,
+      "total_questions": 10,
+      "pass_threshold": 7,
+      "quiz_url": "speed1.html",
+      "source_files": [
+        "HERO PROJECT/04_outputs/Accelerated_Training/HERO_SpeedTraining_KnowledgeChecks_v2_2026-09-01.docx"
+      ],
+      "options_authoritative": true,
+      "ref_type": "deck_section",
+      "nav_label": "SESSION 1 — Introduction to the Enrichment Process",
+      "questions": [
+        {
+          "id": "Q1",
+          "text": "Which statement describes how the consensus forecast is built?",
+          "options": {
+            "A": "The statistical baseline is replaced by the commercial view each cycle",
+            "B": "The baseline and the enrichment layer are added together",
+            "C": "Each team submits a forecast and the average of them is taken",
+            "D": "Marketing sets the total and Demand Planning splits it to accounts"
+          },
+          "correct": "B",
+          "rationale": "Baseline plus enrichment equals the consensus forecast. The two layers are kept separate so the value each one added can be measured afterwards.",
+          "difficulty": "recall",
+          "slide_refs": "Speed Training Session 1 · The equation",
+          "fingerprint": "6de58865e99b",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q2",
+          "text": "Which of these does Hasbro Demand Planning own in the operating model?",
+          "options": {
+            "A": "Running the statistical engine that produces the baseline",
+            "B": "Building the launch curve for every new product",
+            "C": "Governance, planning parameters and final sign-off",
+            "D": "Entering the commercial events for each account"
+          },
+          "correct": "C",
+          "rationale": "An external partner produces the statistical baseline and another runs the operations. Governance, the parameters and the sign-off stay with Hasbro Demand Planning.",
+          "difficulty": "recall",
+          "slide_refs": "Speed Training Session 1 · Who owns what",
+          "fingerprint": "a1e869a17449",
+          "options_authoritative": true,
+          "revised_on": "2026-09-02"
+        },
+        {
+          "id": "Q3",
+          "text": "A colleague says the new process will change their numbers for the next two months. What is the accurate response?",
+          "options": {
+            "A": "It will, because the statistical baseline replaces the current numbers from the first cycle onwards",
+            "B": "It will, but only for the accounts that are already in the new process",
+            "C": "It will not, because the tool cannot write to the near horizon at all",
+            "D": "It will not; the near months are already committed"
+          },
+          "correct": "D",
+          "rationale": "The current year is the anchor. Lead times mean the near horizon is already committed, so this year builds the discipline and the trail. The statistical baseline does the work from next year, on dates each market sets.",
+          "difficulty": "application",
+          "slide_refs": "Speed Training Session 1 · Two horizons",
+          "fingerprint": "43d80ba8fc05",
+          "options_authoritative": true,
+          "revised_on": "2026-09-02"
+        },
+        {
+          "id": "Q4",
+          "text": "Which of these is one of the problems the new process is built to solve?",
+          "options": {
+            "A": "Several teams keeping their own version of the number",
+            "B": "Too few people involved in agreeing the monthly forecast",
+            "C": "The absence of any statistical forecasting in the business",
+            "D": "Demand Planning holding too little authority over commercial teams"
+          },
+          "correct": "A",
+          "rationale": "The starting problem is overlapping forecasts with no single source of truth. The cycle was spent reconciling versions of the number rather than discussing demand.",
+          "difficulty": "recall",
+          "slide_refs": "Speed Training Session 1 · Why the process is changing",
+          "fingerprint": "6099f8825801",
+          "options_authoritative": true,
+          "revised_on": "2026-09-02"
+        },
+        {
+          "id": "Q5",
+          "text": "The statistical engine produces a number at one level only. What follows for the numbers you see at account level?",
+          "options": {
+            "A": "They were forecast directly by the engine for that account",
+            "B": "They are set by hand by Demand Planning each cycle",
+            "C": "They were derived from a number produced higher up",
+            "D": "They come from a separate statistical model per account"
+          },
+          "correct": "C",
+          "rationale": "The engine produces one number per item, business unit and channel. Everything below that level is arithmetic performed on that number, so an account-level number was always derived rather than forecast directly.",
+          "difficulty": "application",
+          "slide_refs": "Speed Training Session 1 · Where the numbers come from",
+          "fingerprint": "31f512030f06",
+          "options_authoritative": true,
+          "revised_on": "2026-09-02"
+        },
+        {
+          "id": "Q6",
+          "text": "When is the statistical baseline generated during the monthly cycle?",
+          "options": {
+            "A": "Continuously, so it updates while the commercial teams work",
+            "B": "Twice: once at the start and again before executive sign-off",
+            "C": "At the end, once every adjustment has been entered and agreed",
+            "D": "Once at the start, and then it is frozen for the cycle"
+          },
+          "correct": "D",
+          "rationale": "The engine runs once, at the start of the cycle. Once the baseline is generated it is frozen, so nobody is working against a number that moves underneath them.",
+          "difficulty": "application",
+          "slide_refs": "Speed Training Session 1 · The cycle",
+          "fingerprint": "0c7d1509e43f",
+          "options_authoritative": true,
+          "revised_on": "2026-09-02"
+        },
+        {
+          "id": "Q7",
+          "text": "During the commercial alignment session Demand Planning challenges a number and the commercial team stands behind it. What happens?",
+          "options": {
+            "A": "Demand Planning applies its own number, since it owns the forecast",
+            "B": "The number carries forward as the commercial team stated it",
+            "C": "The item is removed from the cycle until the two sides agree",
+            "D": "The disagreement is recorded and the baseline is used instead"
+          },
+          "correct": "B",
+          "rationale": "Demand Planning challenges the assumptions with evidence. It does not overrule the number at that point. If the disagreement survives, it is argued again in the joint reconciliation.",
+          "difficulty": "application",
+          "slide_refs": "Speed Training Session 1 · Who owns the number",
+          "fingerprint": "27d5150bebb9",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q8",
+          "text": "A supply constraint has eased and you can now serve more volume inside the frozen period. What does the policy allow?",
+          "options": {
+            "A": "Nothing; the period is locked and cannot be changed for any reason",
+            "B": "Any change, as long as the market total for the month does not move",
+            "C": "A documented change where there is a genuine supply reason",
+            "D": "A change only if the executive sign-off meeting is reconvened"
+          },
+          "correct": "C",
+          "rationale": "Frozen does not mean locked. It stops demand being raised where supply cannot serve it. A documented change with a real supply reason is exactly what it allows.",
+          "difficulty": "scenario",
+          "slide_refs": "Speed Training Session 1 · The frozen period",
+          "fingerprint": "efe5dbe382ca",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q9",
+          "text": "A number for one of your items looks wrong and you want to understand why the model produced it. Who do you go to first?",
+          "options": {
+            "A": "The programme team, because anything about the model is a rule change",
+            "B": "The vendor that runs the statistical engine, since they built the model",
+            "C": "Nobody; note it and wait until the cycle closes",
+            "D": "Your Demand Planning team, who route it from there"
+          },
+          "correct": "D",
+          "rationale": "Demand Planning owns governance and is the first call for anything about the number itself. Going straight to a vendor skips the people who can actually answer, and produces answers nobody else in the programme can see.",
+          "difficulty": "scenario",
+          "slide_refs": "Speed Training Session 1 · Where a question goes",
+          "fingerprint": "d6cea25e9837",
+          "options_authoritative": true,
+          "revised_on": "2026-09-02"
+        },
+        {
+          "id": "Q10",
+          "text": "You agree a commercial event in March that will run in October. When should it be captured?",
+          "options": {
+            "A": "In the cycle that opens closest to October, so the dates are certain",
+            "B": "Now, and confirmed or adjusted in each cycle until it runs",
+            "C": "Only after the funding for it has been formally approved",
+            "D": "At the start of the next planning year, with all other events"
+          },
+          "correct": "B",
+          "rationale": "Capture is open all year and is not a cycle task. Recording the event when you know about it turns each cycle into a confirmation rather than an act of memory.",
+          "difficulty": "scenario",
+          "slide_refs": "Speed Training Session 1 · Capture is continuous",
+          "fingerprint": "410b5b56e5e3",
+          "options_authoritative": true,
+          "revised_on": "2026-09-02"
+        }
+      ]
+    },
+    {
+      "module_id": "speed2",
+      "title": "SESSION 2 — Where the Number Comes From",
+      "track": "speed",
+      "track_position": 2,
+      "total_questions": 10,
+      "pass_threshold": 7,
+      "quiz_url": "speed2.html",
+      "source_files": [
+        "HERO PROJECT/04_outputs/Accelerated_Training/HERO_SpeedTraining_KnowledgeChecks_v2_2026-09-01.docx"
+      ],
+      "options_authoritative": true,
+      "ref_type": "deck_section",
+      "nav_label": "SESSION 2 — Where the Number Comes From",
+      "questions": [
+        {
+          "id": "Q1",
+          "text": "At what level does the statistical engine produce the baseline?",
+          "options": {
+            "A": "At Level 1, for each planning SKU and forecast partner pair",
+            "B": "At Level 5, as a single total number for the whole market",
+            "C": "At Level 3, for each parent SKU, business unit and channel",
+            "D": "At Level 2, for each customer across the full brand"
+          },
+          "correct": "C",
+          "rationale": "The engine produces one number per parent SKU, business unit and channel. Customer-level numbers appear later, when that number is disaggregated.",
+          "difficulty": "recall",
+          "slide_refs": "Speed Training Session 2 · Where the baseline is produced",
+          "fingerprint": "adb7309889bb",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q2",
+          "text": "Why does the model use adjusted demand rather than shipments alone?",
+          "options": {
+            "A": "It converts units into revenue so higher value items carry more weight",
+            "B": "It corrects for periods when supply, not demand, limited what shipped",
+            "C": "It removes promotional volume so the model only learns base demand",
+            "D": "It smooths the series by averaging the last twelve months of shipments"
+          },
+          "correct": "B",
+          "rationale": "Without that correction the model would read a stock shortage as weak demand, and forecast the shortage forward.",
+          "difficulty": "recall",
+          "slide_refs": "Speed Training Session 2 · What feeds the baseline",
+          "fingerprint": "615fbd326606",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q3",
+          "text": "The total for one item looks right, but the split across your accounts does not. What does that point to?",
+          "options": {
+            "A": "The engine produced the customer number directly, so the baseline is wrong",
+            "B": "The baseline did not run, so the system fell back to an equal split",
+            "C": "An enrichment at Level 1 changed the total and distorted the split",
+            "D": "The total is right; the split came from disaggregation and needs review"
+          },
+          "correct": "D",
+          "rationale": "The statistical engine never produces a customer number. If the total is sound and the mix is not, the issue sits in the disaggregation.",
+          "difficulty": "application",
+          "slide_refs": "Speed Training Session 2 · Baseline versus disaggregation",
+          "fingerprint": "5894014fa79c",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q4",
+          "text": "A carry-forward item and a brand-new item both need splitting across accounts. What is different about the new item?",
+          "options": {
+            "A": "The carry-forward item uses its own history; the new item borrows a mix",
+            "B": "Both borrow the mix from the brand, because item history is rarely reliable",
+            "C": "New items are not split until they have a full year of their own history",
+            "D": "Carry-forward items are split by hand and new items are split by the system"
+          },
+          "correct": "A",
+          "rationale": "A carry-forward item has its own recent shipment history to split by. A new item has none, so the split is borrowed from comparable history and planned volumes.",
+          "difficulty": "application",
+          "slide_refs": "Speed Training Session 2 · Carry-forward versus new item split",
+          "fingerprint": "f63663112094",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q5",
+          "text": "An account that does not stock an item is showing volume for it. What do you look at first?",
+          "options": {
+            "A": "The enrichment records loaded against that account this cycle",
+            "B": "The Forecasting Range, which sets which accounts get volume",
+            "C": "The base trend adjustment columns for that account and item",
+            "D": "The item's lifecycle status and whether master data is complete"
+          },
+          "correct": "B",
+          "rationale": "The Forecasting Range decides eligibility. It is the most common source of unexpected volume in an early cycle.",
+          "difficulty": "application",
+          "slide_refs": "Speed Training Session 2 · The Forecasting Range",
+          "fingerprint": "5fa85ae03b15",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q6",
+          "text": "You expect a one-off volume increase for a specific promotion in a specific week. Where does it belong?",
+          "options": {
+            "A": "As a change to the baseline itself, made at Level 3",
+            "B": "As a note to Demand Planning, with nothing entered in the system",
+            "C": "As a base trend adjustment spread across the affected weeks",
+            "D": "As an enrichment, dated to the weeks the event affects"
+          },
+          "correct": "D",
+          "rationale": "A dated, non-repeating commercial event is what an enrichment is for. Base trend adjustments carry ongoing shifts rather than single events.",
+          "difficulty": "application",
+          "slide_refs": "Speed Training Session 2 · Baseline, enrichment or base trend",
+          "fingerprint": "fbdfb97faf6b",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q7",
+          "text": "In a review someone says “let’s fix this at 2.5”. What are they proposing?",
+          "options": {
+            "A": "Editing each account line one by one until the total reaches the target",
+            "B": "Changing the statistical model that produced this item's baseline number",
+            "C": "Setting the number at business unit and item level, above the accounts",
+            "D": "Escalating the item to the executive sign-off meeting for a decision"
+          },
+          "correct": "C",
+          "rationale": "Level 2.5 sits between the item total and the individual accounts. You set the number there and the system works back to the account lines.",
+          "difficulty": "scenario",
+          "slide_refs": "Speed Training Session 2 · The level hierarchy",
+          "fingerprint": "fc1d7d33b48b",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q8",
+          "text": "Your portfolio turns over almost completely each year and demand follows entertainment releases rather than repeatable seasons. What does that suggest about a statistical baseline?",
+          "options": {
+            "A": "Little repeatable history exists to learn from, so bottom-up fits better",
+            "B": "It will work well, because the engine tests many models and picks the best",
+            "C": "It will work once the items have sixteen weeks of actual sales behind them",
+            "D": "It should be built statistically and then corrected each month by hand"
+          },
+          "correct": "A",
+          "rationale": "A statistical model needs a pattern to find. Where the portfolio turns over every year and demand is event driven, there is no pattern to learn.",
+          "difficulty": "scenario",
+          "slide_refs": "Speed Training Session 2 · Judging statistical fit",
+          "fingerprint": "b2339cb522c5",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q9",
+          "text": "The baseline for one item looks clearly wrong. What is the right first move?",
+          "options": {
+            "A": "Change the number at account level, since the total will correct itself",
+            "B": "Flag it to Demand Planning, who route it to the model owners",
+            "C": "Contact the modelling vendor directly to ask why that model was chosen",
+            "D": "Enter a negative enrichment large enough to cancel the wrong volume"
+          },
+          "correct": "B",
+          "rationale": "Governance sits with Demand Planning. Covering a wrong baseline with an enrichment hides the problem instead of fixing it.",
+          "difficulty": "application",
+          "slide_refs": "Speed Training Session 2 · Who owns what",
+          "fingerprint": "50a8b7ee1ff7",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q10",
+          "text": "An account places a single large opportunity buy that will not repeat. If it is left untouched in the item's history, what is the risk?",
+          "options": {
+            "A": "The volume is counted twice, once in history and once in the forecast",
+            "B": "The account loses eligibility for volume in the Forecasting Range",
+            "C": "The model reads it as normal and carries it into future periods",
+            "D": "The item's lifecycle status switches automatically to a new-product path"
+          },
+          "correct": "C",
+          "rationale": "The model learns from what it sees. A one-off left in the history looks like a repeatable pattern and gets projected forward.",
+          "difficulty": "scenario",
+          "slide_refs": "Speed Training Session 2 · Repeatable versus one-off volume",
+          "fingerprint": "fbe4a9d76cf6",
+          "options_authoritative": true
+        }
+      ]
+    },
+    {
+      "module_id": "speed3",
+      "title": "SESSION 3 — The Tool, End to End",
+      "track": "speed",
+      "track_position": 3,
+      "total_questions": 10,
+      "pass_threshold": 7,
+      "quiz_url": "speed3.html",
+      "source_files": [
+        "HERO PROJECT/04_outputs/Accelerated_Training/HERO_SpeedTraining_KnowledgeChecks_v2_2026-09-01.docx"
+      ],
+      "options_authoritative": true,
+      "ref_type": "deck_section",
+      "nav_label": "SESSION 3 — The Tool, End to End",
+      "questions": [
+        {
+          "id": "Q1",
+          "text": "A dated commercial event, such as a promotion running in specific weeks, is captured where?",
+          "options": {
+            "A": "In the reconciliation tab, as a change to the weekly numbers",
+            "B": "In the enrichments tab, as a dated row for that event",
+            "C": "In the summary tab, so the total updates automatically",
+            "D": "In the instructions tab, as a note for Demand Planning"
+          },
+          "correct": "B",
+          "rationale": "The enrichments tab carries dated commercial events. The reconciliation tab carries changes to the final weekly number.",
+          "difficulty": "recall",
+          "slide_refs": "Speed Training Session 3 · Workbook anatomy",
+          "fingerprint": "5d069c935f2a",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q2",
+          "text": "You can express the expected lift either as a percentage or as units. What should you do?",
+          "options": {
+            "A": "Enter both, so the system can check one against the other",
+            "B": "Enter neither, and describe the size of the change in the notes",
+            "C": "Enter the units first, then the percentage, on two separate rows",
+            "D": "Enter one of them, whichever you can support with evidence"
+          },
+          "correct": "D",
+          "rationale": "Exactly one of the two must be filled. Filling both is among the most common reasons an upload is rejected.",
+          "difficulty": "application",
+          "slide_refs": "Speed Training Session 3 · Enrichment field rules",
+          "fingerprint": "fd3ef8973e3a",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q3",
+          "text": "A promotion is agreed with an account. What does the promotion discount field capture?",
+          "options": {
+            "A": "The percentage Hasbro funds",
+            "B": "The percentage the shopper sees at shelf",
+            "C": "The difference between the two percentages",
+            "D": "The percentage the retailer funds from its own margin"
+          },
+          "correct": "A",
+          "rationale": "The field carries the funded percentage only. A consumer-facing figure can be added once the funded figure is consistent, and the gap between the two will show what the retailer funds and whether the discount reaches the shopper in full.",
+          "difficulty": "application",
+          "slide_refs": "Speed Training Session 3 · Promotion discount field",
+          "fingerprint": "df561f8dd70e",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q4",
+          "text": "In the reconciliation template, which weekly columns can you edit?",
+          "options": {
+            "A": "The baseline columns, when the baseline looks wrong",
+            "B": "The sales enrichment columns, to correct someone's entry",
+            "C": "The base trend adjustment columns",
+            "D": "Every weekly column, as long as the total still balances"
+          },
+          "correct": "C",
+          "rationale": "Baseline, sales enrichment and marketing and demand planning columns are shown for context and are read-only. Base trend adjustment is the editable family.",
+          "difficulty": "recall",
+          "slide_refs": "Speed Training Session 3 · Reconciliation template",
+          "fingerprint": "3769742d9f33",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q5",
+          "text": "Your upload is rejected and the tool returns an annotated copy of your workbook listing the errors. What do you do next?",
+          "options": {
+            "A": "Upload the returned file again, since it now contains the errors",
+            "B": "Correct your own file and upload that one",
+            "C": "Start a new workbook from scratch and re-enter everything",
+            "D": "Send the returned file to the build team and wait for a response"
+          },
+          "correct": "B",
+          "rationale": "The returned file is a diagnostic copy, not a submission. Fix the errors in your own workbook and upload that. Nothing loaded from the rejected attempt, so nothing is half-saved.",
+          "difficulty": "scenario",
+          "slide_refs": "Speed Training Session 3 · Validation recovery",
+          "fingerprint": "2dc5d1d97ec7",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q6",
+          "text": "A colleague keeps last cycle's workbook on their desktop and reuses it to save time. What is the problem with that?",
+          "options": {
+            "A": "Nothing, as long as you have not changed the file since downloading it",
+            "B": "The file expires after seven days and simply will not open",
+            "C": "Your rows will load, but they will be dated to last month",
+            "D": "It is a snapshot, so uploading it can overwrite newer work"
+          },
+          "correct": "D",
+          "rationale": "A workbook is a point-in-time extract. Anything a colleague changed after you downloaded is missing from your copy, and uploading a stale file can undo their work.",
+          "difficulty": "scenario",
+          "slide_refs": "Speed Training Session 3 · Download discipline",
+          "fingerprint": "fe83262c1d0d",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q7",
+          "text": "An enrichment you submitted last week is no longer going ahead. How do you take it out of the forecast?",
+          "options": {
+            "A": "Delete the row and upload the workbook again",
+            "B": "Set the value to zero and leave the row in place",
+            "C": "Set the status to declined and leave the row in place",
+            "D": "Ask the build team to remove it from the database directly"
+          },
+          "correct": "C",
+          "rationale": "Deleting a row does nothing, because the record already exists. Declining it keeps the audit trail intact and takes the volume out of the calculated result.",
+          "difficulty": "application",
+          "slide_refs": "Speed Training Session 3 · Cancelling an enrichment",
+          "fingerprint": "12754dc87f2b",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q8",
+          "text": "A new item you need is missing from the SKU dropdown. What is the most likely reason?",
+          "options": {
+            "A": "It is not yet set up downstream, so it cannot be entered",
+            "B": "The dropdown only lists items with an existing baseline number",
+            "C": "Your scope was too narrow, so widen it and download again",
+            "D": "The item belongs to another business unit and is filtered out"
+          },
+          "correct": "A",
+          "rationale": "The tool only offers items that already exist downstream. When an item is missing, the fix is master data, not the template.",
+          "difficulty": "application",
+          "slide_refs": "Speed Training Session 3 · Master data dependency",
+          "fingerprint": "a11f51da59c5",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q9",
+          "text": "You need to record both a version change and a channel shift for the same item. How should that be entered?",
+          "options": {
+            "A": "Both are allowed on one row, as long as the weeks do not overlap",
+            "B": "Only one of the two can be used per row",
+            "C": "Neither belongs in this template; both are handled by Demand Planning",
+            "D": "Both are allowed, but the channel shift must be entered first"
+          },
+          "correct": "B",
+          "rationale": "A row can carry a version change or a channel shift, not both. Splitting them across rows keeps the intent readable in the audit trail.",
+          "difficulty": "application",
+          "slide_refs": "Speed Training Session 3 · Row-level rules",
+          "fingerprint": "b6bef103ae93",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q10",
+          "text": "You entered an adjustment last cycle and did not touch it. This cycle the weekly total for that item has changed. What is the most likely explanation?",
+          "options": {
+            "A": "Your adjustment was wrong from the start and should be removed",
+            "B": "Someone overwrote your entry, so enter it again this cycle",
+            "C": "The upload failed quietly and needs to be repeated today",
+            "D": "The baseline moved underneath it, so check the full total"
+          },
+          "correct": "D",
+          "rationale": "An adjustment is a delta. When the baseline underneath it moves, the resulting total moves with it, so read the full number rather than only your own line.",
+          "difficulty": "scenario",
+          "slide_refs": "Speed Training Session 3 · Adjustments are deltas",
+          "fingerprint": "0483d041b348",
+          "options_authoritative": true
+        }
+      ]
+    },
+    {
+      "module_id": "speed4",
+      "title": "SESSION 4 — How Your Market Works",
+      "track": "speed",
+      "track_position": 4,
+      "total_questions": 10,
+      "pass_threshold": 7,
+      "quiz_url": "speed4.html",
+      "source_files": [
+        "HERO PROJECT/04_outputs/Accelerated_Training/HERO_SpeedTraining_KnowledgeChecks_v2_2026-09-01.docx"
+      ],
+      "options_authoritative": true,
+      "ref_type": "deck_section",
+      "nav_label": "SESSION 4 — How Your Market Works",
+      "questions": [
+        {
+          "id": "Q1",
+          "text": "When you want to know whether a segment carries a statistical baseline, what is the question to ask?",
+          "options": {
+            "A": "Whether the item is Direct Import or domestic",
+            "B": "Whether the item has been selling for more than a year",
+            "C": "Whether this market agreed to forecast that segment statistically",
+            "D": "Whether the account is large enough to justify a statistical model"
+          },
+          "correct": "C",
+          "rationale": "Statistical coverage is a market decision rather than a property of the item. The same segment can be handled differently in two markets, on purpose.",
+          "difficulty": "recall",
+          "slide_refs": "Speed Training Session 4 · Scope is a market decision",
+          "fingerprint": "696bf73dd7fe",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q2",
+          "text": "Direct Import carries a statistical baseline in one market and is built bottom-up in another. What does that tell you?",
+          "options": {
+            "A": "Both are correct, because each market decided its own scope",
+            "B": "One of the two is running an unapproved local process",
+            "C": "The design has not yet been standardised and will converge",
+            "D": "The difference comes from the two markets using different systems"
+          },
+          "correct": "A",
+          "rationale": "The design allows markets to differ on which segments are forecast statistically. A difference between two markets is a decision, not a defect.",
+          "difficulty": "application",
+          "slide_refs": "Speed Training Session 4 · Markets differ by design",
+          "fingerprint": "f58d30927105",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q3",
+          "text": "A Direct Import book contains both stable volume that repeats every year and one-shot opportunity buys. How should the two be handled?",
+          "options": {
+            "A": "Both should be built bottom-up, with no statistical baseline at all",
+            "B": "Both should carry a baseline, since both represent genuine demand",
+            "C": "One-shot volume should be added to history so the model can learn it",
+            "D": "Stable repeating volume can sit in the baseline; one-shot should not"
+          },
+          "correct": "D",
+          "rationale": "One-shot volume left in history teaches the model a pattern that does not exist, and that error carries into future baselines.",
+          "difficulty": "application",
+          "slide_refs": "Speed Training Session 4 · Repeating versus one-shot volume",
+          "fingerprint": "907e8b636c71",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q4",
+          "text": "Where does the Evergreen designation stand today?",
+          "options": {
+            "A": "Any account owner can nominate an item at the start of a cycle",
+            "B": "It is a future direction; nomination sits with Sales Operations",
+            "C": "Demand Planning nominates items once they show two stable years",
+            "D": "Nomination is automatic once an item passes a volume threshold"
+          },
+          "correct": "B",
+          "rationale": "The designation is where the design is heading rather than something available today, and when it arrives the nomination will be owned by Sales Operations.",
+          "difficulty": "recall",
+          "slide_refs": "Speed Training Session 4 · Evergreen designation",
+          "fingerprint": "3358b8cdf6c8",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q5",
+          "text": "Who owns the volume for a FAN item, and what is the market team's job?",
+          "options": {
+            "A": "Demand Planning builds it from the item's shipment history",
+            "B": "Each account owner builds their own number independently",
+            "C": "The regional category team owns it; the market checks timing",
+            "D": "The statistical engine builds it once the season is confirmed"
+          },
+          "correct": "C",
+          "rationale": "FAN volume comes from a central process with regional coordination. The market validates timing and feasibility rather than rebuilding the number.",
+          "difficulty": "application",
+          "slide_refs": "Speed Training Session 4 · FAN ownership",
+          "fingerprint": "96538fcc4458",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q6",
+          "text": "A direct-to-consumer account sits inside the domestic channel. What follows from that?",
+          "options": {
+            "A": "It already receives a share of the baseline, like other accounts",
+            "B": "It sits outside the statistical process and gets no baseline volume",
+            "C": "It needs a separate setup in the tool before it can be forecast",
+            "D": "Its volume is loaded centrally and does not appear at account level"
+          },
+          "correct": "A",
+          "rationale": "An account inside the domestic channel is treated like any other account, which means the baseline is split down to it in the normal way.",
+          "difficulty": "application",
+          "slide_refs": "Speed Training Session 4 · Accounts inside the domestic channel",
+          "fingerprint": "21ff88e8c978",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q7",
+          "text": "A team suggests removing one of their accounts from the Forecasting Range because they would rather forecast it themselves. What happens to that account's volume?",
+          "options": {
+            "A": "The volume disappears from the market total",
+            "B": "The account keeps its volume but stops receiving updates",
+            "C": "The item is treated as a new product for that account",
+            "D": "The volume moves onto the remaining accounts"
+          },
+          "correct": "D",
+          "rationale": "The range decides who is eligible, not how much volume exists in total. Removing an account redistributes its share rather than removing it.",
+          "difficulty": "scenario",
+          "slide_refs": "Speed Training Session 4 · Forecasting Range consequences",
+          "fingerprint": "a14a92ebb7da",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q8",
+          "text": "A colleague in another market tells you they use a particular enrichment type all the time. What should you assume about your own market?",
+          "options": {
+            "A": "It is not available in your market and cannot be enabled",
+            "B": "It may be live but unused here; confirm before you rely on it",
+            "C": "It has been retired globally and replaced by base trend adjustments",
+            "D": "It works the same everywhere, so you can use it without checking"
+          },
+          "correct": "B",
+          "rationale": "Which types are actually used varies by market. A type that is common in one market can be dormant in another, so check the local position.",
+          "difficulty": "application",
+          "slide_refs": "Speed Training Session 4 · Enrichment types vary by market",
+          "fingerprint": "03329dff025d",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q9",
+          "text": "You are unsure whether an event you are looking at should be entered as an enrichment or as a base trend adjustment. Who should you ask first?",
+          "options": {
+            "A": "The programme, because anything involving an enrichment type escalates",
+            "B": "Nobody; make your best guess and note it for the next cycle",
+            "C": "Your trained peer, who handles classification questions",
+            "D": "The build team, because this is a question about how the tool behaves"
+          },
+          "correct": "C",
+          "rationale": "Classification questions sit with the trained colleague on your team. The programme handles questions that change a rule, and the build team handles tool faults.",
+          "difficulty": "scenario",
+          "slide_refs": "Speed Training Session 4 · Escalation",
+          "fingerprint": "0ba85ddeaf0c",
+          "options_authoritative": true
+        },
+        {
+          "id": "Q10",
+          "text": "You believe the split your account receives is too high. What do you bring to the conversation?",
+          "options": {
+            "A": "Evidence of what the account actually sells, and the size of the gap",
+            "B": "A revised total for the market and a request to load it centrally",
+            "C": "A request to remove the account from the statistical process entirely",
+            "D": "A list of every item where the split has moved since the last cycle"
+          },
+          "correct": "A",
+          "rationale": "A split is challenged with evidence about the account, not with a new total. Bring what the account sells and how far the split sits from it.",
+          "difficulty": "scenario",
+          "slide_refs": "Speed Training Session 4 · Challenging a split with evidence",
+          "fingerprint": "58cfbf7c0cf0",
+          "options_authoritative": true
+        }
+      ]
+    }
+  ],
+  "derived_from": "KC_Canonical_QuestionBank_v9_2026-09-01.json",
+  "change_log": [
+    "mod2 options harvested from deployed mod2.js on 2026-08-07; fingerprints recomputed; options_authoritative set true for mod2.",
+    "mod2 question STEMS also harvested from deployed (Q4, Q7 differed from spec text; no scoring effect). mod2 is fully harvested from the deployed page; spec text is not treated as authoritative for mod2.",
+    "mod2 Q7 REWRITTEN (options + correct A + rationale); stem unchanged. Ratified 16 Jul 2026. Prior submissions kept valid against the earlier version.",
+    "mod2 Q11 rationale corrected; key (D) and options unchanged.",
+    "mod4 Q4 REWRITTEN (stem + options + correct A + rationale). Prior submissions kept valid against the earlier version.",
+    "slide_refs verified against decks 2026-08-07: mod2 Q7 32->35, mod2 Q11 31->34 (DE_MOD2_FACILITATOR_DECK_v4_with-notes_2026-07-16.pptx, 57 slides); mod4 Q4 '6, 7' verified unchanged (H.E.R.O Enrichment Training Mod 4 & 5_v5.1_2026-05-31.pptx, 74 slides).",
+    "Added MOD 3 — HERO in Practice (10 questions). References are named manual sections, not slides: slide_refs holds the manual reference and the module carries ref_type='manual_section'. options_authoritative:true.",
+    "Added nav_label per module (single source for the nav menu and dashboard filters, consumed by tools/generate_registry.js).",
+    "mod4 Q5 & Q9 generalised from DI channel to segment scope (Evergreen). Q5: stem+options+rationale; Q9: stem+options (rationale unchanged). Keys unchanged (A, B). Prior submissions kept valid against earlier versions.",
+    "mod1 Q1 (C,D) and Q2 (A,D) distractors replaced with role-neutral options (change-management). Stems, correct letters (A,B) and correct option text unchanged. Fingerprints recomputed.",
+    "Market-neutral rewrite: 22 questions (mod1 x5, mod2 x1, mod4 x7, mod5 x8, mod7 x1) reworded to remove UK/pilot/Brand Captain references. No answer key moved. mod3 and ROLES untouched. Fingerprints recomputed where text/options changed.",
+    "2026-08-29: fresh harvest of all deployed pages (quiz.js=mod1, mod2.js, mod3.js, mod4.js, mod5.js, mod7.js) confirmed 0 drift against v6 on text/options/keys (tools/verify_bank.js). v7 built from v6 as the harvested baseline.",
+    "2026-08-29/30: MOD 3 Q8 replaced in full (stem, options, rationale, reference); key unchanged (B). Patch reflects that a Level 2.5 change lands on save but only fans out to Level 1 partner rows on the next scheduled fan-out run for that market (fan-out and the weekly Logility export are two separate processes); Level 1 carries the Level 2.5 adjustment as a read-only column once the fan-out has run.",
+    "2026-08-29/30: MOD 3 Q9 options B and C and rationale made market-neutral (no named weekday); key unchanged (C).",
+    "2026-08-29/30: market-neutral sweep — mod3 Q4 option B and mod7 Q6 option D each had a named weekday (\"Friday\") removed from a non-key distractor; no keys moved.",
+    "2026-08-29/30: sweep for fan-out/timing/market-scope/visibility/UA1-list/TMO issues run across quiz.js, mod2.js, mod3.js, mod4.js, mod5.js, mod7.js, backend/apps-script.gs; no other qualifying hits found.",
+    "v8 2026-09-01: added the Speed Training track — speed1..speed4, four sessions of ten questions, pass threshold 8. Source: KC_SpeedTraining_Bank_v2_2026-09-01.json, generated from build_kc_v2.py alongside HERO_SpeedTraining_KnowledgeChecks_v2_2026-09-01.docx. Every main-track module object is byte-identical to v7.",
+    "v8 2026-09-01: new module-level fields for the Speed track — \"track\" (\"speed\") and \"track_position\" (1-4) let the registry order and group the two tracks without colliding with the main track's numbering, and \"ref_type\" (\"deck_section\") records that slide_refs holds a deck section name rather than a slide number.",
+    "v8 2026-09-01: the Speed fingerprints supplied by build_kc_v2.py were computed by joining the stem and options with \" | \" (spaces around the pipe), while this repo's scheme joins with \"|\". All 40 differed for that reason alone; the stored \"fingerprint\" is therefore recomputed with the repo scheme from the UNMODIFIED text and options, and the generator's value is retained per question as \"source_fingerprint\". No stem or option was altered. The separator convention should be corrected in build_kc_v2.py.",
+    "v9 2026-09-01: Speed Training pass threshold corrected from 8 to 7 on all four sessions — 70%, confirmed by Rene. The 8 in the v2 source fragment was an error at source. No question, option, correct answer, rationale or fingerprint changed; every main-track module object is byte-identical to v8. The main programme keeps its own pass marks (80%, and 13/16 = 81.25% on mod1); the two tracks differ deliberately.",
+    "v9 2026-09-01: dropped the per-question \"source_fingerprint\" added in v8. It recorded that build_kc_bank_json.py joined stem and options with \" | \" while this repo joins with \"|\". That generator has been corrected upstream and now emits the repo scheme, so the field held a value identical to \"fingerprint\" and no longer documented anything.",
+    "v10 2026-09-02: Speed Training Session 1 recalibrated. Session 1 previews enrichment types, the Level 2.5 pre-adjustment, eligibility ownership and the enrichment-versus-base-trend distinction; sessions 2 and 3 teach them, so the original check tested content the room had not been taught. Source: KC_SpeedTraining_Bank_v3_2026-09-02.json. Sessions 2, 3 and 4 are byte-identical to v9.",
+    "v10 2026-09-02: the speed1 answer key is unchanged, letter for letter (B C D A C D B C D B), so no already-recorded Session 1 result changes from a pass to a fail or the other way round. Verified by comparing all 40 correct values across the four modules before applying, and asserted again while building this file.",
+    "v10 2026-09-02: 7 of the 10 speed1 fingerprints moved (Q2 Q3 Q4 Q5 Q6 Q9 Q10) — Q4 Q5 Q6 Q9 Q10 have new stems and options, Q2 and Q3 each have one reworded option. Q1 and Q7 changed only their rationale and section, and Q8 is unchanged, so those three keep their v9 fingerprints. Each question whose fingerprint moved carries \"revised_on\": \"2026-09-02\" so per-question analytics can keep attempts taken before and after the recalibration apart; session-level figures stay valid across the change because the key did not move."
+  ]
+}

@@ -1,6 +1,6 @@
 # App Manifest
 
-_Generated 2026-09-01 by `tools/generate_manifest.js` from the actual repo files. Do not edit by hand — re-run the generator._
+_Generated 2026-09-02 by `tools/generate_manifest.js` from the actual repo files. Do not edit by hand — re-run the generator._
 
 Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 
@@ -151,15 +151,15 @@ Pages base URL: https://enerbartoli.github.io/mod1-knowledge-check/
 | Q | section | slides | fingerprint | client key |
 |---|---|---|---|---|
 | Q1 | The equation | Speed Training Session 1 · The equation | `6de58865e99b` |  |
-| Q2 | Who owns what | Speed Training Session 1 · Who owns what | `74db9c1882c5` |  |
-| Q3 | Two horizons | Speed Training Session 1 · Two horizons | `db6cd594c046` |  |
-| Q4 | Eligibility | Speed Training Session 1 · Eligibility | `78b81e9d0689` |  |
-| Q5 | Level 2.5 Baseline Pre-Adjustment | Speed Training Session 1 · Level 2.5 Baseline Pre-Adjustment | `94fcf8caabc2` |  |
-| Q6 | Enrichment or base trend | Speed Training Session 1 · Enrichment or base trend | `4826aafc8e50` |  |
-| Q7 | Ownership at commercial alignment | Speed Training Session 1 · Ownership at commercial alignment | `27d5150bebb9` |  |
+| Q2 | Who owns what | Speed Training Session 1 · Who owns what | `a1e869a17449` |  |
+| Q3 | Two horizons | Speed Training Session 1 · Two horizons | `43d80ba8fc05` |  |
+| Q4 | Why the process is changing | Speed Training Session 1 · Why the process is changing | `6099f8825801` |  |
+| Q5 | Where the numbers come from | Speed Training Session 1 · Where the numbers come from | `31f512030f06` |  |
+| Q6 | The cycle | Speed Training Session 1 · The cycle | `0c7d1509e43f` |  |
+| Q7 | Who owns the number | Speed Training Session 1 · Who owns the number | `27d5150bebb9` |  |
 | Q8 | The frozen period | Speed Training Session 1 · The frozen period | `efe5dbe382ca` |  |
-| Q9 | Where a question goes | Speed Training Session 1 · Where a question goes | `ee6406410283` |  |
-| Q10 | Capture is continuous | Speed Training Session 1 · Capture is continuous | `cf3ada4da72a` |  |
+| Q9 | Where a question goes | Speed Training Session 1 · Where a question goes | `d6cea25e9837` |  |
+| Q10 | Capture is continuous | Speed Training Session 1 · Capture is continuous | `410b5b56e5e3` |  |
 
 ### speed2 — Speed Training Session 2 Knowledge Check — Where the Number Comes From
 
@@ -259,6 +259,7 @@ Endpoints: getData=yes · sendReminders=yes
 
 ## Canonical banks in repo
 
+- `KC_Canonical_QuestionBank_v10_2026-09-02.json`
 - `KC_Canonical_QuestionBank_v1_2026-08-06.json`
 - `KC_Canonical_QuestionBank_v2_2026-08-07.json`  ← used by the drift guard
 - `KC_Canonical_QuestionBank_v3_2026-08-07.json`
